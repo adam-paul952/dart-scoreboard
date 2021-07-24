@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
 import reportWebVitals from './reportWebVitals';
-// import X01 from './createGame';
-import CreateCricketBoard from './cricket';
+// import App from './App';
+// import CreateGame from './createGame';
+// import CreateCricketBoard from './cricket';
+import CreatePlayerList from './CreatePlayer';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CreateCricketBoard />
+    <CreatePlayerList />
   </React.StrictMode>,
   document.getElementById('root')
 );

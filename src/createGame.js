@@ -1,30 +1,46 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  useRouteMatch
+} from "react-router-dom";
+import './App.css';
 
-function CreateGame() {
+export default function CreateGame() {
   return (
-    <div>
-      <div id="selection">
-        <form>
-          <label>
-            Please Select a Game:
-            <select id="gameType">
-              <option value="Please Select a game">Please Select a game</option>
-              <option value="x01">X01</option>
-              <option value="Baseball">Baseball</option>
-              <option value="Cricket">Cricket</option>
-              <option value="Killer">Killer</option>
-              <option value="Elimination">Elimination</option>
-            </select>
-          </label>
-          <input type="button" value="Submit"></input>
-          <input type="button" value="Return"></input>
-        </form>
+    <Router>
+      <div>
+        <div id="selection">
+          <form>
+            <label>
+              Please Select a Game:
+              <select id="gameType">
+                <option value="Please Select a game">Please Select a game</option>
+                <option value="x01">X01</option>
+                <option value="Baseball">Baseball</option>
+                <option value="Cricket">Cricket</option>
+                <option value="Killer">Killer</option>
+                <option value="Elimination">Elimination</option>
+              </select>
+            </label>
+          <Switch>
+            <Route path="/xo1">
+              <X01 />
+            </Route>
+          </Switch>
+            <input type="button" value="Submit"></input>
+            <input type="button" value="Return"></input>
+          </form>
+        </div>
       </div>
-    </div>
-    );
+    </Router>
+  );
 }
 
-export default function X01 () {
+function X01() {
   return (
     <div>
       <h3>X01</h3>
