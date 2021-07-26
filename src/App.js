@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -7,17 +8,19 @@ function App() {
       <div>
         <form>
           <table id="btnTable">
-            <tr>
-              <td><button>Create Game</button></td>
-              <td><button disabled={true}>Resume Game</button></td>
-            </tr>
-            <tr>
-              <td><button>Rules</button></td>
-              <td><button disabled={true}>Statistics</button></td>
-            </tr>
-            <tr>
-              <td><button disabled={true}>Create Player</button></td>
-            </tr>
+            <tbody>
+              <tr>
+                <td><button><Link to='/CreateGame'>Create Game</Link></button></td>
+                <td><button disabled={true}>Resume Game</button></td>
+              </tr>
+              <tr>
+                <td><button>Rules</button></td>
+                <td><button disabled={true}>Statistics</button></td>
+              </tr>
+              <tr>
+                <td><button disabled={true}>Create Player</button></td>
+              </tr>
+            </tbody>
           </table>
         </form>
       </div>

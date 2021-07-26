@@ -2,14 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-// import App from './App';
-// import CreateGame from './createGame';
-// import CreateCricketBoard from './cricket';
-import CreatePlayerList from './CreatePlayer';
+import Routes from './Routes';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CreatePlayerList />
+    <Routes />
   </React.StrictMode>,
   document.getElementById('root')
 );
