@@ -7,18 +7,18 @@ function App() {
     <h1>Welcome</h1>
       <div>
         <form>
-          <table id="btnTable">
+          <table className="btnTable">
             <tbody>
               <tr>
-                <td><button><Link to='/CreateGame'>Create Game</Link></button></td>
-                <td><button disabled={true}>Resume Game</button></td>
+                <td><button className="optionBtn"><Link to='/CreateGame'>Create Game</Link></button></td>
+                {/*<td><button disabled={true}>Resume Game</button></td>*/}
               </tr>
               <tr>
-                <td><button>Rules</button></td>
-                <td><button disabled={true}>Statistics</button></td>
+                <td><button className="optionBtn"><Link to='/Rules'>Rules</Link></button></td>
+                {/*<td><button disabled={true}>Statistics</button></td>*/}
               </tr>
               <tr>
-                <td><button disabled={true}>Create Player</button></td>
+                <td><button className="optionBtn"><Link to='/CreatePlayer'>Create Player</Link></button></td>
               </tr>
             </tbody>
           </table>

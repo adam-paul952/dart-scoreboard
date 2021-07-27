@@ -10,6 +10,7 @@ import CreatePlayerList from './CreatePlayer';
 import CreateGame from './CreateGame';
 import CreateCricketBoard from './Cricket';
 import CreateBaseballBoard from './Baseball';
+import Rules from './Rules';
 
 export default function Routes() {
   return (
@@ -20,6 +21,7 @@ export default function Routes() {
         <Route path='/CreatePlayer' component={CreatePlayerList} />
         <Route path='/Cricket' component={CreateCricketBoard} />
         <Route path='/Baseball' component={CreateBaseballBoard} />
+        <Route path ='/Rules' component={Rules} />
       </Switch>
     </Router>
   );
