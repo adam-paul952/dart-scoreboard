@@ -1,9 +1,4 @@
 import React, { useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
 
 import './App.css';
 // import CreatePlayerList from './CreatePlayer'
@@ -47,9 +42,6 @@ export default function CreateGame() {
       </div>
   );
 }
-<Router>
-
-</Router>
 
 function X01() {
   return (

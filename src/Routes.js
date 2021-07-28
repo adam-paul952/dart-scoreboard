@@ -17,11 +17,11 @@ export default function Routes() {
     <Router>
       <Switch>
         <Route exact path='/' component={App} />
-        <Route path='/CreateGame' component={CreateGame} />
-        <Route path='/CreatePlayer' component={CreatePlayerList} />
-        <Route path='/Cricket' component={CreateCricketBoard} />
-        <Route path='/Baseball' component={CreateBaseballBoard} />
-        <Route path ='/Rules' component={Rules} />
+        <Route path='/game/create' component={CreateGame} />
+        <Route path='/create_player' component={CreatePlayerList} />
+        <Route path='/game/cricket' component={CreateCricketBoard} />
+        <Route path='/game/basedball' component={CreateBaseballBoard} />
+        <Route path ='/rules' component={Rules} />
       </Switch>
     </Router>
   );
