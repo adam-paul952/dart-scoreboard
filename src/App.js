@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -10,15 +11,15 @@ function App() {
           <table className="btnTable">
             <tbody>
               <tr>
-                <td><button className="optionBtn"><Link to='/CreateGame'>Create Game</Link></button></td>
+                <td><button className="optionBtn"><Link to='/game/create'>Create Game</Link></button></td>
                 {/*<td><button disabled={true}>Resume Game</button></td>*/}
               </tr>
               <tr>
-                <td><button className="optionBtn"><Link to='/Rules'>Rules</Link></button></td>
+                <td><button className="optionBtn"><Link to='/rules'>Rules</Link></button></td>
                 {/*<td><button disabled={true}>Statistics</button></td>*/}
               </tr>
               <tr>
-                <td><button className="optionBtn"><Link to='/CreatePlayer'>Create Player</Link></button></td>
+                <td><button className="optionBtn"><Link to='/create_player'>Create Player</Link></button></td>
               </tr>
             </tbody>
           </table>

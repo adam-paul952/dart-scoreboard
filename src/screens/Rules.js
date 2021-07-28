@@ -15,7 +15,7 @@ const Rules = () => {
 const X01Rules = () => {
   return (
     <div>
-      <h1 class="ruleHeader">X01:</h1>
+      <h1 className="ruleHeader">X01:</h1>
       <p className="rulePar"><b>Game Play:</b> X01 is a tournament style game, where players start with X01 points and lower their score to exactly 0.
       First players have to define how many points they start with (typically 301 or 501) be can be any number of points 
       the players want.
@@ -32,7 +32,7 @@ const X01Rules = () => {
 const BaseBallRules = () => {
   return (
     <div>
-      <h1 class="ruleHeader">Baseball:</h1>
+      <h1 className="ruleHeader">Baseball:</h1>
       <p className="rulePar"><b>Game Play:</b> Players each take turns throwing three darts, starting with the 1. Once all players have thrown at the 1,
       the start of the next round players will throw at the 2. The game continues until all players have throw at the numbers
       1 through 9 (like innings in a baseball game).
@@ -55,7 +55,7 @@ const BaseBallRules = () => {
 const CricketRules = () => {
   return (
     <div>
-      <h1 class="ruleHeader">Cricket:</h1>
+      <h1 className="ruleHeader">Cricket:</h1>
       <p className="rulePar"><b>Game Play:</b> Players take turns throwing three darts at the board, hitting the numbers 15 through
       20; bulls-eye included. The game requires players to "close" the numbers by hitting them three times,
       once a player has all numbers "closed" the game ends. If a player hits a number outside of the 15 through
@@ -78,7 +78,7 @@ const CricketRules = () => {
 const EliminationRules = () => {
   return (
     <div>
-      <h1 class="ruleHeader">Elimination:</h1>
+      <h1 className="ruleHeader">Elimination:</h1>
       <p className="rulePar"><b>Game Play:</b> Players alternate throwing 3 darts at the board trying to achieve the highest possible scoring hand. The next player
       must score higher then the player in front of them, if the throwing player fails to do that then they lose a life,
       but if the throwing player successfully scores higer then they do not lose a life and the next player throws their darts.
@@ -92,7 +92,7 @@ const EliminationRules = () => {
 const KillerRules = () => {
   return(
     <div>
-      <h1 class="ruleHeader">Killer:</h1>
+      <h1 className="ruleHeader">Killer:</h1>
       <p className="rulePar"><b>Game Play:</b> The game begins by players throwing darts into the board with their hand opposite for throwing. (If I was
       right-handed, I would use my left hand for this.) A players number is assigned with whatever number you successfully
       hit (doubles and trebles are excluded in this). Once all players have been "assigned" a number game play will begin

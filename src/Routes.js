@@ -6,11 +6,11 @@ import {
 } from "react-router-dom";
 
 import App from './App';
-import CreatePlayerList from './CreatePlayer';
-import CreateGame from './CreateGame';
-import CreateCricketBoard from './Cricket';
-import CreateBaseballBoard from './Baseball';
-import Rules from './Rules';
+import CreatePlayerList from './screens/CreatePlayer';
+import CreateGame from './screens/CreateGame';
+import CreateCricketBoard from './screens/Cricket';
+import CreateBaseballBoard from './screens/Baseball';
+import Rules from './screens/Rules';
 
 export default function Routes() {
   return (
