@@ -45,7 +45,7 @@ const CreatePlayerList = () => {
     tableRows[data.index] = data;
   };
 
-  // Add new rows to table with player name
+  // Add new rows to table with player name and index
   const addNewRow = () => {
     tableRowIndex = parseInt(tableRowIndex) + 1;
     let updatedRows = [...tableRows];

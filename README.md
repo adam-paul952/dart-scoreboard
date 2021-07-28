@@ -1,2 +1,8 @@
-# Dart Scoreboard
-A dart scoreboard
+## Dart Scoreboard
+
+**Description:**
+
+
+**Built With:**
+
+1. React.js

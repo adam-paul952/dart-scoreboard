@@ -1,11 +1,24 @@
-/*Global CSS*/
+/* Global */
 * {
   font-family:Arial, Helvetica, sans-serif;
   text-align: center;
   background-color:grey;
 }
 
-/*Cricket*/
+/* Rules */
+.rulePar {
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 15px;
+  color: rgb(58, 3, 3);
+}
+
+.ruleHeader {
+  color: rgb(58, 3, 3);
+}
+
+/* Cricket */
 table {
   margin-left: auto;
   margin-right: auto;
@@ -15,7 +28,7 @@ table {
   border: 1px solid;
 }
 
-/* Create Game */
+/* App */
 #header {
   margin-left: auto;
   margin-right: auto;
@@ -39,12 +52,18 @@ table {
     font-size:30px;
 }
 
-/* Create Player*/
+/* Create Player */
 .playerTable {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
   margin-top: 75px;
+}
+
+/* Create Game */
+.gameSelect {
+  color: rgb(231, 241, 231);
+  margin-top: 80px;
 }
 
 /*------------------------------------------*/
