@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import '../App.css';
 
-const TableRow = ({row, index, onChange, deleteRow}) => {
+let tableRowIndex = 0;
 
-  const [playerName, setPlayerName] = useState(row.playerName);
-
+const TableRow = ({row, onChange, deleteRow}) => {
+  let index = row.index;
+  const [playerName, handleChangePlayerName] = useState(row.playerName);
   const updateValues = ({ target: {name, value} }) => {
     if (name === 'playerName') {
-      setPlayerName(value);
+      handleChangePlayerName(value);
     };
 
     onChange({
+      index: index,
       playerName: playerName
     });
   };
@@ -42,26 +44,16 @@ const CreatePlayerList = () => {
   };
 
   // Add new rows to table with player name and index
-  const addNewRow = (index) => {
-    setTableRows([...tableRows, {index: index, playerName: ''}]);
+  const addNewRow = () => {
+    tableRowIndex = parseInt(tableRowIndex) + 1;
+    setTableRows([...tableRows, {index: tableRowIndex, playerName: ''}]);
   };
 
-  useEffect(() => {
-    console.log(tableRows);
-  })
-
-
-    // Function is mapping all indexes in generated rows to -1
   const deleteRow = (index) => {
     if(tableRows.length > 1){
-      // console.log(tableRows.length);
-      let updatedRows = [...tableRows]
-      let indexToRemove = updatedRows.findIndex(x => x.index === index);
-      // console.log(indexToRemove);
-      if(indexToRemove > -1){
-        updatedRows.splice(indexToRemove, 1)
-        setTableRows(updatedRows);
-      }
+      let updatedRows = [...tableRows];
+      let indexToRemove = updatedRows.filter(x => x.index !== index);
+      setTableRows(indexToRemove);
     }
   };
 
@@ -78,11 +70,9 @@ const CreatePlayerList = () => {
         <tbody>
             {
               tableRows.map((row, index) => {
-                if(row) {
                   return(
-                    <TableRow key={index} index={index} row={row} onChange={handleChange} deleteRow={deleteRow}></TableRow>
+                    <TableRow key={index} row={row} onChange={handleChange} deleteRow={deleteRow}></TableRow>
                   );
-                }
               })
             }
         </tbody>
