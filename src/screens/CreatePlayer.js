@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import '../App.css';
 
-let tableRowIndex = 0;
-
-const TableRow = ({row, onChange, deleteRow}) => {
-  let index = row.index;
+const TableRow = ({index, row, onChange, deleteRow}) => {
   const [playerName, handleChangePlayerName] = useState(row.playerName);
   const updateValues = ({ target: {name, value} }) => {
     if (name === 'playerName') {
@@ -44,10 +41,13 @@ const CreatePlayerList = () => {
   };
 
   // Add new rows to table with player name and index
-  const addNewRow = () => {
-    tableRowIndex = parseInt(tableRowIndex) + 1;
-    setTableRows([...tableRows, {index: tableRowIndex, playerName: ''}]);
+  const addNewRow = (index) => {
+    setTableRows([...tableRows, {index: index, playerName: ''}]);
   };
+
+  useEffect(() => {
+    console.log(tableRows);
+  });
 
   const deleteRow = (index) => {
     if(tableRows.length > 1){
@@ -71,7 +71,7 @@ const CreatePlayerList = () => {
             {
               tableRows.map((row, index) => {
                   return(
-                    <TableRow key={index} row={row} onChange={handleChange} deleteRow={deleteRow}></TableRow>
+                    <TableRow key={index} index={index} row={row} onChange={handleChange} deleteRow={deleteRow}></TableRow>
                   );
               })
             }
