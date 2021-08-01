@@ -30,6 +30,8 @@ table {
 
 /* App */
 #header {
+  margin-top: 20px;
+  padding: 10px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -39,10 +41,8 @@ table {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-}
-
-.optionBtn {
-  position:relative;
+  align-items: center;
+  height: 50vh;
 }
 
 /* Create Player */
@@ -53,10 +53,46 @@ table {
   margin-top: 75px;
 }
 
+.createPlayerTable {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
 /* Create Game */
 .gameSelect {
   color: rgb(231, 241, 231);
   margin-top: 80px;
+}
+
+/* Baseball */
+.inningCounter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+}
+
+/* Score Calculator */
+.scoreCalculator {
+    width: 20rem;
+    height: 30rem;
+    display: grid;
+    padding: 1%;
+    position: relative;
+    margin: auto;
+}
+.scoreKeypad {
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 5rem);
+  grid-template-rows: repeat(4, 5rem);
+  gap: 3px;
 }
 
 /*------------------------------------------*/

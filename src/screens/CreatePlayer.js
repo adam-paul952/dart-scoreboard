@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
+import Button from 'react-bootstrap/Button';
 import '../App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TableRow = ({index, row, onChange, deleteRow}) => {
   const [playerName, handleChangePlayerName] = useState(row.playerName);
+  
   const updateValues = ({ target: {name, value} }) => {
     if (name === 'playerName') {
       handleChangePlayerName(value);
@@ -14,8 +17,12 @@ const TableRow = ({index, row, onChange, deleteRow}) => {
     });
   };
 
+  useEffect(() => {
+    console.log(playerName);
+  }, [playerName]);
+
     const removeRow = () => {
-      deleteRow(index)
+      deleteRow(index)       // Function deletes proper row, but isn't relfected on the screen
     }
 
   return (
@@ -36,7 +43,7 @@ const CreatePlayerList = () => {
   ]);
 
   // Recieve data from tableRow
-  const handleChange = (data) => {
+  const onHandleChange = (data) => {
     tableRows[data.index] = data;
   };
 
@@ -44,10 +51,6 @@ const CreatePlayerList = () => {
   const addNewRow = (index) => {
     setTableRows([...tableRows, {index: index, playerName: ''}]);
   };
-
-  useEffect(() => {
-    console.log(tableRows);
-  });
 
   const deleteRow = (index) => {
     if(tableRows.length > 1){
@@ -57,28 +60,34 @@ const CreatePlayerList = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(tableRows);
+  }, [tableRows]);
+
   return (
     <div>
-      <table className="playerTable">
-        <thead>
-          <tr>
-            <th />
-            <th>Player Name</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-            {
-              tableRows.map((row, index) => {
-                  return(
-                    <TableRow key={index} index={index} row={row} onChange={handleChange} deleteRow={deleteRow}></TableRow>
-                  );
-              })
-            }
-        </tbody>
-      </table>
-      <div>
-        <button onClick={addNewRow}>Add Player</button>
+      <div className="createPlayerTable">
+        <table className="playerTable">
+          <thead>
+            <tr>
+              <th />
+              <th>Player Name</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+              {
+                tableRows.map((row, index) => {
+                    return(
+                      <TableRow key={index} index={index} row={row} onChange={onHandleChange} deleteRow={deleteRow}></TableRow>
+                    );
+                })
+              }
+          </tbody>
+        </table>
+        <div>
+          <Button variant="secondary" size="sm" onClick={addNewRow}>Add Player</Button>
+        </div>
       </div>
     </div>
   );

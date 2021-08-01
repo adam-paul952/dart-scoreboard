@@ -3,6 +3,22 @@ import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
+
+  const linkStyle = {
+    margin: '2px',
+    padding: '10px',
+    border: '2px solid black',
+    borderRadius: '10px',
+    background: 'gray',
+    width: '300px',
+    fontSize: '25px',
+    color: 'black',
+    display: 'flex',
+    textDecoration: 'none',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+
   return (
   <div>
     <div id="header">
@@ -10,9 +26,9 @@ function App() {
     </div>
     <div className="btnTable">
       <form>
-        <div><p className="optionBtn"><Link to='/game/create'>Create Game</Link></p></div>
-        <div><p className="optionBtn"><Link to='/rules'>Rules</Link></p></div>
-        <div><p className="optionBtn"><Link to='/create_player'>Create Player</Link></p></div>
+        <div><p className="optionBtn"><Link to='/game/create' style={linkStyle}>Create Game</Link></p></div>
+        <div><p className="optionBtn"><Link to='/rules' style={linkStyle}>Rules</Link></p></div>
+        <div><p className="optionBtn"><Link to='/create_player' style={linkStyle}>Create Player</Link></p></div>
       </form>
     </div>
   </div>
