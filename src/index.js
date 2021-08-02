@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import Routes from './Routes';
 // import { X01 } from '../src/screens/CreateGame'
 // import ScoreCalculator from '../src/components/ScoreCalculator'
+// import CricketScoreCalculator from './components/CricketScoreCalculator'
 ReactDOM.render(
   <React.StrictMode>
     <Routes />

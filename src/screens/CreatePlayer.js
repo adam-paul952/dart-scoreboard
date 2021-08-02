@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
+
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const TableRow = ({index, row, onChange, deleteRow}) => {
+const PlayerRow = ({index, row, onChange, deleteRow}) => {
   const [playerName, handleChangePlayerName] = useState(row.playerName);
-  
+
   const updateValues = ({ target: {name, value} }) => {
     if (name === 'playerName') {
       handleChangePlayerName(value);
@@ -26,11 +27,11 @@ const TableRow = ({index, row, onChange, deleteRow}) => {
     }
 
   return (
-    <tr>
-      <td>{index + 1}</td>
-      <td><input type="text" name="playerName" placeholder="Player Name" value={playerName} onChange={updateValues}></input></td>
-      <td><button onClick={removeRow}>Delete</button></td>
-    </tr>
+    <div className="playerInputRow">
+      <div className="card">{index + 1}</div>
+      <div className="card"><input type="text" name="playerName" placeholder="Player Name" value={playerName} onChange={updateValues}></input></div>
+      <div className="card"><Button variant="secondary" size="sm" onClick={removeRow}>Delete</Button></div>
+    </div>
   );
 };
 
@@ -65,26 +66,18 @@ const CreatePlayerList = () => {
   }, [tableRows]);
 
   return (
-    <div>
       <div className="createPlayerTable">
-        <table className="playerTable">
-          <thead>
-            <tr>
-              <th />
-              <th>Player Name</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
+        <div className="playerTable">
+          <div className="playerNameHeader">Player Name</div>
+            <div className="playerRow">
               {
                 tableRows.map((row, index) => {
-                    return(
-                      <TableRow key={index} index={index} row={row} onChange={onHandleChange} deleteRow={deleteRow}></TableRow>
-                    );
+                  return(
+                    <PlayerRow key={index} index={index} row={row} onChange={onHandleChange} deleteRow={deleteRow}></PlayerRow>
+                  );
                 })
               }
-          </tbody>
-        </table>
+            </div>
         <div>
           <Button variant="secondary" size="sm" onClick={addNewRow}>Add Player</Button>
         </div>

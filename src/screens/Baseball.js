@@ -24,7 +24,8 @@ export default function CreateBaseballBoard() {
         <div className="total">Total</div>
       </div>
       <div className="playerList">
-
+        {/* Function here to import table from CreatePlayer then
+        maintain score */}
       </div>
     </div>
   );

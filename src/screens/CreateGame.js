@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import CreatePlayerList from './CreatePlayer';
-// import CreatePlayerList from './CreatePlayer'
 
 export function CreateGame() {
   const [games, setGames] = useState('');
@@ -34,13 +33,13 @@ export function CreateGame() {
           Please Select a Game
         </Dropdown.Toggle>
         <Dropdown.Menu variant="dark">
-          <Dropdown.Item as={ Link } to='/game/create/x01' eventKey='X01'>
+          <Dropdown.Item as={ Link } to='/game/x01/create' eventKey='X01'>
             X01
           </Dropdown.Item>
-          <Dropdown.Item eventKey='Baseball'>Baseball</Dropdown.Item>
-          <Dropdown.Item eventKey='Elimination'>Elimination</Dropdown.Item>
-          <Dropdown.Item eventKey='Killer'>Killer</Dropdown.Item>
-          <Dropdown.Item eventKey='Cricket'>Cricket</Dropdown.Item>
+          <Dropdown.Item as={ Link } to='/game/baseball/create' eventKey='Baseball'>Baseball</Dropdown.Item>
+          <Dropdown.Item as={ Link } to='/game/elimination/create' eventKey='Elimination'>Elimination</Dropdown.Item>
+          <Dropdown.Item as={ Link } to='/game/killer/create' eventKey='Killer'>Killer</Dropdown.Item>
+          <Dropdown.Item as={ Link } to='/game/cricket/create' eventKey='Cricket'>Cricket</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </form>
@@ -75,50 +74,42 @@ export function X01() {
   );
 };
 
-const Baseball = () => {
+export const Baseball = () => {
   return (
     <div>
       <h3>Baseball</h3>
       <form>
-        <input type="button" value="Submit"></input>
-        <input type="button" value="Return"></input>
+        <CreatePlayerList />
       </form>
     </div>
   );
 };
 
-const Cricket = () => {
+export const Cricket = () => {
   return (
     <div>
       <h3>Cricket</h3>
       <form>
-        <input type="button" value="Submit"></input>
-        <input type="button" value="Return"></input>
+        <CreatePlayerList />
       </form>
     </div>
   );
 };
 
-const Killer = () => {
+export const Killer = () => {
   return (
     <div>
       <h3>Killer</h3>
-      <form>
-        <input type="button" value="Submit"></input>
-        <input type="button" value="Return"></input>
-      </form>
+      <h1>Coming Soon!</h1>
     </div>
   );
 };
 
-const Elimination = () => {
+export const Elimination = () => {
   return (
     <div>
       <h3>Elimination</h3>
-      <form>
-        <input type="button" value="Submit"></input>
-        <input type="button" value="Return"></input>
-      </form>
+      <h1>Coming Soon!</h1>
     </div>
   );
 };
