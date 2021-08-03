@@ -21,9 +21,8 @@ export default function Routes() {
         <Route exact path='/' component={App} />
         <Route path='/game/create' component={CreateGame} />
         <Route path='/create_player' component={CreatePlayerList} />
-        {/* <Route path='/game/cricket' component={CreateCricketBoard} />
-        <Route path='/game/baseball' component={CreateBaseballBoard} /> */}
-        <Route path='/rules' component={Rules} />
+        <Route exact path='/game/cricket' component={CreateCricketBoard} />
+        <Route exact path='/game/baseball' component={CreateBaseballBoard} />
         <Route path='/game/x01/create' component={X01}></Route>
         <Route path='/game/baseball/create' component={Baseball}></Route>
         <Route path='/game/cricket/create' component={Cricket}></Route>
@@ -31,6 +30,7 @@ export default function Routes() {
         <Route path='/game/killer/create' component={Killer}></Route>
         <Route path='/game/score_calculator' component={ScoreCalculator}></Route>
         <Route path='/game/cricket_score' component={CricketScoreCalculator}></Route>
+        <Route path='/rules' component={Rules} />
       </Switch>
     </Router>
   );

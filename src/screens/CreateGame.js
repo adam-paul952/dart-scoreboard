@@ -8,14 +8,6 @@ import CreatePlayerList from './CreatePlayer';
 export function CreateGame() {
   const [games, setGames] = useState('');
 
-  const components = {
-    X01: <X01 />,
-    Cricket: <Cricket />,
-    Baseball: <Baseball />,
-    Killer: <Killer />,
-    Elimination: <Elimination />
-  };
-
   const selectGame = (eventKey) => {
     setGames(eventKey);
   };
