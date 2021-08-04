@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from './components/Header';
 import './App.css';
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
   return (
   <div>
     <div id="header">
-      <h1>Welcome</h1>
+    <Header title='Welcome' />
     </div>
     <div className="btnTable">
       <form>

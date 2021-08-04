@@ -28,13 +28,12 @@ table {
   border: 1px solid;
 }
 
-/* App */
-#header {
-  margin-top: 20px;
-  padding: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+/* Header */
+.header {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 20px;
 }
 
 .btnTable {

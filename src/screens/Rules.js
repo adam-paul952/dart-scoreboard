@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const Rules = () => {
   return (
@@ -15,6 +16,7 @@ const Rules = () => {
 const X01Rules = () => {
   return (
     <div>
+      <Header title='Rules' goBackButton />
       <h1 className="ruleHeader">X01:</h1>
       <p className="rulePar"><b>Game Play:</b> X01 is a tournament style game, where players start with X01 points and lower their score to exactly 0.
       First players have to define how many points they start with (typically 301 or 501) be can be any number of points 

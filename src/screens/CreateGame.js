@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import CreatePlayerList from './CreatePlayer';
+import Header from '../components/Header';
 
 export function CreateGame() {
   const [games, setGames] = useState('');
@@ -18,7 +19,7 @@ export function CreateGame() {
 
   return (
     <div>
-      <h2>Create a Game</h2>
+      <Header title='Create a Game' goBackButton />
       <form>
         <Dropdown value={games} onSelect={selectGame}>
         <Dropdown.Toggle id="gameDropDown" variant="secondary" title='Game DropDown'>
@@ -44,7 +45,7 @@ export function CreateGame() {
 export function X01() {
   return (
     <div>
-      <h2>X01</h2>
+      <Header title='X01' goBackButton />
       <form>
         <Dropdown>
           <Dropdown.Toggle id="pointsDropdown" variant="secondary">
@@ -69,7 +70,7 @@ export function X01() {
 export const Baseball = () => {
   return (
     <div>
-      <h3>Baseball</h3>
+      <Header title='Baseball' goBackButton />
       <form>
         <CreatePlayerList />
       </form>
@@ -80,7 +81,7 @@ export const Baseball = () => {
 export const Cricket = () => {
   return (
     <div>
-      <h3>Cricket</h3>
+      <Header title='Cricket' goBackButton  />
       <form>
         <CreatePlayerList />
       </form>
@@ -91,7 +92,7 @@ export const Cricket = () => {
 export const Killer = () => {
   return (
     <div>
-      <h3>Killer</h3>
+      <Header title='Killer' goBackButton  />
       <h1>Coming Soon!</h1>
     </div>
   );
@@ -100,7 +101,7 @@ export const Killer = () => {
 export const Elimination = () => {
   return (
     <div>
-      <h3>Elimination</h3>
+      <Header title='Elimination' goBackButton  />
       <h1>Coming Soon!</h1>
     </div>
   );

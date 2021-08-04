@@ -1,10 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 import '../App.css';
 
 export default function CreateCricketBoard() {
   return (
     <div>
-      <h1>Cricket</h1>
+      <Header title='Cricket' goBackButton />
       <br /> <br /> <br />
       <div>
         <table id="scoreboard">

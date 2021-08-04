@@ -1,11 +1,13 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
+import React, {useState} from 'react';
+import Header from '../components/Header';
 import '../App.css';
 
 export default function CreateBaseballBoard() {
+  const [inning, setInning] = useState('');
+  const [score, setScore] = useState([]);
   return (
     <div>
-      <h1>Baseball</h1>;
+      <Header title='Baseball' goBackButton />
       <div className="inningCounter">
         <div><p>Inning:</p></div>
         <div><p>`$[Inning #]`</p></div>
