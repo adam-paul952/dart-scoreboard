@@ -5,16 +5,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css'
 
 const ScoreCalculator = ({ isCricketBoard }) => {
-  const [prevValue, setPrevValue] = useState(null);
-  const [nextValue, setNextValue] = useState('0');
+  const [totalScore, setTotalScore] = useState(0);
+  const [currentScore, setCurrentScore] = useState(0);
 
   const handleInput = (number) => {
-    setNextValue(nextValue === '0' ? String(number) : nextValue + number);
+    setCurrentScore(currentScore === 0 ? number : currentScore + number);
   };
 
   const deleteInput = () => {
-    setNextValue('0');
-    setPrevValue(0);
+    setCurrentScore(0);
   };
 
   const handleScoreChange = (value) => {
@@ -23,20 +22,25 @@ const ScoreCalculator = ({ isCricketBoard }) => {
     } else if (value === 'Del') {
       deleteInput();
     } else if (value === 'Enter') {
-      setPrevValue(nextValue);
+      setTotalScore(currentScore);
+      setCurrentScore(0);
     }
   };
 
   useEffect(() => {
-    console.log(nextValue);
-    console.log(prevValue);
+    console.log(currentScore);
+    console.log(totalScore);
   });
 
     return (
     <div className="scoreCalculator">
       <div className="scoreInput">
         <div className="result">
-          {nextValue}
+          Current Score : <br />
+          {currentScore}
+          <hr />
+          Total Score : <br />
+          {totalScore}
         </div>
         {
           isCricketBoard ?
@@ -84,17 +88,3 @@ const CricketScoreCalculatorKey = (props) => {
 }
 
 export default ScoreCalculator;
-
-/*------------------------------------------------------------------- */
-
-// return (
-//   <div className="scoreCalculator">
-//     <div className="scoreInput">
-//       <div className="result">
-//         {nextValue}
-//       </div>
-//       
-//     </div>
-//   </div>
-// );
-
