@@ -50,7 +50,7 @@ const CreatePlayerList = () => {
 
   // Add new rows to table with player name and index
   const addNewRow = (index) => {
-    setTableRows([...tableRows, {index: index, playerName: ''}]);
+    setTableRows([...tableRows, {index, playerName: ''}]);
   };
 
   const deleteRow = (index) => {

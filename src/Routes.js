@@ -12,7 +12,6 @@ import CreateCricketBoard from './screens/Cricket';
 import CreateBaseballBoard from './screens/Baseball';
 import Rules from './screens/Rules';
 import ScoreCalculator from './components/ScoreCalculator';
-import CricketScoreCalculator from './components/CricketScoreCalculator';
 
 export default function Routes() {
   return (
@@ -29,7 +28,6 @@ export default function Routes() {
         <Route path='/game/elimination/create' component={Elimination}></Route>
         <Route path='/game/killer/create' component={Killer}></Route>
         <Route path='/game/score_calculator' component={ScoreCalculator}></Route>
-        <Route path='/game/cricket_score' component={CricketScoreCalculator}></Route>
         <Route path='/rules' component={Rules} />
       </Switch>
     </Router>

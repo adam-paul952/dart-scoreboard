@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
+import ScoreCalculator from '../components/ScoreCalculator';
 import '../App.css';
 
 export default function CreateCricketBoard() {
@@ -43,27 +44,8 @@ export default function CreateCricketBoard() {
           </tbody>
         </table>
       </div>
-      <br /><br /> <br /> <br />
-      <div id="scorekeypad">
-        <form>
-          <table>
-            <tr>
-              <td><button>20</button></td>
-              <td><button>19</button></td>
-              <td><button>18</button></td>
-            </tr>
-            <tr>
-              <td><button>17</button></td>
-              <td><button>16</button></td>
-              <td><button>15</button></td>
-            </tr>
-            <tr>
-              <td><button>enter</button></td>
-              <td><button>bull</button></td>
-              <td><button>delete</button></td>
-            </tr>
-          </table>
-        </form>
+      <div className='scoreInput'>
+        <ScoreCalculator isCricketBoard />
       </div>
     </div>
   );

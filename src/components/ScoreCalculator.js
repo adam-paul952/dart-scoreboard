@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css'
 
-const ScoreCalculator = () => {
+const ScoreCalculator = ({ isCricketBoard }) => {
   const [prevValue, setPrevValue] = useState(null);
   const [nextValue, setNextValue] = useState('0');
 
@@ -38,7 +38,20 @@ const ScoreCalculator = () => {
         <div className="result">
           {nextValue}
         </div>
-        <div className="scoreKeypad">
+        {
+          isCricketBoard ?
+          <div className="scoreKeypad">
+                  <CricketScoreCalculatorKey keyValue={20} onClick={handleScoreChange}/>
+                  <CricketScoreCalculatorKey keyValue={19} onClick={handleScoreChange} />
+                  <CricketScoreCalculatorKey keyValue={18} onClick={handleScoreChange} />
+                  <CricketScoreCalculatorKey keyValue={17} onClick={handleScoreChange} />
+                  <CricketScoreCalculatorKey keyValue={16} onClick={handleScoreChange} />
+                  <CricketScoreCalculatorKey keyValue={15} onClick={handleScoreChange} />
+                  <CricketScoreCalculatorKey keyValue={'Del'} onClick={handleScoreChange} />
+                  <CricketScoreCalculatorKey keyValue={25} onClick={handleScoreChange}/>
+                  <CricketScoreCalculatorKey keyValue={'Enter'} onClick={handleScoreChange} />
+                </div>
+          : <div className="scoreKeypad">
           <ScoreCalculatorKey keyValue={9} onClick={handleScoreChange}/>
           <ScoreCalculatorKey keyValue={8} onClick={handleScoreChange} />
           <ScoreCalculatorKey keyValue={7} onClick={handleScoreChange} />
@@ -52,6 +65,7 @@ const ScoreCalculator = () => {
           <ScoreCalculatorKey keyValue={0} onClick={handleScoreChange}/>
           <ScoreCalculatorKey keyValue={'Enter'} onClick={handleScoreChange} />
         </div>
+          }
       </div>
     </div>
   );
@@ -63,4 +77,24 @@ const ScoreCalculatorKey = (props) => {
   );
 }
 
+const CricketScoreCalculatorKey = (props) => {
+  return (
+    <Button variant="secondary" onClick={() => props.onClick(props.keyValue)}>{props.keyValue}</Button>
+  );
+}
+
 export default ScoreCalculator;
+
+/*------------------------------------------------------------------- */
+
+// return (
+//   <div className="scoreCalculator">
+//     <div className="scoreInput">
+//       <div className="result">
+//         {nextValue}
+//       </div>
+//       
+//     </div>
+//   </div>
+// );
+

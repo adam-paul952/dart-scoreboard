@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Header from '../components/Header';
+import ScoreCalculator from '../components/ScoreCalculator';
 import '../App.css';
 
 export default function CreateBaseballBoard() {
@@ -28,6 +29,9 @@ export default function CreateBaseballBoard() {
       <div className="playerList">
         {/* Function here to import table from CreatePlayer then
         maintain score */}
+      </div>
+      <div className='scoreInput'>
+        <ScoreCalculator />
       </div>
     </div>
   );
