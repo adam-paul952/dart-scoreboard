@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import App from './App';
 import CreatePlayerList from './screens/CreatePlayer';

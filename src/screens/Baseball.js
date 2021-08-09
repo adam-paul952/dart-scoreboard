@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import ScoreCalculator from '../components/ScoreCalculator';
 import '../App.css';
 
 export default function CreateBaseballBoard() {
-  const [inning, setInning] = useState('');
-  const [score, setScore] = useState([]);
+  // const [inning, setInning] = useState('');
+  // const [score, setScore] = useState([]);
   return (
     <div>
       <Header title='Baseball' goBackButton />

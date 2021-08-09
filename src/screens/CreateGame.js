@@ -3,7 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import CreatePlayerList from './CreatePlayer';
+// import CreatePlayerList from './CreatePlayer';
 import Header from '../components/Header';
 
 export function CreateGame() {
@@ -61,7 +61,7 @@ export function X01() {
           </Dropdown.Menu>
         </Dropdown>
         <h2>Game selected: 501</h2>
-        <CreatePlayerList />
+        {/* <CreatePlayerList /> */}
       </form>
     </div>
   );
@@ -71,9 +71,9 @@ export const Baseball = () => {
   return (
     <div>
       <Header title='Baseball' goBackButton />
-      <form>
+      {/* <form>
         <CreatePlayerList />
-      </form>
+      </form> */}
     </div>
   );
 };
@@ -82,9 +82,9 @@ export const Cricket = () => {
   return (
     <div>
       <Header title='Cricket' goBackButton  />
-      <form>
+      {/* <form>
         <CreatePlayerList />
-      </form>
+      </form> */}
     </div>
   );
 };
