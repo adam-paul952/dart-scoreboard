@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import { TiArrowBack } from 'react-icons/ti';
+import { BsSkipBackward } from 'react-icons/bs';
 
 const Header = ( {title, goBackButton} ) => {
     const history = useHistory();
@@ -11,8 +11,8 @@ const Header = ( {title, goBackButton} ) => {
       { goBackButton &&
           <Button
             onClick={ () => history.goBack() }
-            variant='secondary'>
-              <TiArrowBack />Go back
+            variant='light'>
+              <BsSkipBackward />Go back
           </Button>
           }
     </div>

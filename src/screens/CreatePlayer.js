@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Header from '../components/Header';
-import {Col, Row, Input, Label, Form, FormGroup, Table } from 'reactstrap';
+import {Button, Container, Col, Row, Form, Table } from 'react-bootstrap';
 
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,161 +22,101 @@ const CreatePlayerList = () => {
 
   const onSubmit = () => {
     updatePlayerList(playerName);
+    setPlayerName(initialState);
   };
 
   console.log(playerList);
 
   const deleteRow = (rowNumber) => {
-    if (playerList.length > 1) {
       let updatedRows = [...playerList];
-      let deletedRow = updatedRows.splice(rowNumber, 1);
-      setPlayerList(deletedRow);
-    }
+      updatedRows.splice(rowNumber, 1);
+      setPlayerList(updatedRows);
   };
 
   return (
     <div>
       <Header title='Create Player' goBackButton />
-      <div>
-        <Form>
-          <FormGroup>
-            <Label for='player'>Player Name</Label>
-            <Input
-              name='player'
-              placeholder='Player Name'
-              onChange={onHandleChange}
-              value={player}
-            />
-          </FormGroup>
-          <Button onClick={onSubmit}>Add Player</Button>
-        </Form>
-      </div>
-      <div>
-      <div className='mt-4'>
-      <Row>
-        <Col sm='12' md= {{ size:6, offset:3 }}>
-          <Table hover>
+      <Container>
+        <Row className="justify-content-md-center">
+          <Form>
+            <Col>
+              <input
+                type='text'
+                name='player'
+                placeholder='Player Name'
+                onChange={onHandleChange}
+                value={player}
+              />
+            </Col>
+            <Col>
+              <Button onClick={onSubmit}>Add Player</Button>
+            </Col>
+          </Form>
+        </Row>
+        </Container>
+        {/* <Container>
+          <Row md="8">
+            <Col xs="6"> Player # </Col>
+            <Col md="auto">Player Name</Col>
+            <Col></Col>
+          </Row>
+          <Row>
+            {playerList.map((player, index) => {
+                    return (
+                      <PlayerList key={index} index={index} player={player} deleteRow={deleteRow}/>
+                      );
+                    })
+                  }
+          </Row>
+        </Container> */}
+        <Container>
+          <Table striped>
             <thead>
               <tr>
-                <th>#</th>
+                <th>Player #</th>
                 <th>Player Name</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-            <PlayerList playerList={playerList} deleteRow={deleteRow}/>
+              {playerList.map((player, index) => {
+                return (
+                  <PlayerList key={index} index={index} player={player} deleteRow={deleteRow}/>
+                  );
+                })
+              }
             </tbody>
           </Table>
-        </Col>
-      </Row>
-    </div>
-      </div>
+        </Container>
     </div>
   );
 };
 
-const PlayerList = ({playerList, deleteRow}) => {
+const PlayerList = ({ index, player, deleteRow}) => {
   let count = 0;
 
-  const removeRow = () => {
-    deleteRow(count);
+  let playerName = player.player;
+
+  const removeRow = (index) => {
+    deleteRow(index);
   };
 
-  return Object.keys(playerList).map(i => {
-    const { player } = playerList[i];
-    count = count + 1;
-    return (
-      <tr key={count.toString(10)}>
-        <th scope='row'>{count.toString(10)}</th>
-        <td>{player}</td>
-        <td><div><Button variant="secondary" size="sm" onClick={removeRow}>Delete</Button></div></td>
-      </tr>
-    );
-  });
+  // Use this instead of table?
+  // return (
+  //     <Row sm="6">
+  //   <Col>{index + 1}</Col>
+  //   <Col md={{ span: 4, offset: 3 }}>{playerName}</Col>
+  //   <Col><Button variant="secondary" size="sm" onClick={() => removeRow(index)}>Delete</Button></Col>
+  //     </Row>
+  // );
+
+  return (
+        <tr key={index + 1}>
+          <th>{index + 1}</th>
+          <td>{playerName}</td>
+          <td><Button variant="secondary" size="sm" onClick={() => removeRow(index)}>Delete</Button></td>
+        </tr>
+  );
 };
-
-
-
-
-
-// import React, { useState } from 'react';
-// import Button from 'react-bootstrap/Button';
-
-// import '../App.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-// const PlayerRow = ({index, row, onChange, deleteRow}) => {
-//   const [playerName, handleChangePlayerName] = useState(row.playerName);
-
-//   const updateValues = ({ target: {name, value} }) => {
-//     if (name === 'playerName') {
-//       handleChangePlayerName(value);
-//     };
-
-//     onChange({
-//       index: index,
-//       playerName: playerName
-//     });
-//   };
-
-//     const removeRow = () => {
-//       deleteRow(index)
-//     }
-
-//   return (
-//     <div className="playerInputRow">
-//       <div className="card">{index + 1}</div>
-//       <div className="card"><input type="text" name="playerName" placeholder="Player Name" value={playerName} onChange={updateValues}></input></div>
-//       <div className="card"><Button variant="secondary" size="sm" onClick={removeRow}>Delete</Button></div>
-//     </div>
-//   );
-// };
-
-// const CreatePlayerList = () => {
-//   // Create Empty state for player key and name to be entered
-//   const [tableRows, setTableRows] = useState([{
-//     playerName: ''
-//     }
-//   ]);
-
-//   // Recieve data from tableRow
-//   const onHandleChange = (data) => {
-//     tableRows[data.index] = data;
-//   };
-
-//   // Add new rows to table with player name and index
-//   const addNewRow = () => {
-//     setTableRows([...tableRows, {playerName: ''}]);
-//   };
-
-//   const deleteRow = (index) => {
-//     if(tableRows.length > 1){
-//       let updatedRows = [...tableRows];
-//       let indexToRemove = updatedRows.filter(x => x.index !== index);
-//       // updatedRows.splice(index, 1);
-//       setTableRows(indexToRemove);
-//     }
-//   };
-
-//   return (
-//       <div className="createPlayerTable">
-//         <div className="playerTable">
-//           <div className="playerNameHeader">Player Name</div>
-//             <div className="playerRow">
-//               {
-//                 tableRows.map((row, index) => {
-//                   return(
-//                     <PlayerRow key={index} index={index} row={row} onChange={onHandleChange} deleteRow={deleteRow}></PlayerRow>
-//                   );
-//                 })
-//               }
-//             </div>
-//         <div>
-//           <Button variant="secondary" size="sm" onClick={addNewRow}>Add Player</Button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
 
 export default CreatePlayerList;
