@@ -21,9 +21,7 @@ function App() {
 
   return (
   <div>
-    <div id="header">
     <Header title='Welcome' />
-    </div>
     <div className="btnTable">
       <form>
         <div><p className="optionBtn"><Link to='/game/create' style={linkStyle}>Create Game</Link></p></div>

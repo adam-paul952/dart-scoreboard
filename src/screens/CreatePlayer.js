@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import { CreateGame } from './CreateGame';
 import {Button, Container, Col, Row, Form, Table } from 'react-bootstrap';
 
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CreatePlayerList = () => {
-  const initialState = { player: '' };
+  const initialState = { player: '', score: 0, isSubmitted: false };
   const [playerName, setPlayerName] = useState(initialState);
   const { player } = playerName;
 
   const onHandleChange = ({ target: { name, value } }) => {
-    setPlayerName({...playerName, [name]: value});
+    setPlayerName({...playerName, [name]: value, isSubmitted: true});
   };
 
   const [playerList, setPlayerList] = useState([]);
@@ -20,7 +21,7 @@ const CreatePlayerList = () => {
     setPlayerList([...playerList, player]);
   };
 
-  const onSubmit = () => {
+  const onAddPlayer = () => {
     updatePlayerList(playerName);
     setPlayerName(initialState);
   };
@@ -33,67 +34,74 @@ const CreatePlayerList = () => {
       setPlayerList(updatedRows);
   };
 
+  const onSubmit = () => {
+    setPlayerList([...playerList]);
+  };
+
   return (
     <div>
       <Header title='Create Player' goBackButton />
-      <Container>
-        <Row className="justify-content-md-center">
-          <Form>
-            <Col>
-              <input
-                type='text'
-                name='player'
-                placeholder='Player Name'
-                onChange={onHandleChange}
-                value={player}
-              />
-            </Col>
-            <Col>
-              <Button onClick={onSubmit}>Add Player</Button>
-            </Col>
-          </Form>
-        </Row>
-        </Container>
-        {/* <Container>
-          <Row md="8">
+      <Form onSubmit={onSubmit}>
+        <Container>
+          <Row className="justify-content-md-center">
+              <Col>
+                <input
+                  type='text'
+                  name='player'
+                  placeholder='Player Name'
+                  onChange={onHandleChange}
+                  value={player}
+                />
+              </Col>
+              <Col>
+                <Button onClick={onAddPlayer}>Add Player</Button>
+              </Col>
+          </Row>
+          </Container>
+          {/* <Container>
+            <Row md="8">
             <Col xs="6"> Player # </Col>
             <Col md="auto">Player Name</Col>
             <Col></Col>
-          </Row>
-          <Row>
+            </Row>
+            <Row>
             {playerList.map((player, index) => {
-                    return (
-                      <PlayerList key={index} index={index} player={player} deleteRow={deleteRow}/>
-                      );
-                    })
-                  }
-          </Row>
-        </Container> */}
-        <Container>
-          <Table striped>
-            <thead>
-              <tr>
-                <th>Player #</th>
-                <th>Player Name</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {playerList.map((player, index) => {
-                return (
-                  <PlayerList key={index} index={index} player={player} deleteRow={deleteRow}/>
-                  );
-                })
-              }
-            </tbody>
-          </Table>
+              return (
+                <PlayerList key={index} index={index} player={player} deleteRow={deleteRow}/>
+                );
+              })
+            }
+            </Row>
+          </Container> */}
+          <Container>
+            <Table striped>
+              <thead>
+                <tr>
+                  <th>Player #</th>
+                  <th>Player Name</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {playerList.map((player, index) => {
+                  return (
+                    <PlayerList key={index} index={index} player={player} deleteRow={deleteRow}/>
+                    );
+                  })
+                }
+              </tbody>
+            </Table>
+            <Button type="submit">Submit</Button>
         </Container>
+      </Form>
+      <div>
+        {isSubmitted && <CreateGame />}
+      </div>
     </div>
   );
 };
 
 const PlayerList = ({ index, player, deleteRow}) => {
-  let count = 0;
 
   let playerName = player.player;
 

@@ -3,13 +3,13 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-// import CreatePlayerList from './CreatePlayer';
+import CreatePlayerList from './CreatePlayer';
 import Header from '../components/Header';
 
 export function CreateGame() {
   const [games, setGames] = useState('');
 
-  const selectGame = (eventKey) => {
+  const onSelectGame = (eventKey) => {
     setGames(eventKey);
   };
 
@@ -21,7 +21,7 @@ export function CreateGame() {
     <div>
       <Header title='Create a Game' goBackButton />
       <form>
-        <Dropdown value={games} onSelect={selectGame}>
+        <Dropdown value={games} onSelect={onSelectGame}>
         <Dropdown.Toggle id="gameDropDown" variant="secondary" title='Game DropDown'>
           Please Select a Game
         </Dropdown.Toggle>
