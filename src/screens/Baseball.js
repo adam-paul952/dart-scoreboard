@@ -1,8 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 import ScoreCalculator from '../components/ScoreCalculator';
+import Button from 'react-bootstrap/Button';
 
-export default function CreateBaseballBoard() {
+export default function CreateBaseballBoard( {playerList} ) {
+
   // const [inning, setInning] = useState('');
   // const [score, setScore] = useState([]);
   return (
@@ -25,13 +27,8 @@ export default function CreateBaseballBoard() {
         <div className="innNine">9</div>
         <div className="total">Total</div>
       </div>
-      <div className="playerList">
-        {/* Function here to import table from CreatePlayer then
-        maintain score */}
-      </div>
-      <div className='scoreInput'>
-        <ScoreCalculator />
-      </div>
+      
+      <Button onClick={()=> {console.log(playerList)}}>Show State</Button>
     </>
   );
 };

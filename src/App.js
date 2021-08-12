@@ -22,21 +22,12 @@ function App() {
     <>
       <Header title="Welcome" />
       <div className="btnTable">
-        <>
-          <Link className="optionBtn" to="/game/create" style={linkStyle}>
-            Create Game
-          </Link>
-        </>
-        <>
-          <Link className="optionBtn" to="/rules" style={linkStyle}>
-            Rules
-          </Link>
-        </>
-        <>
-          <Link className="optionBtn" to="/create_player" style={linkStyle}>
-            Create Player
-          </Link>
-        </>
+        <Link className="optionBtn" to="/rules" style={linkStyle}>
+          Rules
+        </Link>
+        <Link className="optionBtn" to="/create_player" style={linkStyle}>
+          Create Player
+        </Link>
       </div>
     </>
   );

@@ -2,25 +2,25 @@ import React, { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Link } from 'react-router-dom';
 
-import CreatePlayerList from './CreatePlayer';
+// import CreatePlayerList from './CreatePlayer';
 import Header from '../components/Header';
 
 export function CreateGame() {
-  const [games, setGames] = useState('');
+  const [game, setGame] = useState('');
 
   const onSelectGame = (eventKey) => {
-    setGames(eventKey);
+    setGame(eventKey);
   };
 
   useEffect(() => {
-    console.log(games);
-  }, [games]);
+    console.log(game);
+  }, [game]);
 
   return (
     <div>
       <Header title='Create a Game' goBackButton />
       <form>
-        <Dropdown value={games} onSelect={onSelectGame}>
+        <Dropdown value={game} onSelect={onSelectGame}>
         <Dropdown.Toggle id="gameDropDown" variant="secondary" title='Game DropDown'>
           Please Select a Game
         </Dropdown.Toggle>
@@ -28,7 +28,7 @@ export function CreateGame() {
           <Dropdown.Item as={ Link } to='/game/x01/create' eventKey='X01'>
             X01
           </Dropdown.Item>
-          <Dropdown.Item as={ Link } to='/game/baseball/create' eventKey='Baseball'>Baseball</Dropdown.Item>
+          <Dropdown.Item as={ Link } to='/game/baseball/' eventKey='Baseball'>Baseball</Dropdown.Item>
           <Dropdown.Item as={ Link } to='/game/elimination/create' eventKey='Elimination'>Elimination</Dropdown.Item>
           <Dropdown.Item as={ Link } to='/game/killer/create' eventKey='Killer'>Killer</Dropdown.Item>
           <Dropdown.Item as={ Link } to='/game/cricket/create' eventKey='Cricket'>Cricket</Dropdown.Item>
@@ -36,7 +36,7 @@ export function CreateGame() {
       </Dropdown>
     </form>
     <hr />
-    <h4>You selected {games}</h4>
+    <h4>You selected {game}</h4>
   </div>
   );
 };

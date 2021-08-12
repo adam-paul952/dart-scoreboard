@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import App from './App';
@@ -10,14 +10,26 @@ import Rules from './screens/Rules';
 import ScoreCalculator from './components/ScoreCalculator';
 
 export default function Routes() {
+  const [playerList, setPlayerList] = useState([]);
+
+  const updatePlayerList = (player) => {
+    setPlayerList([...playerList, player]);
+  };
+  console.log(playerList);
+  const deleteRow = (rowNumber) => {
+    let updatedRows = [...playerList];
+    updatedRows.splice(rowNumber, 1);
+    setPlayerList(updatedRows);
+  };
+
   return (
     <Router>
       <Switch>
         <Route exact path='/' component={App} />
-        <Route path='/game/create' component={CreateGame} />
-        <Route path='/create_player' component={CreatePlayerList} />
+        <Route path='/game/create' component={() => <CreateGame playerList={playerList} />} />
+        <Route path='/create_player' component={() => <CreatePlayerList playerList={playerList} updatePlayerList={updatePlayerList} deleteRow={deleteRow} />} />
         <Route exact path='/game/cricket' component={CreateCricketBoard} />
-        <Route exact path='/game/baseball' component={CreateBaseballBoard} />
+        <Route exact path='/game/baseball' component={() => <CreateBaseballBoard playerList={playerList} />} />
         <Route path='/game/x01/create' component={X01}></Route>
         <Route path='/game/baseball/create' component={Baseball}></Route>
         <Route path='/game/cricket/create' component={Cricket}></Route>
