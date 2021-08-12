@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
+
 import CreatePlayerList from './CreatePlayer';
 import Header from '../components/Header';
 

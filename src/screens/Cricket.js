@@ -1,11 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 import ScoreCalculator from '../components/ScoreCalculator';
-import '../App.css';
 
 export default function CreateCricketBoard() {
   return (
-    <div>
+    <>
       <Header title='Cricket' goBackButton />
       <br /> <br /> <br />
       <div>
@@ -47,6 +46,6 @@ export default function CreateCricketBoard() {
       <div className='scoreInput'>
         <ScoreCalculator isCricketBoard />
       </div>
-    </div>
+    </>
   );
 };

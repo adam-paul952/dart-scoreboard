@@ -1,10 +1,11 @@
 /* Global */
-* {
+html {
   font-family:Arial, Helvetica, sans-serif;
   text-align: center;
-  background-color:grey;
 }
-
+body {
+background-color:grey
+}
 /* Rules */
 .rulePar {
   text-align: left;

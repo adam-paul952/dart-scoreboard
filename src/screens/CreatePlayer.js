@@ -3,16 +3,13 @@ import Header from '../components/Header';
 import { CreateGame } from './CreateGame';
 import {Button, Container, Col, Row, Form, Table } from 'react-bootstrap';
 
-import '../App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 const CreatePlayerList = () => {
-  const initialState = { player: '', score: 0, isSubmitted: false };
+  const initialState = { player: '', };
   const [playerName, setPlayerName] = useState(initialState);
   const { player } = playerName;
 
   const onHandleChange = ({ target: { name, value } }) => {
-    setPlayerName({...playerName, [name]: value, isSubmitted: true});
+    setPlayerName({...playerName, [name]: value});
   };
 
   const [playerList, setPlayerList] = useState([]);
@@ -34,14 +31,10 @@ const CreatePlayerList = () => {
       setPlayerList(updatedRows);
   };
 
-  const onSubmit = () => {
-    setPlayerList([...playerList]);
-  };
-
   return (
-    <div>
+    <>
       <Header title='Create Player' goBackButton />
-      <Form onSubmit={onSubmit}>
+      <Form>
         <Container>
           <Row className="justify-content-md-center">
               <Col>
@@ -91,13 +84,10 @@ const CreatePlayerList = () => {
                 }
               </tbody>
             </Table>
-            <Button type="submit">Submit</Button>
+            <Button>Submit</Button>
         </Container>
       </Form>
-      <div>
-        {isSubmitted && <CreateGame />}
-      </div>
-    </div>
+    </>
   );
 };
 

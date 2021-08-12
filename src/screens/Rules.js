@@ -3,19 +3,19 @@ import Header from '../components/Header';
 
 const Rules = () => {
   return (
-    <div>
+    <>
       <X01Rules />
       <BaseBallRules />
       <CricketRules />
       <EliminationRules />
       <KillerRules />
-    </div>
+    </>
   );
 };
 
 const X01Rules = () => {
   return (
-    <div>
+    <>
       <Header title='Rules' goBackButton />
       <h1 className="ruleHeader">X01:</h1>
       <p className="rulePar"><b>Game Play:</b> X01 is a tournament style game, where players start with X01 points and lower their score to exactly 0.
@@ -28,12 +28,12 @@ const X01Rules = () => {
       the game is over and that player wins.
       </p>
       <hr />
-    </div>
+    </>
   );
 }
 const BaseBallRules = () => {
   return (
-    <div>
+    <>
       <h1 className="ruleHeader">Baseball:</h1>
       <p className="rulePar"><b>Game Play:</b> Players each take turns throwing three darts, starting with the 1. Once all players have thrown at the 1,
       the start of the next round players will throw at the 2. The game continues until all players have throw at the numbers
@@ -51,12 +51,12 @@ const BaseBallRules = () => {
       has the most points, win.
       </p>
       <hr />
-    </div>
+    </>
   );
 };
 const CricketRules = () => {
   return (
-    <div>
+    <>
       <h1 className="ruleHeader">Cricket:</h1>
       <p className="rulePar"><b>Game Play:</b> Players take turns throwing three darts at the board, hitting the numbers 15 through
       20; bulls-eye included. The game requires players to "close" the numbers by hitting them three times,
@@ -74,12 +74,12 @@ const CricketRules = () => {
       worth 1 of the 3 required.
       </p>
       <hr />
-    </div>
+    </>
   );
 };
 const EliminationRules = () => {
   return (
-    <div>
+    <>
       <h1 className="ruleHeader">Elimination:</h1>
       <p className="rulePar"><b>Game Play:</b> Players alternate throwing 3 darts at the board trying to achieve the highest possible scoring hand. The next player
       must score higher then the player in front of them, if the throwing player fails to do that then they lose a life,
@@ -88,12 +88,12 @@ const EliminationRules = () => {
       one player left with lives.
       </p>
       <hr />
-    </div>
+    </>
   );
 };
 const KillerRules = () => {
   return(
-    <div>
+    <>
       <h1 className="ruleHeader">Killer:</h1>
       <p className="rulePar"><b>Game Play:</b> The game begins by players throwing darts into the board with their hand opposite for throwing. (If I was
       right-handed, I would use my left hand for this.) A players number is assigned with whatever number you successfully
@@ -110,7 +110,7 @@ const KillerRules = () => {
       but instead they bring themself up to 5 then back down to 4 again. As such, if a player is a killer and they strike their
       own number instead of another player they bring their lives down equivilent to that score.
       </p>
-    </div>
+    </>
   );
 }
 

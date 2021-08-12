@@ -1,17 +1,16 @@
 import React from 'react';
 import Header from '../components/Header';
 import ScoreCalculator from '../components/ScoreCalculator';
-import '../App.css';
 
 export default function CreateBaseballBoard() {
   // const [inning, setInning] = useState('');
   // const [score, setScore] = useState([]);
   return (
-    <div>
+    <>
       <Header title='Baseball' goBackButton />
       <div className="inningCounter">
-        <div><p>Inning:</p></div>
-        <div><p>`$[Inning #]`</p></div>
+        <><p>Inning:</p></>
+        <><p>`$[Inning #]`</p></>
       </div>
       <div className="scoreboard">
         <div className="playerName">Player</div>
@@ -33,6 +32,6 @@ export default function CreateBaseballBoard() {
       <div className='scoreInput'>
         <ScoreCalculator />
       </div>
-    </div>
+    </>
   );
 };
