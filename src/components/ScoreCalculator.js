@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 
 const ScoreCalculator = ({ isCricketBoard }) => {
-  const [totalScore, setTotalScore] = useState(0);
-  const [currentScore, setCurrentScore] = useState(0);
+  const [totalScore, setTotalScore] = useState(null);
+  const [currentScore, setCurrentScore] = useState('');
 
   const handleInput = (number) => {
-    setCurrentScore(currentScore === 0 ? number : currentScore + number);
+    setCurrentScore(currentScore + number);
   };
 
   const deleteInput = () => {
@@ -14,13 +14,14 @@ const ScoreCalculator = ({ isCricketBoard }) => {
   };
 
   const handleScoreChange = (value) => {
-    if (Number.isInteger(value)) {
+    if (parseInt(value)) {
       handleInput(parseInt(value, 10));
       console.log(value);
     } else if (value === "Del") {
       deleteInput();
     } else if (value === "Enter") {
-      setTotalScore(currentScore);
+      setTotalScore(parseInt(currentScore, 10));
+      console.log(totalScore);
       setCurrentScore(0);
     }
   };
@@ -48,11 +49,11 @@ const ScoreCalculator = ({ isCricketBoard }) => {
             ))}
           </div>
         )}
-        <div className="result">
-          <p>Current Score : {currentScore}</p>
+        <>
+          <p>Current Score : {''}{currentScore}</p>
           <hr />
-          <p>Total Score : {totalScore}</p>
-        </div>
+          <p>Total Score : {''}{totalScore}</p>
+        </>
       </div>
     </div>
   );
@@ -77,7 +78,7 @@ const ScoreCalculatorKey = (props) => {
 const CricketScoreCalculatorKey = (props) => {
   return (
     <Button variant="secondary" onClick={() => props.onClick(props.keyValue)}>
-      {props.keyValue}
+      {props.keyValue}{''}
     </Button>
   );
 };
