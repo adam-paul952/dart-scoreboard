@@ -11,7 +11,7 @@ const Header = ( {title, goBackButton} ) => {
       { goBackButton &&
           <Button
             onClick={ () => history.goBack() }
-            variant='light'>
+            variant='secondary'>
               <BsSkipBackward />Go back
           </Button>
           }

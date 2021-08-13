@@ -1,34 +1,43 @@
-import React from 'react';
-import Header from '../components/Header';
+import React from "react";
+import Header from "../components/Header";
 import ScoreCalculator from '../components/ScoreCalculator';
-import Button from 'react-bootstrap/Button';
+import { Button, Container, Row, Col, Table } from "react-bootstrap";
 
-export default function CreateBaseballBoard( {playerList} ) {
+export default function CreateBaseballBoard({ playerList }) {
+  const inningNumber = ['Player', 1, 2, 3, 4, 5, 6, 7, 8, 9, 'Total'];
 
-  // const [inning, setInning] = useState('');
-  // const [score, setScore] = useState([]);
   return (
     <>
-      <Header title='Baseball' goBackButton />
-      <div className="inningCounter">
-        <><p>Inning:</p></>
-        <><p>`$[Inning #]`</p></>
-      </div>
-      <div className="scoreboard">
-        <div className="playerName">Player</div>
-        <div className="innOne">1</div>
-        <div className="innTwo">2</div>
-        <div className="innThree">3</div>
-        <div className="innFour">4</div>
-        <div className="innFive">5</div>
-        <div className="innSix">6</div>
-        <div className="innSeven">7</div>
-        <div className="innEight">8</div>
-        <div className="innNine">9</div>
-        <div className="total">Total</div>
-      </div>
-      
-      <Button onClick={()=> {console.log(playerList)}}>Show State</Button>
+      <Header title="Baseball" goBackButton />
+        <Container>
+          <Row className='justify-content-md-center'>
+            <Col>Inning:</Col>
+            <Col>Inning #</Col>
+          </Row>
+        </Container>
+        <Table>
+          <thead>
+            <tr>
+              {inningNumber.map((inning, index) => {return <th key={index}>{inning}</th>})}
+            </tr>
+          </thead>
+        </Table>
+      {/* <div className="inningCounter">
+        <>
+          <p>Inning:</p>
+        </>
+        <>
+          <p>`$[Inning #]`</p>
+        </>
+      </div> */}
+      <ScoreCalculator />
+      <Button
+        onClick={() => {
+          console.log(playerList);
+        }}
+      >
+        Show State
+      </Button>
     </>
   );
-};
+}

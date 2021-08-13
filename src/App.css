@@ -88,10 +88,12 @@ table {
 .scoreCalculator {
     width: 20rem;
     height: 30rem;
-    display: grid;
+    display: flex;
+    flex-direction: row;
     padding: 1%;
     position: relative;
     margin: auto;
+    margin-top: 2rem;
 }
 .scoreKeypad {
   padding-top: 1rem;
@@ -107,3 +109,6 @@ table {
   font-weight: bold;
   font-size: xx-large;
 }
+.result {
+  font-size: 30px;
+};
