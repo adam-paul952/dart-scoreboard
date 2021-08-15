@@ -5,7 +5,11 @@ import Header from "../components/Header";
 import { Button, Container, Col, Row, Form, Table } from "react-bootstrap";
 
 const CreatePlayerList = ({ playerList, updatePlayerList, deleteRow }) => {
-  const initialState = { player: "", score: 0, scoreList: [] };
+  const initialState = {
+    player: "",
+    score: 0,
+    scoreList: [],
+  };
   const [playerName, setPlayerName] = useState(initialState);
   const { player } = playerName;
 
@@ -70,7 +74,7 @@ const CreatePlayerList = ({ playerList, updatePlayerList, deleteRow }) => {
   );
 };
 
-const PlayerList = ({ index, player, deleteRow }) => {
+export const PlayerList = ({ index, player, deleteRow }) => {
   let playerName = player.player;
 
   const removeRow = (index) => {

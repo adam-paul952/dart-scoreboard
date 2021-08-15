@@ -15,6 +15,7 @@ import CreateCricketBoard from "./screens/Cricket";
 import CreateBaseballBoard from "./screens/Baseball";
 import Rules from "./screens/Rules";
 import ScoreCalculator from "./components/ScoreCalculator";
+import Scoreboard from "./components/ScoreBoard";
 
 export default function Routes() {
   const [playerList, setPlayerList] = useState([]);
@@ -23,14 +24,14 @@ export default function Routes() {
     setPlayerList([...playerList, player]);
   };
 
+  const updatePlayerScore = (score) => {
+    setPlayerList([...playerList, score]);
+  };
+
   const deleteRow = (rowNumber) => {
     let updatedRows = [...playerList];
     updatedRows.splice(rowNumber, 1);
     setPlayerList(updatedRows);
-  };
-
-  const updatePlayerScore = (score, scoreList) => {
-    setPlayerList([...playerList], score, scoreList);
   };
 
   console.log(playerList);
@@ -58,6 +59,12 @@ export default function Routes() {
           exact
           path="/game/baseball"
           component={() => <CreateBaseballBoard playerList={playerList} />}
+        />
+        <Route
+          path="game/scoreboard"
+          component={() => {
+            <Scoreboard playerList={playerList} />;
+          }}
         />
         <Route path="/game/x01/create" component={X01}></Route>
         <Route path="/game/baseball/create" component={Baseball}></Route>
