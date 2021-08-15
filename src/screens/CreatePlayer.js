@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import { Button, Container, Col, Row, Form, Table } from "react-bootstrap";
 
 const CreatePlayerList = ({ playerList, updatePlayerList, deleteRow }) => {
-  const initialState = { player: "" };
+  const initialState = { player: "", score: 0, scoreList: [] };
   const [playerName, setPlayerName] = useState(initialState);
   const { player } = playerName;
 
@@ -63,10 +63,8 @@ const CreatePlayerList = ({ playerList, updatePlayerList, deleteRow }) => {
           </tbody>
         </Table>
       </Container>
-      <Link to='/game/create'>
-        <Button>
-          Submit
-        </Button>
+      <Link to="/game/create">
+        <Button>Submit</Button>
       </Link>
     </>
   );

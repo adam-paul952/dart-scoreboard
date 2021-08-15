@@ -1,10 +1,10 @@
 /* Global */
 html {
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
 body {
-background-color:grey
+  background-color: grey;
 }
 /* Rules */
 .rulePar {
@@ -25,13 +25,14 @@ table {
   margin-right: auto;
 }
 
-#scoreboard, td {
+#scoreboard,
+td {
   border: 1px solid;
 }
 
 /* Header */
 .header {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   padding: 20px;
@@ -86,14 +87,14 @@ table {
 
 /* Score Calculator */
 .scoreCalculator {
-    width: 20rem;
-    height: 30rem;
-    display: flex;
-    flex-direction: row;
-    padding: 1%;
-    position: relative;
-    margin: auto;
-    margin-top: 2rem;
+  width: 20rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: row;
+  padding: 1%;
+  position: relative;
+  margin: auto;
+  margin-top: 2rem;
 }
 .scoreKeypad {
   padding-top: 1rem;
@@ -111,4 +112,4 @@ table {
 }
 .result {
   font-size: 30px;
-};
+}

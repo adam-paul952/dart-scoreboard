@@ -22,13 +22,18 @@ export default function Routes() {
   const updatePlayerList = (player) => {
     setPlayerList([...playerList, player]);
   };
-  console.log(playerList);
 
   const deleteRow = (rowNumber) => {
     let updatedRows = [...playerList];
     updatedRows.splice(rowNumber, 1);
     setPlayerList(updatedRows);
   };
+
+  const updatePlayerScore = (score, scoreList) => {
+    setPlayerList([...playerList], score, scoreList);
+  };
+
+  console.log(playerList);
 
   return (
     <Router>
@@ -61,7 +66,12 @@ export default function Routes() {
         <Route path="/game/killer/create" component={Killer}></Route>
         <Route
           path="/game/score_calculator"
-          component={ScoreCalculator}
+          component={() => (
+            <ScoreCalculator
+              playerList={playerList}
+              updatePlayerScore={updatePlayerScore}
+            />
+          )}
         />
         <Route path="/rules" component={Rules} />
       </Switch>
