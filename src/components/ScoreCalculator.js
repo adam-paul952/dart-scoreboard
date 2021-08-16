@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
 const ScoreCalculator = ({ isCricketBoard, playerList, updatePlayerScore }) => {
   const initialTurnState = playerList[0].player;
   const [turn, setTurn] = useState(initialTurnState);
-  const [playerScoreList, setPlayerScoreList] = useState([]);
+  // const [playerScoreList, setPlayerScoreList] = useState([]);
   const [playerScore, setPlayerScore] = useState("");
   const [playerData, setPlayerData] = useState(playerList);
 
