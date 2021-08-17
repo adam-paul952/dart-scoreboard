@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import App from "./App";
@@ -19,6 +19,16 @@ import ScoreCalculator from "./components/ScoreCalculator";
 import Scoreboard from "./components/ScoreBoard";
 
 export default function Routes() {
+  const initialState = { player: "", score: 0, scoreList: [] };
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      default:
+        return state;
+    }
+  };
+
   const [playerList, setPlayerList] = useState([]);
 
   const updatePlayerList = (player) => {
@@ -40,7 +50,7 @@ export default function Routes() {
   const [x01Points, setX01Points] = useState("");
 
   const x01GameSelect = (value) => {
-    setX01Points(...x01Points, value);
+    setX01Points(value);
   };
 
   console.log(x01Points);
