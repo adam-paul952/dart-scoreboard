@@ -19,15 +19,15 @@ import ScoreCalculator from "./components/ScoreCalculator";
 import Scoreboard from "./components/ScoreBoard";
 
 export default function Routes() {
-  const initialState = { player: "", score: 0, scoreList: [] };
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // const initialState = { player: "", score: 0, scoreList: [] };
+  // const [state, dispatch] = useReducer(reducer, initialState);
 
-  const reducer = (state, action) => {
-    switch (action.type) {
-      default:
-        return state;
-    }
-  };
+  // const reducer = (state, action) => {
+  //   switch (action.type) {
+  //     default:
+  //       return state;
+  //   }
+  // };
 
   const [playerList, setPlayerList] = useState([]);
 
