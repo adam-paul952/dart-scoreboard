@@ -53,7 +53,7 @@ export default function Routes() {
     setX01Points(value);
   };
 
-  console.log(x01Points);
+  // console.log(x01Points);
 
   return (
     <Router>
@@ -61,7 +61,9 @@ export default function Routes() {
         <Route exact path="/" component={App} />
         <Route
           path="/game/create"
-          component={() => <CreateGame playerList={playerList} />}
+          component={() => (
+            <CreateGame playerList={playerList} setPlayerList={setPlayerList} />
+          )}
         />
         <Route
           path="/create_player"
@@ -81,12 +83,21 @@ export default function Routes() {
         <Route
           exact
           path="/game/baseball"
-          component={() => <CreateBaseballBoard playerList={playerList} />}
+          component={() => (
+            <CreateBaseballBoard
+              playerList={playerList}
+              updatePlayerList={updatePlayerList}
+              setPlayerList={setPlayerList}
+            />
+          )}
         />
         <Route
           path="game/scoreboard"
           component={() => {
-            <Scoreboard playerList={playerList} />;
+            <Scoreboard
+              playerList={playerList}
+              setPlayerList={setPlayerList}
+            />;
           }}
         />
         <Route
@@ -109,7 +120,7 @@ export default function Routes() {
           component={() => (
             <ScoreCalculator
               playerList={playerList}
-              updatePlayerScore={updatePlayerScore}
+              setPlayerList={setPlayerList}
             />
           )}
         />

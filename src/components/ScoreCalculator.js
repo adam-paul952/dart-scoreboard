@@ -1,41 +1,34 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
-const ScoreCalculator = ({ isCricketBoard, playerList, updatePlayerScore }) => {
+const ScoreCalculator = ({ isCricketBoard, playerList, setPlayerList }) => {
   const initialTurnState = playerList[0].player;
   const [turn, setTurn] = useState(initialTurnState);
-  // const [playerScoreList, setPlayerScoreList] = useState([]);
   const [playerScore, setPlayerScore] = useState("");
   const [playerData, setPlayerData] = useState(playerList);
 
-  console.log(playerData);
-
   const handleInput = (number) => {
-    setPlayerScore(`${playerScore}${number}`);
+    setPlayerScore(playerScore + number);
   };
 
   const deleteInput = () => {
     setPlayerScore(0);
   };
 
-  console.log(turn);
-
   const handleScoreChange = (value) => {
     if (value === "Enter") {
       changeTurnValidate();
-      // console.log(playerScore);
-      // console.log(playerScoreList);
+      setPlayerScore("");
     } else if (value === "Del") {
       deleteInput();
       console.log("Entry was deleted");
     } else {
       handleInput(value);
     }
-    setPlayerScore(value);
   };
 
   const onUpdateScore = (value) => {
-    setPlayerScore(value);
+    setPlayerList(value);
   };
 
   const changeTurnValidate = () => {
@@ -46,17 +39,30 @@ const ScoreCalculator = ({ isCricketBoard, playerList, updatePlayerScore }) => {
   };
 
   const changeTurn = (score) => {
-    if (turn === initialTurnState) {
-      playerList[0].scoreList.push(score);
-      setPlayerData(playerList[0].scoreList);
-      setTurn(playerList[1].player);
-    } else if (turn === playerList[1].player) {
-      playerList[1].scoreList.push(score);
-      setPlayerData(playerList[1].scoreList);
-      setTurn(playerList[0].player);
+    debugger;
+    for (let i = 0; i < playerList.length; i++) {
+      console.log(playerList[i]);
     }
-    console.log(playerList);
-
+    // debugger;
+    // for (let i = 0; i < playerList.length; i++) {
+    //   if (playerList[i].player === turn) {
+    //     console.log(playerList.length);
+    //     console.log(turn);
+    //     playerList[i].scoreList.push(score);
+    //     setTurn(playerList[i + 1].player);
+    //     setPlayerList([...playerList]);
+    //   }
+    // }
+    // if (turn === initialTurnState) {
+    //   playerList[0].scoreList.push(score);
+    //   setPlayerData(playerList[0].scorelist);
+    //   setTurn(playerList[1].player);
+    //   setPlayerList([...playerData]);
+    // } else if (turn === playerList[1].player) {
+    //   playerList[1].scoreList.push(score);
+    //   setTurn(playerList[0].player);
+    //   setPlayerList([...playerData]);
+    // }
     // if (turn === "Player 1") {
     //   player1ScoreList.push(score);
     //   setPlayer1ScoreList(player1ScoreList);
@@ -74,41 +80,38 @@ const ScoreCalculator = ({ isCricketBoard, playerList, updatePlayerScore }) => {
     // }
   };
   return (
-    <div className="scoreCalculator">
-      <div className="scoreInput">
-        {isCricketBoard ? (
-          <div className="scoreKeypad">
-            {getCalculatorKeys(isCricketBoard).map((keyValue, index) => (
-              <CricketScoreCalculatorKey
-                key={index}
-                keyValue={keyValue}
-                onClick={handleScoreChange}
-                onChange={handleInput}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="scoreKeypad">
-            {getCalculatorKeys(isCricketBoard).map((keyValue, index) => (
-              <ScoreCalculatorKey
-                name="score"
-                key={index}
-                keyValue={keyValue}
-                onClick={handleScoreChange}
-                onChange={onUpdateScore}
-              />
-            ))}
-          </div>
-        )}
+    <>
+      {" "}
+      Total: {playerScore}
+      <div className="scoreCalculator">
+        <div className="scoreInput">
+          {isCricketBoard ? (
+            <div className="scoreKeypad">
+              {getCalculatorKeys(isCricketBoard).map((keyValue, index) => (
+                <CricketScoreCalculatorKey
+                  key={index}
+                  keyValue={keyValue}
+                  onClick={handleScoreChange}
+                  onChange={handleInput}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="scoreKeypad">
+              {getCalculatorKeys(isCricketBoard).map((keyValue, index) => (
+                <ScoreCalculatorKey
+                  name="score"
+                  key={index}
+                  keyValue={keyValue}
+                  onClick={handleScoreChange}
+                  onChange={onUpdateScore}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-      {/* <Button
-        onClick={() => {
-          console.log(playerScore);
-        }}
-      >
-        Show State
-      </Button> */}
-    </div>
+    </>
   );
 };
 
