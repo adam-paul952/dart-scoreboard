@@ -4,16 +4,28 @@ import Scoreboard from "../components/ScoreBoard";
 import ScoreCalculator from "../components/ScoreCalculator";
 import { Button } from "react-bootstrap";
 
-export default function CreateBaseballBoard({ playerList, setPlayerList }) {
+export default function CreateBaseballBoard({
+  playerList,
+  setPlayerList,
+  changeTurns,
+  getCurrentPlayer,
+}) {
   return (
     <>
       <Header title="Baseball" goBackButton />
       <Scoreboard
         playerList={playerList}
         setPlayerList={setPlayerList}
+        changeTurns={changeTurns}
+        getCurrentPlayer={getCurrentPlayer}
         baseball
       />
-      <ScoreCalculator playerList={playerList} setPlayerList={setPlayerList} />
+      <ScoreCalculator
+        playerList={playerList}
+        setPlayerList={setPlayerList}
+        changeTurns={changeTurns}
+        getCurrentPlayer={getCurrentPlayer}
+      />
       <br />
       <br /> <br /> <br />
       <Button

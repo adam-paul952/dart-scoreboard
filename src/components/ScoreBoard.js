@@ -52,18 +52,19 @@ const PlayerData = ({ playerList, baseball, cricket, x01Points, x01 }) => {
           playerList.map((player, index) => {
             return (
               <tr key={index}>
-                <th key={index} style={{ borderColor: "black" }}>
-                  {player.player}
-                </th>
-                <td key={index + 1}>{player.scoreList[index]}</td>
-                <td key={index + 2}>{player.scoreList[index + 1]}</td>
-                <td key={index + 3}>{player.scoreList[index + 2]}</td>
-                <td key={index + 4}>{player.scoreList[index + 3]}</td>
-                <td key={index + 5}>{player.scoreList[index + 4]}</td>
-                <td key={index + 6}>{player.scoreList[index + 5]}</td>
-                <td key={index + 7}>{player.scoreList[index + 6]}</td>
-                <td key={index + 8}>{player.scoreList[index + 7]}</td>
-                <td key={index + 9}>{player.scoreList[index + 8]}</td>
+                <th style={{ borderColor: "black" }}>{player.player}</th>
+                <td>{player.scoreList[0]}</td>
+                <td>{player.scoreList[1]}</td>
+                <td>{player.scoreList[2]}</td>
+                <td>{player.scoreList[3]}</td>
+                <td>{player.scoreList[4]}</td>
+                <td>{player.scoreList[5]}</td>
+                <td>{player.scoreList[6]}</td>
+                <td>{player.scoreList[7]}</td>
+                <td>{player.scoreList[8]}</td>
+                <td>
+                  {player.scoreList.reduce((sum, current) => sum + current, 0)}
+                </td>
               </tr>
             );
           })}

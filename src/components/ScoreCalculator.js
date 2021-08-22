@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
-const ScoreCalculator = ({ isCricketBoard, playerList, setPlayerList }) => {
-  const initialTurnState = playerList[0].player;
-  const [turn, setTurn] = useState(initialTurnState);
+const ScoreCalculator = ({
+  isCricketBoard,
+  playerList,
+  setPlayerList,
+  changeTurns,
+  getCurrentPlayer,
+}) => {
   const [playerScore, setPlayerScore] = useState("");
-  const [playerData, setPlayerData] = useState(playerList);
 
   const handleInput = (number) => {
-    setPlayerScore(playerScore + number);
+    setPlayerScore(`${playerScore}${number}`);
   };
 
   const deleteInput = () => {
-    setPlayerScore(0);
+    setPlayerScore("");
   };
 
   const handleScoreChange = (value) => {
@@ -21,63 +24,23 @@ const ScoreCalculator = ({ isCricketBoard, playerList, setPlayerList }) => {
       setPlayerScore("");
     } else if (value === "Del") {
       deleteInput();
-      console.log("Entry was deleted");
     } else {
       handleInput(value);
     }
   };
 
-  const onUpdateScore = (value) => {
-    setPlayerList(value);
-  };
-
   const changeTurnValidate = () => {
-    const score = Number(playerScore);
+    const score = parseInt(playerScore, 10);
     if (!isNaN(score)) {
       changeTurn(score);
     }
   };
 
   const changeTurn = (score) => {
-    debugger;
-    for (let i = 0; i < playerList.length; i++) {
-      console.log(playerList[i]);
-    }
-    // debugger;
-    // for (let i = 0; i < playerList.length; i++) {
-    //   if (playerList[i].player === turn) {
-    //     console.log(playerList.length);
-    //     console.log(turn);
-    //     playerList[i].scoreList.push(score);
-    //     setTurn(playerList[i + 1].player);
-    //     setPlayerList([...playerList]);
-    //   }
-    // }
-    // if (turn === initialTurnState) {
-    //   playerList[0].scoreList.push(score);
-    //   setPlayerData(playerList[0].scorelist);
-    //   setTurn(playerList[1].player);
-    //   setPlayerList([...playerData]);
-    // } else if (turn === playerList[1].player) {
-    //   playerList[1].scoreList.push(score);
-    //   setTurn(playerList[0].player);
-    //   setPlayerList([...playerData]);
-    // }
-    // if (turn === "Player 1") {
-    //   player1ScoreList.push(score);
-    //   setPlayer1ScoreList(player1ScoreList);
-    //   setTurn("Player 2");
-    //   setPlayer1Score(player1Score + score);
-    //   console.log(`Player 1 score is ${score}`);
-    //   console.log(`Player 1 scorelist is ${player1ScoreList}`);
-    // } else if (turn === "Player 2") {
-    //   player2ScoreList.push(score);
-    //   setPlayer2ScoreList(player2ScoreList);
-    //   setTurn("Player 1");
-    //   setPlayer2Score(player2Score + score);
-    //   console.log(`Player 2 score is ${score}`);
-    //   console.log(`Player 2 scorelist is ${player2ScoreList}`);
-    // }
+    let currentPlayer = getCurrentPlayer();
+    currentPlayer.scoreList.push(score);
+    setPlayerList([...playerList]);
+    changeTurns();
   };
   return (
     <>
@@ -104,7 +67,7 @@ const ScoreCalculator = ({ isCricketBoard, playerList, setPlayerList }) => {
                   key={index}
                   keyValue={keyValue}
                   onClick={handleScoreChange}
-                  onChange={onUpdateScore}
+                  onChange={handleInput}
                 />
               ))}
             </div>

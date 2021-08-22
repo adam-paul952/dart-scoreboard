@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import App from "./App";
@@ -19,24 +19,10 @@ import ScoreCalculator from "./components/ScoreCalculator";
 import Scoreboard from "./components/ScoreBoard";
 
 export default function Routes() {
-  // const initialState = { player: "", score: 0, scoreList: [] };
-  // const [state, dispatch] = useReducer(reducer, initialState);
-
-  // const reducer = (state, action) => {
-  //   switch (action.type) {
-  //     default:
-  //       return state;
-  //   }
-  // };
-
   const [playerList, setPlayerList] = useState([]);
 
   const updatePlayerList = (player) => {
     setPlayerList([...playerList, player]);
-  };
-
-  const updatePlayerScore = (score) => {
-    setPlayerList([...playerList, score]);
   };
 
   const deleteRow = (rowNumber) => {
@@ -45,7 +31,18 @@ export default function Routes() {
     setPlayerList(updatedRows);
   };
 
-  // console.log(playerList);
+  console.log(playerList);
+
+  const [turn, setTurn] = useState(0);
+
+  const changeTurns = () => {
+    const newTurn = turn + 1;
+    setTurn(newTurn % playerList.length);
+  };
+
+  const getCurrentPlayer = () => {
+    return playerList[turn];
+  };
 
   const [x01Points, setX01Points] = useState("");
 
@@ -88,6 +85,8 @@ export default function Routes() {
               playerList={playerList}
               updatePlayerList={updatePlayerList}
               setPlayerList={setPlayerList}
+              changeTurns={changeTurns}
+              getCurrentPlayer={getCurrentPlayer}
             />
           )}
         />
@@ -97,6 +96,8 @@ export default function Routes() {
             <Scoreboard
               playerList={playerList}
               setPlayerList={setPlayerList}
+              changeTurns={changeTurns}
+              getCurrentPlayer={getCurrentPlayer}
             />;
           }}
         />
@@ -121,6 +122,8 @@ export default function Routes() {
             <ScoreCalculator
               playerList={playerList}
               setPlayerList={setPlayerList}
+              changeTurns={changeTurns}
+              getCurrentPlayer={getCurrentPlayer}
             />
           )}
         />
