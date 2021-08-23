@@ -9,18 +9,18 @@ export default function CreateBaseballBoard({
   setPlayerList,
   changeTurns,
   getCurrentPlayer,
+  resetScoreList,
 }) {
   return (
     <>
-      <Header title="Baseball" goBackButton />
+      <Header title="Baseball" goBackButton resetButton />
       <Scoreboard
         playerList={playerList}
         setPlayerList={setPlayerList}
-        changeTurns={changeTurns}
-        getCurrentPlayer={getCurrentPlayer}
         baseball
       />
       <ScoreCalculator
+        isBaseballBoard
         playerList={playerList}
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
@@ -30,10 +30,10 @@ export default function CreateBaseballBoard({
       <br /> <br /> <br />
       <Button
         onClick={() => {
-          console.log(playerList);
+          resetScoreList();
         }}
       >
-        Show State
+        Reset Scores
       </Button>
       {/* <Button
         onClick={() => {

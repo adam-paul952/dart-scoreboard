@@ -6,7 +6,7 @@ import Scoreboard from "../components/ScoreBoard";
 export default function CreateCricketBoard({ playerList }) {
   return (
     <>
-      <Header title="Cricket" goBackButton />
+      <Header title="Cricket" goBackButton resetButton />
       <Scoreboard playerList={playerList} cricket />
       <ScoreCalculator isCricketBoard playerList={playerList} />
     </>

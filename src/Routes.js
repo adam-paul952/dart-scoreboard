@@ -17,8 +17,10 @@ import CreateX01Board from "./screens/X01";
 import Rules from "./screens/Rules";
 import ScoreCalculator from "./components/ScoreCalculator";
 import Scoreboard from "./components/ScoreBoard";
+import Header from "./components/Header";
 
 export default function Routes() {
+  // Main array to hold player objects
   const [playerList, setPlayerList] = useState([]);
 
   const updatePlayerList = (player) => {
@@ -30,20 +32,21 @@ export default function Routes() {
     updatedRows.splice(rowNumber, 1);
     setPlayerList(updatedRows);
   };
-
-  console.log(playerList);
-
+  const [game, setGame] = useState("");
+  console.log(game);
+  // Set turns and methods to cycle through players
   const [turn, setTurn] = useState(0);
 
   const changeTurns = () => {
     const newTurn = turn + 1;
     setTurn(newTurn % playerList.length);
   };
+  console.log(turn);
 
   const getCurrentPlayer = () => {
     return playerList[turn];
   };
-
+  // Set X01 points to game and players
   const [x01Points, setX01Points] = useState("");
 
   const x01GameSelect = (value) => {
@@ -52,6 +55,11 @@ export default function Routes() {
 
   // console.log(x01Points);
 
+  const resetScoreList = () => {
+    let newScoreList = [];
+    setPlayerList([...playerList, newScoreList]);
+  };
+
   return (
     <Router>
       <Switch>
@@ -59,7 +67,12 @@ export default function Routes() {
         <Route
           path="/game/create"
           component={() => (
-            <CreateGame playerList={playerList} setPlayerList={setPlayerList} />
+            <CreateGame
+              playerList={playerList}
+              setPlayerList={setPlayerList}
+              game={game}
+              setGame={setGame}
+            />
           )}
         />
         <Route
@@ -87,6 +100,7 @@ export default function Routes() {
               setPlayerList={setPlayerList}
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
+              resetScoreList={resetScoreList}
             />
           )}
         />
@@ -105,7 +119,14 @@ export default function Routes() {
           exact
           path="/game/x01"
           component={() => (
-            <CreateX01Board x01Points={x01Points} playerList={playerList} />
+            <CreateX01Board
+              x01Points={x01Points}
+              playerList={playerList}
+              updatePlayerList={updatePlayerList}
+              setPlayerList={setPlayerList}
+              changeTurns={changeTurns}
+              getCurrentPlayer={getCurrentPlayer}
+            />
           )}
         ></Route>
         <Route
@@ -128,6 +149,7 @@ export default function Routes() {
           )}
         />
         <Route path="/rules" component={Rules} />
+        <Route path="/game/header" component={Header}></Route>
       </Switch>
     </Router>
   );

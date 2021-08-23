@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 
 const Scoreboard = ({ playerList, baseball, cricket, x01, x01Points }) => {
@@ -45,6 +45,8 @@ const TableHeader = ({ playerList, baseball, cricket, x01 }) => {
 };
 
 const PlayerData = ({ playerList, baseball, cricket, x01Points, x01 }) => {
+  // const [playerScore, setPlayerScore] = useState("")
+  const x01GamePoints = () => {};
   return (
     <>
       <tbody>

@@ -3,9 +3,7 @@ import { Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 
-export function CreateGame() {
-  const [game, setGame] = useState("");
-
+export function CreateGame({ game, setGame }) {
   const onSelectGame = (eventKey) => {
     setGame(eventKey);
   };
@@ -91,7 +89,7 @@ export function X01({ x01GameSelect }) {
         to="/game/x01"
         onClick={onPointsSubmit}
       >
-        Continue
+        Continue to Game
       </Button>
     </>
   );

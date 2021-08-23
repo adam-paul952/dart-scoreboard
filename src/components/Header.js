@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { BsSkipBackward } from "react-icons/bs";
 
-const Header = ({ title, goBackButton }) => {
+const Header = ({ title, goBackButton, resetButton }) => {
   const history = useHistory();
   return (
     <div className="header">
@@ -14,6 +14,7 @@ const Header = ({ title, goBackButton }) => {
           Go back
         </Button>
       )}
+      {resetButton && <Button variant="secondary">Reset Game</Button>}
     </div>
   );
 };
