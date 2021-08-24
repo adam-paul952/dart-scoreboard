@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import Scoreboard from "../components/ScoreBoard";
-import ScoreCalculator from "../components/ScoreCalculator";
+import X01ScoreCalculator from "../components/X01ScoreCalculator";
 
 const CreateX01Board = ({
   x01Points,
@@ -9,8 +9,9 @@ const CreateX01Board = ({
   setPlayerList,
   changeTurns,
   getCurrentPlayer,
+  assignX01PlayerScore,
 }) => {
-  console.log(x01Points);
+  // console.log(x01Points);
   console.log(playerList);
   return (
     <>
@@ -21,11 +22,12 @@ const CreateX01Board = ({
         x01
         x01Points
       />
-      <ScoreCalculator
+      <X01ScoreCalculator
         playerList={playerList}
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
         getCurrentPlayer={getCurrentPlayer}
+        assignX01PlayerScore={assignX01PlayerScore}
       />
     </>
   );

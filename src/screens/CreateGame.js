@@ -47,7 +47,7 @@ export function CreateGame({ game, setGame }) {
   );
 }
 
-export function X01({ x01GameSelect }) {
+export function X01({ x01GameSelect, assignX01PlayerScore }) {
   const x01PointsList = [201, 301, 401, 501, 601, 701];
 
   const [x01Points, setX01Points] = useState("");
@@ -55,9 +55,10 @@ export function X01({ x01GameSelect }) {
   const onPointsSelect = (eventKey) => {
     setX01Points(eventKey);
   };
-  console.log(x01Points);
+  // console.log(x01Points);
   const onPointsSubmit = () => {
     x01GameSelect(x01Points);
+    assignX01PlayerScore(x01Points);
   };
 
   return (

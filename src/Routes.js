@@ -18,6 +18,7 @@ import Rules from "./screens/Rules";
 import ScoreCalculator from "./components/ScoreCalculator";
 import Scoreboard from "./components/ScoreBoard";
 import Header from "./components/Header";
+import X01ScoreCalculator from "./components/X01ScoreCalculator";
 
 export default function Routes() {
   // Main array to hold player objects
@@ -33,7 +34,7 @@ export default function Routes() {
     setPlayerList(updatedRows);
   };
   const [game, setGame] = useState("");
-  console.log(game);
+  // console.log(game);
   // Set turns and methods to cycle through players
   const [turn, setTurn] = useState(0);
 
@@ -47,17 +48,30 @@ export default function Routes() {
     return playerList[turn];
   };
   // Set X01 points to game and players
-  const [x01Points, setX01Points] = useState("");
+  const [x01Points, setX01Points] = useState(0);
 
   const x01GameSelect = (value) => {
     setX01Points(value);
   };
 
+  console.log(x01Points);
+
+  const assignX01PlayerScore = (x01Points) => {
+    let playerScore = [...playerList];
+    for (let i = 0; i < playerScore.length; i++) {
+      playerScore[i].score = x01Points;
+      setPlayerList(playerScore);
+    }
+  };
+
   // console.log(x01Points);
 
   const resetScoreList = () => {
-    let newScoreList = [];
-    setPlayerList([...playerList, newScoreList]);
+    let newScoreList = [...playerList];
+    for (let i = 0; i < newScoreList.length; i++) {
+      newScoreList[i].scoreList = [];
+      setPlayerList(newScoreList);
+    }
   };
 
   return (
@@ -72,6 +86,7 @@ export default function Routes() {
               setPlayerList={setPlayerList}
               game={game}
               setGame={setGame}
+              assignX01PlayerScore={assignX01PlayerScore}
             />
           )}
         />
@@ -126,12 +141,18 @@ export default function Routes() {
               setPlayerList={setPlayerList}
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
+              assignX01PlayerScore={assignX01PlayerScore}
             />
           )}
         ></Route>
         <Route
           path="/game/x01/create"
-          component={() => <X01 x01GameSelect={x01GameSelect} />}
+          component={() => (
+            <X01
+              x01GameSelect={x01GameSelect}
+              assignX01PlayerScore={assignX01PlayerScore}
+            />
+          )}
         ></Route>
         <Route path="/game/baseball/create" component={Baseball}></Route>
         <Route path="/game/cricket/create" component={Cricket}></Route>
@@ -145,6 +166,19 @@ export default function Routes() {
               setPlayerList={setPlayerList}
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
+            />
+          )}
+        />
+        <Route
+          path="/game/x01scorecalculator"
+          component={() => (
+            <X01ScoreCalculator
+              playerList={playerList}
+              setPlayerList={setPlayerList}
+              changeTurns={changeTurns}
+              getCurrentPlayer={getCurrentPlayer}
+              x01Points={x01Points}
+              assignX01PlayerScore={assignX01PlayerScore}
             />
           )}
         />
