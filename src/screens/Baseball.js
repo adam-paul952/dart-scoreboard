@@ -10,6 +10,8 @@ export default function CreateBaseballBoard({
   changeTurns,
   getCurrentPlayer,
   resetScoreList,
+  changeRound,
+  round,
 }) {
   return (
     <>
@@ -18,6 +20,7 @@ export default function CreateBaseballBoard({
         playerList={playerList}
         setPlayerList={setPlayerList}
         baseball
+        round={round}
       />
       <ScoreCalculator
         isBaseballBoard
@@ -25,6 +28,8 @@ export default function CreateBaseballBoard({
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
         getCurrentPlayer={getCurrentPlayer}
+        changeRound={changeRound}
+        round={round}
       />
       <br />
       <br /> <br /> <br />
@@ -35,13 +40,6 @@ export default function CreateBaseballBoard({
       >
         Reset Scores
       </Button>
-      {/* <Button
-        onClick={() => {
-          console.log(playerList.length);
-        }}
-      >
-        Show State Length
-      </Button> */}
     </>
   );
 }

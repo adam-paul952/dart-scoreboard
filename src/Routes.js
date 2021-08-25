@@ -35,26 +35,33 @@ export default function Routes() {
   };
   const [game, setGame] = useState("");
   // console.log(game);
-  // Set turns and methods to cycle through players
+  // Set turns and methods to cycle through players and rounds
   const [turn, setTurn] = useState(0);
 
   const changeTurns = () => {
     const newTurn = turn + 1;
     setTurn(newTurn % playerList.length);
   };
-  console.log(turn);
 
   const getCurrentPlayer = () => {
     return playerList[turn];
   };
+
+  const [round, setRound] = useState(0);
+
+  const changeRound = () => {
+    const nextRound = round + 1;
+    if (turn === 0) {
+      setRound(nextRound);
+    }
+  };
+  console.log(round);
   // Set X01 points to game and players
   const [x01Points, setX01Points] = useState(0);
 
   const x01GameSelect = (value) => {
     setX01Points(value);
   };
-
-  console.log(x01Points);
 
   const assignX01PlayerScore = (x01Points) => {
     let playerScore = [...playerList];
@@ -70,9 +77,12 @@ export default function Routes() {
     let newScoreList = [...playerList];
     for (let i = 0; i < newScoreList.length; i++) {
       newScoreList[i].scoreList = [];
+      newScoreList[i].score = x01Points;
       setPlayerList(newScoreList);
+      setTurn(0);
     }
   };
+  console.log(playerList);
 
   return (
     <Router>
@@ -116,6 +126,8 @@ export default function Routes() {
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
               resetScoreList={resetScoreList}
+              changeRound={changeRound}
+              round={round}
             />
           )}
         />
@@ -127,6 +139,8 @@ export default function Routes() {
               setPlayerList={setPlayerList}
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
+              changeRound={changeRound}
+              round={round}
             />;
           }}
         />
@@ -142,6 +156,9 @@ export default function Routes() {
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
               assignX01PlayerScore={assignX01PlayerScore}
+              resetScoreList={resetScoreList}
+              changeRound={changeRound}
+              round={round}
             />
           )}
         ></Route>
@@ -166,6 +183,8 @@ export default function Routes() {
               setPlayerList={setPlayerList}
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
+              changeRound={changeRound}
+              round={round}
             />
           )}
         />
@@ -183,7 +202,17 @@ export default function Routes() {
           )}
         />
         <Route path="/rules" component={Rules} />
-        <Route path="/game/header" component={Header}></Route>
+        <Route
+          path="/game/header"
+          component={() => (
+            <Header
+              title
+              goBackButton
+              resetButton
+              resetScoreList={resetScoreList}
+            />
+          )}
+        ></Route>
       </Switch>
     </Router>
   );

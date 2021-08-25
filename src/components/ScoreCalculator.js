@@ -7,6 +7,8 @@ const ScoreCalculator = ({
   setPlayerList,
   changeTurns,
   getCurrentPlayer,
+  changeRound,
+  round,
 }) => {
   const [playerScore, setPlayerScore] = useState("");
 
@@ -41,6 +43,17 @@ const ScoreCalculator = ({
     currentPlayer.scoreList.push(score);
     setPlayerList([...playerList]);
     changeTurns();
+    changeRound();
+    declareWinner();
+    console.log(round);
+  };
+
+  const declareWinner = () => {
+    if (round > 9) {
+      const maxScore = Math.max(...playerList.map((player) => player[0]));
+      const winningPlayer = playerList.find((player) => player[0] === maxScore);
+      console.log(winningPlayer);
+    }
   };
   return (
     <>

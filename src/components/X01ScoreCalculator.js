@@ -6,8 +6,6 @@ const X01ScoreCalculator = ({
   setPlayerList,
   changeTurns,
   getCurrentPlayer,
-  x01Points,
-  assignX01PlayerScore,
 }) => {
   const [playerScore, setPlayerScore] = useState("");
 

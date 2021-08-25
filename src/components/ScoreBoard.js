@@ -89,7 +89,9 @@ const PlayerData = ({ playerList, baseball, cricket, x01Points, x01 }) => {
           playerList.map((player, index) => {
             return (
               <tr key={index}>
-                <th style={{ borderColor: "black" }}>{player.player}</th>
+                <th style={{ borderColor: "black", borderWidth: "thin" }}>
+                  {player.player}
+                </th>
                 <td>{player.score}</td>
               </tr>
             );
