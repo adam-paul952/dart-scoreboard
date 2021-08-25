@@ -55,7 +55,7 @@ export default function Routes() {
       setRound(nextRound);
     }
   };
-  console.log(round);
+  console.log(`Current round is ${round}`);
   // Set X01 points to game and players
   const [x01Points, setX01Points] = useState(0);
 
