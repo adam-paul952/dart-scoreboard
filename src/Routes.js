@@ -5,30 +5,24 @@ import App from "./App";
 import CreatePlayerList from "./screens/CreatePlayer";
 import {
   CreateGame,
-  X01,
-  Baseball,
-  Cricket,
+  X01GameSelection,
   Elimination,
   Killer,
 } from "./screens/CreateGame";
-import CreateCricketBoard from "./screens/Cricket";
-import CreateBaseballBoard from "./screens/Baseball";
-import CreateX01Board from "./screens/X01";
+import Cricket from "./screens/Cricket";
+import Baseball from "./screens/Baseball";
+import X01 from "./screens/X01";
 import Rules from "./screens/Rules";
-import ScoreCalculator from "./components/ScoreCalculator";
-import Scoreboard from "./components/ScoreBoard";
-import Header from "./components/Header";
-import X01ScoreCalculator from "./components/X01ScoreCalculator";
 
 export default function Routes() {
   // Main array to hold player objects
   const [playerList, setPlayerList] = useState([]);
 
-  const updatePlayerList = (player) => {
+  const addPlayer = (player) => {
     setPlayerList([...playerList, player]);
   };
 
-  const deleteRow = (rowNumber) => {
+  const deletePlayer = (rowNumber) => {
     let updatedRows = [...playerList];
     updatedRows.splice(rowNumber, 1);
     setPlayerList(updatedRows);
@@ -105,23 +99,23 @@ export default function Routes() {
           component={() => (
             <CreatePlayerList
               playerList={playerList}
-              updatePlayerList={updatePlayerList}
-              deleteRow={deleteRow}
+              addPlayer={addPlayer}
+              deletePlayer={deletePlayer}
             />
           )}
         />
         <Route
           exact
           path="/game/cricket"
-          component={() => <CreateCricketBoard playerList={playerList} />}
+          component={() => <Cricket playerList={playerList} />}
         />
         <Route
           exact
           path="/game/baseball"
           component={() => (
-            <CreateBaseballBoard
+            <Baseball
               playerList={playerList}
-              updatePlayerList={updatePlayerList}
+              addPlayer={addPlayer}
               setPlayerList={setPlayerList}
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
@@ -132,26 +126,13 @@ export default function Routes() {
           )}
         />
         <Route
-          path="game/scoreboard"
-          component={() => {
-            <Scoreboard
-              playerList={playerList}
-              setPlayerList={setPlayerList}
-              changeTurns={changeTurns}
-              getCurrentPlayer={getCurrentPlayer}
-              changeRound={changeRound}
-              round={round}
-            />;
-          }}
-        />
-        <Route
           exact
           path="/game/x01"
           component={() => (
-            <CreateX01Board
+            <X01
               x01Points={x01Points}
               playerList={playerList}
-              updatePlayerList={updatePlayerList}
+              addPlayer={addPlayer}
               setPlayerList={setPlayerList}
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
@@ -165,54 +146,15 @@ export default function Routes() {
         <Route
           path="/game/x01/create"
           component={() => (
-            <X01
+            <X01GameSelection
               x01GameSelect={x01GameSelect}
               assignX01PlayerScore={assignX01PlayerScore}
             />
           )}
         ></Route>
-        <Route path="/game/baseball/create" component={Baseball}></Route>
-        <Route path="/game/cricket/create" component={Cricket}></Route>
         <Route path="/game/elimination/create" component={Elimination}></Route>
         <Route path="/game/killer/create" component={Killer}></Route>
-        <Route
-          path="/game/score_calculator"
-          component={() => (
-            <ScoreCalculator
-              playerList={playerList}
-              setPlayerList={setPlayerList}
-              changeTurns={changeTurns}
-              getCurrentPlayer={getCurrentPlayer}
-              changeRound={changeRound}
-              round={round}
-            />
-          )}
-        />
-        <Route
-          path="/game/x01scorecalculator"
-          component={() => (
-            <X01ScoreCalculator
-              playerList={playerList}
-              setPlayerList={setPlayerList}
-              changeTurns={changeTurns}
-              getCurrentPlayer={getCurrentPlayer}
-              x01Points={x01Points}
-              assignX01PlayerScore={assignX01PlayerScore}
-            />
-          )}
-        />
         <Route path="/rules" component={Rules} />
-        <Route
-          path="/game/header"
-          component={() => (
-            <Header
-              title
-              goBackButton
-              resetButton
-              resetScoreList={resetScoreList}
-            />
-          )}
-        ></Route>
       </Switch>
     </Router>
   );

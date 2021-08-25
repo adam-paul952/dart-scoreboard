@@ -14,7 +14,7 @@ const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
           Go back
         </Button>
       )}
-      {/* {resetButton && (
+      {resetButton && (
         <Button
           onClick={() => {
             resetScoreList();
@@ -23,7 +23,7 @@ const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
         >
           Reset Game
         </Button>
-      )} */}
+      )}
     </div>
   );
 };

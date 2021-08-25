@@ -2,9 +2,8 @@ import React from "react";
 import Header from "../components/Header";
 import Scoreboard from "../components/ScoreBoard";
 import ScoreCalculator from "../components/ScoreCalculator";
-import { Button } from "react-bootstrap";
 
-export default function CreateBaseballBoard({
+const Baseball = ({
   playerList,
   setPlayerList,
   changeTurns,
@@ -12,10 +11,15 @@ export default function CreateBaseballBoard({
   resetScoreList,
   changeRound,
   round,
-}) {
+}) => {
   return (
     <>
-      <Header title="Baseball" goBackButton resetButton />
+      <Header
+        title="Baseball"
+        goBackButton
+        resetButton
+        resetScoreList={resetScoreList}
+      />
       <Scoreboard
         playerList={playerList}
         setPlayerList={setPlayerList}
@@ -31,15 +35,8 @@ export default function CreateBaseballBoard({
         changeRound={changeRound}
         round={round}
       />
-      <br />
-      <br /> <br /> <br />
-      <Button
-        onClick={() => {
-          resetScoreList();
-        }}
-      >
-        Reset Scores
-      </Button>
     </>
   );
-}
+};
+
+export default Baseball;

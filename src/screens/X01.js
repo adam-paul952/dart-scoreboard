@@ -2,9 +2,8 @@ import React from "react";
 import Header from "../components/Header";
 import Scoreboard from "../components/ScoreBoard";
 import X01ScoreCalculator from "../components/X01ScoreCalculator";
-import { Button } from "react-bootstrap";
 
-const CreateX01Board = ({
+const X01 = ({
   x01Points,
   playerList,
   setPlayerList,
@@ -13,11 +12,14 @@ const CreateX01Board = ({
   assignX01PlayerScore,
   resetScoreList,
 }) => {
-  // console.log(x01Points);
-  // console.log(playerList);
   return (
     <>
-      <Header title={x01Points} goBackButton resetButton />
+      <Header
+        title={x01Points}
+        goBackButton
+        resetButton
+        resetScoreList={resetScoreList}
+      />
       <Scoreboard
         playerList={playerList}
         setPlayerList={setPlayerList}
@@ -31,17 +33,8 @@ const CreateX01Board = ({
         getCurrentPlayer={getCurrentPlayer}
         assignX01PlayerScore={assignX01PlayerScore}
       />
-      <br />
-      <br /> <br /> <br />
-      <Button
-        onClick={() => {
-          resetScoreList();
-        }}
-      >
-        Reset Scores
-      </Button>
     </>
   );
 };
 
-export default CreateX01Board;
+export default X01;

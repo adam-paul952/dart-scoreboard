@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import ScoreCalculator from "../components/ScoreCalculator";
 import Scoreboard from "../components/ScoreBoard";
 
-export default function CreateCricketBoard({ playerList }) {
+const Cricket = ({ playerList }) => {
   return (
     <>
       <Header title="Cricket" goBackButton resetButton />
@@ -11,4 +11,5 @@ export default function CreateCricketBoard({ playerList }) {
       <ScoreCalculator isCricketBoard playerList={playerList} />
     </>
   );
-}
+};
+export default Cricket;

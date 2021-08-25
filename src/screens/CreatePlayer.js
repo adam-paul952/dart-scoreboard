@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { Button, Container, Col, Row, Form, Table } from "react-bootstrap";
 
-const CreatePlayerList = ({ playerList, updatePlayerList, deleteRow }) => {
+const CreatePlayerList = ({ playerList, addPlayer, deletePlayer }) => {
   const initialState = {
     player: "",
     score: 0,
@@ -19,7 +19,7 @@ const CreatePlayerList = ({ playerList, updatePlayerList, deleteRow }) => {
 
   const onAddPlayer = (e) => {
     e.preventDefault();
-    updatePlayerList(playerName);
+    addPlayer(playerName);
     setPlayerName(initialState);
   };
 
@@ -60,7 +60,7 @@ const CreatePlayerList = ({ playerList, updatePlayerList, deleteRow }) => {
                   key={index}
                   index={index}
                   player={player}
-                  deleteRow={deleteRow}
+                  deletePlayer={deletePlayer}
                 />
               );
             })}
@@ -74,11 +74,11 @@ const CreatePlayerList = ({ playerList, updatePlayerList, deleteRow }) => {
   );
 };
 
-export const PlayerList = ({ index, player, deleteRow }) => {
+export const PlayerList = ({ index, player, deletePlayer }) => {
   let playerName = player.player;
 
   const removeRow = (index) => {
-    deleteRow(index);
+    deletePlayer(index);
   };
 
   return (

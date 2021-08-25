@@ -47,7 +47,7 @@ export function CreateGame({ game, setGame }) {
   );
 }
 
-export function X01({ x01GameSelect, assignX01PlayerScore }) {
+export function X01GameSelection({ x01GameSelect, assignX01PlayerScore }) {
   const x01PointsList = [201, 301, 401, 501, 601, 701];
 
   const [x01Points, setX01Points] = useState("");
@@ -95,22 +95,6 @@ export function X01({ x01GameSelect, assignX01PlayerScore }) {
     </>
   );
 }
-
-export const Baseball = () => {
-  return (
-    <>
-      <Header title="Baseball" goBackButton />
-    </>
-  );
-};
-
-export const Cricket = () => {
-  return (
-    <>
-      <Header title="Cricket" goBackButton />
-    </>
-  );
-};
 
 export const Killer = () => {
   return (
