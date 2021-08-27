@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Header from "../components/Header";
@@ -13,12 +13,23 @@ const CreatePlayerList = ({ playerList, addPlayer, deletePlayer }) => {
   const [playerName, setPlayerName] = useState(initialState);
   const { player } = playerName;
 
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === "Enter") {
+        onAddPlayer();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  });
+
   const onHandleChange = ({ target: { name, value } }) => {
     setPlayerName({ ...playerName, [name]: value });
   };
 
-  const onAddPlayer = (e) => {
-    e.preventDefault();
+  const onAddPlayer = () => {
     addPlayer(playerName);
     setPlayerName(initialState);
   };

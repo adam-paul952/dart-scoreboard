@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
 const ScoreCalculator = ({
@@ -9,6 +9,7 @@ const ScoreCalculator = ({
   getCurrentPlayer,
   changeRound,
   round,
+  resetScoreList,
 }) => {
   const [playerScore, setPlayerScore] = useState("");
 
@@ -45,16 +46,38 @@ const ScoreCalculator = ({
     changeTurns();
     changeRound();
     declareWinner();
-    console.log(round);
   };
 
   const declareWinner = () => {
-    if (round > 9) {
-      const maxScore = Math.max(...playerList.map((player) => player[0]));
-      const winningPlayer = playerList.find((player) => player[0] === maxScore);
-      console.log(winningPlayer);
+    if (round >= 10) {
+      let [winnerScore, winner] = [-1, null];
+      playerList.forEach((player) => {
+        const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
+        if (totalScore > winnerScore) {
+          winnerScore = totalScore;
+          winner = player.player;
+          alert(`The WINNER is: ${winner}`);
+          resetScoreList();
+        }
+      });
     }
   };
+
+  useEffect(() => {
+    const onKeyUp = (e) => {
+      if (e.key <= 57 || e.key >= 48) {
+        console.log(`The value is ${e.key}`);
+        handleInput();
+      } else if (e.key === "Enter") {
+        handleScoreChange();
+      }
+    };
+    document.addEventListener("keyup", onKeyUp);
+    return () => {
+      document.removeEventListener("keyup", onKeyUp);
+    };
+  }, []);
+
   return (
     <>
       {" "}

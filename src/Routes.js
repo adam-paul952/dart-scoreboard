@@ -73,10 +73,10 @@ export default function Routes() {
       newScoreList[i].scoreList = [];
       newScoreList[i].score = x01Points;
       setPlayerList(newScoreList);
-      setTurn(0);
+      setRound(0);
     }
   };
-  console.log(playerList);
+  // console.log(playerList);
 
   return (
     <Router>
