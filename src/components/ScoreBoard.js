@@ -1,7 +1,14 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-const Scoreboard = ({ playerList, baseball, cricket, x01, x01Points }) => {
+const Scoreboard = ({
+  playerList,
+  baseball,
+  cricket,
+  x01,
+  x01Points,
+  getCurrentPlayer,
+}) => {
   return (
     <>
       <Table>

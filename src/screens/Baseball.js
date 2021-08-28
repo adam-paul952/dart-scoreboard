@@ -25,6 +25,7 @@ const Baseball = ({
         setPlayerList={setPlayerList}
         baseball
         round={round}
+        getCurrentPlayer={getCurrentPlayer}
       />
       <ScoreCalculator
         isBaseballBoard

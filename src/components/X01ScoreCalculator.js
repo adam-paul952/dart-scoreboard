@@ -40,19 +40,42 @@ const X01ScoreCalculator = ({
     currentPlayer.score -= score;
     setPlayerList([...playerList]);
     changeTurns();
-    declareWinner();
+
+    declareWinner(currentPlayer, score);
   };
 
-  const declareWinner = () => {
-    let currentPlayer = getCurrentPlayer();
-    if (currentPlayer.score === 0) {
-      console.log(`${currentPlayer} is the winner !`);
+  const declareWinner = (currentPlayer, score) => {
+    if (score === 0) {
+      return (
+        <>
+          <p>The WINNER is: {currentPlayer}</p>
+          <p>Congratulations!</p>
+        </>
+      );
     }
+    let [winnerScore, winner] = [0, null];
+    playerList.forEach((player) => {
+      const totalScore = player.score - score;
+      // console.log(totalScore);
+      if (totalScore === winnerScore) {
+        winnerScore = totalScore;
+        winner = player.player;
+      }
+      if (winner !== null) {
+        return (
+          <>
+            <p>The WINNER is: {winner}</p>
+            <p>Congratulations!</p>
+          </>
+        );
+      }
+    });
   };
   return (
     <>
       {" "}
-      Total: {playerScore}
+      {/* <p>Total: {playerScore}</p> */}
+      {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
       <div className="scoreCalculator">
         <div className="scoreKeypad">
           {getCalculatorKeys().map((keyValue, index) => (

@@ -9,7 +9,6 @@ const ScoreCalculator = ({
   getCurrentPlayer,
   changeRound,
   round,
-  resetScoreList,
 }) => {
   const [playerScore, setPlayerScore] = useState("");
 
@@ -49,39 +48,47 @@ const ScoreCalculator = ({
   };
 
   const declareWinner = () => {
-    if (round >= 10) {
+    if (round >= 9) {
       let [winnerScore, winner] = [-1, null];
       playerList.forEach((player) => {
         const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
+        // console.log(totalScore);
         if (totalScore > winnerScore) {
           winnerScore = totalScore;
           winner = player.player;
-          alert(`The WINNER is: ${winner}`);
-          resetScoreList();
         }
       });
+      return (
+        <>
+          <p>The WINNER is: {winner}</p>
+          <p>Congratulations!</p>
+        </>
+      );
     }
   };
 
   useEffect(() => {
     const onKeyUp = (e) => {
+      const number = playerScore;
       if (e.key <= 57 || e.key >= 48) {
-        console.log(`The value is ${e.key}`);
-        handleInput();
-      } else if (e.key === "Enter") {
-        handleScoreChange();
+        setPlayerScore(number + e.key);
+      }
+      if (e.key === "Enter") {
+        changeTurnValidate();
+      } else if (e.key === "Backspace") {
+        deleteInput();
       }
     };
     document.addEventListener("keyup", onKeyUp);
     return () => {
       document.removeEventListener("keyup", onKeyUp);
     };
-  }, []);
+  });
 
   return (
     <>
       {" "}
-      Total: {playerScore}
+      {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
       <div className="scoreCalculator">
         <div className="scoreInput">
           {isCricketBoard ? (
