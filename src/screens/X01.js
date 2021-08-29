@@ -23,7 +23,8 @@ const X01 = ({
       <Scoreboard
         playerList={playerList}
         setPlayerList={setPlayerList}
-        x01
+        variant="x01"
+        getCurrentPlayer={getCurrentPlayer}
         x01Points
       />
       <X01ScoreCalculator

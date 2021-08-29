@@ -107,7 +107,12 @@ export default function Routes() {
         <Route
           exact
           path="/game/cricket"
-          component={() => <Cricket playerList={playerList} />}
+          component={() => (
+            <Cricket
+              playerList={playerList}
+              getCurrentPlayer={getCurrentPlayer}
+            />
+          )}
         />
         <Route
           exact
