@@ -9,8 +9,9 @@ const Baseball = ({
   changeTurns,
   getCurrentPlayer,
   resetScoreList,
-  changeRound,
   round,
+  changeRound,
+  turn,
 }) => {
   return (
     <>
@@ -25,7 +26,9 @@ const Baseball = ({
         setPlayerList={setPlayerList}
         baseball
         round={round}
+        changeRound={changeRound}
         getCurrentPlayer={getCurrentPlayer}
+        turn={turn}
       />
       <ScoreCalculator
         isBaseballBoard
@@ -35,6 +38,7 @@ const Baseball = ({
         getCurrentPlayer={getCurrentPlayer}
         changeRound={changeRound}
         round={round}
+        turn={turn}
       />
     </>
   );

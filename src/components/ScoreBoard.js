@@ -1,5 +1,6 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import { BiCaretLeft } from "react-icons/bi";
 
 const Scoreboard = ({
   playerList,
@@ -9,8 +10,11 @@ const Scoreboard = ({
   x01Points,
   getCurrentPlayer,
 }) => {
+  const currentPlayer = getCurrentPlayer().player;
+
   return (
     <>
+      It's {currentPlayer}'s turn !
       <Table>
         <TableHeader
           playerList={playerList}

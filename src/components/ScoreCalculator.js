@@ -9,6 +9,7 @@ const ScoreCalculator = ({
   getCurrentPlayer,
   changeRound,
   round,
+  turn,
 }) => {
   const [playerScore, setPlayerScore] = useState("");
 
@@ -41,9 +42,9 @@ const ScoreCalculator = ({
   const changeTurn = (score) => {
     let currentPlayer = getCurrentPlayer();
     currentPlayer.scoreList.push(score);
-    setPlayerList([...playerList]);
     changeTurns();
     changeRound();
+    setPlayerList([...playerList]);
     declareWinner();
   };
 
