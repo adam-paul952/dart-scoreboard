@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
 const X01ScoreCalculator = ({
@@ -39,38 +39,47 @@ const X01ScoreCalculator = ({
     let currentPlayer = getCurrentPlayer();
     currentPlayer.score -= score;
     setPlayerList([...playerList]);
+    if (currentPlayer.score === 0) {
+      declareWinner();
+      console.log(`The Winner is: ${currentPlayer.player}`);
+    }
     changeTurns();
-
-    declareWinner(currentPlayer, score);
   };
 
-  const declareWinner = (currentPlayer, score) => {
-    if (score === 0) {
-      return (
-        <>
-          <p>The WINNER is: {currentPlayer}</p>
-          <p>Congratulations!</p>
-        </>
-      );
-    }
-    let [winnerScore, winner] = [0, null];
+  const declareWinner = () => {
     playerList.forEach((player) => {
-      const totalScore = player.score - score;
-      // console.log(totalScore);
-      if (totalScore === winnerScore) {
-        winnerScore = totalScore;
-        winner = player.player;
-      }
-      if (winner !== null) {
+      if (player.score === 0) {
         return (
           <>
-            <p>The WINNER is: {winner}</p>
+            <p>The WINNER is: {player.player}</p>
             <p>Congratulations!</p>
           </>
         );
       }
     });
   };
+
+  useEffect(() => {
+    console.log(playerList);
+  }, [playerList]);
+
+  useEffect(() => {
+    const onKeyUp = (e) => {
+      const number = playerScore;
+      if (e.key <= 57 || e.key >= 48) {
+        setPlayerScore(number + e.key);
+      }
+      if (e.key === "Enter") {
+        changeTurnValidate();
+      } else if (e.key === "Backspace") {
+        deleteInput();
+      }
+    };
+    document.addEventListener("keyup", onKeyUp);
+    return () => {
+      document.removeEventListener("keyup", onKeyUp);
+    };
+  });
   return (
     <>
       {" "}

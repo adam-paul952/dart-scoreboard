@@ -23,12 +23,8 @@ const Baseball = ({
       />
       <Scoreboard
         playerList={playerList}
-        setPlayerList={setPlayerList}
         variant="baseball"
-        round={round}
-        changeRound={changeRound}
         getCurrentPlayer={getCurrentPlayer}
-        turn={turn}
       />
       <ScoreCalculator
         playerList={playerList}

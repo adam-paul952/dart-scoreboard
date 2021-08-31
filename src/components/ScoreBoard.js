@@ -130,7 +130,7 @@ const BaseballPlayerData = ({ player, index, currentPlayer }) => {
       {currentPlayer === player.player ? (
         <th style={{ borderColor: "black" }}>
           {player.player}
-          <BiCaretLeft />
+          <BiCaretLeft size={25} />
         </th>
       ) : (
         <th style={{ borderColor: "black" }}>{player.player}</th>

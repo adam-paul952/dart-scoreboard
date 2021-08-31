@@ -53,7 +53,6 @@ const ScoreCalculator = ({
       let [winnerScore, winner] = [-1, null];
       playerList.forEach((player) => {
         const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
-        // console.log(totalScore);
         if (totalScore > winnerScore) {
           winnerScore = totalScore;
           winner = player.player;

@@ -50,7 +50,7 @@ export function CreateGame({ game, setGame }) {
 export function X01GameSelection({ x01GameSelect, assignX01PlayerScore }) {
   const x01PointsList = [201, 301, 401, 501, 601, 701];
 
-  const [x01Points, setX01Points] = useState("");
+  const [x01Points, setX01Points] = useState(0);
 
   const onPointsSelect = (eventKey) => {
     setX01Points(eventKey);
