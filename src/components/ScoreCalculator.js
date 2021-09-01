@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Alert, Button, ButtonGroup } from "react-bootstrap";
 
 const ScoreCalculator = ({
   isCricketBoard,
@@ -60,8 +60,10 @@ const ScoreCalculator = ({
       });
       return (
         <>
-          <p>The WINNER is: {winner}</p>
-          <p>Congratulations!</p>
+          <Alert variant="success">
+            <p>The WINNER is: {winner}</p>
+            <p>Congratulations!</p>
+          </Alert>
         </>
       );
     }

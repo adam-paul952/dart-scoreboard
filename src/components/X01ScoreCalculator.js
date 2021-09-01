@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Alert, Button, ButtonGroup } from "react-bootstrap";
 
 const X01ScoreCalculator = ({
   playerList,
@@ -39,24 +39,33 @@ const X01ScoreCalculator = ({
     let currentPlayer = getCurrentPlayer();
     currentPlayer.score -= score;
     setPlayerList([...playerList]);
-    if (currentPlayer.score === 0) {
-      declareWinner();
-      console.log(`The Winner is: ${currentPlayer.player}`);
-    }
+
     changeTurns();
+    declareWinner();
   };
 
   const declareWinner = () => {
+    let winner = null;
     playerList.forEach((player) => {
       if (player.score === 0) {
-        return (
-          <>
-            <p>The WINNER is: {player.player}</p>
-            <p>Congratulations!</p>
-          </>
-        );
+        winner = player.player;
       }
     });
+    if (!winner) {
+      return (
+        <>
+          <p>Total: {playerScore}</p>
+        </>
+      );
+    }
+    return (
+      <>
+        <Alert variant="success">
+          <p>The WINNER is: {winner}</p>
+          <p>Congratulations!</p>
+        </Alert>
+      </>
+    );
   };
 
   useEffect(() => {
@@ -83,8 +92,7 @@ const X01ScoreCalculator = ({
   return (
     <>
       {" "}
-      {/* <p>Total: {playerScore}</p> */}
-      {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
+      {declareWinner()}
       <div className="scoreCalculator">
         <div className="scoreKeypad">
           {getCalculatorKeys().map((keyValue, index) => (
