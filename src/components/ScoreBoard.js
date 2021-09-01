@@ -74,7 +74,7 @@ const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
                 key={index}
                 player={player}
                 index={index}
-                currentplayer={currentPlayer}
+                currentPlayer={currentPlayer}
               />
             );
           }
@@ -88,9 +88,9 @@ const X01PlayerData = ({ player, index, currentPlayer }) => {
   return (
     <tr key={index}>
       {currentPlayer === player.player ? (
-        <th style={{ borderColor: "black" }}>
+        <th style={{ borderColor: "black", borderWidth: "thin" }}>
           {player.player}
-          <BiCaretLeft />
+          <BiCaretLeft size={20} />
         </th>
       ) : (
         <th style={{ borderColor: "black", borderWidth: "thin" }}>
@@ -107,7 +107,7 @@ const CricketPlayerData = ({ player, index, currentPlayer }) => {
       {currentPlayer === player.player ? (
         <th key={index} style={{ borderColor: "black" }}>
           {player.player}
-          <BiCaretLeft />
+          <BiCaretLeft size={20} />
         </th>
       ) : (
         <th key={index} style={{ borderColor: "black" }}>
@@ -130,7 +130,7 @@ const BaseballPlayerData = ({ player, index, currentPlayer }) => {
       {currentPlayer === player.player ? (
         <th style={{ borderColor: "black" }}>
           {player.player}
-          <BiCaretLeft size={25} />
+          <BiCaretLeft size={20} />
         </th>
       ) : (
         <th style={{ borderColor: "black" }}>{player.player}</th>

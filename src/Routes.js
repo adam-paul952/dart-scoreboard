@@ -111,6 +111,7 @@ export default function Routes() {
             <Cricket
               playerList={playerList}
               getCurrentPlayer={getCurrentPlayer}
+              resetScoreList={resetScoreList}
             />
           )}
         />

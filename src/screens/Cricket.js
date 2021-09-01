@@ -3,10 +3,15 @@ import Header from "../components/Header";
 import ScoreCalculator from "../components/ScoreCalculator";
 import Scoreboard from "../components/ScoreBoard";
 
-const Cricket = ({ playerList, getCurrentPlayer }) => {
+const Cricket = ({ playerList, getCurrentPlayer, resetScoreList }) => {
   return (
     <>
-      <Header title="Cricket" goBackButton resetButton />
+      <Header
+        title="Cricket"
+        resetScoreList={resetScoreList}
+        goBackButton
+        resetButton
+      />
       <Scoreboard
         playerList={playerList}
         variant="cricket"

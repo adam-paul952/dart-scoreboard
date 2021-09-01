@@ -60,17 +60,13 @@ const X01ScoreCalculator = ({
     }
     return (
       <>
-        <Alert variant="success">
+        <Alert variant="success" style={{ fontWeight: "bold" }}>
           <p>The WINNER is: {winner}</p>
           <p>Congratulations!</p>
         </Alert>
       </>
     );
   };
-
-  useEffect(() => {
-    console.log(playerList);
-  }, [playerList]);
 
   useEffect(() => {
     const onKeyUp = (e) => {
