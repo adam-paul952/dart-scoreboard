@@ -49,7 +49,7 @@ const ScoreCalculator = ({
   };
 
   const declareWinner = () => {
-    if (round >= 9) {
+    if (round >= 9 && turn === 0) {
       let [winnerScore, winner] = [-1, null];
       playerList.forEach((player) => {
         const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
@@ -89,7 +89,6 @@ const ScoreCalculator = ({
 
   return (
     <>
-      {" "}
       {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
       <div className="scoreCalculator">
         <div className="scoreInput">
@@ -154,7 +153,6 @@ const CricketScoreCalculatorKey = (props) => {
     >
       <Button variant="secondary" onClick={() => props.onClick(props.keyValue)}>
         {props.keyValue}
-        {""}
       </Button>
     </ButtonGroup>
   );

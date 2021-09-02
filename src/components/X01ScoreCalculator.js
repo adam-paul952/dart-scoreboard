@@ -87,7 +87,6 @@ const X01ScoreCalculator = ({
   });
   return (
     <>
-      {" "}
       {declareWinner()}
       <div className="scoreCalculator">
         <div className="scoreKeypad">

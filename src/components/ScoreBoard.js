@@ -21,9 +21,10 @@ const Scoreboard = ({ playerList, variant, x01Points, getCurrentPlayer }) => {
   );
 };
 
+const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
+const cricketNumbers = ["Player", 20, 19, 18, 17, 16, 15, "Bull"];
+
 const TableHeader = ({ variant }) => {
-  const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
-  const cricketNumbers = ["Player", 20, 19, 18, 17, 16, 15, "Bull"];
   return (
     <>
       <thead>
@@ -48,35 +49,36 @@ const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
     <>
       <tbody>
         {playerList.map((player, index) => {
-          if (variant === "baseball") {
-            return (
-              <BaseballPlayerData
-                key={index}
-                player={player}
-                index={index}
-                currentPlayer={currentPlayer}
-              />
-            );
-          }
-          if (variant === "cricket") {
-            return (
-              <CricketPlayerData
-                key={index}
-                player={player}
-                index={index}
-                currentPlayer={currentPlayer}
-              />
-            );
-          }
-          if (variant === "x01") {
-            return (
-              <X01PlayerData
-                key={index}
-                player={player}
-                index={index}
-                currentPlayer={currentPlayer}
-              />
-            );
+          switch (variant) {
+            case "baseball":
+              return (
+                <BaseballPlayerData
+                  key={index}
+                  player={player}
+                  index={index}
+                  currentPlayer={currentPlayer}
+                />
+              );
+            case "cricket":
+              return (
+                <CricketPlayerData
+                  key={index}
+                  player={player}
+                  index={index}
+                  currentPlayer={currentPlayer}
+                />
+              );
+            case "x01":
+              return (
+                <X01PlayerData
+                  key={index}
+                  player={player}
+                  index={index}
+                  currentPlayer={currentPlayer}
+                />
+              );
+            default:
+              throw new Error("Invalid variant!");
           }
         })}
       </tbody>
