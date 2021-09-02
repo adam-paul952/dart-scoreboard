@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Alert, Button, ButtonGroup } from "react-bootstrap";
 
 const ScoreCalculator = ({
-  isCricketBoard,
   playerList,
   setPlayerList,
   changeTurns,
@@ -92,42 +92,35 @@ const ScoreCalculator = ({
       {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
       <div className="scoreCalculator">
         <div className="scoreInput">
-          {isCricketBoard ? (
-            <div className="scoreKeypad">
-              {getCalculatorKeys(isCricketBoard).map((keyValue, index) => (
-                <CricketScoreCalculatorKey
-                  key={index}
-                  keyValue={keyValue}
-                  onClick={handleScoreChange}
-                  onChange={handleInput}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="scoreKeypad">
-              {getCalculatorKeys(isCricketBoard).map((keyValue, index) => (
-                <ScoreCalculatorKey
-                  name="score"
-                  key={index}
-                  keyValue={keyValue}
-                  onClick={handleScoreChange}
-                  onChange={handleInput}
-                />
-              ))}
-            </div>
-          )}
+          <div className="scoreKeypad">
+            {getCalculatorKeys().map((keyValue, index) => (
+              <ScoreCalculatorKey
+                name="score"
+                key={index}
+                keyValue={keyValue}
+                onClick={handleScoreChange}
+                onChange={handleInput}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>
   );
 };
 
-const getCalculatorKeys = (isCricketBoard) => {
-  if (isCricketBoard) {
-    return [20, 19, 18, 17, 16, 15, "Del", 25, "Enter"];
-  } else {
-    return [9, 8, 7, 6, 5, 4, 3, 2, 1, "Del", "0", "Enter"];
-  }
+ScoreCalculator.propTypes = {
+  playerList: PropTypes.array,
+  setPlayerList: PropTypes.func,
+  changeTurns: PropTypes.func,
+  getCurrentPlayer: PropTypes.func,
+  changeRound: PropTypes.func,
+  round: PropTypes.number,
+  turn: PropTypes.number,
+};
+
+const getCalculatorKeys = () => {
+  return [9, 8, 7, 6, 5, 4, 3, 2, 1, "Del", "0", "Enter"];
 };
 
 const ScoreCalculatorKey = (props) => {
@@ -144,18 +137,10 @@ const ScoreCalculatorKey = (props) => {
   );
 };
 
-const CricketScoreCalculatorKey = (props) => {
-  return (
-    <ButtonGroup
-      onChange={() => {
-        props.onChange(props.keyValue);
-      }}
-    >
-      <Button variant="secondary" onClick={() => props.onClick(props.keyValue)}>
-        {props.keyValue}
-      </Button>
-    </ButtonGroup>
-  );
+ScoreCalculatorKey.propTypes = {
+  keyValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onChange: () => {},
+  onClick: () => {},
 };
 
 export default ScoreCalculator;

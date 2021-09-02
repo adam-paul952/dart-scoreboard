@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Alert, Button, ButtonGroup } from "react-bootstrap";
 
 const X01ScoreCalculator = ({
@@ -105,6 +106,13 @@ const X01ScoreCalculator = ({
   );
 };
 
+X01ScoreCalculator.propTypes = {
+  playerList: PropTypes.array,
+  setPlayerList: PropTypes.func,
+  changeTurns: PropTypes.func,
+  getCurrentPlayer: PropTypes.func,
+};
+
 const getCalculatorKeys = () => {
   return [9, 8, 7, 6, 5, 4, 3, 2, 1, "Del", "0", "Enter"];
 };
@@ -121,6 +129,12 @@ const ScoreCalculatorKey = (props) => {
       </Button>
     </ButtonGroup>
   );
+};
+
+ScoreCalculatorKey.propTypes = {
+  keyValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onChange: () => {},
+  onClick: () => {},
 };
 
 export default X01ScoreCalculator;

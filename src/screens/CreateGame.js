@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
@@ -46,6 +47,11 @@ export function CreateGame({ game, setGame }) {
     </>
   );
 }
+
+CreateGame.propTypes = {
+  game: PropTypes.string.isRequired,
+  setGame: PropTypes.func,
+};
 
 export function X01GameSelection({ x01GameSelect, assignX01PlayerScore }) {
   const x01PointsList = [201, 301, 401, 501, 601, 701];
@@ -95,6 +101,11 @@ export function X01GameSelection({ x01GameSelect, assignX01PlayerScore }) {
     </>
   );
 }
+
+X01GameSelection.propTypes = {
+  x01GameSelect: PropTypes.func,
+  assignX01PlayerScore: PropTypes.func,
+};
 
 export const Killer = () => {
   return (

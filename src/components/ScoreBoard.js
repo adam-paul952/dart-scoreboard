@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import { BiCaretLeft } from "react-icons/bi";
 
@@ -7,7 +8,7 @@ const Scoreboard = ({ playerList, variant, x01Points, getCurrentPlayer }) => {
 
   return (
     <>
-      It's {currentPlayer}'s turn !
+      It&apos;s {currentPlayer}&apos;s turn !
       <Table>
         <TableHeader variant={variant} />
         <PlayerData
@@ -19,6 +20,13 @@ const Scoreboard = ({ playerList, variant, x01Points, getCurrentPlayer }) => {
       </Table>
     </>
   );
+};
+
+Scoreboard.propTypes = {
+  playerList: PropTypes.array,
+  variant: PropTypes.string,
+  x01Points: PropTypes.bool,
+  getCurrentPlayer: PropTypes.func,
 };
 
 const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
@@ -42,6 +50,8 @@ const TableHeader = ({ variant }) => {
     </>
   );
 };
+
+TableHeader.propTypes = { variant: PropTypes.string };
 
 const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
   const currentPlayer = getCurrentPlayer().player;
@@ -86,6 +96,12 @@ const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
   );
 };
 
+PlayerData.propTypes = {
+  playerList: PropTypes.array,
+  variant: PropTypes.string,
+  getCurrentPlayer: PropTypes.func,
+};
+
 const X01PlayerData = ({ player, index, currentPlayer }) => {
   return (
     <tr key={index}>
@@ -103,6 +119,13 @@ const X01PlayerData = ({ player, index, currentPlayer }) => {
     </tr>
   );
 };
+
+X01PlayerData.propTypes = {
+  player: PropTypes.object,
+  index: PropTypes.number,
+  currentPlayer: PropTypes.string,
+};
+
 const CricketPlayerData = ({ player, index, currentPlayer }) => {
   return (
     <tr key={index}>
@@ -126,6 +149,13 @@ const CricketPlayerData = ({ player, index, currentPlayer }) => {
     </tr>
   );
 };
+
+CricketPlayerData.propTypes = {
+  player: PropTypes.object,
+  index: PropTypes.number,
+  currentPlayer: PropTypes.string,
+};
+
 const BaseballPlayerData = ({ player, index, currentPlayer }) => {
   return (
     <tr key={index}>
@@ -149,6 +179,12 @@ const BaseballPlayerData = ({ player, index, currentPlayer }) => {
       <td>{player.scoreList.reduce((sum, current) => sum + current, 0)}</td>
     </tr>
   );
+};
+
+BaseballPlayerData.propTypes = {
+  player: PropTypes.object,
+  index: PropTypes.number,
+  currentPlayer: PropTypes.string,
 };
 
 export default Scoreboard;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { BsSkipBackward } from "react-icons/bs";
@@ -26,6 +27,13 @@ const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
       )}
     </div>
   );
+};
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+  goBackButton: PropTypes.bool,
+  resetButton: PropTypes.bool,
+  resetScoreList: PropTypes.func,
 };
 
 export default Header;

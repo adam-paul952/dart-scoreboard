@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
 import Header from "../components/Header";
 import { Button, Container, Col, Row, Form, Table } from "react-bootstrap";
 
@@ -85,6 +85,12 @@ const CreatePlayerList = ({ playerList, addPlayer, deletePlayer }) => {
   );
 };
 
+CreatePlayerList.propTypes = {
+  playerList: PropTypes.array,
+  addPlayer: PropTypes.func,
+  deletePlayer: PropTypes.func,
+};
+
 export const PlayerList = ({ index, player, deletePlayer }) => {
   let playerName = player.player;
 
@@ -103,6 +109,12 @@ export const PlayerList = ({ index, player, deletePlayer }) => {
       </td>
     </tr>
   );
+};
+
+PlayerList.propTypes = {
+  index: PropTypes.number,
+  player: PropTypes.object,
+  deletePlayer: PropTypes.func,
 };
 
 export default CreatePlayerList;

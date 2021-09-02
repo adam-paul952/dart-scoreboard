@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Scoreboard from "../components/ScoreBoard";
 import ScoreCalculator from "../components/ScoreCalculator";
@@ -37,6 +38,17 @@ const Baseball = ({
       />
     </>
   );
+};
+
+Baseball.propTypes = {
+  playerList: PropTypes.array,
+  setPlayerList: PropTypes.func,
+  changeTurns: PropTypes.func,
+  getCurrentPlayer: PropTypes.func,
+  resetScoreList: PropTypes.func,
+  round: PropTypes.number,
+  changeRound: PropTypes.func,
+  turn: PropTypes.number,
 };
 
 export default Baseball;

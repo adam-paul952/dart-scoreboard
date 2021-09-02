@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Header from "../components/Header";
 import ScoreCalculator from "../components/ScoreCalculator";
 import Scoreboard from "../components/ScoreBoard";
@@ -24,5 +25,11 @@ const Cricket = ({ playerList, getCurrentPlayer, resetScoreList }) => {
       />
     </>
   );
+};
+
+Cricket.propTypes = {
+  playerList: PropTypes.array,
+  getCurrentPlayer: PropTypes.func,
+  resetScoreList: PropTypes.func,
 };
 export default Cricket;
