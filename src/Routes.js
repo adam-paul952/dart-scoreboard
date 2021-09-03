@@ -110,8 +110,14 @@ export default function Routes() {
           component={() => (
             <Cricket
               playerList={playerList}
+              addPlayer={addPlayer}
+              setPlayerList={setPlayerList}
+              changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
               resetScoreList={resetScoreList}
+              changeRound={changeRound}
+              round={round}
+              turn={turn}
             />
           )}
         />

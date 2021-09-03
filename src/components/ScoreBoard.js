@@ -30,7 +30,7 @@ Scoreboard.propTypes = {
 };
 
 const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
-const cricketNumbers = ["Player", 20, 19, 18, 17, 16, 15, "Bull"];
+const cricketNumbers = ["Player", 20, 19, 18, 17, 16, 15, "Bull", "Score"];
 
 const TableHeader = ({ variant }) => {
   return (
@@ -127,6 +127,26 @@ X01PlayerData.propTypes = {
 };
 
 const CricketPlayerData = ({ player, index, currentPlayer }) => {
+  let hitCount = {};
+  for (const hitNum of player.scoreList) {
+    console.log(hitNum);
+    hitCount[hitNum] = hitCount[hitNum] ? hitCount[hitNum] + 1 : 1;
+    if (hitCount[hitNum] <= 3) {
+      player.score = 0;
+    } else if (hitCount[hitNum] > 3) {
+      player.score += hitNum;
+    }
+  }
+  // console.log(
+  //   hitCount[15],
+  //   hitCount[16],
+  //   hitCount[17],
+  //   hitCount[18],
+  //   hitCount[19],
+  //   hitCount[20],
+  //   hitCount["Bull"]
+  // );
+
   return (
     <tr key={index}>
       {currentPlayer === player.player ? (
@@ -139,13 +159,14 @@ const CricketPlayerData = ({ player, index, currentPlayer }) => {
           {player.player}
         </th>
       )}
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>{hitCount[20]}</td>
+      <td>{hitCount[19]}</td>
+      <td>{hitCount[18]}</td>
+      <td>{hitCount[17]}</td>
+      <td>{hitCount[16]}</td>
+      <td>{hitCount[15]}</td>
+      <td>{hitCount["Bull"]}</td>
+      <td>{player.score}</td>
     </tr>
   );
 };

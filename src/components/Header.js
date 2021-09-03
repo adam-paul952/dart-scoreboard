@@ -8,13 +8,13 @@ const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
   const history = useHistory();
   return (
     <div className="header">
-      <h1>{title}</h1>
       {goBackButton && (
         <Button onClick={() => history.goBack()} variant="secondary">
           <BsSkipBackward />
           Go back
         </Button>
       )}
+      <h1>{title}</h1>
       {resetButton && (
         <Button
           onClick={() => {

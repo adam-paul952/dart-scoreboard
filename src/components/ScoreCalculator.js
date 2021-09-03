@@ -68,7 +68,9 @@ const ScoreCalculator = ({
       );
     }
   };
-
+  useEffect(() => {
+    console.log(playerList);
+  }, [playerList]);
   useEffect(() => {
     const onKeyUp = (e) => {
       const number = playerScore;
