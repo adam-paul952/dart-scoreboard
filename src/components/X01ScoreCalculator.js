@@ -40,7 +40,6 @@ const X01ScoreCalculator = ({
     let currentPlayer = getCurrentPlayer();
     currentPlayer.score -= score;
     setPlayerList([...playerList]);
-
     changeTurns();
     declareWinner();
   };

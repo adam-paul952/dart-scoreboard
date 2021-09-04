@@ -31,6 +31,7 @@ Scoreboard.propTypes = {
 
 const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
 const cricketNumbers = ["Player", 20, 19, 18, 17, 16, 15, "Bull", "Score"];
+const eliminationHeader = ["Player", "Score", "Lives"];
 
 const TableHeader = ({ variant }) => {
   return (
@@ -44,6 +45,10 @@ const TableHeader = ({ variant }) => {
           {variant === "cricket" &&
             cricketNumbers.map((number, index) => {
               return <th key={index}>{number}</th>;
+            })}
+          {variant === "elimination" &&
+            eliminationHeader.map((item, index) => {
+              return <th key={index}>{item}</th>;
             })}
         </tr>
       </thead>
@@ -81,6 +86,15 @@ const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
             case "x01":
               return (
                 <X01PlayerData
+                  key={index}
+                  player={player}
+                  index={index}
+                  currentPlayer={currentPlayer}
+                />
+              );
+            case "elimination":
+              return (
+                <EliminationPlayerData
                   key={index}
                   player={player}
                   index={index}
@@ -208,4 +222,26 @@ BaseballPlayerData.propTypes = {
   currentPlayer: PropTypes.string,
 };
 
+const EliminationPlayerData = ({ player, index, currentPlayer }) => {
+  return (
+    <tr key={index}>
+      {currentPlayer === player.player ? (
+        <th style={{ borderColor: "black" }}>
+          {player.player}
+          <BiCaretLeft size={20} />
+        </th>
+      ) : (
+        <th style={{ borderColor: "black" }}>{player.player}</th>
+      )}
+      <td>{player.score}</td>
+      <td>{player.lives}</td>
+    </tr>
+  );
+};
+
+EliminationPlayerData.propTypes = {
+  player: PropTypes.object,
+  index: PropTypes.number,
+  currentPlayer: PropTypes.string,
+};
 export default Scoreboard;

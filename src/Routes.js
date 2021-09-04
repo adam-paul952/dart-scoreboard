@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+// import useLocalStorage from "./utils/useLocalStorage";
 import App from "./App";
 import CreatePlayerList from "./screens/CreatePlayer";
 import {
   CreateGame,
   X01GameSelection,
-  Elimination,
+  EliminationSetUp,
   Killer,
 } from "./screens/CreateGame";
 import Cricket from "./screens/Cricket";
 import Baseball from "./screens/Baseball";
 import X01 from "./screens/X01";
+import Elimination from "./screens/Elimination";
 import Rules from "./screens/Rules";
 
 export default function Routes() {
@@ -66,6 +67,14 @@ export default function Routes() {
   };
 
   // console.log(x01Points);
+
+  const assignPlayerLives = (playerLives) => {
+    let numberOfPlayerLives = [...playerList];
+    for (let i = 0; i < numberOfPlayerLives.length; i++) {
+      numberOfPlayerLives[i].lives = playerLives;
+      setPlayerList(numberOfPlayerLives);
+    }
+  };
 
   const resetScoreList = () => {
     let newScoreList = [...playerList];
@@ -157,6 +166,24 @@ export default function Routes() {
           )}
         ></Route>
         <Route
+          exact
+          path="/game/elimination"
+          component={() => (
+            <Elimination
+              playerList={playerList}
+              addPlayer={addPlayer}
+              setPlayerList={setPlayerList}
+              changeTurns={changeTurns}
+              getCurrentPlayer={getCurrentPlayer}
+              resetScoreList={resetScoreList}
+              changeRound={changeRound}
+              round={round}
+              turn={turn}
+            />
+          )}
+        />
+
+        <Route
           path="/game/x01/create"
           component={() => (
             <X01GameSelection
@@ -165,7 +192,12 @@ export default function Routes() {
             />
           )}
         ></Route>
-        <Route path="/game/elimination/create" component={Elimination}></Route>
+        <Route
+          path="/game/elimination/create"
+          component={() => (
+            <EliminationSetUp assignPlayerLives={assignPlayerLives} />
+          )}
+        ></Route>
         <Route path="/game/killer/create" component={Killer}></Route>
         <Route path="/rules" component={Rules} />
       </Switch>

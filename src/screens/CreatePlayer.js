@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import useLocalStorage from "../utils/useLocalStorage";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
@@ -9,9 +10,17 @@ const CreatePlayerList = ({ playerList, addPlayer, deletePlayer }) => {
     player: "",
     score: 0,
     scoreList: [],
+    lives: 0,
   };
-  const [playerName, setPlayerName] = useState(initialState);
+  const [playerName, setPlayerName] = useLocalStorage(
+    "playerDetails",
+    initialState
+  );
   const { player } = playerName;
+
+  useEffect(() => {
+    localStorage.setItem("playerDetails", JSON.stringify(playerName));
+  }, [playerName]);
 
   useEffect(() => {
     const onKeyDown = (e) => {

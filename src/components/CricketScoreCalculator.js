@@ -16,9 +16,6 @@ const CricketScoreCalculator = ({
   const handleInput = (number) => {
     playerScore.push(number);
     setPlayerScore([...playerScore]);
-    // let num = parseInt(number, 10);
-    // let currentPlayer = getCurrentPlayer();
-    // currentPlayer.scoreList.push(num);
   };
 
   const deleteScore = () => {

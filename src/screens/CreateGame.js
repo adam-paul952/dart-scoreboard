@@ -116,11 +116,50 @@ export const Killer = () => {
   );
 };
 
-export const Elimination = () => {
+export const EliminationSetUp = ({ assignPlayerLives }) => {
+  const eliminationLives = [3, 4, 5, 6, 7, 8, 9, 10];
+
+  const [playerLives, setPlayerLives] = useState(0);
+
+  const onLifeSelect = (eventKey) => {
+    setPlayerLives(eventKey);
+  };
+  // console.log(x01Points);
+  const onPointsSubmit = () => {
+    assignPlayerLives(playerLives);
+  };
   return (
     <>
       <Header title="Elimination" goBackButton />
-      <h1>Coming Soon!</h1>
+      <Dropdown value={playerLives} onSelect={onLifeSelect}>
+        <Dropdown.Toggle
+          id="livesDropdown"
+          variant="secondary"
+          name="livesDropdown"
+        >
+          Lives
+        </Dropdown.Toggle>
+        <Dropdown.Menu variant="dark">
+          {eliminationLives.map((numOfLives) => {
+            return (
+              <Dropdown.Item key={numOfLives} eventKey={numOfLives}>
+                {numOfLives}
+              </Dropdown.Item>
+            );
+          })}
+        </Dropdown.Menu>
+      </Dropdown>
+      <h2>Number of Lives Selected: {playerLives}</h2>
+      <Button
+        variant="secondary"
+        as={Link}
+        to="/game/elimination"
+        onClick={onPointsSubmit}
+      >
+        Continue to Game
+      </Button>
     </>
   );
 };
+
+EliminationSetUp.propTypes = { assignPlayerLives: PropTypes.func };
