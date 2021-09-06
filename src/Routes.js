@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import useLocalStorage from "./utils/useLocalStorage";
 import App from "./App";
 import CreatePlayerList from "./screens/CreatePlayer";
 import {
@@ -22,6 +21,16 @@ export default function Routes() {
   const addPlayer = (player) => {
     setPlayerList([...playerList, player]);
   };
+  useEffect(() => {
+    const arrayOfPlayers = localStorage.getItem("listOfPlayers");
+    if (arrayOfPlayers) {
+      setPlayerList(JSON.parse(arrayOfPlayers));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("listOfPlayers", JSON.stringify(playerList));
+  }, [playerList]);
 
   const deletePlayer = (rowNumber) => {
     let updatedRows = [...playerList];

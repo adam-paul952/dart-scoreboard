@@ -5,6 +5,7 @@ import { BiCaretLeft } from "react-icons/bi";
 
 const Scoreboard = ({ playerList, variant, x01Points, getCurrentPlayer }) => {
   const currentPlayer = getCurrentPlayer().player;
+  const currentPlayerById = getCurrentPlayer().id;
 
   return (
     <>
@@ -15,7 +16,8 @@ const Scoreboard = ({ playerList, variant, x01Points, getCurrentPlayer }) => {
           playerList={playerList}
           variant={variant}
           x01Points={x01Points}
-          getCurrentPlayer={getCurrentPlayer}
+          currentPlayer={currentPlayer}
+          currentPlayerById={currentPlayerById}
         />
       </Table>
     </>
@@ -58,8 +60,12 @@ const TableHeader = ({ variant }) => {
 
 TableHeader.propTypes = { variant: PropTypes.string };
 
-const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
-  const currentPlayer = getCurrentPlayer().player;
+const PlayerData = ({
+  playerList,
+  variant,
+  currentPlayer,
+  currentPlayerById,
+}) => {
   return (
     <>
       <tbody>
@@ -72,6 +78,7 @@ const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
                   player={player}
                   index={index}
                   currentPlayer={currentPlayer}
+                  currentPlayerById={currentPlayerById}
                 />
               );
             case "cricket":
@@ -81,6 +88,7 @@ const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
                   player={player}
                   index={index}
                   currentPlayer={currentPlayer}
+                  currentPlayerById={currentPlayerById}
                 />
               );
             case "x01":
@@ -90,6 +98,7 @@ const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
                   player={player}
                   index={index}
                   currentPlayer={currentPlayer}
+                  currentPlayerById={currentPlayerById}
                 />
               );
             case "elimination":
@@ -99,6 +108,7 @@ const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
                   player={player}
                   index={index}
                   currentPlayer={currentPlayer}
+                  currentPlayerById={currentPlayerById}
                 />
               );
             default:
@@ -113,13 +123,14 @@ const PlayerData = ({ playerList, variant, getCurrentPlayer }) => {
 PlayerData.propTypes = {
   playerList: PropTypes.array,
   variant: PropTypes.string,
-  getCurrentPlayer: PropTypes.func,
+  currentPlayer: PropTypes.string,
+  currentPlayerById: PropTypes.number,
 };
 
-const X01PlayerData = ({ player, index, currentPlayer }) => {
+const X01PlayerData = ({ player, index, currentPlayerById }) => {
   return (
     <tr key={index}>
-      {currentPlayer === player.player ? (
+      {currentPlayerById === player.id ? (
         <th style={{ borderColor: "black", borderWidth: "thin" }}>
           {player.player}
           <BiCaretLeft size={20} />
@@ -137,10 +148,10 @@ const X01PlayerData = ({ player, index, currentPlayer }) => {
 X01PlayerData.propTypes = {
   player: PropTypes.object,
   index: PropTypes.number,
-  currentPlayer: PropTypes.string,
+  currentPlayerById: PropTypes.number,
 };
 
-const CricketPlayerData = ({ player, index, currentPlayer }) => {
+const CricketPlayerData = ({ player, index, currentPlayerById }) => {
   let hitCount = {};
   for (const hitNum of player.scoreList) {
     console.log(hitNum);
@@ -148,7 +159,7 @@ const CricketPlayerData = ({ player, index, currentPlayer }) => {
     if (hitCount[hitNum] <= 3) {
       player.score = 0;
     } else if (hitCount[hitNum] > 3) {
-      player.score += hitNum;
+      player.score += player.score + hitNum;
     }
   }
   // console.log(
@@ -163,7 +174,7 @@ const CricketPlayerData = ({ player, index, currentPlayer }) => {
 
   return (
     <tr key={index}>
-      {currentPlayer === player.player ? (
+      {currentPlayerById === player.id ? (
         <th key={index} style={{ borderColor: "black" }}>
           {player.player}
           <BiCaretLeft size={20} />
@@ -188,13 +199,13 @@ const CricketPlayerData = ({ player, index, currentPlayer }) => {
 CricketPlayerData.propTypes = {
   player: PropTypes.object,
   index: PropTypes.number,
-  currentPlayer: PropTypes.string,
+  currentPlayerById: PropTypes.number,
 };
 
-const BaseballPlayerData = ({ player, index, currentPlayer }) => {
+const BaseballPlayerData = ({ player, index, currentPlayerById }) => {
   return (
     <tr key={index}>
-      {currentPlayer === player.player ? (
+      {currentPlayerById === player.id ? (
         <th style={{ borderColor: "black" }}>
           {player.player}
           <BiCaretLeft size={20} />
@@ -219,13 +230,13 @@ const BaseballPlayerData = ({ player, index, currentPlayer }) => {
 BaseballPlayerData.propTypes = {
   player: PropTypes.object,
   index: PropTypes.number,
-  currentPlayer: PropTypes.string,
+  currentPlayerById: PropTypes.number,
 };
 
-const EliminationPlayerData = ({ player, index, currentPlayer }) => {
+const EliminationPlayerData = ({ player, index, currentPlayerById }) => {
   return (
     <tr key={index}>
-      {currentPlayer === player.player ? (
+      {currentPlayerById === player.id ? (
         <th style={{ borderColor: "black" }}>
           {player.player}
           <BiCaretLeft size={20} />
@@ -242,6 +253,6 @@ const EliminationPlayerData = ({ player, index, currentPlayer }) => {
 EliminationPlayerData.propTypes = {
   player: PropTypes.object,
   index: PropTypes.number,
-  currentPlayer: PropTypes.string,
+  currentPlayerById: PropTypes.number,
 };
 export default Scoreboard;

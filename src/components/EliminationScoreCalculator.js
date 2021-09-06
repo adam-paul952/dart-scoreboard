@@ -64,7 +64,7 @@ const EliminationScoreCalculator = ({
     if (score > 0) {
       setPrevPlayerScore(score);
     }
-  }, [prevPlayerScore]);
+  }, [playerList, turn, prevPlayerScore]);
 
   //   const declareWinner = () => {
   //     if (round >= 9 && turn === 0) {
