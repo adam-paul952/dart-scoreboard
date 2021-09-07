@@ -26,7 +26,7 @@ const X01 = ({
         setPlayerList={setPlayerList}
         variant="x01"
         getCurrentPlayer={getCurrentPlayer}
-        x01Points
+        x01Points={x01Points}
       />
       <X01ScoreCalculator
         playerList={playerList}
@@ -34,6 +34,8 @@ const X01 = ({
         changeTurns={changeTurns}
         getCurrentPlayer={getCurrentPlayer}
         assignX01PlayerScore={assignX01PlayerScore}
+        resetScoreList={resetScoreList}
+        x01Points={x01Points}
       />
     </>
   );

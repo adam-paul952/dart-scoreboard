@@ -11,7 +11,7 @@ const Cricket = ({
   getCurrentPlayer,
   resetScoreList,
   round,
-  changeRound,
+  // changeRound,
   turn,
 }) => {
   return (
@@ -32,7 +32,7 @@ const Cricket = ({
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
         getCurrentPlayer={getCurrentPlayer}
-        changeRound={changeRound}
+        // changeRound={changeRound}
         round={round}
         turn={turn}
       />

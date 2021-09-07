@@ -7,9 +7,6 @@ const CricketScoreCalculator = ({
   setPlayerList,
   changeTurns,
   getCurrentPlayer,
-  changeRound,
-  // round,
-  // turn,
 }) => {
   const [playerScore, setPlayerScore] = useState([]);
 
@@ -42,7 +39,6 @@ const CricketScoreCalculator = ({
 
   const changeTurn = () => {
     changeTurns();
-    changeRound();
     setPlayerList([...playerList]);
     // declareWinner();
   };
@@ -75,9 +71,6 @@ CricketScoreCalculator.propTypes = {
   setPlayerList: PropTypes.func,
   changeTurns: PropTypes.func,
   getCurrentPlayer: PropTypes.func,
-  changeRound: PropTypes.func,
-  round: PropTypes.number,
-  turn: PropTypes.number,
 };
 
 const getCalculatorKeys = () => {

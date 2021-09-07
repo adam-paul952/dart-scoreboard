@@ -11,7 +11,7 @@ const Baseball = ({
   getCurrentPlayer,
   resetScoreList,
   round,
-  changeRound,
+  setRound,
   turn,
 }) => {
   return (
@@ -32,9 +32,10 @@ const Baseball = ({
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
         getCurrentPlayer={getCurrentPlayer}
-        changeRound={changeRound}
+        setRound={setRound}
         round={round}
         turn={turn}
+        resetScoreList={resetScoreList}
       />
     </>
   );
@@ -47,7 +48,7 @@ Baseball.propTypes = {
   getCurrentPlayer: PropTypes.func,
   resetScoreList: PropTypes.func,
   round: PropTypes.number,
-  changeRound: PropTypes.func,
+  setRound: PropTypes.func,
   turn: PropTypes.number,
 };
 

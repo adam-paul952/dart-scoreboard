@@ -38,7 +38,7 @@ export default function Routes() {
     setPlayerList(updatedRows);
   };
   const [game, setGame] = useState("");
-  // console.log(game);
+
   // Set turns and methods to cycle through players and rounds
   const [turn, setTurn] = useState(0);
 
@@ -53,13 +53,6 @@ export default function Routes() {
 
   const [round, setRound] = useState(0);
 
-  const changeRound = () => {
-    const nextRound = round + 1;
-    if (turn === 0) {
-      setRound(nextRound);
-    }
-  };
-  // console.log(`Current round is ${round}`);
   // Set X01 points to game and players
   const [x01Points, setX01Points] = useState(0);
 
@@ -75,8 +68,6 @@ export default function Routes() {
     }
   };
 
-  // console.log(x01Points);
-
   const assignPlayerLives = (playerLives) => {
     let numberOfPlayerLives = [...playerList];
     for (let i = 0; i < numberOfPlayerLives.length; i++) {
@@ -89,12 +80,11 @@ export default function Routes() {
     let newScoreList = [...playerList];
     for (let i = 0; i < newScoreList.length; i++) {
       newScoreList[i].scoreList = [];
-      newScoreList[i].score = x01Points;
+      newScoreList[i].score = 0;
+      newScoreList[i].lives = 0;
       setPlayerList(newScoreList);
-      setRound(0);
     }
   };
-  // console.log(playerList);
 
   return (
     <Router>
@@ -133,8 +123,8 @@ export default function Routes() {
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
               resetScoreList={resetScoreList}
-              changeRound={changeRound}
-              round={round}
+              // changeRound={changeRound}
+              // round={round}
               turn={turn}
             />
           )}
@@ -150,7 +140,7 @@ export default function Routes() {
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
               resetScoreList={resetScoreList}
-              changeRound={changeRound}
+              setRound={setRound}
               round={round}
               turn={turn}
             />
@@ -169,8 +159,8 @@ export default function Routes() {
               getCurrentPlayer={getCurrentPlayer}
               assignX01PlayerScore={assignX01PlayerScore}
               resetScoreList={resetScoreList}
-              changeRound={changeRound}
-              round={round}
+              // changeRound={changeRound}
+              // round={round}
             />
           )}
         ></Route>
@@ -185,8 +175,8 @@ export default function Routes() {
               changeTurns={changeTurns}
               getCurrentPlayer={getCurrentPlayer}
               resetScoreList={resetScoreList}
-              changeRound={changeRound}
-              round={round}
+              // changeRound={changeRound}
+              // round={round}
               turn={turn}
             />
           )}

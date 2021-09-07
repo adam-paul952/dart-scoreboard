@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import { BiCaretLeft } from "react-icons/bi";
+import { AiOutlineCloseCircle, AiOutlineClose } from "react-icons/ai";
+import { BsSlash } from "react-icons/bs";
 
 const Scoreboard = ({ playerList, variant, x01Points, getCurrentPlayer }) => {
   const currentPlayer = getCurrentPlayer().player;
@@ -27,7 +29,7 @@ const Scoreboard = ({ playerList, variant, x01Points, getCurrentPlayer }) => {
 Scoreboard.propTypes = {
   playerList: PropTypes.array,
   variant: PropTypes.string,
-  x01Points: PropTypes.bool,
+  x01Points: PropTypes.string,
   getCurrentPlayer: PropTypes.func,
 };
 
@@ -153,24 +155,12 @@ X01PlayerData.propTypes = {
 
 const CricketPlayerData = ({ player, index, currentPlayerById }) => {
   let hitCount = {};
-  for (const hitNum of player.scoreList) {
-    console.log(hitNum);
+  player.scoreList.map((hitNum) => {
     hitCount[hitNum] = hitCount[hitNum] ? hitCount[hitNum] + 1 : 1;
-    if (hitCount[hitNum] <= 3) {
-      player.score = 0;
-    } else if (hitCount[hitNum] > 3) {
-      player.score += player.score + hitNum;
+    if (player.scoreList[hitNum] > 3) {
+      player.score += hitNum;
     }
-  }
-  // console.log(
-  //   hitCount[15],
-  //   hitCount[16],
-  //   hitCount[17],
-  //   hitCount[18],
-  //   hitCount[19],
-  //   hitCount[20],
-  //   hitCount["Bull"]
-  // );
+  });
 
   return (
     <tr key={index}>
@@ -184,13 +174,55 @@ const CricketPlayerData = ({ player, index, currentPlayerById }) => {
           {player.player}
         </th>
       )}
-      <td>{hitCount[20]}</td>
-      <td>{hitCount[19]}</td>
-      <td>{hitCount[18]}</td>
-      <td>{hitCount[17]}</td>
-      <td>{hitCount[16]}</td>
-      <td>{hitCount[15]}</td>
-      <td>{hitCount["Bull"]}</td>
+      <td>
+        <CricketScoreboardDisplay
+          player={player}
+          hitCount={hitCount}
+          hitNum="20"
+        />
+      </td>
+      <td>
+        <CricketScoreboardDisplay
+          player={player}
+          hitCount={hitCount}
+          hitNum="19"
+        />
+      </td>
+      <td>
+        <CricketScoreboardDisplay
+          player={player}
+          hitCount={hitCount}
+          hitNum="18"
+        />
+      </td>
+      <td>
+        <CricketScoreboardDisplay
+          player={player}
+          hitCount={hitCount}
+          hitNum="17"
+        />
+      </td>
+      <td>
+        <CricketScoreboardDisplay
+          player={player}
+          hitCount={hitCount}
+          hitNum="16"
+        />
+      </td>
+      <td>
+        <CricketScoreboardDisplay
+          player={player}
+          hitCount={hitCount}
+          hitNum="15"
+        />
+      </td>
+      <td>
+        <CricketScoreboardDisplay
+          player={player}
+          hitCount={hitCount}
+          hitNum="Bull"
+        />
+      </td>
       <td>{player.score}</td>
     </tr>
   );
@@ -200,6 +232,23 @@ CricketPlayerData.propTypes = {
   player: PropTypes.object,
   index: PropTypes.number,
   currentPlayerById: PropTypes.number,
+};
+
+const CricketScoreboardDisplay = ({ hitCount, hitNum }) => {
+  if (hitCount[hitNum] === 1) {
+    return <BsSlash style={{ fontSize: "25px" }} />;
+  } else if (hitCount[hitNum] === 2) {
+    return <AiOutlineClose style={{ fontSize: "20px" }} />;
+  } else if (hitCount[hitNum] >= 3) {
+    return <AiOutlineCloseCircle style={{ fontSize: "28px" }} />;
+  }
+  return null;
+};
+
+CricketScoreboardDisplay.propTypes = {
+  player: PropTypes.object,
+  hitCount: PropTypes.object,
+  hitNum: PropTypes.string,
 };
 
 const BaseballPlayerData = ({ player, index, currentPlayerById }) => {

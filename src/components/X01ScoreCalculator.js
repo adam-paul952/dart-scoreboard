@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Alert, Button, ButtonGroup } from "react-bootstrap";
 
@@ -7,6 +8,7 @@ const X01ScoreCalculator = ({
   setPlayerList,
   changeTurns,
   getCurrentPlayer,
+  resetScoreList,
 }) => {
   const [playerScore, setPlayerScore] = useState("");
 
@@ -63,6 +65,23 @@ const X01ScoreCalculator = ({
         <Alert variant="success" style={{ fontWeight: "bold" }}>
           <p>The WINNER is: {winner}</p>
           <p>Congratulations!</p>
+          <Button
+            variant="success"
+            as={Link}
+            to="/game/x01/create"
+            className="m-3"
+            onClick={() => resetScoreList()}
+          >
+            Play Again
+          </Button>
+          <Button
+            variant="success"
+            as={Link}
+            to="/game/create"
+            onClick={() => resetScoreList()}
+          >
+            Choose another game
+          </Button>
         </Alert>
       </>
     );
@@ -85,6 +104,7 @@ const X01ScoreCalculator = ({
       document.removeEventListener("keyup", onKeyUp);
     };
   });
+
   return (
     <>
       {declareWinner()}
@@ -110,6 +130,9 @@ X01ScoreCalculator.propTypes = {
   setPlayerList: PropTypes.func,
   changeTurns: PropTypes.func,
   getCurrentPlayer: PropTypes.func,
+  resetScoreList: PropTypes.func,
+  assignX01PlayerScore: PropTypes.func,
+  x01Points: PropTypes.string,
 };
 
 const getCalculatorKeys = () => {
