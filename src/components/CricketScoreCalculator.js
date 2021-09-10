@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button, ButtonGroup } from "react-bootstrap";
+import useGame from "../util/useGame";
 
-const CricketScoreCalculator = ({
-  playerList,
-  setPlayerList,
-  changeTurns,
-  getCurrentPlayer,
-}) => {
+const CricketScoreCalculator = () => {
+  const { playerList, setPlayerList, changeTurns, getCurrentPlayer } =
+    useGame();
   const [playerScore, setPlayerScore] = useState([]);
 
   const handleInput = (number) => {
@@ -64,13 +62,6 @@ const CricketScoreCalculator = ({
       </div>
     </>
   );
-};
-
-CricketScoreCalculator.propTypes = {
-  playerList: PropTypes.array,
-  setPlayerList: PropTypes.func,
-  changeTurns: PropTypes.func,
-  getCurrentPlayer: PropTypes.func,
 };
 
 const getCalculatorKeys = () => {

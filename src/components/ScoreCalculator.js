@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Alert, Button, ButtonGroup } from "react-bootstrap";
+import useGame from "../util/useGame";
 
-const ScoreCalculator = ({
-  playerList,
-  setPlayerList,
-  changeTurns,
-  getCurrentPlayer,
-  resetScoreList,
-  round,
-  setRound,
-}) => {
+const ScoreCalculator = () => {
+  const {
+    playerList,
+    setPlayerList,
+    changeTurns,
+    getCurrentPlayer,
+    resetScoreList,
+    round,
+    setRound,
+  } = useGame();
+
   const [playerScore, setPlayerScore] = useState("");
 
   const handleInput = (number) => {

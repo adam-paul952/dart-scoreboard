@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-// import useLocalStorage from "../utils/useLocalStorage";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { Button, Container, Col, Row, Form, Table } from "react-bootstrap";
+import useGame from "../util/useGame";
 
-const CreatePlayerList = ({ playerList, addPlayer, deletePlayer }) => {
+const CreatePlayerList = () => {
+  const { playerList, addPlayer, deletePlayer } = useGame();
   const initialState = {
     id: Math.floor(Math.random() * 100),
     player: "",
@@ -86,12 +87,6 @@ const CreatePlayerList = ({ playerList, addPlayer, deletePlayer }) => {
       </Link>
     </>
   );
-};
-
-CreatePlayerList.propTypes = {
-  playerList: PropTypes.array,
-  addPlayer: PropTypes.func,
-  deletePlayer: PropTypes.func,
 };
 
 export const PlayerList = ({ index, player, deletePlayer }) => {

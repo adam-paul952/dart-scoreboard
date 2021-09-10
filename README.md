@@ -46,6 +46,6 @@ Once the `node_modules` are installed, run
 
     npm start
 
-_**Please Note:** This app is still in development and only games with_ :white*check_mark: \_are fully playable games.*
+_**Please Note:** This app is still in development and only games with :white_check_mark: are fully playable games._
 
 ---

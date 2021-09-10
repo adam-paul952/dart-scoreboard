@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { BsSkipBackward } from "react-icons/bs";
+import useGame from "../util/useGame";
 
-const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
+const Header = ({ title, goBackButton, resetButton }) => {
+  const { resetScoreList } = useGame;
   const history = useHistory();
   return (
     <div className="header">

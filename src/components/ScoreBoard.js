@@ -4,10 +4,13 @@ import { Table } from "react-bootstrap";
 import { BiCaretLeft } from "react-icons/bi";
 import { AiOutlineCloseCircle, AiOutlineClose } from "react-icons/ai";
 import { BsSlash } from "react-icons/bs";
+import useGame from "../util/useGame";
 
-const Scoreboard = ({ playerList, variant, x01Points, getCurrentPlayer }) => {
-  const currentPlayer = getCurrentPlayer().player;
-  const currentPlayerById = getCurrentPlayer().id;
+const Scoreboard = ({ variant }) => {
+  const { playerList, x01Points, getCurrentPlayer } = useGame();
+
+  const currentPlayer = getCurrentPlayer;
+  const currentPlayerById = getCurrentPlayer;
 
   return (
     <>
@@ -26,12 +29,7 @@ const Scoreboard = ({ playerList, variant, x01Points, getCurrentPlayer }) => {
   );
 };
 
-Scoreboard.propTypes = {
-  playerList: PropTypes.array,
-  variant: PropTypes.string,
-  x01Points: PropTypes.string,
-  getCurrentPlayer: PropTypes.func,
-};
+Scoreboard.propTypes = { variant: PropTypes.string };
 
 const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
 const cricketNumbers = ["Player", 20, 19, 18, 17, 16, 15, "Bull", "Score"];

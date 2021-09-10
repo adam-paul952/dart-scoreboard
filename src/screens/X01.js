@@ -1,18 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Scoreboard from "../components/ScoreBoard";
 import X01ScoreCalculator from "../components/X01ScoreCalculator";
+import useGame from "../util/useGame";
 
-const X01 = ({
-  x01Points,
-  playerList,
-  setPlayerList,
-  changeTurns,
-  getCurrentPlayer,
-  assignX01PlayerScore,
-  resetScoreList,
-}) => {
+const X01 = () => {
+  const {
+    x01Points,
+    playerList,
+    setPlayerList,
+    changeTurns,
+    getCurrentPlayer,
+    assignX01PlayerScore,
+    resetScoreList,
+  } = useGame();
   return (
     <>
       <Header
@@ -39,16 +40,6 @@ const X01 = ({
       />
     </>
   );
-};
-
-X01.propTypes = {
-  x01Points: PropTypes.string.isRequired,
-  playerList: PropTypes.array,
-  setPlayerList: PropTypes.func,
-  changeTurns: PropTypes.func,
-  getCurrentPlayer: PropTypes.func,
-  assignX01PlayerScore: PropTypes.func,
-  resetScoreList: PropTypes.func,
 };
 
 export default X01;

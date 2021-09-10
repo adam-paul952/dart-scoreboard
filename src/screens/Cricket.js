@@ -1,19 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Header from "../components/Header";
 import CricketScoreCalculator from "../components/CricketScoreCalculator";
 import Scoreboard from "../components/ScoreBoard";
+import useGame from "../util/useGame";
 
-const Cricket = ({
-  playerList,
-  setPlayerList,
-  changeTurns,
-  getCurrentPlayer,
-  resetScoreList,
-  round,
-  // changeRound,
-  turn,
-}) => {
+const Cricket = () => {
+  const {
+    playerList,
+    setPlayerList,
+    changeTurns,
+    getCurrentPlayer,
+    resetScoreList,
+    turn,
+  } = useGame();
+
   return (
     <>
       <Header
@@ -32,22 +32,10 @@ const Cricket = ({
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
         getCurrentPlayer={getCurrentPlayer}
-        // changeRound={changeRound}
-        round={round}
         turn={turn}
       />
     </>
   );
 };
 
-Cricket.propTypes = {
-  playerList: PropTypes.array,
-  setPlayerList: PropTypes.func,
-  changeTurns: PropTypes.func,
-  getCurrentPlayer: PropTypes.func,
-  resetScoreList: PropTypes.func,
-  round: PropTypes.number,
-  changeRound: PropTypes.func,
-  turn: PropTypes.number,
-};
 export default Cricket;

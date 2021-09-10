@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 import { Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import useGame from "../util/useGame";
 
-export function CreateGame({ game, setGame }) {
+export const CreateGame = () => {
+  const { game, setGame } = useGame();
+
   const onSelectGame = (eventKey) => {
     setGame(eventKey);
   };
@@ -46,14 +49,11 @@ export function CreateGame({ game, setGame }) {
       </form>
     </>
   );
-}
-
-CreateGame.propTypes = {
-  game: PropTypes.string.isRequired,
-  setGame: PropTypes.func,
 };
 
-export function X01GameSelection({ x01GameSelect, assignX01PlayerScore }) {
+export function X01GameSelection() {
+  const { x01GameSelect, assignX01PlayerScore } = useGame();
+
   const x01PointsList = [201, 301, 401, 501, 601, 701];
 
   const [x01Points, setX01Points] = useState(0);
@@ -95,17 +95,13 @@ export function X01GameSelection({ x01GameSelect, assignX01PlayerScore }) {
         as={Link}
         to="/game/x01"
         onClick={onPointsSubmit}
+        disabled={x01Points === 0 ? true : false}
       >
         Continue to Game
       </Button>
     </>
   );
 }
-
-X01GameSelection.propTypes = {
-  x01GameSelect: PropTypes.func,
-  assignX01PlayerScore: PropTypes.func,
-};
 
 export const Killer = () => {
   return (
