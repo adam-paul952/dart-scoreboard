@@ -52,15 +52,16 @@ export const CreateGame = () => {
 };
 
 export function X01GameSelection() {
-  const { x01GameSelect, assignX01PlayerScore } = useGame();
+  const { x01Points, setX01Points, x01GameSelect, assignX01PlayerScore } =
+    useGame();
 
   const x01PointsList = [201, 301, 401, 501, 601, 701];
 
-  const [x01Points, setX01Points] = useState(0);
+  // const [x01Points, setX01Points] = useState(0);
 
-  const onPointsSelect = (eventKey) => {
-    setX01Points(eventKey);
-  };
+  // const onPointsSelect = (eventKey) => {
+  //   setX01Points(eventKey);
+  // };
   // console.log(x01Points);
   const onPointsSubmit = () => {
     x01GameSelect(x01Points);
@@ -70,8 +71,7 @@ export function X01GameSelection() {
   return (
     <>
       <Header title="X01" goBackButton />
-
-      <Dropdown value={x01Points} onSelect={onPointsSelect}>
+      <Dropdown value={x01Points} onSelect={setX01Points}>
         <Dropdown.Toggle
           id="pointsDropdown"
           variant="secondary"
@@ -120,7 +120,7 @@ export const EliminationSetUp = ({ assignPlayerLives }) => {
   const onLifeSelect = (eventKey) => {
     setPlayerLives(eventKey);
   };
-  // console.log(x01Points);
+
   const onPointsSubmit = () => {
     assignPlayerLives(playerLives);
   };

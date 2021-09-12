@@ -7,12 +7,14 @@ import useGame from "../util/useGame";
 const X01 = () => {
   const {
     x01Points,
+    assignX01PlayerScore,
     playerList,
     setPlayerList,
     changeTurns,
-    getCurrentPlayer,
-    assignX01PlayerScore,
     resetScoreList,
+    getCurrentPlayer,
+    getCurrentPlayerById,
+    getCurrentPlayerByName,
   } = useGame();
   return (
     <>
@@ -23,11 +25,13 @@ const X01 = () => {
         resetScoreList={resetScoreList}
       />
       <Scoreboard
+        variant="x01"
+        x01Points={x01Points}
         playerList={playerList}
         setPlayerList={setPlayerList}
-        variant="x01"
         getCurrentPlayer={getCurrentPlayer}
-        x01Points={x01Points}
+        getCurrentPlayerById={getCurrentPlayerById}
+        getCurrentPlayerByName={getCurrentPlayerByName}
       />
       <X01ScoreCalculator
         playerList={playerList}

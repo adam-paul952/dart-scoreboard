@@ -2,33 +2,30 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Alert, Button, ButtonGroup } from "react-bootstrap";
-import useGame from "../util/useGame";
 
-const ScoreCalculator = () => {
-  const {
-    playerList,
-    setPlayerList,
-    changeTurns,
-    getCurrentPlayer,
-    resetScoreList,
-    round,
-    setRound,
-  } = useGame();
-
-  const [playerScore, setPlayerScore] = useState("");
+const ScoreCalculator = ({
+  playerList,
+  setPlayerList,
+  changeTurns,
+  getCurrentPlayer,
+  resetScoreList,
+  round,
+  setRound,
+}) => {
+  const [playerScore, setPlayerScore] = useState(0);
 
   const handleInput = (number) => {
     setPlayerScore(`${playerScore}${number}`);
   };
 
   const deleteInput = () => {
-    setPlayerScore("");
+    setPlayerScore(0);
   };
 
   const handleScoreChange = (value) => {
     if (value === "Enter") {
       changeTurnValidate();
-      setPlayerScore("");
+      setPlayerScore(0);
     } else if (value === "Del") {
       deleteInput();
     } else {
@@ -46,7 +43,6 @@ const ScoreCalculator = () => {
   const changeTurn = (score) => {
     let currentPlayer = getCurrentPlayer();
     currentPlayer.scoreList.push(score);
-
     setPlayerList([...playerList]);
     changeTurns();
     changeNumberOfRounds();
@@ -98,17 +94,14 @@ const ScoreCalculator = () => {
   };
 
   useEffect(() => {
-    console.log(playerList);
-  }, [playerList]);
-
-  useEffect(() => {
     const onKeyUp = (e) => {
-      const number = playerScore;
+      const number = parseInt(playerScore, 10);
       if (e.key <= 57 || e.key >= 48) {
         setPlayerScore(number + e.key);
       }
       if (e.key === "Enter") {
         changeTurnValidate();
+        setPlayerScore(0);
       } else if (e.key === "Backspace") {
         deleteInput();
       }
@@ -147,10 +140,10 @@ ScoreCalculator.propTypes = {
   setPlayerList: PropTypes.func,
   changeTurns: PropTypes.func,
   getCurrentPlayer: PropTypes.func,
-  setRound: PropTypes.func,
-  round: PropTypes.number,
-  turn: PropTypes.number,
   resetScoreList: PropTypes.func,
+  turn: PropTypes.number,
+  round: PropTypes.number,
+  setRound: PropTypes.func,
 };
 
 const getCalculatorKeys = () => {

@@ -20,6 +20,7 @@ const CreatePlayerList = () => {
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Enter") {
+        e.preventDefault();
         onAddPlayer();
       }
     };

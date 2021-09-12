@@ -1,22 +1,13 @@
 import { useState, useEffect } from "react";
+import useLocalStorage from "./useLocalStorage";
 
 const useGame = () => {
   // Main array to hold player objects
-  const [playerList, setPlayerList] = useState([]);
+  const [playerList, setPlayerList] = useLocalStorage("listOfPlayers", []);
 
   const addPlayer = (player) => {
     setPlayerList([...playerList, player]);
   };
-  useEffect(() => {
-    const arrayOfPlayers = localStorage.getItem("listOfPlayers");
-    if (arrayOfPlayers) {
-      setPlayerList(JSON.parse(arrayOfPlayers));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("listOfPlayers", JSON.stringify(playerList));
-  }, [playerList]);
 
   const deletePlayer = (rowNumber) => {
     let updatedRows = [...playerList];
@@ -37,7 +28,13 @@ const useGame = () => {
     return playerList[turn];
   };
 
-  const [round, setRound] = useState(0);
+  const getCurrentPlayerByName = () => {
+    return playerList[turn].player;
+  };
+
+  const getCurrentPlayerById = () => {
+    return playerList[turn].id;
+  };
 
   // Set X01 points to game and players
   const [x01Points, setX01Points] = useState(0);
@@ -45,6 +42,10 @@ const useGame = () => {
   const x01GameSelect = (value) => {
     setX01Points(value);
   };
+
+  useEffect(() => {
+    console.log(`X01 points are ${x01Points}`);
+  }, [x01Points]);
 
   const assignX01PlayerScore = (x01Points) => {
     let playerScore = [...playerList];
@@ -69,14 +70,15 @@ const useGame = () => {
       newScoreList[i].score = 0;
       newScoreList[i].lives = 0;
       setPlayerList(newScoreList);
+      setTurn(0);
     }
   };
   return {
     playerList,
     game,
     turn,
-    round,
     x01Points,
+    setX01Points,
     addPlayer,
     deletePlayer,
     changeTurns,
@@ -87,9 +89,9 @@ const useGame = () => {
     resetScoreList,
     setGame,
     setPlayerList,
-    setRound,
     setTurn,
-    setX01Points,
+    getCurrentPlayerByName,
+    getCurrentPlayerById,
   };
 };
 

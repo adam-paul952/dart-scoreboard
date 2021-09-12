@@ -4,17 +4,22 @@ import { Table } from "react-bootstrap";
 import { BiCaretLeft } from "react-icons/bi";
 import { AiOutlineCloseCircle, AiOutlineClose } from "react-icons/ai";
 import { BsSlash } from "react-icons/bs";
-import useGame from "../util/useGame";
 
-const Scoreboard = ({ variant }) => {
-  const { playerList, x01Points, getCurrentPlayer } = useGame();
-
-  const currentPlayer = getCurrentPlayer;
-  const currentPlayerById = getCurrentPlayer;
+const Scoreboard = ({
+  playerList,
+  x01Points,
+  getCurrentPlayer,
+  getCurrentPlayerByName,
+  getCurrentPlayerById,
+  variant,
+}) => {
+  const currentPlayer = getCurrentPlayer();
+  const currentPlayerByName = getCurrentPlayerByName();
+  const currentPlayerById = getCurrentPlayerById();
 
   return (
     <>
-      It&apos;s {currentPlayer}&apos;s turn !
+      It&apos;s {currentPlayerByName}&apos;s turn !
       <Table>
         <TableHeader variant={variant} />
         <PlayerData
@@ -29,7 +34,14 @@ const Scoreboard = ({ variant }) => {
   );
 };
 
-Scoreboard.propTypes = { variant: PropTypes.string };
+Scoreboard.propTypes = {
+  variant: PropTypes.string,
+  playerList: PropTypes.array,
+  x01Points: PropTypes.number,
+  getCurrentPlayer: PropTypes.func,
+  getCurrentPlayerByName: PropTypes.func,
+  getCurrentPlayerById: PropTypes.func,
+};
 
 const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
 const cricketNumbers = ["Player", 20, 19, 18, 17, 16, 15, "Bull", "Score"];
@@ -277,6 +289,7 @@ const BaseballPlayerData = ({ player, index, currentPlayerById }) => {
 BaseballPlayerData.propTypes = {
   player: PropTypes.object,
   index: PropTypes.number,
+  currentPlayer: PropTypes.object,
   currentPlayerById: PropTypes.number,
 };
 

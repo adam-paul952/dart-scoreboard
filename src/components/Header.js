@@ -6,7 +6,7 @@ import { BsSkipBackward } from "react-icons/bs";
 import useGame from "../util/useGame";
 
 const Header = ({ title, goBackButton, resetButton }) => {
-  const { resetScoreList } = useGame;
+  const { resetScoreList } = useGame();
   const history = useHistory();
   return (
     <div className="header">
@@ -32,7 +32,7 @@ const Header = ({ title, goBackButton, resetButton }) => {
 };
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   goBackButton: PropTypes.bool,
   resetButton: PropTypes.bool,
   resetScoreList: PropTypes.func,
