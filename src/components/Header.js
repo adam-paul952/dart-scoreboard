@@ -8,6 +8,9 @@ import useGame from "../util/useGame";
 const Header = ({ title, goBackButton, resetButton }) => {
   const { resetScoreList } = useGame();
   const history = useHistory();
+  const eraseData = () => {
+    resetScoreList();
+  };
   return (
     <div className="header">
       {goBackButton && (
@@ -18,12 +21,7 @@ const Header = ({ title, goBackButton, resetButton }) => {
       )}
       <h1>{title}</h1>
       {resetButton && (
-        <Button
-          onClick={() => {
-            resetScoreList();
-          }}
-          variant="secondary"
-        >
+        <Button onClick={() => eraseData()} variant="secondary">
           Reset Game
         </Button>
       )}

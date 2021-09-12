@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button, ButtonGroup } from "react-bootstrap";
-import useGame from "../util/useGame";
 
-const CricketScoreCalculator = () => {
-  const { playerList, setPlayerList, changeTurns, getCurrentPlayer } =
-    useGame();
+const CricketScoreCalculator = ({
+  playerList,
+  setPlayerList,
+  changeTurns,
+  getCurrentPlayer,
+}) => {
   const [playerScore, setPlayerScore] = useState([]);
 
   const handleInput = (number) => {
@@ -29,8 +31,10 @@ const CricketScoreCalculator = () => {
 
   const changeTurnValidate = () => {
     let currentPlayer = getCurrentPlayer();
+    console.log(`Current player for this round is: ${currentPlayer.player}`);
     playerScore.forEach((score) => {
       currentPlayer.scoreList.push(score);
+      setPlayerScore([]);
     });
     changeTurn();
   };
@@ -41,9 +45,9 @@ const CricketScoreCalculator = () => {
     // declareWinner();
   };
 
-  useEffect(() => {
-    console.log(playerList);
-  }, [playerList]);
+  // useEffect(() => {
+  //   console.log(playerList);
+  // }, [playerList]);
 
   return (
     <>
@@ -62,6 +66,13 @@ const CricketScoreCalculator = () => {
       </div>
     </>
   );
+};
+
+CricketScoreCalculator.propTypes = {
+  playerList: PropTypes.array,
+  setPlayerList: PropTypes.func,
+  changeTurns: PropTypes.func,
+  getCurrentPlayer: PropTypes.func,
 };
 
 const getCalculatorKeys = () => {

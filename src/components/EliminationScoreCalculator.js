@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Alert, Button, ButtonGroup } from "react-bootstrap";
 
 const EliminationScoreCalculator = ({
   playerList,
   setPlayerList,
   changeTurns,
-  // getCurrentPlayer,
-  //   changeRound,
-  //   round,
   turn,
+  resetScoreList,
 }) => {
-  const [playerScore, setPlayerScore] = useState("");
+  const [playerScore, setPlayerScore] = useState(0);
   const [prevPlayerScore, setPrevPlayerScore] = useState(-1);
+  const [playerIsOut, setPlayerIsOut] = useState([]);
 
   const handleInput = (number) => {
     setPlayerScore(`${playerScore}${number}`);
   };
 
   const deleteInput = () => {
-    setPlayerScore("");
+    setPlayerScore(0);
   };
 
   const handleScoreChange = (value) => {
     if (value === "Enter") {
       changeTurnValidate();
-      setPlayerScore("");
+      setPlayerScore(0);
     } else if (value === "Del") {
       deleteInput();
     } else {
@@ -36,59 +36,70 @@ const EliminationScoreCalculator = ({
   const changeTurnValidate = () => {
     const score = parseInt(playerScore, 10);
     if (!isNaN(score)) {
-      // setPrevPlayerScore(score);
       changeTurn(score);
     }
   };
 
-  const changePrevPlayerScore = (score) => {
-    setPrevPlayerScore(score);
-  };
-
   const changeTurn = (score) => {
     let currentPlayer = playerList[turn];
-    currentPlayer.score += score;
+    if (currentPlayer.lives !== 0) {
+      currentPlayer.scoreList.push(score);
+      for (let i = 0; i < currentPlayer.scoreList.length; i++) {
+        currentPlayer.score = currentPlayer.scoreList[i];
+        if (currentPlayer.score < prevPlayerScore) {
+          currentPlayer.lives -= 1;
+        }
+      }
+    }
+    if (currentPlayer.lives === 0) {
+      playerIsOut.push(currentPlayer);
+      setPlayerIsOut([...playerIsOut]);
+    } else {
+      changeTurns();
+    }
+    setPrevPlayerScore(currentPlayer.score);
     setPlayerList([...playerList]);
-    if (prevPlayerScore === -1) {
-      changePrevPlayerScore(score);
-      // currentPlayer.lives - 1;
-      console.log(`Prevplayer score was === to -1`);
-    }
     changeTurns();
-    // changeRound();
-    // declareWinner();
+    declareWinner();
   };
-  useEffect(() => {
-    const score = playerList[turn].score;
-    console.log(prevPlayerScore);
-    if (score > 0) {
-      setPrevPlayerScore(score);
-    }
-  }, [playerList, turn, prevPlayerScore]);
 
-  //   const declareWinner = () => {
-  //     if (round >= 9 && turn === 0) {
-  //       let [winnerScore, winner] = [-1, null];
-  //       playerList.forEach((player) => {
-  //         const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
-  //         if (totalScore > winnerScore) {
-  //           winnerScore = totalScore;
-  //           winner = player.player;
-  //         }
-  //       });
-  //       return (
-  //         <>
-  //           <Alert variant="success" style={{ fontWeight: "bold" }}>
-  //             <p>The WINNER is: {winner}</p>
-  //             <p>Congratulations!</p>
-  //           </Alert>
-  //         </>
-  //       );
-  //     }
-  //   };
-  useEffect(() => {
-    console.log(playerList);
-  }, [playerList]);
+  const declareWinner = () => {
+    let winner = null;
+    if (playerList.length === playerIsOut.length + 1) {
+      playerList.forEach((player) => {
+        if (player.lives > 0) {
+          winner = player.player;
+          console.log(`The winner is ${winner}`);
+        }
+      });
+      if (winner) {
+        return (
+          <>
+            <Alert variant="success" style={{ fontWeight: "bold" }}>
+              <p>The WINNER is: {winner}</p>
+              <p>Congratulations!</p>
+              <Button
+                variant="success"
+                className="m-3"
+                onClick={() => resetScoreList()}
+              >
+                Play Again
+              </Button>
+              <Button
+                variant="success"
+                as={Link}
+                to="/game/create"
+                onClick={() => resetScoreList()}
+              >
+                Choose another game
+              </Button>
+            </Alert>
+          </>
+        );
+      }
+    }
+  };
+
   useEffect(() => {
     const onKeyUp = (e) => {
       const number = playerScore;
@@ -97,6 +108,7 @@ const EliminationScoreCalculator = ({
       }
       if (e.key === "Enter") {
         changeTurnValidate();
+        setPlayerScore(0);
       } else if (e.key === "Backspace") {
         deleteInput();
       }
@@ -109,8 +121,7 @@ const EliminationScoreCalculator = ({
 
   return (
     <>
-      Total: {playerScore}
-      {/* {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>} */}
+      {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
       <div className="scoreCalculator">
         <div className="scoreInput">
           <div className="scoreKeypad">
@@ -134,10 +145,8 @@ EliminationScoreCalculator.propTypes = {
   playerList: PropTypes.array,
   setPlayerList: PropTypes.func,
   changeTurns: PropTypes.func,
-  getCurrentPlayer: PropTypes.func,
-  changeRound: PropTypes.func,
-  round: PropTypes.number,
   turn: PropTypes.number,
+  resetScoreList: PropTypes.func,
 };
 
 const getCalculatorKeys = () => {

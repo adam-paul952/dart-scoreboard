@@ -1,13 +1,12 @@
 import React from "react";
 import Header from "../components/Header";
 import Scoreboard from "../components/ScoreBoard";
-import EliminationScoreCalculator from "../components/EliminationScoreCalculator";
 import useGame from "../util/useGame";
 
-const Elimination = () => {
+const Killer = () => {
   const {
     playerList,
-    setPlayerList,
+    setPlayerlist,
     changeTurns,
     getCurrentPlayer,
     getCurrentPlayerByName,
@@ -18,27 +17,20 @@ const Elimination = () => {
   return (
     <>
       <Header
-        title="Elimination"
+        title="Killer"
         goBackButton
         resetButton
         resetScoreList={resetScoreList}
       />
       <Scoreboard
+        variant="killer"
         playerList={playerList}
-        variant="elimination"
         getCurrentPlayer={getCurrentPlayer}
-        getCurrentPlayerByName={getCurrentPlayerByName}
         getCurrentPlayerById={getCurrentPlayerById}
-      />
-      <EliminationScoreCalculator
-        playerList={playerList}
-        setPlayerList={setPlayerList}
-        changeTurns={changeTurns}
-        turn={turn}
-        resetScoreList={resetScoreList}
+        getCurrentPlayerByName={getCurrentPlayerByName}
       />
     </>
   );
 };
 
-export default Elimination;
+export default Killer;

@@ -6,12 +6,13 @@ import {
   CreateGame,
   X01GameSelection,
   EliminationSetUp,
-  Killer,
+  KillerSetUp,
 } from "./screens/CreateGame";
 import Cricket from "./screens/Cricket";
 import Baseball from "./screens/Baseball";
 import X01 from "./screens/X01";
 import Elimination from "./screens/Elimination";
+import Killer from "./screens/Killer";
 import Rules from "./screens/Rules";
 
 export default function Routes() {
@@ -25,9 +26,10 @@ export default function Routes() {
         <Route exact path="/game/baseball" component={Baseball} />
         <Route exact path="/game/x01" component={X01}></Route>
         <Route exact path="/game/elimination" component={Elimination} />
+        <Route exact path="/game/killer" component={Killer} />
         <Route path="/game/x01/create" component={X01GameSelection} />
         <Route path="/game/elimination/create" component={EliminationSetUp} />
-        <Route path="/game/killer/create" component={Killer} />
+        <Route path="/game/killer/create" component={KillerSetUp} />
         <Route path="/rules" component={Rules} />
       </Switch>
     </Router>

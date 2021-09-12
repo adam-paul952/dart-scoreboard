@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useLocalStorage from "./useLocalStorage";
 
 const useGame = () => {
@@ -43,9 +43,9 @@ const useGame = () => {
     setX01Points(value);
   };
 
-  useEffect(() => {
-    console.log(`X01 points are ${x01Points}`);
-  }, [x01Points]);
+  // useEffect(() => {
+  //   console.log(`X01 points are ${x01Points}`);
+  // }, [x01Points]);
 
   const assignX01PlayerScore = (x01Points) => {
     let playerScore = [...playerList];
@@ -58,7 +58,7 @@ const useGame = () => {
   const assignPlayerLives = (playerLives) => {
     let numberOfPlayerLives = [...playerList];
     for (let i = 0; i < numberOfPlayerLives.length; i++) {
-      numberOfPlayerLives[i].lives = playerLives;
+      numberOfPlayerLives[i].lives = Number(playerLives);
       setPlayerList(numberOfPlayerLives);
     }
   };

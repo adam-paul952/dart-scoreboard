@@ -46,6 +46,7 @@ Scoreboard.propTypes = {
 const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
 const cricketNumbers = ["Player", 20, 19, 18, 17, 16, 15, "Bull", "Score"];
 const eliminationHeader = ["Player", "Score", "Lives"];
+const killerHeader = ["Player", "Player #", "Lives", "Killer"];
 
 const TableHeader = ({ variant }) => {
   return (
@@ -62,6 +63,10 @@ const TableHeader = ({ variant }) => {
             })}
           {variant === "elimination" &&
             eliminationHeader.map((item, index) => {
+              return <th key={index}>{item}</th>;
+            })}
+          {variant === "killer" &&
+            killerHeader.map((item, index) => {
               return <th key={index}>{item}</th>;
             })}
         </tr>
@@ -123,6 +128,16 @@ const PlayerData = ({
                   currentPlayerById={currentPlayerById}
                 />
               );
+            case "killer":
+              return (
+                <KillerPlayerData
+                  key={index}
+                  player={player}
+                  index={index}
+                  currentPlayer={currentPlayer}
+                  currentPlayerById={currentPlayerById}
+                />
+              );
             default:
               throw new Error("Invalid variant!");
           }
@@ -135,7 +150,7 @@ const PlayerData = ({
 PlayerData.propTypes = {
   playerList: PropTypes.array,
   variant: PropTypes.string,
-  currentPlayer: PropTypes.string,
+  currentPlayer: PropTypes.object,
   currentPlayerById: PropTypes.number,
 };
 
@@ -164,13 +179,43 @@ X01PlayerData.propTypes = {
 };
 
 const CricketPlayerData = ({ player, index, currentPlayerById }) => {
-  let hitCount = {};
-  player.scoreList.map((hitNum) => {
-    hitCount[hitNum] = hitCount[hitNum] ? hitCount[hitNum] + 1 : 1;
-    if (player.scoreList[hitNum] > 3) {
-      player.score += hitNum;
-    }
-  });
+  // const targets = [15, 16, 17, 18, 19, 20, "Bull"];
+  // const numberofHitTargets = player.scoreList.filter((hitNum, i) => {
+  //   return targets[i] === hitNum;
+  // }).length;
+  const numberOfTwenties = player.scoreList.filter(
+    (hitNum) => hitNum === 20
+  ).length;
+  const numberOfNinetines = player.scoreList.filter(
+    (hitNum) => hitNum === 19
+  ).length;
+  const numberOfEighteens = player.scoreList.filter(
+    (hitNum) => hitNum === 18
+  ).length;
+  const numberOfSeventeens = player.scoreList.filter(
+    (hitNum) => hitNum === 17
+  ).length;
+  const numberOfSixteens = player.scoreList.filter(
+    (hitNum) => hitNum === 16
+  ).length;
+  const numberOfFifteens = player.scoreList.filter(
+    (hitNum) => hitNum === 15
+  ).length;
+  const numberOfBulls = player.scoreList.filter(
+    (hitNum) => hitNum === "Bull"
+  ).length;
+
+  const numberofHitTargets = {
+    numberOfTwenties,
+    numberOfNinetines,
+    numberOfEighteens,
+    numberOfSeventeens,
+    numberOfSixteens,
+    numberOfFifteens,
+    numberOfBulls,
+  };
+
+  // console.log({ numberofHitTargets });
 
   return (
     <tr key={index}>
@@ -187,50 +232,57 @@ const CricketPlayerData = ({ player, index, currentPlayerById }) => {
       <td>
         <CricketScoreboardDisplay
           player={player}
-          hitCount={hitCount}
-          hitNum="20"
+          // // hitCount={hitCount}
+          numberofHitTargets={numberofHitTargets}
+          // numberOfTwenties={numberOfTwenties}
         />
       </td>
       <td>
         <CricketScoreboardDisplay
           player={player}
-          hitCount={hitCount}
-          hitNum="19"
+          // // hitCount={hitCount}
+          numberofHitTargets={numberofHitTargets}
+          // numberOfNinetines={numberOfNinetines}
         />
       </td>
       <td>
         <CricketScoreboardDisplay
           player={player}
-          hitCount={hitCount}
-          hitNum="18"
+          // // hitCount={hitCount}
+          numberofHitTargets={numberofHitTargets}
+          // numberOfEighteens={numberOfEighteens}
         />
       </td>
       <td>
         <CricketScoreboardDisplay
           player={player}
-          hitCount={hitCount}
-          hitNum="17"
+          // // hitCount={hitCount}
+          numberofHitTargets={numberofHitTargets}
+          // numberOfSeventeens={numberOfSeventeens}
         />
       </td>
       <td>
         <CricketScoreboardDisplay
           player={player}
-          hitCount={hitCount}
-          hitNum="16"
+          // // hitCount={hitCount}
+          numberofHitTargets={numberofHitTargets}
+          // numberOfSixteens={numberOfSixteens}
         />
       </td>
       <td>
         <CricketScoreboardDisplay
           player={player}
-          hitCount={hitCount}
-          hitNum="15"
+          // // hitCount={hitCount}
+          numberofHitTargets={numberofHitTargets}
+          // numberOfFifteens={numberOfFifteens}
         />
       </td>
       <td>
         <CricketScoreboardDisplay
           player={player}
-          hitCount={hitCount}
-          hitNum="Bull"
+          // // hitCount={hitCount}
+          numberofHitTargets={numberofHitTargets}
+          // numberOfBulls={numberOfBulls}
         />
       </td>
       <td>{player.score}</td>
@@ -244,12 +296,13 @@ CricketPlayerData.propTypes = {
   currentPlayerById: PropTypes.number,
 };
 
-const CricketScoreboardDisplay = ({ hitCount, hitNum }) => {
-  if (hitCount[hitNum] === 1) {
+const CricketScoreboardDisplay = ({ numberofHitTargets }) => {
+  console.log({ numberofHitTargets });
+  if (numberofHitTargets === 1) {
     return <BsSlash style={{ fontSize: "25px" }} />;
-  } else if (hitCount[hitNum] === 2) {
+  } else if (numberofHitTargets === 2) {
     return <AiOutlineClose style={{ fontSize: "20px" }} />;
-  } else if (hitCount[hitNum] >= 3) {
+  } else if (numberofHitTargets >= 3) {
     return <AiOutlineCloseCircle style={{ fontSize: "28px" }} />;
   }
   return null;
@@ -259,6 +312,7 @@ CricketScoreboardDisplay.propTypes = {
   player: PropTypes.object,
   hitCount: PropTypes.object,
   hitNum: PropTypes.string,
+  numberofHitTargets: PropTypes.object,
 };
 
 const BaseballPlayerData = ({ player, index, currentPlayerById }) => {
@@ -315,4 +369,29 @@ EliminationPlayerData.propTypes = {
   index: PropTypes.number,
   currentPlayerById: PropTypes.number,
 };
+
+const KillerPlayerData = ({ player, index, currentPlayerById }) => {
+  return (
+    <tr key={index}>
+      {currentPlayerById === player.id ? (
+        <th style={{ borderColor: "black" }}>
+          {player.player}
+          <BiCaretLeft size={20} />
+        </th>
+      ) : (
+        <th style={{ borderColor: "black" }}>{player.player}</th>
+      )}
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  );
+};
+
+KillerPlayerData.propTypes = {
+  player: PropTypes.object,
+  index: PropTypes.number,
+  currentPlayerById: PropTypes.number,
+};
+
 export default Scoreboard;

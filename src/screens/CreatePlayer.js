@@ -18,15 +18,15 @@ const CreatePlayerList = () => {
   const { player } = playerName;
 
   useEffect(() => {
-    const onKeyDown = (e) => {
+    const onKeyUp = (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         onAddPlayer();
       }
     };
-    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("keyup", onKeyUp);
     return () => {
-      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("keyup", onKeyUp);
     };
   });
 

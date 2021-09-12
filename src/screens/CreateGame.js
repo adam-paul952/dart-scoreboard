@@ -103,7 +103,7 @@ export function X01GameSelection() {
   );
 }
 
-export const Killer = () => {
+export const KillerSetUp = () => {
   return (
     <>
       <Header title="Killer" goBackButton />
@@ -112,7 +112,8 @@ export const Killer = () => {
   );
 };
 
-export const EliminationSetUp = ({ assignPlayerLives }) => {
+export const EliminationSetUp = () => {
+  const { assignPlayerLives } = useGame();
   const eliminationLives = [3, 4, 5, 6, 7, 8, 9, 10];
 
   const [playerLives, setPlayerLives] = useState(0);
@@ -151,6 +152,7 @@ export const EliminationSetUp = ({ assignPlayerLives }) => {
         as={Link}
         to="/game/elimination"
         onClick={onPointsSubmit}
+        disabled={playerLives === 0 ? true : false}
       >
         Continue to Game
       </Button>

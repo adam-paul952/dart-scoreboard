@@ -12,6 +12,8 @@ const Cricket = () => {
     getCurrentPlayer,
     resetScoreList,
     turn,
+    getCurrentPlayerById,
+    getCurrentPlayerByName,
   } = useGame();
 
   return (
@@ -26,6 +28,8 @@ const Cricket = () => {
         playerList={playerList}
         variant="cricket"
         getCurrentPlayer={getCurrentPlayer}
+        getCurrentPlayerById={getCurrentPlayerById}
+        getCurrentPlayerByName={getCurrentPlayerByName}
       />
       <CricketScoreCalculator
         playerList={playerList}

@@ -95,6 +95,7 @@ const X01ScoreCalculator = ({
       }
       if (e.key === "Enter") {
         changeTurnValidate();
+        setPlayerScore("");
       } else if (e.key === "Backspace") {
         deleteInput();
       }
