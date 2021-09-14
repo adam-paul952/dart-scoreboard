@@ -19,7 +19,7 @@ Me and my friends play a fair amount of darts, these games are typically the gam
 - **Baseball** :white_check_mark:<!-- Link to rules page -->
 - **X01** :white_check_mark:<!-- Link to rules page -->
 - **Cricket** <!-- Link to rules page -->
-- **Elimination** <!-- Link to rules page -->
+- **Elimination** :white_check_mark: <!-- Link to rules page -->
 - **Killer** <!-- Link to rules page -->
 
 ---

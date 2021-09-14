@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import { BiCaretLeft } from "react-icons/bi";
@@ -16,6 +16,9 @@ const Scoreboard = ({
   const currentPlayer = getCurrentPlayer();
   const currentPlayerByName = getCurrentPlayerByName();
   const currentPlayerById = getCurrentPlayerById();
+  useEffect(() => {
+    console.log(playerList);
+  }, [playerList]);
 
   return (
     <>
@@ -179,43 +182,27 @@ X01PlayerData.propTypes = {
 };
 
 const CricketPlayerData = ({ player, index, currentPlayerById }) => {
-  // const targets = [15, 16, 17, 18, 19, 20, "Bull"];
-  // const numberofHitTargets = player.scoreList.filter((hitNum, i) => {
-  //   return targets[i] === hitNum;
-  // }).length;
-  const numberOfTwenties = player.scoreList.filter(
-    (hitNum) => hitNum === 20
-  ).length;
-  const numberOfNinetines = player.scoreList.filter(
-    (hitNum) => hitNum === 19
-  ).length;
-  const numberOfEighteens = player.scoreList.filter(
-    (hitNum) => hitNum === 18
-  ).length;
-  const numberOfSeventeens = player.scoreList.filter(
-    (hitNum) => hitNum === 17
-  ).length;
-  const numberOfSixteens = player.scoreList.filter(
-    (hitNum) => hitNum === 16
-  ).length;
-  const numberOfFifteens = player.scoreList.filter(
-    (hitNum) => hitNum === 15
-  ).length;
-  const numberOfBulls = player.scoreList.filter(
-    (hitNum) => hitNum === "Bull"
-  ).length;
+  let hitCount = {};
+  player.scoreList.forEach((hitNum) => {
+    hitCount[hitNum] = hitCount[hitNum] ? hitCount[hitNum] + 1 : 1;
+  });
 
-  const numberofHitTargets = {
-    numberOfTwenties,
-    numberOfNinetines,
-    numberOfEighteens,
-    numberOfSeventeens,
-    numberOfSixteens,
-    numberOfFifteens,
-    numberOfBulls,
-  };
+  console.log({ hitCount });
 
-  // console.log({ numberofHitTargets });
+  const targets = [20, 19, 18, 17, 16, 15, "Bull"];
+
+  // const filterTargets = (item) => {
+  //   return targets.indexOf(item) >= 0;
+  // };
+
+  // const hitTargets = player.scoreList
+  //   .sort((a, b) => {
+  //     return b - a;
+  //   })
+  //   .filter(filterTargets);
+
+  // console.log({ hitTargets });
+  // console.log({ hitTargets }).length;
 
   return (
     <tr key={index}>
@@ -229,62 +216,13 @@ const CricketPlayerData = ({ player, index, currentPlayerById }) => {
           {player.player}
         </th>
       )}
-      <td>
-        <CricketScoreboardDisplay
-          player={player}
-          // // hitCount={hitCount}
-          numberofHitTargets={numberofHitTargets}
-          // numberOfTwenties={numberOfTwenties}
-        />
-      </td>
-      <td>
-        <CricketScoreboardDisplay
-          player={player}
-          // // hitCount={hitCount}
-          numberofHitTargets={numberofHitTargets}
-          // numberOfNinetines={numberOfNinetines}
-        />
-      </td>
-      <td>
-        <CricketScoreboardDisplay
-          player={player}
-          // // hitCount={hitCount}
-          numberofHitTargets={numberofHitTargets}
-          // numberOfEighteens={numberOfEighteens}
-        />
-      </td>
-      <td>
-        <CricketScoreboardDisplay
-          player={player}
-          // // hitCount={hitCount}
-          numberofHitTargets={numberofHitTargets}
-          // numberOfSeventeens={numberOfSeventeens}
-        />
-      </td>
-      <td>
-        <CricketScoreboardDisplay
-          player={player}
-          // // hitCount={hitCount}
-          numberofHitTargets={numberofHitTargets}
-          // numberOfSixteens={numberOfSixteens}
-        />
-      </td>
-      <td>
-        <CricketScoreboardDisplay
-          player={player}
-          // // hitCount={hitCount}
-          numberofHitTargets={numberofHitTargets}
-          // numberOfFifteens={numberOfFifteens}
-        />
-      </td>
-      <td>
-        <CricketScoreboardDisplay
-          player={player}
-          // // hitCount={hitCount}
-          numberofHitTargets={numberofHitTargets}
-          // numberOfBulls={numberOfBulls}
-        />
-      </td>
+      {targets.map((target, index) => {
+        return (
+          <td key={index}>
+            <CricketScoreboardDisplay hitCount={hitCount} target={target} />
+          </td>
+        );
+      })}
       <td>{player.score}</td>
     </tr>
   );
@@ -296,13 +234,12 @@ CricketPlayerData.propTypes = {
   currentPlayerById: PropTypes.number,
 };
 
-const CricketScoreboardDisplay = ({ numberofHitTargets }) => {
-  console.log({ numberofHitTargets });
-  if (numberofHitTargets === 1) {
+const CricketScoreboardDisplay = ({ hitCount, target }) => {
+  if (hitCount[target] === 1) {
     return <BsSlash style={{ fontSize: "25px" }} />;
-  } else if (numberofHitTargets === 2) {
+  } else if (hitCount[target] === 2) {
     return <AiOutlineClose style={{ fontSize: "20px" }} />;
-  } else if (numberofHitTargets >= 3) {
+  } else if (hitCount[target] >= 3) {
     return <AiOutlineCloseCircle style={{ fontSize: "28px" }} />;
   }
   return null;
@@ -311,7 +248,8 @@ const CricketScoreboardDisplay = ({ numberofHitTargets }) => {
 CricketScoreboardDisplay.propTypes = {
   player: PropTypes.object,
   hitCount: PropTypes.object,
-  hitNum: PropTypes.string,
+  target: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  hitNum: PropTypes.number,
   numberofHitTargets: PropTypes.object,
 };
 

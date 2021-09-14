@@ -69,8 +69,8 @@ const useGame = () => {
       newScoreList[i].scoreList = [];
       newScoreList[i].score = 0;
       newScoreList[i].lives = 0;
-      setPlayerList(newScoreList);
       setTurn(0);
+      setPlayerList(newScoreList);
     }
   };
   return {

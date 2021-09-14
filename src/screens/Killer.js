@@ -6,13 +6,13 @@ import useGame from "../util/useGame";
 const Killer = () => {
   const {
     playerList,
-    setPlayerlist,
-    changeTurns,
+    // setPlayerlist,
+    // changeTurns,
     getCurrentPlayer,
     getCurrentPlayerByName,
     getCurrentPlayerById,
     resetScoreList,
-    turn,
+    // turn,
   } = useGame();
   return (
     <>

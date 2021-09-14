@@ -81,6 +81,8 @@ const EliminationScoreCalculator = ({
               <Button
                 variant="success"
                 className="m-3"
+                as={Link}
+                to="/game/elimination/create"
                 onClick={() => resetScoreList()}
               >
                 Play Again
