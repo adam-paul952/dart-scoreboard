@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/dart-scoreboard/static/css/main.88e35754.chunk.css",
+    "main.js": "/dart-scoreboard/static/js/main.2a6d536c.chunk.js",
+    "main.js.map": "/dart-scoreboard/static/js/main.2a6d536c.chunk.js.map",
+    "runtime-main.js": "/dart-scoreboard/static/js/runtime-main.0e44c749.js",
+    "runtime-main.js.map": "/dart-scoreboard/static/js/runtime-main.0e44c749.js.map",
+    "static/css/2.c1256375.chunk.css": "/dart-scoreboard/static/css/2.c1256375.chunk.css",
+    "static/js/2.7ed6deae.chunk.js": "/dart-scoreboard/static/js/2.7ed6deae.chunk.js",
+    "static/js/2.7ed6deae.chunk.js.map": "/dart-scoreboard/static/js/2.7ed6deae.chunk.js.map",
+    "static/js/3.775c5f81.chunk.js": "/dart-scoreboard/static/js/3.775c5f81.chunk.js",
+    "static/js/3.775c5f81.chunk.js.map": "/dart-scoreboard/static/js/3.775c5f81.chunk.js.map",
+    "index.html": "/dart-scoreboard/index.html",
+    "static/css/2.c1256375.chunk.css.map": "/dart-scoreboard/static/css/2.c1256375.chunk.css.map",
+    "static/css/main.88e35754.chunk.css.map": "/dart-scoreboard/static/css/main.88e35754.chunk.css.map",
+    "static/js/2.7ed6deae.chunk.js.LICENSE.txt": "/dart-scoreboard/static/js/2.7ed6deae.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0e44c749.js",
+    "static/css/2.c1256375.chunk.css",
+    "static/js/2.7ed6deae.chunk.js",
+    "static/css/main.88e35754.chunk.css",
+    "static/js/main.2a6d536c.chunk.js"
+  ]
+}
