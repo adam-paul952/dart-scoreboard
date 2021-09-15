@@ -181,31 +181,17 @@ X01PlayerData.propTypes = {
 const targets = [20, 19, 18, 17, 16, 15, 25];
 
 const CricketPlayerData = ({ player, index, currentPlayerById }) => {
-  let hitCount = {};
-  player.scoreList.forEach((hitNum) => {
-    hitCount[hitNum] = hitCount[hitNum] ? hitCount[hitNum] + 1 : 1;
-  });
+  const hitTargets = [
+    player.scoreList.filter((hitNum) => hitNum === 20).length,
+    player.scoreList.filter((hitNum) => hitNum === 19).length,
+    player.scoreList.filter((hitNum) => hitNum === 18).length,
+    player.scoreList.filter((hitNum) => hitNum === 17).length,
+    player.scoreList.filter((hitNum) => hitNum === 16).length,
+    player.scoreList.filter((hitNum) => hitNum === 15).length,
+    player.scoreList.filter((hitNum) => hitNum === 25).length,
+  ];
 
-  targets.forEach((target) => {
-    if (hitCount[target] > 3) {
-      player.score += target;
-    }
-  });
-
-  console.log({ hitCount });
-
-  // const filterTargets = (item) => {
-  //   return targets.indexOf(item) >= 0;
-  // };
-
-  // const hitTargets = player.scoreList
-  //   .sort((a, b) => {
-  //     return b - a;
-  //   })
-  //   .filter(filterTargets);
-
-  // console.log({ hitTargets });
-  // console.log({ hitTargets }).length;
+  console.log(hitTargets);
 
   return (
     <tr key={index}>
@@ -219,10 +205,10 @@ const CricketPlayerData = ({ player, index, currentPlayerById }) => {
           {player.player}
         </th>
       )}
-      {targets.map((target, index) => {
+      {hitTargets.map((hitTarget, index) => {
         return (
           <td key={index}>
-            <CricketScoreboardDisplay hitCount={hitCount} target={target} />
+            <CricketScoreboardDisplay hitTarget={hitTarget} />
           </td>
         );
       })}
@@ -237,12 +223,12 @@ CricketPlayerData.propTypes = {
   currentPlayerById: PropTypes.number,
 };
 
-const CricketScoreboardDisplay = ({ hitCount, target }) => {
-  if (hitCount[target] === 1) {
+const CricketScoreboardDisplay = ({ hitTarget }) => {
+  if (hitTarget === 1) {
     return <BsSlash style={{ fontSize: "25px" }} />;
-  } else if (hitCount[target] === 2) {
+  } else if (hitTarget === 2) {
     return <AiOutlineClose style={{ fontSize: "20px" }} />;
-  } else if (hitCount[target] >= 3) {
+  } else if (hitTarget >= 3) {
     return <AiOutlineCloseCircle style={{ fontSize: "28px" }} />;
   }
   return null;
@@ -254,6 +240,7 @@ CricketScoreboardDisplay.propTypes = {
   target: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   hitNum: PropTypes.number,
   numberofHitTargets: PropTypes.object,
+  hitTarget: PropTypes.number,
 };
 
 const BaseballPlayerData = ({ player, index, currentPlayerById }) => {
