@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import { BiCaretLeft } from "react-icons/bi";
@@ -16,9 +16,6 @@ const Scoreboard = ({
   const currentPlayer = getCurrentPlayer();
   const currentPlayerByName = getCurrentPlayerByName();
   const currentPlayerById = getCurrentPlayerById();
-  useEffect(() => {
-    console.log(playerList);
-  }, [playerList]);
 
   return (
     <>
@@ -181,15 +178,21 @@ X01PlayerData.propTypes = {
   currentPlayerById: PropTypes.number,
 };
 
+const targets = [20, 19, 18, 17, 16, 15, 25];
+
 const CricketPlayerData = ({ player, index, currentPlayerById }) => {
   let hitCount = {};
   player.scoreList.forEach((hitNum) => {
     hitCount[hitNum] = hitCount[hitNum] ? hitCount[hitNum] + 1 : 1;
   });
 
-  console.log({ hitCount });
+  targets.forEach((target) => {
+    if (hitCount[target] > 3) {
+      player.score += target;
+    }
+  });
 
-  const targets = [20, 19, 18, 17, 16, 15, "Bull"];
+  console.log({ hitCount });
 
   // const filterTargets = (item) => {
   //   return targets.indexOf(item) >= 0;

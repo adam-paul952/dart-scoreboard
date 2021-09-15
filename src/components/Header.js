@@ -3,14 +3,10 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { BsSkipBackward } from "react-icons/bs";
-import useGame from "../util/useGame";
 
-const Header = ({ title, goBackButton, resetButton }) => {
-  const { resetScoreList } = useGame();
+const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
   const history = useHistory();
-  const eraseData = () => {
-    resetScoreList();
-  };
+
   return (
     <div className="header">
       {goBackButton && (
@@ -21,7 +17,7 @@ const Header = ({ title, goBackButton, resetButton }) => {
       )}
       <h1>{title}</h1>
       {resetButton && (
-        <Button onClick={() => eraseData()} variant="secondary">
+        <Button onClick={() => resetScoreList()} variant="secondary">
           Reset Game
         </Button>
       )}

@@ -33,8 +33,13 @@ const CricketScoreCalculator = ({
     let currentPlayer = getCurrentPlayer();
     console.log(`Current player for this round is: ${currentPlayer.player}`);
     playerScore.forEach((score) => {
-      currentPlayer.scoreList.push(score);
-      setPlayerScore([]);
+      if (score === "Bull") {
+        currentPlayer.scoreList.push(25);
+        setPlayerScore([]);
+      } else {
+        currentPlayer.scoreList.push(score);
+        setPlayerScore([]);
+      }
     });
     changeTurn();
   };
