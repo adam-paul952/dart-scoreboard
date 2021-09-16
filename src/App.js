@@ -8,19 +8,19 @@ function App() {
     padding: "10px",
     border: "2px solid black",
     borderRadius: "10px",
-    background: "gray",
+    // background: "gray",
     width: "300px",
     fontSize: "25px",
     color: "black",
     display: "flex",
+    flexDirection: "row",
     textDecoration: "none",
     justifyContent: "center",
-    alignItems: "center",
   };
 
   return (
     <>
-      <Header title="Welcome" />
+      <Header title="Dart Scoreboard" />
       <div className="btnTable">
         <Link className="optionBtn" to="/create_player" style={linkStyle}>
           Create Player

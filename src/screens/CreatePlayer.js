@@ -61,7 +61,7 @@ const CreatePlayerList = () => {
         </Container>
       </Form>
       <Container>
-        <Table striped>
+        <Table bordered striped>
           <thead>
             <tr>
               <th>Player #</th>

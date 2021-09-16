@@ -3,31 +3,11 @@ html {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
-body {
-  background-color: grey;
-}
-/* Rules */
-.rulePar {
-  text-align: left;
-  margin-left: 20px;
-  margin-right: 20px;
-  padding: 15px;
-  color: rgb(58, 3, 3);
-}
-
-.ruleHeader {
-  color: rgb(58, 3, 3);
-}
 
 /* Cricket */
 table {
   margin-left: auto;
   margin-right: auto;
-}
-
-#scoreboard,
-td {
-  border: 1px solid;
 }
 
 /* Header */
@@ -42,7 +22,6 @@ td {
 .btnTable {
   display: flex;
   justify-content: space-evenly;
-  flex-direction: column;
   align-items: center;
   height: 50vh;
 }

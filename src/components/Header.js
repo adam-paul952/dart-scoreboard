@@ -10,14 +10,14 @@ const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
   return (
     <div className="header">
       {goBackButton && (
-        <Button onClick={() => history.goBack()} variant="secondary">
+        <Button onClick={() => history.goBack()} variant="primary">
           <BsSkipBackward />
           Go back
         </Button>
       )}
       <h1>{title}</h1>
       {resetButton && (
-        <Button onClick={() => resetScoreList()} variant="secondary">
+        <Button onClick={() => resetScoreList()} variant="primary">
           Reset Game
         </Button>
       )}

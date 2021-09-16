@@ -20,7 +20,7 @@ const Scoreboard = ({
   return (
     <>
       It&apos;s {currentPlayerByName}&apos;s turn !
-      <Table>
+      <Table bordered striped>
         <TableHeader variant={variant} />
         <PlayerData
           playerList={playerList}
@@ -158,14 +158,12 @@ const X01PlayerData = ({ player, index, currentPlayerById }) => {
   return (
     <tr key={index}>
       {currentPlayerById === player.id ? (
-        <th style={{ borderColor: "black", borderWidth: "thin" }}>
+        <th>
           {player.player}
           <BiCaretLeft size={20} />
         </th>
       ) : (
-        <th style={{ borderColor: "black", borderWidth: "thin" }}>
-          {player.player}
-        </th>
+        <th>{player.player}</th>
       )}
       <td>{player.score}</td>
     </tr>
@@ -196,19 +194,17 @@ const CricketPlayerData = ({ player, index, currentPlayerById }) => {
   return (
     <tr key={index}>
       {currentPlayerById === player.id ? (
-        <th key={index} style={{ borderColor: "black" }}>
+        <th key={index}>
           {player.player}
           <BiCaretLeft size={20} />
         </th>
       ) : (
-        <th key={index} style={{ borderColor: "black" }}>
-          {player.player}
-        </th>
+        <th key={index}>{player.player}</th>
       )}
       {hitTargets.map((hitTarget, index) => {
         return (
           <td key={index}>
-            <CricketScoreboardDisplay hitTarget={hitTarget} />
+            <CricketScoreboardDisplay player={player} hitTarget={hitTarget} />
           </td>
         );
       })}
@@ -247,12 +243,12 @@ const BaseballPlayerData = ({ player, index, currentPlayerById }) => {
   return (
     <tr key={index}>
       {currentPlayerById === player.id ? (
-        <th style={{ borderColor: "black" }}>
+        <th>
           {player.player}
           <BiCaretLeft size={20} />
         </th>
       ) : (
-        <th style={{ borderColor: "black" }}>{player.player}</th>
+        <th>{player.player}</th>
       )}
       <td>{player.scoreList[0]}</td>
       <td>{player.scoreList[1]}</td>
@@ -279,12 +275,12 @@ const EliminationPlayerData = ({ player, index, currentPlayerById }) => {
   return (
     <tr key={index}>
       {currentPlayerById === player.id ? (
-        <th style={{ borderColor: "black" }}>
+        <th>
           {player.player}
           <BiCaretLeft size={20} />
         </th>
       ) : (
-        <th style={{ borderColor: "black" }}>{player.player}</th>
+        <th>{player.player}</th>
       )}
       <td>{player.score}</td>
       <td>{player.lives}</td>

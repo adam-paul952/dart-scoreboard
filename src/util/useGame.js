@@ -37,7 +37,7 @@ const useGame = () => {
   };
 
   // Set X01 points to game and players
-  const [x01Points, setX01Points] = useState(0);
+  const [x01Points, setX01Points] = useLocalStorage("x01Points", 0);
 
   const x01GameSelect = (value) => {
     setX01Points(value);
