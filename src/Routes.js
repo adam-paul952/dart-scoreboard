@@ -17,7 +17,7 @@ import Rules from "./screens/Rules";
 
 export default function Routes() {
   return (
-    <Router basename="process.env.PUBLIC_URL">
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/game/create" component={CreateGame} />
