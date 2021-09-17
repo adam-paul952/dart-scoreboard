@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/dart-scoreboard/static/css/main.0c26e86b.chunk.css",
-    "main.js": "/dart-scoreboard/static/js/main.ee4b75f5.chunk.js",
-    "main.js.map": "/dart-scoreboard/static/js/main.ee4b75f5.chunk.js.map",
+    "main.js": "/dart-scoreboard/static/js/main.9b81d785.chunk.js",
+    "main.js.map": "/dart-scoreboard/static/js/main.9b81d785.chunk.js.map",
     "runtime-main.js": "/dart-scoreboard/static/js/runtime-main.2a97fdae.js",
     "runtime-main.js.map": "/dart-scoreboard/static/js/runtime-main.2a97fdae.js.map",
     "static/css/2.c1256375.chunk.css": "/dart-scoreboard/static/css/2.c1256375.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.c1256375.chunk.css",
     "static/js/2.b7571361.chunk.js",
     "static/css/main.0c26e86b.chunk.css",
-    "static/js/main.ee4b75f5.chunk.js"
+    "static/js/main.9b81d785.chunk.js"
   ]
 }
