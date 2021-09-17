@@ -92,3 +92,9 @@ table {
 .result {
   font-size: 30px;
 }
+
+/*-------*/
+
+.navbar-brand {
+  font-size: 2rem;
+}

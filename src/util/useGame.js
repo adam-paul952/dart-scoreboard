@@ -14,7 +14,6 @@ const useGame = () => {
     updatedRows.splice(rowNumber, 1);
     setPlayerList(updatedRows);
   };
-  const [game, setGame] = useState("");
 
   // Set turns and methods to cycle through players and rounds
   const [turn, setTurn] = useState(0);
@@ -75,7 +74,6 @@ const useGame = () => {
   };
   return {
     playerList,
-    game,
     turn,
     x01Points,
     setX01Points,
@@ -87,7 +85,6 @@ const useGame = () => {
     assignX01PlayerScore,
     assignPlayerLives,
     resetScoreList,
-    setGame,
     setPlayerList,
     setTurn,
     getCurrentPlayerByName,

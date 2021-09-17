@@ -157,7 +157,7 @@ const ScoreCalculatorKey = (props) => {
         props.onChange(props.keyValue);
       }}
     >
-      <Button variant="secondary" onClick={() => props.onClick(props.keyValue)}>
+      <Button variant="primary" onClick={() => props.onClick(props.keyValue)}>
         {props.keyValue}
       </Button>
     </ButtonGroup>

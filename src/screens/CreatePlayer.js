@@ -43,7 +43,7 @@ const CreatePlayerList = () => {
     <>
       <Header title="Create Player" goBackButton />
       <Form>
-        <Container>
+        <Container className="mt-5 mb-5" fluid>
           <Row className="justify-content-md-center">
             <Col>
               <input
@@ -60,7 +60,7 @@ const CreatePlayerList = () => {
           </Row>
         </Container>
       </Form>
-      <Container>
+      <Container className="mt-5 mb-5" fluid>
         <Table bordered striped>
           <thead>
             <tr>

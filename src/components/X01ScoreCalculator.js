@@ -49,7 +49,7 @@ const X01ScoreCalculator = ({
   const declareWinner = () => {
     let winner = null;
     playerList.forEach((player) => {
-      if (player.score === 0) {
+      if (player.score <= 0) {
         winner = player.player;
       }
     });
@@ -147,7 +147,7 @@ const ScoreCalculatorKey = (props) => {
         props.onChange(props.keyValue);
       }}
     >
-      <Button variant="secondary" onClick={() => props.onClick(props.keyValue)}>
+      <Button variant="primary" onClick={() => props.onClick(props.keyValue)}>
         {props.keyValue}
       </Button>
     </ButtonGroup>

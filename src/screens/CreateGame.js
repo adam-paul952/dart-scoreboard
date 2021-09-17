@@ -6,25 +6,19 @@ import Header from "../components/Header";
 import useGame from "../util/useGame";
 
 export const CreateGame = () => {
-  const { game, setGame } = useGame();
-
-  const onSelectGame = (eventKey) => {
-    setGame(eventKey);
-  };
-
   return (
     <>
       <Header title="Create a Game" goBackButton />
       <form>
-        <Dropdown value={game} onSelect={onSelectGame}>
+        <Dropdown>
           <Dropdown.Toggle
             id="gameDropDown"
-            variant="secondary"
+            variant="primary"
             title="Game DropDown"
           >
             Please Select a Game
           </Dropdown.Toggle>
-          <Dropdown.Menu variant="dark">
+          <Dropdown.Menu variant="primary">
             <Dropdown.Item as={Link} to="/game/x01/create" eventKey="X01">
               X01
             </Dropdown.Item>
@@ -57,12 +51,6 @@ export function X01GameSelection() {
 
   const x01PointsList = [201, 301, 401, 501, 601, 701];
 
-  // const [x01Points, setX01Points] = useState(0);
-
-  // const onPointsSelect = (eventKey) => {
-  //   setX01Points(eventKey);
-  // };
-  // console.log(x01Points);
   const onPointsSubmit = () => {
     x01GameSelect(x01Points);
     assignX01PlayerScore(x01Points);
@@ -74,12 +62,13 @@ export function X01GameSelection() {
       <Dropdown value={x01Points} onSelect={setX01Points}>
         <Dropdown.Toggle
           id="pointsDropdown"
-          variant="secondary"
+          variant="primary"
           name="pointsDropdown"
+          className="m-5"
         >
           Points
         </Dropdown.Toggle>
-        <Dropdown.Menu variant="dark">
+        <Dropdown.Menu variant="primary">
           {x01PointsList.map((game) => {
             return (
               <Dropdown.Item key={game} eventKey={game}>
@@ -89,9 +78,10 @@ export function X01GameSelection() {
           })}
         </Dropdown.Menu>
       </Dropdown>
-      <h2>Game selected: {x01Points}</h2>
+      <h2 className="m-5">Game selected: {x01Points}</h2>
       <Button
-        variant="secondary"
+        className="mt-2"
+        variant="primary"
         as={Link}
         to="/game/x01"
         onClick={onPointsSubmit}
@@ -131,12 +121,13 @@ export const EliminationSetUp = () => {
       <Dropdown value={playerLives} onSelect={onLifeSelect}>
         <Dropdown.Toggle
           id="livesDropdown"
-          variant="secondary"
+          variant="primary"
           name="livesDropdown"
+          className="m-5"
         >
           Lives
         </Dropdown.Toggle>
-        <Dropdown.Menu variant="dark">
+        <Dropdown.Menu variant="primary">
           {eliminationLives.map((numOfLives) => {
             return (
               <Dropdown.Item key={numOfLives} eventKey={numOfLives}>
@@ -146,9 +137,10 @@ export const EliminationSetUp = () => {
           })}
         </Dropdown.Menu>
       </Dropdown>
-      <h2>Number of Lives Selected: {playerLives}</h2>
+      <h2 className="m-5">Number of Lives Selected: {playerLives}</h2>
       <Button
-        variant="secondary"
+        className="m-2"
+        variant="primary"
         as={Link}
         to="/game/elimination"
         onClick={onPointsSubmit}

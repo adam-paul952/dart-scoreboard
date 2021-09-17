@@ -176,7 +176,7 @@ X01PlayerData.propTypes = {
   currentPlayerById: PropTypes.number,
 };
 
-const targets = [20, 19, 18, 17, 16, 15, 25];
+// const targets = [20, 19, 18, 17, 16, 15, 25];
 
 const CricketPlayerData = ({ player, index, currentPlayerById }) => {
   const hitTargets = [
@@ -188,8 +188,6 @@ const CricketPlayerData = ({ player, index, currentPlayerById }) => {
     player.scoreList.filter((hitNum) => hitNum === 15).length,
     player.scoreList.filter((hitNum) => hitNum === 25).length,
   ];
-
-  console.log(hitTargets);
 
   return (
     <tr key={index}>
@@ -231,11 +229,6 @@ const CricketScoreboardDisplay = ({ hitTarget }) => {
 };
 
 CricketScoreboardDisplay.propTypes = {
-  player: PropTypes.object,
-  hitCount: PropTypes.object,
-  target: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  hitNum: PropTypes.number,
-  numberofHitTargets: PropTypes.object,
   hitTarget: PropTypes.number,
 };
 
