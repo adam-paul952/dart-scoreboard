@@ -8,15 +8,16 @@ const CricketScoreCalculator = ({
   changeTurns,
   getCurrentPlayer,
 }) => {
-  const [playerScore, setPlayerScore] = useState([]);
+  const [playerScoreList, setPlayerScoreList] = useState([]);
+  const targets = [20, 19, 18, 17, 16, 15, 25];
 
   const handleInput = (number) => {
-    playerScore.push(number);
-    setPlayerScore([...playerScore]);
+    playerScoreList.push(number);
+    setPlayerScoreList([...playerScoreList]);
   };
 
   const deleteScore = () => {
-    setPlayerScore([]);
+    setPlayerScoreList([]);
   };
 
   const handleScoreChange = (value) => {
@@ -29,16 +30,16 @@ const CricketScoreCalculator = ({
     }
   };
 
+  const currentPlayer = getCurrentPlayer();
+
   const changeTurnValidate = () => {
-    let currentPlayer = getCurrentPlayer();
-    console.log(`Current player for this round is: ${currentPlayer.player}`);
-    playerScore.forEach((score) => {
+    playerScoreList.forEach((score) => {
       if (score === "Bull") {
         currentPlayer.scoreList.push(25);
-        setPlayerScore([]);
+        setPlayerScoreList([]);
       } else {
         currentPlayer.scoreList.push(score);
-        setPlayerScore([]);
+        setPlayerScoreList([]);
       }
     });
     changeTurn();
@@ -47,16 +48,27 @@ const CricketScoreCalculator = ({
   const changeTurn = () => {
     changeTurns();
     setPlayerList([...playerList]);
+    calculatePlayerScore();
     // declareWinner();
   };
 
-  // useEffect(() => {
-  //   console.log(playerList);
-  // }, [playerList]);
+  const calculatePlayerScore = () => {
+    console.log(currentPlayer);
+    let newScoreArray = [];
+    for (let i = 0; i < targets.length; i++) {
+      let countedScore = currentPlayer.scoreList.filter(
+        (hitNum) => hitNum === targets[i]
+      );
+      countedScore.splice(0, 3);
+      let newScore = countedScore.reduce((a, b) => a + b, 0);
+      newScoreArray.push(newScore);
+    }
+    currentPlayer.score = newScoreArray.reduce((a, b) => a + b, 0);
+  };
 
   return (
     <>
-      <p>Total: {playerScore.toString()}</p>
+      <p>Total: {playerScoreList.toString()}</p>
       <div className="scoreCalculator">
         <div className="scoreKeypad">
           {getCalculatorKeys().map((keyValue, index) => (

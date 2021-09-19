@@ -102,7 +102,7 @@ export const PlayerList = ({ index, player, deletePlayer }) => {
       <th>{index + 1}</th>
       <td>{playerName}</td>
       <td>
-        <Button variant="secondary" size="sm" onClick={() => removeRow(index)}>
+        <Button variant="danger" size="sm" onClick={() => removeRow(index)}>
           Delete
         </Button>
       </td>

@@ -229,6 +229,7 @@ const CricketScoreboardDisplay = ({ hitTarget }) => {
 };
 
 CricketScoreboardDisplay.propTypes = {
+  player: PropTypes.object,
   hitTarget: PropTypes.number,
 };
 

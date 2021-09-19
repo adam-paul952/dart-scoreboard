@@ -68,6 +68,7 @@ const useGame = () => {
       newScoreList[i].scoreList = [];
       newScoreList[i].score = 0;
       newScoreList[i].lives = 0;
+      newScoreList[i].hitCount = {};
       setPlayerList(newScoreList);
       setTurn(0);
     }
