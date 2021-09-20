@@ -37,6 +37,7 @@ const Cricket = () => {
         changeTurns={changeTurns}
         getCurrentPlayer={getCurrentPlayer}
         turn={turn}
+        resetScoreList={resetScoreList}
       />
     </>
   );

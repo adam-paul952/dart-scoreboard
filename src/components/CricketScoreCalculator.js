@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Alert, Container, Button, ButtonGroup } from "react-bootstrap";
 
 const CricketScoreCalculator = ({
   playerList,
   setPlayerList,
   changeTurns,
   getCurrentPlayer,
+  resetScoreList,
 }) => {
   const [playerScoreList, setPlayerScoreList] = useState([]);
   const targets = [20, 19, 18, 17, 16, 15, 25];
@@ -49,11 +51,10 @@ const CricketScoreCalculator = ({
     changeTurns();
     setPlayerList([...playerList]);
     calculatePlayerScore();
-    // declareWinner();
+    declareWinner();
   };
 
   const calculatePlayerScore = () => {
-    console.log(currentPlayer);
     let newScoreArray = [];
     for (let i = 0; i < targets.length; i++) {
       let countedScore = currentPlayer.scoreList.filter(
@@ -62,26 +63,72 @@ const CricketScoreCalculator = ({
       countedScore.splice(0, 3);
       let newScore = countedScore.reduce((a, b) => a + b, 0);
       newScoreArray.push(newScore);
+      // console.log(`${currentPlayer.player} NewScoreList = ${newScoreArray}`);
     }
     currentPlayer.score = newScoreArray.reduce((a, b) => a + b, 0);
   };
 
+  const declareWinner = () => {
+    let winner = null;
+
+    const countPlayerArray = targets.map((target) => {
+      const playerArrayOccurences = currentPlayer.scoreList.filter(
+        (hitNum) => hitNum === target
+      ).length;
+      return playerArrayOccurences;
+    });
+
+    if (countPlayerArray.every((value) => value >= 3)) {
+      winner = currentPlayer.player;
+      console.log(`Winner is ${winner}`);
+
+      if (winner) {
+        return (
+          <>
+            <Alert variant="success" style={{ fontWeight: "bold" }}>
+              <p>The WINNER is: {winner}</p>
+              <p>Congratulations!</p>
+              <Button
+                variant="success"
+                className="m-3"
+                onClick={() => resetScoreList()}
+              >
+                Play Again
+              </Button>
+              <Button
+                variant="success"
+                as={Link}
+                to="/game/create"
+                onClick={() => resetScoreList()}
+              >
+                Choose another game
+              </Button>
+            </Alert>
+          </>
+        );
+      }
+    }
+  };
+
   return (
     <>
-      <p>Total: {playerScoreList.toString()}</p>
-      <div className="scoreCalculator">
-        <div className="scoreKeypad">
-          {getCalculatorKeys().map((keyValue, index) => (
-            <CricketScoreCalculatorKey
-              name="score"
-              key={index}
-              keyValue={keyValue}
-              onChange={handleInput}
-              onClick={handleScoreChange}
-            />
-          ))}
+      <Container fluid>
+        <p>Total: {playerScoreList.toString()}</p>
+        {declareWinner()}
+        <div className="scoreCalculator">
+          <div className="scoreKeypad">
+            {getCalculatorKeys().map((keyValue, index) => (
+              <CricketScoreCalculatorKey
+                name="score"
+                key={index}
+                keyValue={keyValue}
+                onChange={handleInput}
+                onClick={handleScoreChange}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 };
@@ -91,6 +138,7 @@ CricketScoreCalculator.propTypes = {
   setPlayerList: PropTypes.func,
   changeTurns: PropTypes.func,
   getCurrentPlayer: PropTypes.func,
+  resetScoreList: PropTypes.func,
 };
 
 const getCalculatorKeys = () => {
