@@ -22,6 +22,9 @@ function App() {
     <>
       <Header title="Dart Scoreboard" />
       <div className="btnTable">
+        <Link className="optionBtn" to="" style={linkStyle}>
+          Log In
+        </Link>
         <Link className="optionBtn" to="/create_player" style={linkStyle}>
           Create Player
         </Link>
