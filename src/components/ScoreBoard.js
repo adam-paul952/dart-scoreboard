@@ -37,7 +37,7 @@ const Scoreboard = ({
 Scoreboard.propTypes = {
   variant: PropTypes.string,
   playerList: PropTypes.array,
-  x01Points: PropTypes.number,
+  x01Points: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   getCurrentPlayer: PropTypes.func,
   getCurrentPlayerByName: PropTypes.func,
   getCurrentPlayerById: PropTypes.func,

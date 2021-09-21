@@ -83,9 +83,14 @@ const CreatePlayerList = () => {
           </tbody>
         </Table>
       </Container>
-      <Link to="/game/create">
-        <Button>Submit</Button>
-      </Link>
+
+      <Button
+        as={Link}
+        to="/game/create"
+        disabled={playerList.length < 2 ? true : false}
+      >
+        Submit
+      </Button>
     </>
   );
 };

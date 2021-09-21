@@ -9,31 +9,31 @@ const Rules = () => {
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>X01</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body className="text-start">
             <X01Rules />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
           <Accordion.Header>Baseball</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body className="text-start">
             <BaseBallRules />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2">
           <Accordion.Header>Cricket</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body className="text-start">
             <CricketRules />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="3">
           <Accordion.Header>Elimination</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body className="text-start">
             <EliminationRules />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="4">
           <Accordion.Header>Killer</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body className="text-start">
             <KillerRules />
           </Accordion.Body>
         </Accordion.Item>

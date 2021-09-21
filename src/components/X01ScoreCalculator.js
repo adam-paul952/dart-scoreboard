@@ -50,6 +50,7 @@ const X01ScoreCalculator = ({
     let winner = null;
     playerList.forEach((player) => {
       if (player.score <= 0) {
+        player.score = 0;
         winner = player.player;
       }
     });
@@ -133,7 +134,7 @@ X01ScoreCalculator.propTypes = {
   getCurrentPlayer: PropTypes.func,
   resetScoreList: PropTypes.func,
   assignX01PlayerScore: PropTypes.func,
-  x01Points: PropTypes.number,
+  x01Points: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 const getCalculatorKeys = () => {

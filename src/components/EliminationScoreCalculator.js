@@ -46,9 +46,14 @@ const EliminationScoreCalculator = ({
       currentPlayer.scoreList.push(score);
       for (let i = 0; i < currentPlayer.scoreList.length; i++) {
         currentPlayer.score = currentPlayer.scoreList[i];
-        if (currentPlayer.score < prevPlayerScore) {
-          currentPlayer.lives -= 1;
-        }
+        playerList.forEach((player) => {
+          if (currentPlayer !== player && currentPlayer.score < player.score) {
+            currentPlayer.lives -= 1;
+          }
+        });
+        // if (currentPlayer.score < prevPlayerScore) {
+        //   currentPlayer.lives -= 1;
+        // }
       }
     }
     if (currentPlayer.lives === 0) {
@@ -101,6 +106,10 @@ const EliminationScoreCalculator = ({
       }
     }
   };
+
+  useEffect(() => {
+    console.log(playerList);
+  }, [playerList]);
 
   useEffect(() => {
     const onKeyUp = (e) => {
