@@ -63,7 +63,6 @@ const CricketScoreCalculator = ({
       countedScore.splice(0, 3);
       let newScore = countedScore.reduce((a, b) => a + b, 0);
       newScoreArray.push(newScore);
-      // console.log(`${currentPlayer.player} NewScoreList = ${newScoreArray}`);
     }
     currentPlayer.score = newScoreArray.reduce((a, b) => a + b, 0);
   };

@@ -8,7 +8,6 @@ function App() {
     padding: "10px",
     border: "2px solid black",
     borderRadius: "10px",
-    // background: "gray",
     width: "300px",
     fontSize: "25px",
     color: "black",
@@ -22,13 +21,13 @@ function App() {
     <>
       <Header title="Dart Scoreboard" />
       <div className="btnTable">
-        <Link className="optionBtn" to="" style={linkStyle}>
+        <Link to="" style={linkStyle}>
           Log In
         </Link>
-        <Link className="optionBtn" to="/create_player" style={linkStyle}>
+        <Link to="/create_player" style={linkStyle}>
           Create Player
         </Link>
-        <Link className="optionBtn" to="/rules" style={linkStyle}>
+        <Link to="/rules" style={linkStyle}>
           Rules
         </Link>
       </div>

@@ -4,6 +4,7 @@ import { Table } from "react-bootstrap";
 import { BiCaretLeft } from "react-icons/bi";
 import { AiOutlineCloseCircle, AiOutlineClose } from "react-icons/ai";
 import { BsSlash } from "react-icons/bs";
+import { useDarkMode } from "../util/useDarkMode";
 
 const Scoreboard = ({
   playerList,
@@ -13,6 +14,7 @@ const Scoreboard = ({
   getCurrentPlayerById,
   variant,
 }) => {
+  const [theme] = useDarkMode();
   const currentPlayer = getCurrentPlayer();
   const currentPlayerByName = getCurrentPlayerByName();
   const currentPlayerById = getCurrentPlayerById();
@@ -20,7 +22,7 @@ const Scoreboard = ({
   return (
     <>
       It&apos;s {currentPlayerByName}&apos;s turn !
-      <Table bordered striped>
+      <Table variant={theme} bordered striped>
         <TableHeader variant={variant} />
         <PlayerData
           playerList={playerList}

@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { Button, Container, Col, Row, Form, Table } from "react-bootstrap";
 import useGame from "../util/useGame";
+import { useDarkMode } from "../util/useDarkMode";
 
 const CreatePlayerList = () => {
   const { playerList, addPlayer, deletePlayer } = useGame();
+  const [theme] = useDarkMode();
+
   const initialState = {
     id: Math.floor(Math.random() * 100),
     player: "",
@@ -38,7 +41,10 @@ const CreatePlayerList = () => {
     addPlayer(playerName);
     setPlayerName(initialState);
   };
-
+  // const getTheme = () => {
+  //   return localStorage.getItem("theme");
+  // };
+  // console.log(getTheme());
   return (
     <>
       <Header title="Create Player" goBackButton />
@@ -61,7 +67,7 @@ const CreatePlayerList = () => {
         </Container>
       </Form>
       <Container className="mt-5 mb-5" fluid>
-        <Table bordered striped>
+        <Table variant={theme} bordered striped>
           <thead>
             <tr>
               <th>Player #</th>
