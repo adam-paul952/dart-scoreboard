@@ -6,10 +6,18 @@ import Routes from "./Routes";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
+import Theme from "./util/theme";
+
+import { ThemeProvider } from "./contexts/Provider";
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Routes />
-  </React.StrictMode>,
+  <ThemeProvider>
+    <Theme>
+      <React.StrictMode>
+        <Routes />
+      </React.StrictMode>
+    </Theme>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 

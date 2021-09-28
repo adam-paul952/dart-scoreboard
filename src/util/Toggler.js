@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+
+import { ThemeContext } from "../contexts/Provider";
 
 const Button = styled.button`
   background: ${({ theme }) => theme.background};
@@ -13,8 +15,9 @@ const Button = styled.button`
   }
 `;
 
-const Toggle = ({ theme, toggleTheme }) => {
-  return <Button onClick={toggleTheme}>Switch Theme</Button>;
+const Toggle = () => {
+  const { theme, themeToggle } = useContext(ThemeContext);
+  return <Button onClick={themeToggle}>Switch Theme</Button>;
 };
 
 Toggle.propTypes = {

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-
 import useLocalStorage from "./useLocalStorage";
 
 export const useDarkMode = () => {
@@ -17,7 +16,7 @@ export const useDarkMode = () => {
   useEffect(() => {
     const localTheme = JSON.parse(localStorage.getItem("theme"));
     localTheme && setTheme(localTheme);
-  }, [theme]);
+  }, [theme, setTheme]);
 
   return [theme, themeToggler];
 };
