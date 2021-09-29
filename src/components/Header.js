@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { Button, Container, Navbar } from "react-bootstrap";
-// import { useDarkMode } from "../util/useDarkMode";
+
 import { BsSkipBackward } from "react-icons/bs";
-// import { ThemeProvider } from "styled-components";
+
 import Toggle from "../util/Toggler";
 import { ThemeContext } from "../contexts/Provider";
 
@@ -13,8 +13,6 @@ const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
   const { theme, themeToggle } = useContext(ThemeContext);
 
   return (
-    // <ThemeProvider theme={themeMode}>
-    // <GlobalStyles />
     <>
       <Container>
         <Navbar variant={theme} className="mb-5 justify-content-between">
@@ -44,7 +42,6 @@ const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
         </Navbar>
       </Container>
     </>
-    // </ThemeProvider>
   );
 };
 

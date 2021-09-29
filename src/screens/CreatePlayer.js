@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { Button, Container, Col, Row, Form, Table } from "react-bootstrap";
 import useGame from "../util/useGame";
-import { useDarkMode } from "../util/useDarkMode";
+
+import { ThemeContext } from "../contexts/Provider";
 
 const CreatePlayerList = () => {
   const { playerList, addPlayer, deletePlayer } = useGame();
-  const [theme] = useDarkMode();
+  const { theme } = useContext(ThemeContext);
 
   const initialState = {
     id: Math.floor(Math.random() * 100),
@@ -41,10 +42,7 @@ const CreatePlayerList = () => {
     addPlayer(playerName);
     setPlayerName(initialState);
   };
-  // const getTheme = () => {
-  //   return localStorage.getItem("theme");
-  // };
-  // console.log(getTheme());
+
   return (
     <>
       <Header title="Create Player" goBackButton />

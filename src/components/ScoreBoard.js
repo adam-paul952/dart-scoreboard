@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import { BiCaretLeft } from "react-icons/bi";
 import { AiOutlineCloseCircle, AiOutlineClose } from "react-icons/ai";
 import { BsSlash } from "react-icons/bs";
-import { useDarkMode } from "../util/useDarkMode";
+
+import { ThemeContext } from "../contexts/Provider";
 
 const Scoreboard = ({
   playerList,
@@ -14,7 +15,7 @@ const Scoreboard = ({
   getCurrentPlayerById,
   variant,
 }) => {
-  const [theme] = useDarkMode();
+  const { theme } = useContext(ThemeContext);
   const currentPlayer = getCurrentPlayer();
   const currentPlayerByName = getCurrentPlayerByName();
   const currentPlayerById = getCurrentPlayerById();
@@ -177,8 +178,6 @@ X01PlayerData.propTypes = {
   index: PropTypes.number,
   currentPlayerById: PropTypes.number,
 };
-
-// const targets = [20, 19, 18, 17, 16, 15, 25];
 
 const CricketPlayerData = ({ player, index, currentPlayerById }) => {
   const hitTargets = [
