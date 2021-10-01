@@ -9,17 +9,18 @@ const StyledLink = styled(Link)`
 text-decoration: none;
 
     &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;`;
+        text-decoration: none;
+        `;
 
 const StyledButton = styled(Button)`
-  margin: 0.2rem;
+  margin: 2px;
   display: flex;
-  width: 18rem;
+  width: 300px;
   border: 2px solid black;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 25px;
   flex-direction: row;
-  border-radius: 0.7rem;
+  border-radius: 10px;
 `;
 
 function App() {
