@@ -35,6 +35,10 @@ Me and my friends play a fair amount of darts, these games are typically the gam
 
 #### **Getting Started**
 
+Click this link: [Dart Scoreboard](https://adam-paul952.github.io/dart-scoreboard/)
+
+Or:
+
 Clone this repository and run
 
     Ensure you're in the root file of the project

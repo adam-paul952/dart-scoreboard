@@ -6,8 +6,10 @@ import { ThemeContext } from "../contexts/Provider";
 
 const Toggle = () => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const oppositeTheme = theme === "dark" ? "light" : "dark";
+
   return (
-    <Button variant={theme} onClick={setTheme}>
+    <Button variant={oppositeTheme} onClick={setTheme}>
       Switch Theme
     </Button>
   );
