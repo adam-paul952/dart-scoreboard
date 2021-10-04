@@ -29,7 +29,7 @@ function App() {
 
   return (
     <>
-      <Header title="Dart Scoreboard" />
+      <Header title="Dart Scoreboard" switchThemeButton />
       <div className="btnTable">
         <StyledLink to="">
           <StyledButton variant={oppositeTheme}>Log In</StyledButton>

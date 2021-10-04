@@ -14,6 +14,7 @@ import X01 from "./screens/X01";
 import Elimination from "./screens/Elimination";
 import Killer from "./screens/Killer";
 import Rules from "./screens/Rules";
+import X01OutShotChart from "./components/X01OutChart";
 
 export default function Routes() {
   return (
@@ -31,6 +32,7 @@ export default function Routes() {
         <Route path="/game/elimination/create" component={EliminationSetUp} />
         <Route path="/game/killer/create" component={KillerSetUp} />
         <Route path="/rules" component={Rules} />
+        <Route path="/outchart" component={X01OutShotChart} />
       </Switch>
     </Router>
   );

@@ -69,6 +69,7 @@ const CricketScoreCalculator = ({
 
   const declareWinner = () => {
     let winner = null;
+    let winningScore = -1;
 
     const countPlayerArray = targets.map((target) => {
       const playerArrayOccurences = currentPlayer.scoreList.filter(
@@ -77,7 +78,10 @@ const CricketScoreCalculator = ({
       return playerArrayOccurences;
     });
 
-    if (countPlayerArray.every((value) => value >= 3)) {
+    if (
+      countPlayerArray.every((value) => value >= 3) &&
+      currentPlayer.score > 0
+    ) {
       winner = currentPlayer.player;
       console.log(`Winner is ${winner}`);
 

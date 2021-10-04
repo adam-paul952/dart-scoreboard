@@ -7,8 +7,16 @@ import { BsSkipBackward } from "react-icons/bs";
 
 import Toggle from "../util/Toggler";
 import { ThemeContext } from "../contexts/Provider";
+import X01OutShotButton from "./X01OutChart";
 
-const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
+const Header = ({
+  title,
+  goBackButton,
+  resetButton,
+  resetScoreList,
+  switchThemeButton,
+  outShotButton,
+}) => {
   const history = useHistory();
   const { theme, themeToggle } = useContext(ThemeContext);
 
@@ -27,6 +35,7 @@ const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
             </Button>
           )}
           <Navbar.Brand>{title}</Navbar.Brand>
+          {outShotButton && <X01OutShotButton />}
           {resetButton && (
             <Button
               onClick={() => resetScoreList()}
@@ -36,9 +45,7 @@ const Header = ({ title, goBackButton, resetButton, resetScoreList }) => {
               Reset Game
             </Button>
           )}
-          <>
-            <Toggle theme={theme} onclick={themeToggle} />
-          </>
+          {switchThemeButton && <Toggle theme={theme} onclick={themeToggle} />}
         </Navbar>
       </Container>
     </>
@@ -50,6 +57,8 @@ Header.propTypes = {
   goBackButton: PropTypes.bool,
   resetButton: PropTypes.bool,
   resetScoreList: PropTypes.func,
+  switchThemeButton: PropTypes.bool,
+  outShotButton: PropTypes.bool,
 };
 
 export default Header;

@@ -23,6 +23,7 @@ const X01 = () => {
         goBackButton
         resetButton
         resetScoreList={resetScoreList}
+        outShotButton
       />
       <Scoreboard
         variant="x01"
