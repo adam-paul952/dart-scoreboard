@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
+import { ThemeContext } from "../contexts/Provider";
 
 const X01OutShotButton = () => {
   const [show, setShow] = useState(false);
@@ -34,9 +35,11 @@ const X01OutShotButton = () => {
 };
 
 const X01OutShotChart = () => {
+  const { theme } = useContext(ThemeContext);
+  const oppositeTheme = theme === "light" ? "light" : "dark";
   return (
     <>
-      <Table striped bordered hover>
+      <Table variant={oppositeTheme} striped bordered hover>
         <thead>
           <tr>
             <th>Score</th>

@@ -1,10 +1,16 @@
-import React, { useState, createContext } from "react";
+import React, { useEffect, createContext } from "react";
+import useLocalStorage from "../util/useLocalStorage";
 import PropTypes from "prop-types";
 
 const ThemeContext = createContext();
 
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useLocalStorage("theme", "light");
+
+  useEffect(() => {
+    const localTheme = JSON.parse(localStorage.getItem("theme"));
+    localTheme && setTheme(localTheme);
+  }, [theme, setTheme]);
 
   return (
     <ThemeContext.Provider

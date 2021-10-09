@@ -23,7 +23,7 @@ const Scoreboard = ({
   return (
     <>
       It&apos;s {currentPlayerByName}&apos;s turn !
-      <Table variant={theme} bordered striped>
+      <Table variant={theme} bordered striped size="sm">
         <TableHeader variant={variant} />
         <PlayerData
           playerList={playerList}

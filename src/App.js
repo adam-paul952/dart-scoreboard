@@ -31,7 +31,7 @@ function App() {
     <>
       <Header title="Dart Scoreboard" switchThemeButton />
       <div className="btnTable">
-        <StyledLink to="">
+        <StyledLink to="/game/login">
           <StyledButton variant={oppositeTheme}>Log In</StyledButton>
         </StyledLink>
         <StyledLink to="/create_player">
