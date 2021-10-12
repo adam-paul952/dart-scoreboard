@@ -10,17 +10,17 @@ Dart Scoreboard is a dart scoring web app which allows users to enter player nam
 
 ### **Motivation**
 
-Me and my friends play a fair amount of darts, these games are typically the games that we play.
+My friends and I play quite a bit of darts. I decided to make this app to include more of the games we play outside of the standard X01 and Cricket which is found on most dart apps.
 
 ---
 
 #### **Games**
 
-- **Baseball** :white_check_mark:<!-- Link to rules page -->
-- **X01** :white_check_mark:<!-- Link to rules page -->
-- **Cricket** <!-- Link to rules page -->
-- **Elimination** :white_check_mark: <!-- Link to rules page -->
-- **Killer** <!-- Link to rules page -->
+- **Baseball** :white_check_mark:
+- **X01** :white_check_mark:
+- **Cricket** :white_check_mark:
+- **Elimination** :white_check_mark:
+- **Killer**
 
 ---
 
@@ -50,6 +50,6 @@ Once the `node_modules` are installed, run
 
     npm start
 
-_**Please Note:** This app is still in development and only games with :white_check_mark: are fully playable games._
+_**Please Note:** This app is still in development and only games with :white_check_mark: are playable games._
 
 ---
