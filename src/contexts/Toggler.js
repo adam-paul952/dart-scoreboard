@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
 
-import { ThemeContext } from "../contexts/Provider";
+import { ThemeContext } from "./Provider";
 import { BsFillBrightnessHighFill } from "react-icons/bs";
 import { FaMoon } from "react-icons/fa";
 

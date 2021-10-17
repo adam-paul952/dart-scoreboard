@@ -1,38 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import Header from "../components/Header";
-import useAPI from "../util/useAPI";
+import useUserAPI from "../util/useUserAPI";
+import useSessionStorage from "../util/useSessionStorage";
 
 const LoginUser = () => {
-  const { setToken, loginUser } = useAPI();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const { loginUser, isLoggedIn } = useUserAPI();
+  const { saveToken } = useSessionStorage("token", "");
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const token = loginUser({ username, password });
-    setToken(token);
+    loginUser({ username, password });
+    setAlert(true);
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      saveToken(username);
+    } else {
+      saveToken("");
+    }
+  }, [isLoggedIn, saveToken, username]);
+
+  useEffect(() => {
+    if (alert) {
+      setTimeout(() => {
+        setAlert(false);
+      }, 2000);
+    }
+  }, [alert]);
 
   return (
     <>
       <Header title="Log In" goBackButton></Header>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="m-3" controlId="">
+        <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
             onChange={(e) => setUsername(e.target.value)}
+            value={username}
           />
         </Form.Group>
-        <Form.Group className="m-3" controlId="">
+        <Form.Group className="m-3" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
         </Form.Group>
         <Button type="submit">Log In</Button>
@@ -41,6 +63,14 @@ const LoginUser = () => {
       <Button as={Link} to="/game/register">
         Register
       </Button>
+      {alert && <h2>Login Successful</h2>}
+      <div className="mt-3">
+        {isLoggedIn && (
+          <Button as={Link} to="/create_player">
+            Continue
+          </Button>
+        )}
+      </div>
     </>
   );
 };

@@ -6,7 +6,7 @@ import Routes from "./Routes";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import Theme from "./util/theme";
+import Theme from "./contexts/theme";
 
 import { ThemeProvider } from "./contexts/Provider";
 

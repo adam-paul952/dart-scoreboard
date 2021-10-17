@@ -5,7 +5,7 @@ import { Button, Container, Navbar } from "react-bootstrap";
 
 import { BsSkipBackward } from "react-icons/bs";
 
-import Toggle from "../util/Toggler";
+import Toggle from "../contexts/Toggler";
 import { ThemeContext } from "../contexts/Provider";
 import X01OutShotButton from "./X01OutChart";
 
