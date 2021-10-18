@@ -16,6 +16,7 @@ import Killer from "./screens/Killer";
 import Rules from "./screens/Rules";
 import LoginUser from "./screens/LogIn";
 import UserRegistration from "./screens/Register";
+import Dashboard, { EditUserInfo, DeleteUser } from "./screens/Dashboard";
 
 export default function Routes() {
   return (
@@ -26,7 +27,7 @@ export default function Routes() {
         <Route path="/create_player" component={CreatePlayerList} />
         <Route exact path="/game/cricket" component={Cricket} />
         <Route exact path="/game/baseball" component={Baseball} />
-        <Route exact path="/game/x01" component={X01}></Route>
+        <Route exact path="/game/x01" component={X01} />
         <Route exact path="/game/elimination" component={Elimination} />
         <Route exact path="/game/killer" component={Killer} />
         <Route path="/game/x01/create" component={X01GameSelection} />
@@ -35,6 +36,9 @@ export default function Routes() {
         <Route path="/rules" component={Rules} />
         <Route path="/game/login" component={LoginUser} />
         <Route path="/game/register" component={UserRegistration} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/user/edit" component={EditUserInfo} />
+        <Route path="/user/delete" component={DeleteUser} />
       </Switch>
     </Router>
   );

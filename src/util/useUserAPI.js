@@ -1,13 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const createUserURL = "http://localhost:8080/users/";
 const loginUserURL = "http://localhost:8080/users/login";
 
 const useUserAPI = () => {
-  const createUser = ({ name, username, password }) => {
+  const createUser = ({ username, password }) => {
     axios
-      .post(createUserURL, { name, username, password })
+      .post(createUserURL, { username, password })
       .then((res) => {
         console.log(`Successfully created user: ${res.data.username}`);
       })
@@ -18,6 +18,10 @@ const useUserAPI = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUserId, setLoggedInUserId] = useState("");
+
+  useEffect(() => {
+    console.log(`Logged in user id: ${loggedInUserId}`);
+  }, [loggedInUserId]);
 
   const loginUser = ({ username, password }) => {
     axios
@@ -33,11 +37,31 @@ const useUserAPI = () => {
       });
   };
 
-  const findAllUsers = () => {};
+  const findAllUsers = () => {
+    axios
+      .get(createUserURL)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
-  const updateUserById = () => {};
+  const updateUserById = ({ userId }) => {
+    axios
+      .put(createUserURL, { params: userId })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
-  const deleteUserById = () => {};
+  const deleteUserById = ({ userId }) => {
+    axios.delete(`http://localhost:8080/users/${userId}`, { params: userId });
+  };
 
   return {
     createUser,

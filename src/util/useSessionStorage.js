@@ -16,7 +16,12 @@ const useSessionStorage = (key, defaultValue) => {
     setToken(userToken);
   };
 
-  return { saveToken, token };
+  const displayUserToken = () => {
+    const username = JSON.parse(sessionStorage.getItem(`token`));
+    return username;
+  };
+
+  return { saveToken, token, displayUserToken };
 };
 
 export default useSessionStorage;

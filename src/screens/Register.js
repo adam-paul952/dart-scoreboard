@@ -7,7 +7,6 @@ import useUserAPI from "../util/useUserAPI";
 const UserRegistration = () => {
   const { createUser } = useUserAPI();
 
-  const [playerName, setPlayerName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -19,24 +18,13 @@ const UserRegistration = () => {
     if (noPasswordMatch) {
       return;
     } else {
-      createUser({ playerName, username, password });
+      createUser({ username, password });
     }
   };
   return (
     <>
       <Header title="User Registration" goBackButton />
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="m-3" controlId="playername">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="name"
-            placeholder="Enter name"
-            onChange={(e) => {
-              setPlayerName(e.target.value);
-            }}
-            value={playerName}
-          />
-        </Form.Group>
         <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>
           <Form.Control

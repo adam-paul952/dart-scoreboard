@@ -66,7 +66,7 @@ const LoginUser = () => {
       {alert && <h2>Login Successful</h2>}
       <div className="mt-3">
         {isLoggedIn && (
-          <Button as={Link} to="/create_player">
+          <Button as={Link} to="/dashboard">
             Continue
           </Button>
         )}
