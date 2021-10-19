@@ -59,15 +59,16 @@ const LoginUser = () => {
         </Form.Group>
         <Button type="submit">Log In</Button>
       </Form>
-      <p className="mt-3">No account, no problem click here to register</p>
-      <Button as={Link} to="/game/register">
-        Register
-      </Button>
+      <p className="mt-5">No account, no problem click here to register</p>
       {alert && <h2>Login Successful</h2>}
       <div className="mt-3">
-        {isLoggedIn && (
+        {isLoggedIn ? (
           <Button as={Link} to="/dashboard">
             Continue
+          </Button>
+        ) : (
+          <Button as={Link} to="/game/register">
+            Register
           </Button>
         )}
       </div>

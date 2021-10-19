@@ -69,7 +69,7 @@ const CricketScoreCalculator = ({
 
   const declareWinner = () => {
     let winner = null;
-    let winningScore = -1;
+    // let winningScore = -1;
 
     const countPlayerArray = targets.map((target) => {
       const playerArrayOccurences = currentPlayer.scoreList.filter(

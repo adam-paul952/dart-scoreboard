@@ -21,7 +21,12 @@ const useSessionStorage = (key, defaultValue) => {
     return username;
   };
 
-  return { saveToken, token, displayUserToken };
+  const displayUserIdToken = () => {
+    const userIdToken = JSON.parse(sessionStorage.getItem("userId"));
+    return userIdToken;
+  };
+
+  return { saveToken, token, displayUserToken, displayUserIdToken };
 };
 
 export default useSessionStorage;

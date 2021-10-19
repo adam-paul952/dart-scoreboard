@@ -16,7 +16,11 @@ import Killer from "./screens/Killer";
 import Rules from "./screens/Rules";
 import LoginUser from "./screens/LogIn";
 import UserRegistration from "./screens/Register";
-import Dashboard, { EditUserInfo, DeleteUser } from "./screens/Dashboard";
+import Dashboard, {
+  EditUserInfo,
+  DeleteUser,
+  SelectPlayersFromDB,
+} from "./screens/Dashboard";
 
 export default function Routes() {
   return (
@@ -39,6 +43,7 @@ export default function Routes() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/user/edit" component={EditUserInfo} />
         <Route path="/user/delete" component={DeleteUser} />
+        <Route path="/user/select_players" component={SelectPlayersFromDB} />
       </Switch>
     </Router>
   );

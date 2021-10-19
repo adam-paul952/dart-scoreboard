@@ -40,9 +40,9 @@ const EliminationScoreCalculator = ({
     }
   };
 
-  const passPlayerTurn = () => {
-    changeTurns();
-  };
+  // const passPlayerTurn = () => {
+  //   changeTurns();
+  // };
 
   const changeTurn = (score) => {
     let currentPlayer = playerList[turn];

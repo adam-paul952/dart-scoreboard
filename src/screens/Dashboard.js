@@ -1,18 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../components/Header";
-import { Button, Container, Form } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Form,
+  Table,
+  Col,
+  Row,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "../contexts/Provider";
 
 import useUserAPI from "../util/useUserAPI";
+import usePlayerAPI from "../util/usePlayerAPI";
 import useSessionStorage from "../util/useSessionStorage";
 
+import LoginUser from "./LogIn";
+
 const Dashboard = () => {
-  const { token, displayUserToken } = useSessionStorage();
+  const { displayUserToken } = useSessionStorage();
   const username = displayUserToken();
 
   const handleLogout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
   };
+
+  if (!username) {
+    return <LoginUser />;
+  }
 
   return (
     <>
@@ -20,28 +36,38 @@ const Dashboard = () => {
       <p>
         Welcome back <b>{username}</b>
       </p>
-      <>What would you like to do?</>
+      <p>What would you like to do?</p>
       <Container className="m-3">
-        <Button>Create Game</Button>
-        <Button>Select Players</Button>
-        <Button as={Link} to="/user/edit">
-          Edit user info
-        </Button>
+        <ButtonGroup>
+          <Button>Create Game</Button>
+          <Button as={Link} to="/user/select_players">
+            Select Players
+          </Button>
+          <Button as={Link} to="/user/edit">
+            Edit user info
+          </Button>
+        </ButtonGroup>
       </Container>
       <Container className="m-3">
-        <Button as={Link} to="/user/delete">
-          Delete User
-        </Button>
-        <Button as={Link} to="/game/login" onClick={handleLogout}>
-          Logout
-        </Button>
+        <ButtonGroup>
+          <Button as={Link} to="/user/delete">
+            Delete User
+          </Button>
+          <Button as={Link} to="/game/login" onClick={handleLogout}>
+            Logout
+          </Button>
+        </ButtonGroup>
       </Container>
     </>
   );
 };
 
 export const EditUserInfo = () => {
-  const { updateUserById, loggedInUserId } = useUserAPI();
+  // const { displayUserIdToken } = useSessionStorage();
+
+  // const { updateUserById } = useUserAPI();
+
+  // const userId = displayUserIdToken();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -50,9 +76,9 @@ export const EditUserInfo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  useEffect(() => {
-    console.log(`logged in user id : ${loggedInUserId}`);
-  });
+  // useEffect(() => {
+  //   console.log(displayUserIdToken());
+  // }, [displayUserIdToken]);
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -104,12 +130,127 @@ export const EditUserInfo = () => {
 
 export const DeleteUser = () => {
   const { deleteUserById } = useUserAPI();
-  const { token, displayUserToken } = useSessionStorage();
+  const { displayUserToken, displayUserIdToken } = useSessionStorage();
+
   const username = displayUserToken();
+  const userId = displayUserIdToken();
+
+  const handleDelete = (userId) => {
+    deleteUserById(userId);
+  };
+
   return (
     <>
       <p>Are you sure you would like to delete {username}?</p>
-      <Button onClick={deleteUserById}>Delete User</Button>
+      <Button
+        onClick={() => {
+          handleDelete(userId);
+        }}
+      >
+        Delete User
+      </Button>
+    </>
+  );
+};
+
+export const SelectPlayersFromDB = () => {
+  const { theme } = useContext(ThemeContext);
+  const { userPlayerList, getPlayerByUserId, deletePlayerById, createPlayer } =
+    usePlayerAPI();
+
+  const { displayUserIdToken } = useSessionStorage();
+  const userId = displayUserIdToken();
+
+  useEffect(() => {
+    getPlayerByUserId(userId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [playerName, setPlayerName] = useState("");
+
+  const handleDelete = (id) => {
+    deletePlayerById(id);
+    setTimeout(() => {
+      getPlayerByUserId(userId);
+    });
+  };
+
+  const handleCreate = (userId) => {
+    createPlayer(playerName, userId);
+    setTimeout(() => {
+      getPlayerByUserId(userId);
+    });
+  };
+
+  return (
+    <>
+      <Form>
+        <Container className="mt-5 mb-5" fluid>
+          <Row className="justify-content-md-center">
+            <Col>
+              <input
+                type="text"
+                name="player"
+                placeholder="Player Name"
+                onChange={(e) => {
+                  setPlayerName(e.target.value);
+                }}
+                value={playerName}
+              />
+            </Col>
+            <Col>
+              <Button
+                onClick={() => {
+                  handleCreate(userId);
+                }}
+              >
+                Add Player
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      </Form>
+      <Table variant={theme} bordered striped>
+        <thead>
+          <tr>
+            <th>Player Name</th>
+            <th>Select Player</th>
+            <th>Edit Player</th>
+            <th>Delete Player</th>
+          </tr>
+        </thead>
+        <tbody>
+          {userPlayerList &&
+            userPlayerList.map(({ id, name }) => {
+              return (
+                <tr key={id}>
+                  <td>{name}</td>
+                  <td>
+                    <Form.Check type="checkbox" />
+                  </td>
+                  <td>
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      // onClick={}
+                    >
+                      Edit
+                    </Button>
+                  </td>
+                  <td>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => handleDelete(id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </Table>
     </>
   );
 };

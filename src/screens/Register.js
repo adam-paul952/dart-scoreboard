@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import Header from "../components/Header";
 
 import useUserAPI from "../util/useUserAPI";
 
 const UserRegistration = () => {
-  const { createUser } = useUserAPI();
+  const { createUser, isLoggedIn, setIsLoggedIn } = useUserAPI();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,8 +21,10 @@ const UserRegistration = () => {
       return;
     } else {
       createUser({ username, password });
+      setIsLoggedIn(true);
     }
   };
+
   return (
     <>
       <Header title="User Registration" goBackButton />
@@ -63,9 +67,15 @@ const UserRegistration = () => {
             value={passwordConfirm}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Register
-        </Button>
+        {isLoggedIn ? (
+          <Button variant="primary" as={Link} to="/game/login">
+            Continue to login
+          </Button>
+        ) : (
+          <Button variant="primary" type="submit">
+            Register
+          </Button>
+        )}
       </Form>
     </>
   );
