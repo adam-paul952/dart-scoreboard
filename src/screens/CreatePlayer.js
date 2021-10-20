@@ -13,13 +13,13 @@ const CreatePlayerList = () => {
 
   const initialState = {
     id: Math.floor(Math.random() * 100),
-    player: "",
+    playerName: "",
     score: 0,
     scoreList: [],
     lives: 0,
   };
-  const [playerName, setPlayerName] = useState(initialState);
-  const { player } = playerName;
+  const [playerObject, setPlayerObject] = useState(initialState);
+  const { playerName } = playerObject;
 
   useEffect(() => {
     const onKeyUp = (e) => {
@@ -35,12 +35,12 @@ const CreatePlayerList = () => {
   });
 
   const onHandleChange = ({ target: { name, value } }) => {
-    setPlayerName({ ...playerName, [name]: value });
+    setPlayerObject({ ...playerObject, [name]: value });
   };
 
   const onAddPlayer = () => {
-    addPlayer(playerName);
-    setPlayerName(initialState);
+    addPlayer(playerObject);
+    setPlayerObject(initialState);
   };
 
   return (
@@ -52,10 +52,10 @@ const CreatePlayerList = () => {
             <Col>
               <input
                 type="text"
-                name="player"
+                name="playerName"
                 placeholder="Player Name"
                 onChange={onHandleChange}
-                value={player}
+                value={playerName}
               />
             </Col>
             <Col>
@@ -100,7 +100,7 @@ const CreatePlayerList = () => {
 };
 
 export const PlayerList = ({ index, player, deletePlayer }) => {
-  let playerName = player.player;
+  let playerName = player.playerName;
 
   const removeRow = (index) => {
     deletePlayer(index);

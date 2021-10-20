@@ -4,9 +4,9 @@ import axios from "axios";
 const URL = "http://localhost:8080/players/";
 
 const usePlayerAPI = () => {
-  const createPlayer = (name, users_id) => {
+  const createPlayer = (playerName, users_id) => {
     axios
-      .post(`${URL}`, { name, users_id })
+      .post(`${URL}`, { playerName, users_id })
       .then((res) => {
         console.log(`Successfully created player: ${res.data.name}`);
       })
@@ -22,16 +22,32 @@ const usePlayerAPI = () => {
       .get(`${URL}${userId}`)
       .then((res) => {
         console.log(res.data);
-        setUserPlayerList(res.data);
+        const players = res.data;
+        const useDatabasePlayers = players.map((player) => {
+          (player.score = 0), (player.lives = 0), (player.scoreList = []);
+          return player;
+        });
+        setUserPlayerList(useDatabasePlayers);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const updatePlayerById = (playerId) => {
+  const getPlayerByName = (playerName) => {
     axios
-      .put(`${URL}${playerId}`)
+      .get(`${URL}byName/${playerName}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const updatePlayerById = (playerId, { name, users_id }) => {
+    axios
+      .put(`${URL}${playerId}`, { name, users_id })
       .then((res) => {
         console.log(res.data);
       })
@@ -58,6 +74,7 @@ const usePlayerAPI = () => {
     deletePlayerById,
     userPlayerList,
     setUserPlayerList,
+    getPlayerByName,
   };
 };
 

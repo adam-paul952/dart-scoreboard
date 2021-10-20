@@ -1,32 +1,38 @@
 import { useState } from "react";
 
 const useSessionStorage = (key, defaultValue) => {
-  const [token, setToken] = useState(() => {
+  const [storedValue, setStoredValue] = useState(() => {
     try {
-      const userToken = sessionStorage.getItem(key);
-      return userToken ? JSON.parse(userToken) : defaultValue;
+      const item = sessionStorage.getItem(key);
+      return item ? JSON.parse(item) : defaultValue;
     } catch (err) {
       console.log(err);
       return defaultValue;
     }
   });
 
-  const saveToken = (userToken) => {
-    sessionStorage.setItem(key, JSON.stringify(userToken));
-    setToken(userToken);
+  const setValue = (value) => {
+    try {
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      sessionStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const displayUserToken = () => {
-    const username = JSON.parse(sessionStorage.getItem(`token`));
-    return username;
-  };
+  return [storedValue, setValue];
+};
 
-  const displayUserIdToken = () => {
-    const userIdToken = JSON.parse(sessionStorage.getItem("userId"));
-    return userIdToken;
-  };
+export const displaySessionUsername = () => {
+  const usernameToken = JSON.parse(sessionStorage.getItem("username"));
+  return usernameToken;
+};
 
-  return { saveToken, token, displayUserToken, displayUserIdToken };
+export const displaySessionUserIdToken = () => {
+  const userIdToken = JSON.parse(sessionStorage.getItem("userId"));
+  return userIdToken;
 };
 
 export default useSessionStorage;

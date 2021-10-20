@@ -1,26 +1,38 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 
+import useUserAPI from "../../util/useUserAPI";
+import { displaySessionUserIdToken } from "../../util/useSessionStorage";
+
 const EditUserInfo = () => {
-  // const { displayUserIdToken } = useSessionStorage();
+  const userId = displaySessionUserIdToken();
 
-  // const { updateUserById } = useUserAPI();
+  const { loginUser, updateUserById } = useUserAPI();
 
-  // const userId = displayUserIdToken();
-
+  const [userCredentials, setUserCredentials] = useState(false);
   const [username, setUsername] = useState("");
+  const [currentUserPassword, setCurrentUserPassword] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const noPasswordMatch = password !== passwordConfirm;
+
+  const handleSubmit = (userId, { username, password }) => {
+    updateUserById(userId, { username, password });
+    sessionStorage.setItem("username", JSON.stringify(username));
   };
-  // useEffect(() => {
-  //   console.log(displayUserIdToken());
-  // }, [displayUserIdToken]);
+
+  const checkUserCredentials = (username, password) => {
+    loginUser({ username, password });
+    if (loginUser) {
+      setUserCredentials(true);
+    }
+  };
+
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -36,32 +48,66 @@ const EditUserInfo = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder="Current Password"
             onChange={(e) => {
-              setPassword(e.target.value);
+              setCurrentUserPassword(e.target.value);
             }}
-            value={password}
+            value={currentUserPassword}
           />
         </Form.Group>
-        {/* {noPasswordMatch && (
-            <p style={{ color: "red", fontWeight: "bold" }}>
-              Passwords must match
-            </p>
-          )} */}
-        <Form.Group className="m-3" controlId="confirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm Password"
-            onChange={(e) => {
-              setPasswordConfirm(e.target.value);
+
+        {userCredentials && (
+          <Form.Group className="m-3" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="New Password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              value={password}
+            />
+          </Form.Group>
+        )}
+        {noPasswordMatch && (
+          <p style={{ color: "red", fontWeight: "bold" }}>
+            Passwords must match
+          </p>
+        )}
+        {userCredentials && (
+          <Form.Group className="m-3" controlId="confirmPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Confirm New Password"
+              onChange={(e) => {
+                setPasswordConfirm(e.target.value);
+              }}
+              value={passwordConfirm}
+            />
+          </Form.Group>
+        )}
+        {userCredentials ? (
+          <Button
+            variant="primary"
+            as={Link}
+            to="/dashboard"
+            onClick={() => {
+              handleSubmit(userId, { username, password });
             }}
-            value={passwordConfirm}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Update user info
-        </Button>
+          >
+            Edit User Info
+          </Button>
+        ) : (
+          <Button
+            variant="primary"
+            onClick={() => {
+              checkUserCredentials(username, currentUserPassword);
+            }}
+          >
+            Confirm Credentials
+          </Button>
+        )}
       </Form>
     </>
   );

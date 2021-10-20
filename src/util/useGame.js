@@ -1,12 +1,13 @@
 import { useState } from "react";
 import useLocalStorage from "./useLocalStorage";
+import useSessionStorage from "./useSessionStorage";
 
 const useGame = () => {
   // Main array to hold player objects
-  const [playerList, setPlayerList] = useLocalStorage("listOfPlayers", []);
+  const [playerList, setPlayerList] = useSessionStorage("listOfPlayers", []);
 
-  const addPlayer = (player) => {
-    setPlayerList([...playerList, player]);
+  const addPlayer = (playerName) => {
+    setPlayerList([...playerList, playerName]);
   };
 
   const deletePlayer = (rowNumber) => {

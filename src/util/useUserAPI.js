@@ -34,11 +34,11 @@ const useUserAPI = () => {
       });
   };
 
-  const updateUserById = ({ userId }) => {
+  const updateUserById = (userId, { username, password }) => {
     axios
-      .put(URL, { params: userId })
+      .put(`${URL}${userId}`, { username, password })
       .then((res) => {
-        console.log(res.data);
+        console.log(`Successfully updated user: ${res.data.username}`);
       })
       .catch((err) => {
         console.log(err.message);

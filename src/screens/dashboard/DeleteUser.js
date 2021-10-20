@@ -1,24 +1,29 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import useUserAPI from "../../util/useUserAPI";
-import useSessionStorage from "../../util/useSessionStorage";
+import {
+  displaySessionUsername,
+  displaySessionUserIdToken,
+} from "../../util/useSessionStorage";
 
 const DeleteUser = () => {
   const { deleteUserById } = useUserAPI();
-  const { displayUserToken, displayUserIdToken } = useSessionStorage();
-
-  const username = displayUserToken();
-  const userId = displayUserIdToken();
+  const username = displaySessionUsername();
+  const userId = displaySessionUserIdToken();
 
   const handleDelete = (userId) => {
     deleteUserById(userId);
+    sessionStorage.clear();
   };
 
   return (
     <>
       <p>Are you sure you would like to delete {username}?</p>
       <Button
+        as={Link}
+        to="/game/login"
         onClick={() => {
           handleDelete(userId);
         }}

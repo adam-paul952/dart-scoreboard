@@ -2,22 +2,31 @@ import React, { useState, useEffect, useContext } from "react";
 import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { ThemeContext } from "../../contexts/Provider";
 
+import useGame from "../../util/useGame";
 import usePlayerAPI from "../../util/usePlayerAPI";
-import useSessionStorage from "../../util/useSessionStorage";
+import { displaySessionUserIdToken } from "../../util/useSessionStorage";
 
 const SelectPlayersFromDB = () => {
   const { theme } = useContext(ThemeContext);
-  const { userPlayerList, getPlayerByUserId, deletePlayerById, createPlayer } =
-    usePlayerAPI();
+  const {
+    userPlayerList,
+    getPlayerByUserId,
+    deletePlayerById,
+    createPlayer,
+    // updatePlayerById,
+    getPlayerByName,
+  } = usePlayerAPI();
 
-  const { displayUserIdToken } = useSessionStorage();
-  const userId = displayUserIdToken();
+  const { addPlayer } = useGame();
+
+  const userId = displaySessionUserIdToken();
 
   useEffect(() => {
     getPlayerByUserId(userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // const [rowIsSelected, setRowIsSelected] = useState(false);
   const [playerName, setPlayerName] = useState("");
 
   const handleDelete = (id) => {
@@ -34,6 +43,13 @@ const SelectPlayersFromDB = () => {
     });
   };
 
+  const handleEdit = (name, playerId) => {
+    getPlayerByName(name);
+    if (getPlayerByName) {
+      console.log(playerId, name);
+    }
+  };
+
   return (
     <>
       <Form>
@@ -42,7 +58,7 @@ const SelectPlayersFromDB = () => {
             <Col>
               <input
                 type="text"
-                name="player"
+                name="playerName"
                 placeholder="Player Name"
                 onChange={(e) => {
                   setPlayerName(e.target.value);
@@ -73,22 +89,89 @@ const SelectPlayersFromDB = () => {
         </thead>
         <tbody>
           {userPlayerList &&
-            userPlayerList.map(({ id, name }) => {
+            userPlayerList.map((player) => {
               return (
-                <tr key={id}>
-                  <td>{name}</td>
+                <tr key={player.id}>
+                  <td>{player.playerName}</td>
                   <td>
-                    <Form.Check type="checkbox" />
+                    <Form.Check
+                      type="checkbox"
+                      onClick={() => {
+                        addPlayer(player);
+                      }}
+                    />
                   </td>
                   <td>
                     <Button
                       variant="primary"
                       size="sm"
-                      // onClick={}
+                      onClick={() => {
+                        handleEdit(playerName, player.id);
+                      }}
                     >
                       Edit
                     </Button>
                   </td>
+                  <td>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => handleDelete(player.id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+        {/* <tbody>
+          {userPlayerList &&
+            userPlayerList.map(({ id, name }) => {
+              return (
+                <tr key={id}>
+                  {rowIsSelected ? (
+                    <td>
+                      <input
+                        type="text"
+                        name="player"
+                        placeholder="Player Name"
+                        onChange={(e) => {
+                          setPlayerName(e.target.value);
+                        }}
+                        value={playerName}
+                      />{" "}
+                    </td>
+                  ) : (
+                    <td>{name}</td>
+                  )}
+                  <td>
+                    <Form.Check type="checkbox" />
+                  </td>
+                  {rowIsSelected ? (
+                    <td>
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          updatePlayerById(id, { playerName });
+                        }}
+                      >
+                        Ok
+                      </Button>
+                    </td>
+                  ) : (
+                    <td>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        onClick={() => {
+                          handleEdit(name, id);
+                        }}
+                      >
+                        Edit
+                      </Button>
+                    </td>
+                  )}
                   <td>
                     <Button
                       variant="danger"
@@ -101,7 +184,7 @@ const SelectPlayersFromDB = () => {
                 </tr>
               );
             })}
-        </tbody>
+        </tbody> */}
       </Table>
     </>
   );
