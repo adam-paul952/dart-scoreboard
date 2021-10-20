@@ -1,33 +1,25 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
-import Header from "../components/Header";
+const EditUserInfo = () => {
+  // const { displayUserIdToken } = useSessionStorage();
 
-import useUserAPI from "../util/useUserAPI";
+  // const { updateUserById } = useUserAPI();
 
-const UserRegistration = () => {
-  const { createUser, isLoggedIn, setIsLoggedIn } = useUserAPI();
+  // const userId = displayUserIdToken();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const noPasswordMatch = password !== passwordConfirm;
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (noPasswordMatch) {
-      return;
-    } else {
-      createUser({ username, password });
-      setIsLoggedIn(true);
-    }
   };
-
+  // useEffect(() => {
+  //   console.log(displayUserIdToken());
+  // }, [displayUserIdToken]);
   return (
     <>
-      <Header title="User Registration" goBackButton />
       <Form onSubmit={handleSubmit}>
         <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>
@@ -51,11 +43,11 @@ const UserRegistration = () => {
             value={password}
           />
         </Form.Group>
-        {noPasswordMatch && (
-          <p style={{ color: "red", fontWeight: "bold" }}>
-            Passwords must match
-          </p>
-        )}
+        {/* {noPasswordMatch && (
+            <p style={{ color: "red", fontWeight: "bold" }}>
+              Passwords must match
+            </p>
+          )} */}
         <Form.Group className="m-3" controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
@@ -67,18 +59,12 @@ const UserRegistration = () => {
             value={passwordConfirm}
           />
         </Form.Group>
-        {isLoggedIn ? (
-          <Button variant="primary" as={Link} to="/game/login">
-            Continue to login
-          </Button>
-        ) : (
-          <Button variant="primary" type="submit">
-            Register
-          </Button>
-        )}
+        <Button variant="primary" type="submit">
+          Update user info
+        </Button>
       </Form>
     </>
   );
 };
 
-export default UserRegistration;
+export default EditUserInfo;

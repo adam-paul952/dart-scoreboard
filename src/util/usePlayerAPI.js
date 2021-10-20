@@ -1,11 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
-// import useUserAPI from "./useUserAPI";
+
+const URL = "http://localhost:8080/players/";
 
 const usePlayerAPI = () => {
   const createPlayer = (name, users_id) => {
     axios
-      .post(`http://localhost:8080/players`, { name, users_id })
+      .post(`${URL}`, { name, users_id })
       .then((res) => {
         console.log(`Successfully created player: ${res.data.name}`);
       })
@@ -18,7 +19,7 @@ const usePlayerAPI = () => {
 
   const getPlayerByUserId = (userId) => {
     axios
-      .get(`http://localhost:8080/players/${userId}`)
+      .get(`${URL}${userId}`)
       .then((res) => {
         console.log(res.data);
         setUserPlayerList(res.data);
@@ -30,7 +31,7 @@ const usePlayerAPI = () => {
 
   const updatePlayerById = (playerId) => {
     axios
-      .put(`http://localhost:8080/players/${playerId}`)
+      .put(`${URL}${playerId}`)
       .then((res) => {
         console.log(res.data);
       })
@@ -41,7 +42,7 @@ const usePlayerAPI = () => {
 
   const deletePlayerById = (playerId) => {
     axios
-      .delete(`http://localhost:8080/players/${playerId}`)
+      .delete(`${URL}${playerId}`)
       .then((res) => {
         console.log(res.data);
       })

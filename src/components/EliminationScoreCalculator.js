@@ -40,9 +40,9 @@ const EliminationScoreCalculator = ({
     }
   };
 
-  // const passPlayerTurn = () => {
-  //   changeTurns();
-  // };
+  const passPlayerTurn = () => {
+    changeTurns();
+  };
 
   const changeTurn = (score) => {
     let currentPlayer = playerList[turn];
@@ -60,6 +60,7 @@ const EliminationScoreCalculator = ({
     if (currentPlayer.lives === 0) {
       playerIsOut.push(currentPlayer);
       setPlayerIsOut([...playerIsOut]);
+      passPlayerTurn();
       console.log(playerIsOut);
     } else {
       changeTurns();
@@ -73,13 +74,13 @@ const EliminationScoreCalculator = ({
 
   const declareWinner = () => {
     let winner = null;
-    if (playerList.length === playerIsOut.length + 1) {
+    if (playerList.length === new Set(playerIsOut).size + 1) {
       playerList.forEach((player) => {
         if (player.lives > 0) {
           winner = player.player;
-          console.log(`The winner is ${winner}`);
         }
       });
+      console.log(`The winner is ${winner}`);
       if (winner) {
         return (
           <>

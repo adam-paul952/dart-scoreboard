@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../components/Header";
-import Scoreboard from "../components/ScoreBoard";
-import useGame from "../util/useGame";
+import Header from "../../components/Header";
+import Scoreboard from "../../components/ScoreBoard";
+import useGame from "../../util/useGame";
 
 const Killer = () => {
   const {

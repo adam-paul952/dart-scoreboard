@@ -8,21 +8,20 @@ import {
   EliminationSetUp,
   KillerSetUp,
 } from "./screens/CreateGame";
-import Cricket from "./screens/Cricket";
-import Baseball from "./screens/Baseball";
-import X01 from "./screens/X01";
-import Elimination from "./screens/Elimination";
-import Killer from "./screens/Killer";
-import Rules from "./screens/Rules";
-import LoginUser from "./screens/LogIn";
-import UserRegistration from "./screens/Register";
-import Dashboard, {
-  EditUserInfo,
-  DeleteUser,
-  SelectPlayersFromDB,
-} from "./screens/Dashboard";
+import Cricket from "./screens/games/Cricket";
+import Baseball from "./screens/games/Baseball";
+import X01 from "./screens/games/X01";
+import Elimination from "./screens/games/Elimination";
+import Killer from "./screens/games/Killer";
+import Rules from "./screens/games/Rules";
+import LoginUser from "./screens/dashboard/LogIn";
+import UserRegistration from "./screens/dashboard/Register";
+import Dashboard from "./screens/dashboard/Dashboard";
+import EditUserInfo from "./screens/dashboard/EditUser";
+import DeleteUser from "./screens/dashboard/DeleteUser";
+import SelectPlayersFromDB from "./screens/dashboard/ShowPlayersFromDB";
 
-export default function Routes() {
+const Routes = () => {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Switch>
@@ -47,4 +46,6 @@ export default function Routes() {
       </Switch>
     </Router>
   );
-}
+};
+
+export default Routes;

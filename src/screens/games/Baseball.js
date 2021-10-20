@@ -1,39 +1,46 @@
-import React from "react";
-import Header from "../components/Header";
-import Scoreboard from "../components/ScoreBoard";
-import EliminationScoreCalculator from "../components/EliminationScoreCalculator";
-import useGame from "../util/useGame";
+import React, { useState } from "react";
+import Header from "../../components/Header";
+import Scoreboard from "../../components/ScoreBoard";
+import ScoreCalculator from "../../components/ScoreCalculator";
+import useGame from "../../util/useGame";
 
-const Elimination = () => {
+const Baseball = () => {
   const {
     playerList,
     setPlayerList,
     changeTurns,
     getCurrentPlayer,
-    getCurrentPlayerByName,
-    getCurrentPlayerById,
     resetScoreList,
     turn,
+    getCurrentPlayerById,
+    getCurrentPlayerByName,
   } = useGame();
+
+  const [round, setRound] = useState(0);
+
   return (
     <>
       <Header
-        title="Elimination"
+        title="Baseball"
         goBackButton
         resetButton
         resetScoreList={resetScoreList}
       />
       <Scoreboard
         playerList={playerList}
-        variant="elimination"
+        variant="baseball"
         getCurrentPlayer={getCurrentPlayer}
         getCurrentPlayerByName={getCurrentPlayerByName}
         getCurrentPlayerById={getCurrentPlayerById}
+        round={round}
       />
-      <EliminationScoreCalculator
+      <ScoreCalculator
         playerList={playerList}
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
+        getCurrentPlayer={getCurrentPlayer}
+        setRound={setRound}
+        round={round}
         turn={turn}
         resetScoreList={resetScoreList}
       />
@@ -41,4 +48,4 @@ const Elimination = () => {
   );
 };
 
-export default Elimination;
+export default Baseball;

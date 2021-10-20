@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 
-const createUserURL = "http://localhost:8080/users/";
-const loginUserURL = "http://localhost:8080/users/login";
+const URL = "http://localhost:8080/users/";
 
 const useUserAPI = () => {
   const createUser = ({ username, password }) => {
     axios
-      .post(createUserURL, { username, password })
+      .post(URL, { username, password })
       .then((res) => {
         console.log(`Successfully created user: ${res.data.username}`);
       })
@@ -17,14 +16,12 @@ const useUserAPI = () => {
   };
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [user, setUser] = useState();
 
   const loginUser = ({ username, password }) => {
     axios
-      .post(loginUserURL, { username, password })
+      .post(`${URL}login`, { username, password })
       .then((res) => {
         setIsLoggedIn(true);
-        // setUser(res.data);
         sessionStorage.setItem(
           "userId",
           JSON.stringify(res.data.id.toString())
@@ -39,7 +36,7 @@ const useUserAPI = () => {
 
   const updateUserById = ({ userId }) => {
     axios
-      .put(createUserURL, { params: userId })
+      .put(URL, { params: userId })
       .then((res) => {
         console.log(res.data);
       })
@@ -50,7 +47,7 @@ const useUserAPI = () => {
 
   const deleteUserById = (userId) => {
     axios
-      .delete(`http://localhost:8080/users/${userId}`, { params: userId })
+      .delete(`${URL}${userId}`, { params: userId })
       .then((res) => {
         console.log(res.data);
       })

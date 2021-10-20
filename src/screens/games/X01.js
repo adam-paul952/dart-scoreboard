@@ -1,51 +1,50 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
-import Scoreboard from "../components/ScoreBoard";
-import ScoreCalculator from "../components/ScoreCalculator";
-import useGame from "../util/useGame";
+import React from "react";
+import Header from "../../components/Header";
+import Scoreboard from "../../components/ScoreBoard";
+import X01ScoreCalculator from "../../components/X01ScoreCalculator";
+import useGame from "../../util/useGame";
 
-const Baseball = () => {
+const X01 = () => {
   const {
+    x01Points,
+    assignX01PlayerScore,
     playerList,
     setPlayerList,
     changeTurns,
-    getCurrentPlayer,
     resetScoreList,
-    turn,
+    getCurrentPlayer,
     getCurrentPlayerById,
     getCurrentPlayerByName,
   } = useGame();
-
-  const [round, setRound] = useState(0);
-
   return (
     <>
       <Header
-        title="Baseball"
+        title={x01Points}
         goBackButton
         resetButton
         resetScoreList={resetScoreList}
+        outShotButton
       />
       <Scoreboard
+        variant="x01"
+        x01Points={x01Points}
         playerList={playerList}
-        variant="baseball"
+        setPlayerList={setPlayerList}
         getCurrentPlayer={getCurrentPlayer}
-        getCurrentPlayerByName={getCurrentPlayerByName}
         getCurrentPlayerById={getCurrentPlayerById}
-        round={round}
+        getCurrentPlayerByName={getCurrentPlayerByName}
       />
-      <ScoreCalculator
+      <X01ScoreCalculator
         playerList={playerList}
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
         getCurrentPlayer={getCurrentPlayer}
-        setRound={setRound}
-        round={round}
-        turn={turn}
+        assignX01PlayerScore={assignX01PlayerScore}
         resetScoreList={resetScoreList}
+        x01Points={x01Points}
       />
     </>
   );
 };
 
-export default Baseball;
+export default X01;

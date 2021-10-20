@@ -1,41 +1,39 @@
 import React from "react";
-import Header from "../components/Header";
-import CricketScoreCalculator from "../components/CricketScoreCalculator";
-import Scoreboard from "../components/ScoreBoard";
-import useGame from "../util/useGame";
+import Header from "../../components/Header";
+import Scoreboard from "../../components/ScoreBoard";
+import EliminationScoreCalculator from "../../components/EliminationScoreCalculator";
+import useGame from "../../util/useGame";
 
-const Cricket = () => {
+const Elimination = () => {
   const {
     playerList,
     setPlayerList,
     changeTurns,
     getCurrentPlayer,
+    getCurrentPlayerByName,
+    getCurrentPlayerById,
     resetScoreList,
     turn,
-    getCurrentPlayerById,
-    getCurrentPlayerByName,
   } = useGame();
-
   return (
     <>
       <Header
-        title="Cricket"
-        resetScoreList={resetScoreList}
+        title="Elimination"
         goBackButton
         resetButton
+        resetScoreList={resetScoreList}
       />
       <Scoreboard
         playerList={playerList}
-        variant="cricket"
+        variant="elimination"
         getCurrentPlayer={getCurrentPlayer}
-        getCurrentPlayerById={getCurrentPlayerById}
         getCurrentPlayerByName={getCurrentPlayerByName}
+        getCurrentPlayerById={getCurrentPlayerById}
       />
-      <CricketScoreCalculator
+      <EliminationScoreCalculator
         playerList={playerList}
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
-        getCurrentPlayer={getCurrentPlayer}
         turn={turn}
         resetScoreList={resetScoreList}
       />
@@ -43,4 +41,4 @@ const Cricket = () => {
   );
 };
 
-export default Cricket;
+export default Elimination;
