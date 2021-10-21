@@ -4,18 +4,18 @@ import axios from "axios";
 const URL = "http://localhost:8080/players/";
 
 const usePlayerAPI = () => {
+  const [userPlayerList, setUserPlayerList] = useState([]);
+
   const createPlayer = (playerName, users_id) => {
     axios
       .post(`${URL}`, { playerName, users_id })
       .then((res) => {
-        console.log(`Successfully created player: ${res.data.name}`);
+        console.log(`Successfully created player: ${res.data.playerName}`);
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
-
-  const [userPlayerList, setUserPlayerList] = useState([]);
 
   const getPlayerByUserId = (userId) => {
     axios
@@ -23,11 +23,14 @@ const usePlayerAPI = () => {
       .then((res) => {
         console.log(res.data);
         const players = res.data;
-        const useDatabasePlayers = players.map((player) => {
-          (player.score = 0), (player.lives = 0), (player.scoreList = []);
+        const applyDatabasePlayers = players.map((player) => {
+          (player.score = 0),
+            (player.lives = 0),
+            (player.scoreList = []),
+            (player.selected = false);
           return player;
         });
-        setUserPlayerList(useDatabasePlayers);
+        setUserPlayerList(applyDatabasePlayers);
       })
       .catch((err) => {
         console.log(err);
@@ -45,9 +48,9 @@ const usePlayerAPI = () => {
       });
   };
 
-  const updatePlayerById = (playerId, { name, users_id }) => {
+  const updatePlayerById = (playerId, { playerName, users_id }) => {
     axios
-      .put(`${URL}${playerId}`, { name, users_id })
+      .put(`${URL}${playerId}`, { playerName, users_id })
       .then((res) => {
         console.log(res.data);
       })

@@ -28,7 +28,6 @@ const Header = ({
 }) => {
   const history = useHistory();
   const { theme, themeToggle } = useContext(ThemeContext);
-  const username = displaySessionUsername();
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -50,21 +49,7 @@ const Header = ({
           )}
           <Navbar.Brand>{title}</Navbar.Brand>
           {outShotButton && <X01OutShotButton />}
-          {loginDropDown && (
-            <DropdownButton
-              className="px-3"
-              title={username}
-              id="navbarScrollingDropdown"
-              menuVariant="dark"
-            >
-              <Dropdown.Item href="/user/edit">Edit User</Dropdown.Item>
-              <Dropdown.Item href="/user/delete">Delete User</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item href="/game/login" onClick={handleLogout}>
-                LogOut
-              </Dropdown.Item>
-            </DropdownButton>
-          )}
+          {loginDropDown && <HeaderDropDownMenu handleLogout={handleLogout} />}
           {resetButton && (
             <Button
               onClick={() => resetScoreList()}
@@ -92,3 +77,33 @@ Header.propTypes = {
 };
 
 export default Header;
+
+const HeaderDropDownMenu = (handleLogout) => {
+  const { theme, themeToggle } = useContext(ThemeContext);
+  const username = displaySessionUsername();
+  return (
+    <>
+      <DropdownButton
+        variant="light"
+        className="px-3"
+        title={username}
+        id="navbarScrollingDropdown"
+        menuVariant={theme}
+      >
+        <Dropdown.Item href="/user/edit">Edit User</Dropdown.Item>
+        <Dropdown.Item href="/user/delete">Delete User</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item href="/game/login" onClick={handleLogout}>
+          LogOut
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <Toggle theme={theme} onclick={themeToggle} />
+        </Dropdown.Item>
+      </DropdownButton>
+    </>
+  );
+};
+
+HeaderDropDownMenu.propTypes = {
+  handleLogout: PropTypes.func,
+};

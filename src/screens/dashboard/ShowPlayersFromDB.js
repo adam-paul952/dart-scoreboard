@@ -1,193 +1,162 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import PropTypes from "prop-types";
+import { Button, Form, Table } from "react-bootstrap";
 import { ThemeContext } from "../../contexts/Provider";
 
-import useGame from "../../util/useGame";
-import usePlayerAPI from "../../util/usePlayerAPI";
-import { displaySessionUserIdToken } from "../../util/useSessionStorage";
+import { BsXSquare } from "react-icons/bs";
+import { EditPlayerButton, EditPlayerName } from "./EditPlayer";
 
-const SelectPlayersFromDB = () => {
+const dashboardTableHeader = [
+  "Player Name",
+  "Select Player",
+  "Edit Player",
+  "Delete Player",
+];
+
+const SelectPlayersFromDB = ({
+  checkedPlayerList,
+  setCheckedPlayerList,
+  userPlayerList,
+  getPlayerByUserId,
+  deletePlayerById,
+  updatePlayerById,
+  userId,
+}) => {
   const { theme } = useContext(ThemeContext);
-  const {
-    userPlayerList,
-    getPlayerByUserId,
-    deletePlayerById,
-    createPlayer,
-    // updatePlayerById,
-    getPlayerByName,
-  } = usePlayerAPI();
 
-  const { addPlayer } = useGame();
+  return (
+    <>
+      <Table variant={theme} bordered striped>
+        <thead>
+          <tr>
+            {dashboardTableHeader.map((item, index) => {
+              return <th key={index}>{item}</th>;
+            })}
+          </tr>
+        </thead>
+        <ShowDatabasePlayerList
+          checkedPlayerList={checkedPlayerList}
+          setCheckedPlayerList={setCheckedPlayerList}
+          userPlayerList={userPlayerList}
+          getPlayerByUserId={getPlayerByUserId}
+          deletePlayerById={deletePlayerById}
+          updatePlayerById={updatePlayerById}
+          userId={userId}
+        />
+      </Table>
+    </>
+  );
+};
 
-  const userId = displaySessionUserIdToken();
+SelectPlayersFromDB.propTypes = {
+  checkedPlayerList: PropTypes.array,
+  setCheckedPlayerList: PropTypes.func,
+  userPlayerList: PropTypes.array,
+  getPlayerByUserId: PropTypes.func,
+  deletePlayerById: PropTypes.func,
+  updatePlayerById: PropTypes.func,
+  userId: PropTypes.string,
+};
 
-  useEffect(() => {
-    getPlayerByUserId(userId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+export default SelectPlayersFromDB;
 
-  // const [rowIsSelected, setRowIsSelected] = useState(false);
-  const [playerName, setPlayerName] = useState("");
+const ShowDatabasePlayerList = ({
+  checkedPlayerList,
+  setCheckedPlayerList,
+  userPlayerList,
+  getPlayerByUserId,
+  deletePlayerById,
+  updatePlayerById,
+  userId,
+}) => {
+  const [isEditable, setEditable] = useState({ status: false, rowKey: null });
+  const [playerName, setPlayerName] = useState(null);
 
-  const handleDelete = (id) => {
+  const onDelete = (id) => {
     deletePlayerById(id);
     setTimeout(() => {
       getPlayerByUserId(userId);
     });
   };
 
-  const handleCreate = (userId) => {
-    createPlayer(playerName, userId);
-    setTimeout(() => {
-      getPlayerByUserId(userId);
-    });
-  };
-
-  const handleEdit = (name, playerId) => {
-    getPlayerByName(name);
-    if (getPlayerByName) {
-      console.log(playerId, name);
-    }
+  const onPlayerCheckbox = (player) => {
+    setCheckedPlayerList([
+      ...checkedPlayerList,
+      {
+        id: player.id,
+        playerName: player.playerName,
+        score: player.score,
+        scoreList: player.scoreList,
+        lives: player.lives,
+        selected: true,
+      },
+    ]);
   };
 
   return (
     <>
-      <Form>
-        <Container className="mt-5 mb-5" fluid>
-          <Row className="justify-content-md-center">
-            <Col>
-              <input
-                type="text"
-                name="playerName"
-                placeholder="Player Name"
-                onChange={(e) => {
-                  setPlayerName(e.target.value);
-                }}
-                value={playerName}
-              />
-            </Col>
-            <Col>
-              <Button
-                onClick={() => {
-                  handleCreate(userId);
-                }}
-              >
-                Add Player
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-      </Form>
-      <Table variant={theme} bordered striped>
-        <thead>
-          <tr>
-            <th>Player Name</th>
-            <th>Select Player</th>
-            <th>Edit Player</th>
-            <th>Delete Player</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userPlayerList &&
-            userPlayerList.map((player) => {
-              return (
-                <tr key={player.id}>
-                  <td>{player.playerName}</td>
-                  <td>
-                    <Form.Check
-                      type="checkbox"
-                      onClick={() => {
-                        addPlayer(player);
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      onClick={() => {
-                        handleEdit(playerName, player.id);
-                      }}
-                    >
-                      Edit
-                    </Button>
-                  </td>
-                  <td>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => handleDelete(player.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-        {/* <tbody>
-          {userPlayerList &&
-            userPlayerList.map(({ id, name }) => {
-              return (
-                <tr key={id}>
-                  {rowIsSelected ? (
-                    <td>
-                      <input
-                        type="text"
-                        name="player"
-                        placeholder="Player Name"
-                        onChange={(e) => {
-                          setPlayerName(e.target.value);
-                        }}
-                        value={playerName}
-                      />{" "}
-                    </td>
-                  ) : (
-                    <td>{name}</td>
-                  )}
-                  <td>
-                    <Form.Check type="checkbox" />
-                  </td>
-                  {rowIsSelected ? (
-                    <td>
-                      <Button
-                        size="sm"
-                        onClick={() => {
-                          updatePlayerById(id, { playerName });
-                        }}
-                      >
-                        Ok
-                      </Button>
-                    </td>
-                  ) : (
-                    <td>
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        onClick={() => {
-                          handleEdit(name, id);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                    </td>
-                  )}
-                  <td>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => handleDelete(id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody> */}
-      </Table>
+      <tbody>
+        {userPlayerList &&
+          userPlayerList.map((player) => {
+            return (
+              <tr key={player.id}>
+                <EditPlayerName
+                  player={player}
+                  setPlayerName={setPlayerName}
+                  isEditable={isEditable}
+                  playerName={playerName}
+                />
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        onPlayerCheckbox(player);
+                      } else {
+                        setCheckedPlayerList(
+                          checkedPlayerList.filter(
+                            (removePlayer) => removePlayer.id !== player.id
+                          )
+                        );
+                      }
+                    }}
+                    value={checkedPlayerList}
+                  />
+                </td>
+                <EditPlayerButton
+                  isEditable={isEditable}
+                  player={player}
+                  setEditable={setEditable}
+                  setPlayerName={setPlayerName}
+                  updatePlayerById={updatePlayerById}
+                  getPlayerByUserId={getPlayerByUserId}
+                  userId={userId}
+                  playerName={playerName}
+                />
+                <td>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => onDelete(player.id)}
+                  >
+                    <BsXSquare style={{ fontSize: 20 }} />
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+      </tbody>
     </>
   );
 };
 
-export default SelectPlayersFromDB;
+ShowDatabasePlayerList.propTypes = {
+  playerName: PropTypes.string,
+  checkedPlayerList: PropTypes.array,
+  setCheckedPlayerList: PropTypes.func,
+  userPlayerList: PropTypes.array,
+  getPlayerByUserId: PropTypes.func,
+  deletePlayerById: PropTypes.func,
+  updatePlayerById: PropTypes.func,
+  userId: PropTypes.string,
+};

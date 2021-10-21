@@ -21,15 +21,18 @@ const LoginUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     loginUser({ username, password });
-    setAlert(true);
   };
 
   useEffect(() => {
     if (isLoggedIn) {
       setSessionUsername(username);
+      setAlert(true);
     } else {
       setSessionUsername("");
     }
+    return () => {
+      setAlert(false);
+    };
   }, [isLoggedIn, setSessionUsername, username]);
 
   useEffect(() => {

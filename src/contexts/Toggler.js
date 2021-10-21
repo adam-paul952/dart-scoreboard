@@ -11,7 +11,11 @@ const Toggle = () => {
   const oppositeTheme = theme === "dark" ? "light" : "dark";
 
   return (
-    <Button variant={oppositeTheme} onClick={setTheme}>
+    <Button
+      style={{ width: "150px" }}
+      variant={oppositeTheme}
+      onClick={setTheme}
+    >
       {theme === "light" ? (
         <BsFillBrightnessHighFill style={{ fontSize: "1.5rem" }} />
       ) : (

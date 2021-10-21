@@ -8,6 +8,7 @@ const useUserAPI = () => {
     axios
       .post(URL, { username, password })
       .then((res) => {
+        setIsLoggedIn(true);
         console.log(`Successfully created user: ${res.data.username}`);
       })
       .catch((err) => {

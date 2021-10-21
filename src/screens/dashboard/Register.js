@@ -7,7 +7,7 @@ import Header from "../../components/Header";
 import useUserAPI from "../../util/useUserAPI";
 
 const UserRegistration = () => {
-  const { createUser, isLoggedIn, setIsLoggedIn } = useUserAPI();
+  const { createUser, isLoggedIn } = useUserAPI();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,6 @@ const UserRegistration = () => {
       return;
     } else {
       createUser({ username, password });
-      setIsLoggedIn(true);
     }
   };
 
