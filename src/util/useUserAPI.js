@@ -57,6 +57,20 @@ const useUserAPI = () => {
       });
   };
 
+  const [ping, setPing] = useState(false);
+
+  const getPingFromServer = () => {
+    axios
+      .get(`${URL}ping`, { timeout: 2000 })
+      .then((res) => {
+        console.log(res.data.message);
+        setPing(true);
+      })
+      .catch((err) => {
+        console.log(err.code);
+      });
+  };
+
   return {
     createUser,
     loginUser,
@@ -64,6 +78,9 @@ const useUserAPI = () => {
     deleteUserById,
     isLoggedIn,
     setIsLoggedIn,
+    getPingFromServer,
+    ping,
+    setPing,
   };
 };
 
