@@ -1,9 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 
+import useStatsAPI from "./useStatsAPI";
+
 const URL = "http://localhost:8080/players/";
 
 const usePlayerAPI = () => {
+  const { createStatRowWithPlayer } = useStatsAPI();
+
   const [userPlayerList, setUserPlayerList] = useState([]);
 
   const createPlayer = (playerName, users_id) => {
@@ -11,6 +15,7 @@ const usePlayerAPI = () => {
       .post(`${URL}`, { playerName, users_id })
       .then((res) => {
         console.log(`Successfully created player: ${res.data.playerName}`);
+        createStatRowWithPlayer(res.data.id);
       })
       .catch((err) => {
         console.log(err.message);
@@ -24,16 +29,13 @@ const usePlayerAPI = () => {
         console.log(res.data);
         const players = res.data;
         const applyDatabasePlayers = players.map((player) => {
-          (player.score = 0),
-            (player.lives = 0),
-            (player.scoreList = []),
-            (player.selected = false);
+          (player.score = 0), (player.lives = 0), (player.scoreList = []);
           return player;
         });
         setUserPlayerList(applyDatabasePlayers);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   };
 

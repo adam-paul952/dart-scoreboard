@@ -41,12 +41,19 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header title="Dashboard" goBackButton loginDropDown />
+      <Header
+        title="Dashboard"
+        username={username}
+        goBackButton
+        loginDropDown
+      />
       <CreatePlayerDashboard
         playerName={playerName}
         setPlayerName={setPlayerName}
         createPlayer={createPlayer}
         userId={userId}
+        getPlayerByUserId={getPlayerByUserId}
+        userPlayerList={userPlayerList}
       />
       {checkedPlayerList.length >= 2 && (
         <CreateGameDashboard

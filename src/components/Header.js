@@ -15,8 +15,6 @@ import Toggle from "../contexts/Toggler";
 import { ThemeContext } from "../contexts/Provider";
 import X01OutShotButton from "./X01OutChart";
 
-import { displaySessionUsername } from "../util/useSessionStorage";
-
 const Header = ({
   title,
   goBackButton,
@@ -25,6 +23,7 @@ const Header = ({
   switchThemeButton,
   outShotButton,
   loginDropDown,
+  username,
 }) => {
   const history = useHistory();
   const { theme, themeToggle } = useContext(ThemeContext);
@@ -49,7 +48,14 @@ const Header = ({
           )}
           <Navbar.Brand>{title}</Navbar.Brand>
           {outShotButton && <X01OutShotButton />}
-          {loginDropDown && <HeaderDropDownMenu handleLogout={handleLogout} />}
+          {loginDropDown && (
+            <HeaderDropDownMenu
+              handleLogout={handleLogout}
+              theme={theme}
+              themeToggle={themeToggle}
+              username={username}
+            />
+          )}
           {resetButton && (
             <Button
               onClick={() => resetScoreList()}
@@ -74,22 +80,15 @@ Header.propTypes = {
   switchThemeButton: PropTypes.bool,
   outShotButton: PropTypes.bool,
   loginDropDown: PropTypes.bool,
+  username: PropTypes.string,
 };
 
 export default Header;
 
-const HeaderDropDownMenu = (handleLogout) => {
-  const { theme, themeToggle } = useContext(ThemeContext);
-  const username = displaySessionUsername();
+const HeaderDropDownMenu = ({ handleLogout, theme, themeToggle, username }) => {
   return (
     <>
-      <DropdownButton
-        variant="light"
-        className="px-3"
-        title={username}
-        id="navbarScrollingDropdown"
-        menuVariant={theme}
-      >
+      <DropdownButton className="px-3" title={username} menuVariant={theme}>
         <Dropdown.Item href="/user/edit">Edit User</Dropdown.Item>
         <Dropdown.Item href="/user/delete">Delete User</Dropdown.Item>
         <Dropdown.Divider />
@@ -106,4 +105,7 @@ const HeaderDropDownMenu = (handleLogout) => {
 
 HeaderDropDownMenu.propTypes = {
   handleLogout: PropTypes.func,
+  theme: PropTypes.string,
+  themeToggle: PropTypes.func,
+  username: PropTypes.string,
 };

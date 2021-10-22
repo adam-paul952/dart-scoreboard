@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Header from "./components/Header";
@@ -29,11 +29,15 @@ function App() {
   const { theme } = useContext(ThemeContext);
   const oppositeTheme = theme === "dark" ? "light" : "dark";
 
-  useEffect(() => {
+  const fetchPingFromServer = useCallback(() => {
     setTimeout(() => {
       getPingFromServer();
     });
-  }, []);
+  }, [getPingFromServer]);
+
+  useEffect(() => {
+    fetchPingFromServer();
+  }, [fetchPingFromServer]);
 
   return (
     <>

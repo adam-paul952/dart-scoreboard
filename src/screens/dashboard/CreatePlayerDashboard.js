@@ -7,10 +7,14 @@ const CreatePlayerDashboard = ({
   setPlayerName,
   createPlayer,
   userId,
+  getPlayerByUserId,
 }) => {
   const onCreate = (userId, playerName) => {
     createPlayer(playerName, userId);
     setPlayerName("");
+    setTimeout(() => {
+      getPlayerByUserId(userId);
+    }, 20);
   };
 
   return (
@@ -52,4 +56,6 @@ CreatePlayerDashboard.propTypes = {
   setPlayerName: PropTypes.func,
   createPlayer: PropTypes.func,
   userId: PropTypes.string,
+  getPlayerByUserId: PropTypes.func,
+  userPlayerList: PropTypes.array,
 };

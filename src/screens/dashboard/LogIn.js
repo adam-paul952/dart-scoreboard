@@ -8,11 +8,8 @@ import useSessionStorage from "../../util/useSessionStorage";
 
 const LoginUser = () => {
   const { loginUser, isLoggedIn } = useUserAPI();
-  // eslint-disable-next-line
-  const [sessionUsername, setSessionUsername] = useSessionStorage(
-    "username",
-    ""
-  );
+
+  const [, setSessionUsername] = useSessionStorage("username", "");
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
