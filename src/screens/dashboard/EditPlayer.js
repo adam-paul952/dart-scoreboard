@@ -31,7 +31,7 @@ EditPlayerName.propTypes = {
   player: PropTypes.object,
   setPlayerName: PropTypes.func,
   isEditable: PropTypes.object,
-  playerName: PropTypes.bool,
+  playerName: PropTypes.string,
 };
 
 export const EditPlayerButton = ({

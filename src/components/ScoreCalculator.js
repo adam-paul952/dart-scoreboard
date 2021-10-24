@@ -64,7 +64,7 @@ const ScoreCalculator = ({
         const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
         if (totalScore > winnerScore) {
           winnerScore = totalScore;
-          winner = player.player;
+          winner = player.playerName;
         }
       });
       return (

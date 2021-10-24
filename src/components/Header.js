@@ -14,6 +14,7 @@ import { BsSkipBackward } from "react-icons/bs";
 import Toggle from "../contexts/Toggler";
 import { ThemeContext } from "../contexts/Provider";
 import X01OutShotButton from "./X01OutChart";
+import DisplayAllPlayerStatsButton from "../screens/dashboard/AllPlayerStats";
 
 const Header = ({
   title,
@@ -89,6 +90,9 @@ const HeaderDropDownMenu = ({ handleLogout, theme, themeToggle, username }) => {
   return (
     <>
       <DropdownButton className="px-3" title={username} menuVariant={theme}>
+        <Dropdown.Item>
+          <DisplayAllPlayerStatsButton />
+        </Dropdown.Item>
         <Dropdown.Item href="/user/edit">Edit User</Dropdown.Item>
         <Dropdown.Item href="/user/delete">Delete User</Dropdown.Item>
         <Dropdown.Divider />

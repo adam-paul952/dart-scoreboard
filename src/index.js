@@ -9,13 +9,16 @@ import "./App.css";
 import Theme from "./contexts/theme";
 
 import { ThemeProvider } from "./contexts/Provider";
+import { PingProvider } from "./contexts/PingProvider";
 
 ReactDOM.render(
   <ThemeProvider>
     <Theme>
-      <React.StrictMode>
-        <Routes />
-      </React.StrictMode>
+      <PingProvider>
+        <React.StrictMode>
+          <Routes />
+        </React.StrictMode>
+      </PingProvider>
     </Theme>
   </ThemeProvider>,
   document.getElementById("root")

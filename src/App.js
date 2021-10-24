@@ -1,9 +1,10 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Header from "./components/Header";
 import styled from "styled-components";
 import { ThemeContext } from "./contexts/Provider";
+import { PingContext } from "./contexts/PingProvider";
 import useUserAPI from "./util/useUserAPI";
 
 const StyledLink = styled(Link)`
@@ -25,19 +26,16 @@ const StyledButton = styled(Button)`
 `;
 
 function App() {
-  const { getPingFromServer, ping } = useUserAPI();
+  const { getPingFromServer } = useUserAPI();
   const { theme } = useContext(ThemeContext);
+  const { ping } = useContext(PingContext);
   const oppositeTheme = theme === "dark" ? "light" : "dark";
 
-  const fetchPingFromServer = useCallback(() => {
+  useEffect(() => {
     setTimeout(() => {
       getPingFromServer();
     });
   }, [getPingFromServer]);
-
-  useEffect(() => {
-    fetchPingFromServer();
-  }, [fetchPingFromServer]);
 
   return (
     <>

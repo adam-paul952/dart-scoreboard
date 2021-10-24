@@ -6,11 +6,14 @@ import { ThemeContext } from "../../contexts/Provider";
 import { BsXSquare } from "react-icons/bs";
 import { EditPlayerButton, EditPlayerName } from "./EditPlayer";
 
+import DisplaySinglePlayerStats from "./SinglePlayerStats";
+
 const dashboardTableHeader = [
   "Player Name",
   "Select Player",
   "Edit Player",
   "Delete Player",
+  "Player Stats",
 ];
 
 const SelectPlayersFromDB = ({
@@ -88,7 +91,6 @@ const ShowDatabasePlayerList = ({
         score: player.score,
         scoreList: player.scoreList,
         lives: player.lives,
-        selected: true,
       },
     ]);
   };
@@ -141,6 +143,9 @@ const ShowDatabasePlayerList = ({
                   >
                     <BsXSquare style={{ fontSize: 20 }} />
                   </Button>
+                </td>
+                <td>
+                  <DisplaySinglePlayerStats player={player} />
                 </td>
               </tr>
             );

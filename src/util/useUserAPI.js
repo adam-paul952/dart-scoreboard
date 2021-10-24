@@ -1,9 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { PingContext } from "../contexts/PingProvider";
 
 const URL = "http://localhost:8080/users/";
 
 const useUserAPI = () => {
+  const { setPing } = useContext(PingContext);
+
   const createUser = ({ username, password }) => {
     axios
       .post(URL, { username, password })
@@ -57,8 +60,6 @@ const useUserAPI = () => {
       });
   };
 
-  const [ping, setPing] = useState(false);
-
   const getPingFromServer = () => {
     axios
       .get(`${URL}ping`, { timeout: 2000 })
@@ -67,7 +68,8 @@ const useUserAPI = () => {
         setPing(true);
       })
       .catch((err) => {
-        console.log(err.code);
+        console.log(`Not connected to server`);
+        console.log(`Error: ${err.message}`);
       });
   };
 
@@ -79,8 +81,6 @@ const useUserAPI = () => {
     isLoggedIn,
     setIsLoggedIn,
     getPingFromServer,
-    ping,
-    setPing,
   };
 };
 
