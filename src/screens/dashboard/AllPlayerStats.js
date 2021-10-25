@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
+import { displaySessionUserIdToken } from "../../util/useSessionStorage";
 import useStatsAPI from "../../util/useStatsAPI";
 
 const DisplayAllPlayerStatsButton = () => {
+  const userId = displaySessionUserIdToken();
   const [show, setShow] = useState(false);
 
   const { getStatsForAllPlayers, allPlayerStats } = useStatsAPI();
 
   const onFindAllStats = () => {
-    getStatsForAllPlayers();
+    getStatsForAllPlayers(userId);
     setShow(true);
   };
 
@@ -44,7 +46,7 @@ const DisplayAllPlayerStatsButton = () => {
             return (
               <>
                 <Row id={player.id}>
-                  <Col>{player.id}</Col>
+                  <Col>{player.playerName}</Col>
                   <Col>{player.gamesPlayed}</Col>
                   <Col>{player.gamesWon}</Col>
                   <Col>{player.winPercentage}</Col>
