@@ -6,6 +6,10 @@
 
 Dart Scoreboard is a dart scoring web app which allows users to enter player names and calculate scoring for the different games.
 
+This app can be used as it is, but once the browser is closed players will have to be added the next time you play.
+
+But with this REST API backend [dart-scoreboard-server](https://github.com/adam-paul952/dart-scoreboard-server) it allows users to create a profile to store the players in a database. Check it out!
+
 ---
 
 ### **Motivation**
