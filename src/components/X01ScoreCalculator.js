@@ -33,8 +33,13 @@ const X01ScoreCalculator = ({
 
   const changeTurnValidate = () => {
     const score = parseInt(playerScore, 10);
-    if (!isNaN(score)) {
-      changeTurn(score);
+    if (score > 180) {
+      alert(`Score cannot exceed 180!`);
+      setPlayerScore("");
+    } else {
+      if (!isNaN(score)) {
+        changeTurn(score);
+      }
     }
   };
 

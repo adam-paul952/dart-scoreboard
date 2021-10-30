@@ -22,7 +22,7 @@ import DeleteUser from "./screens/dashboard/DeleteUser";
 
 const Routes = () => {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router basename="/dart-scoreboard">
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/game/create" component={CreateGame} />
