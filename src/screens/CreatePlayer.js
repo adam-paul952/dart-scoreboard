@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
-import { Button, Container, Col, Row, Form, Table } from "react-bootstrap";
+import { Button, Container, Col, Row, Table } from "react-bootstrap";
 import useGame from "../util/useGame";
 
 import { ThemeContext } from "../contexts/Provider";
@@ -46,24 +46,22 @@ const CreatePlayerList = () => {
   return (
     <>
       <Header title="Create Player" goBackButton />
-      <Form>
-        <Container className="mt-5 mb-5" fluid>
-          <Row className="justify-content-md-center">
-            <Col>
-              <input
-                type="text"
-                name="playerName"
-                placeholder="Player Name"
-                onChange={onHandleChange}
-                value={playerName}
-              />
-            </Col>
-            <Col>
-              <Button onClick={onAddPlayer}>Add Player</Button>
-            </Col>
-          </Row>
-        </Container>
-      </Form>
+      <Container className="mt-5 mb-5" fluid>
+        <Row className="justify-content-md-center">
+          <Col>
+            <input
+              type="text"
+              name="playerName"
+              placeholder="Player Name"
+              onChange={onHandleChange}
+              value={playerName}
+            />
+          </Col>
+          <Col>
+            <Button onClick={onAddPlayer}>Add Player</Button>
+          </Col>
+        </Row>
+      </Container>
       <Container className="mt-5 mb-5" fluid>
         <Table variant={theme} bordered striped>
           <thead>
