@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
-import { displaySessionUserIdToken } from "../../util/useSessionStorage";
+import { displaySessionUserUuidToken } from "../../util/useSessionStorage";
 import useStatsAPI from "../../util/useStatsAPI";
 
 const DisplayAllPlayerStatsButton = () => {
-  const userId = displaySessionUserIdToken();
+  const userId = displaySessionUserUuidToken();
   const [show, setShow] = useState(false);
 
   const { getStatsForAllPlayers, allPlayerStats } = useStatsAPI();
@@ -45,11 +45,11 @@ const DisplayAllPlayerStatsButton = () => {
           {allPlayerStats.map((player) => {
             return (
               <>
-                <Row id={player.id}>
-                  <Col>{player.playerName}</Col>
-                  <Col>{player.gamesPlayed}</Col>
-                  <Col>{player.gamesWon}</Col>
-                  <Col>{player.winPercentage}</Col>
+                <Row key={player.id}>
+                  <Col key={player.id}>{player.playerName}</Col>
+                  <Col key={player.id}>{player.gamesPlayed}</Col>
+                  <Col key={player.id}>{player.gamesWon}</Col>
+                  <Col key={player.id}>{player.winPercentage}</Col>
                 </Row>
               </>
             );

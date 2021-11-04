@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 
 import useUserAPI from "../../util/useUserAPI";
-import { displaySessionUserIdToken } from "../../util/useSessionStorage";
+import { displaySessionUserUuidToken } from "../../util/useSessionStorage";
 
 const EditUserInfo = () => {
-  const userId = displaySessionUserIdToken();
+  const userId = displaySessionUserUuidToken();
 
   const { loginUser, updateUserById } = useUserAPI();
 

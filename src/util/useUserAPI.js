@@ -2,6 +2,8 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { PingContext } from "../contexts/PingProvider";
 
+import useSessionStorage from "./useSessionStorage";
+
 const URL = "http://localhost:8080/users/";
 
 const useUserAPI = () => {
@@ -20,16 +22,14 @@ const useUserAPI = () => {
   };
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [, setSessionUuidToken] = useSessionStorage("userUuid", "");
 
   const loginUser = ({ username, password }) => {
     axios
       .post(`${URL}login`, { username, password })
       .then((res) => {
         setIsLoggedIn(true);
-        sessionStorage.setItem(
-          "userId",
-          JSON.stringify(res.data.id.toString())
-        );
+        setSessionUuidToken(res.data.uuid.toString());
         console.log(`Successfully logged in user: ${res.data.username}`);
       })
       .catch((err) => {
@@ -38,9 +38,9 @@ const useUserAPI = () => {
       });
   };
 
-  const updateUserById = (userId, { username, password }) => {
+  const updateUserById = (userUuid, { username, password }) => {
     axios
-      .put(`${URL}${userId}`, { username, password })
+      .put(`${URL}${userUuid}`, { username, password })
       .then((res) => {
         console.log(`Successfully updated user: ${res.data.username}`);
       })
@@ -49,9 +49,9 @@ const useUserAPI = () => {
       });
   };
 
-  const deleteUserById = (userId) => {
+  const deleteUserById = (userUuid) => {
     axios
-      .delete(`${URL}${userId}`, { params: userId })
+      .delete(`${URL}${userUuid}`, { params: userUuid })
       .then((res) => {
         console.log(res.data);
       })

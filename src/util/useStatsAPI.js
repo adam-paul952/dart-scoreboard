@@ -19,7 +19,7 @@ const useStatsAPI = () => {
 
   const getStatsForAllPlayers = (userId) => {
     axios
-      .get(`${URL}${userId}`)
+      .get(`${URL}byUser/${userId}`)
       .then((res) => {
         console.log(res.data);
         setAllPlayerStats(res.data);
@@ -33,7 +33,7 @@ const useStatsAPI = () => {
 
   const getStatsForSinglePlayer = (playerId) => {
     axios
-      .get(`${URL}${playerId}`)
+      .get(`${URL}byPlayer/${playerId}`)
       .then((res) => {
         let player = res.data[0];
         console.log(player);

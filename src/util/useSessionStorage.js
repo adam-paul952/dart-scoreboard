@@ -30,8 +30,8 @@ export const displaySessionUsername = () => {
   return usernameToken;
 };
 
-export const displaySessionUserIdToken = () => {
-  const userIdToken = JSON.parse(sessionStorage.getItem("userId"));
+export const displaySessionUserUuidToken = () => {
+  const userIdToken = JSON.parse(sessionStorage.getItem("userUuid"));
   return userIdToken;
 };
 

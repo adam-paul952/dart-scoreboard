@@ -17,7 +17,7 @@ export const EditPlayerName = ({
         <input
           type="text"
           name="playerName"
-          value={playerName}
+          value={playerName || ""}
           onChange={(e) => setPlayerName(e.target.value)}
         />
       </td>

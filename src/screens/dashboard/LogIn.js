@@ -10,6 +10,7 @@ const LoginUser = () => {
   const { loginUser, isLoggedIn } = useUserAPI();
 
   const [, setSessionUsername] = useSessionStorage("username", "");
+  const [, setSessionUuidToken] = useSessionStorage("userUuid", "");
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,11 +27,12 @@ const LoginUser = () => {
       setAlert(true);
     } else {
       setSessionUsername("");
+      setSessionUuidToken("");
     }
     return () => {
       setAlert(false);
     };
-  }, [isLoggedIn, setSessionUsername, username]);
+  }, [isLoggedIn, setSessionUsername, username, setSessionUuidToken]);
 
   useEffect(() => {
     if (alert) {

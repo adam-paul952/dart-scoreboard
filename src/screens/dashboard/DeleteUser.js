@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 import useUserAPI from "../../util/useUserAPI";
 import {
   displaySessionUsername,
-  displaySessionUserIdToken,
+  displaySessionUserUuidToken,
 } from "../../util/useSessionStorage";
 
 const DeleteUser = () => {
   const { deleteUserById } = useUserAPI();
   const username = displaySessionUsername();
-  const userId = displaySessionUserIdToken();
+  const userId = displaySessionUserUuidToken();
 
   const handleDelete = (userId) => {
     deleteUserById(userId);

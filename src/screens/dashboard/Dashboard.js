@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import {
-  displaySessionUserIdToken,
+  displaySessionUserUuidToken,
   displaySessionUsername,
 } from "../../util/useSessionStorage";
 
@@ -16,7 +16,7 @@ import usePlayerAPI from "../../util/usePlayerAPI";
 
 const Dashboard = () => {
   const username = displaySessionUsername();
-  const userId = displaySessionUserIdToken();
+  const userId = displaySessionUserUuidToken();
 
   const {
     userPlayerList,
