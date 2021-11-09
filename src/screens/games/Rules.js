@@ -9,31 +9,31 @@ const Rules = () => {
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>X01</Accordion.Header>
-          <Accordion.Body className="text-start">
+          <Accordion.Body className="text-start" style={{ color: "black" }}>
             <X01Rules />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
           <Accordion.Header>Baseball</Accordion.Header>
-          <Accordion.Body className="text-start">
+          <Accordion.Body className="text-start" style={{ color: "black" }}>
             <BaseBallRules />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2">
           <Accordion.Header>Cricket</Accordion.Header>
-          <Accordion.Body className="text-start">
+          <Accordion.Body className="text-start" style={{ color: "black" }}>
             <CricketRules />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="3">
           <Accordion.Header>Elimination</Accordion.Header>
-          <Accordion.Body className="text-start">
+          <Accordion.Body className="text-start" style={{ color: "black" }}>
             <EliminationRules />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="4">
           <Accordion.Header>Killer</Accordion.Header>
-          <Accordion.Body className="text-start">
+          <Accordion.Body className="text-start" style={{ color: "black" }}>
             <KillerRules />
           </Accordion.Body>
         </Accordion.Item>

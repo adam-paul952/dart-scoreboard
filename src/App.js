@@ -46,9 +46,17 @@ function App() {
             <StyledButton variant={oppositeTheme}>Log In</StyledButton>
           </StyledLink>
         )}
-        <StyledLink to="/create_player">
-          <StyledButton variant={oppositeTheme}>Continue as Guest</StyledButton>
-        </StyledLink>
+        {ping ? (
+          <StyledLink to="/create_player">
+            <StyledButton variant={oppositeTheme}>
+              Continue as Guest
+            </StyledButton>
+          </StyledLink>
+        ) : (
+          <StyledLink to="/create_player">
+            <StyledButton variant={oppositeTheme}>Create Player</StyledButton>
+          </StyledLink>
+        )}
         <StyledLink to="/rules">
           <StyledButton variant={oppositeTheme}>Rules</StyledButton>
         </StyledLink>
