@@ -134,6 +134,17 @@ const EliminationScoreCalculator = ({
     };
   });
 
+  useEffect(() => {
+    const onMouseDown = (e) => {
+      e.preventDefault();
+      e.target.blur();
+    };
+    document.addEventListener("mousedown", onMouseDown);
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown);
+    };
+  });
+
   return (
     <>
       {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}

@@ -112,6 +112,17 @@ const X01ScoreCalculator = ({
     };
   });
 
+  useEffect(() => {
+    const onMouseDown = (e) => {
+      e.preventDefault();
+      e.target.blur();
+    };
+    document.addEventListener("mousedown", onMouseDown);
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown);
+    };
+  });
+
   return (
     <>
       {declareWinner()}
