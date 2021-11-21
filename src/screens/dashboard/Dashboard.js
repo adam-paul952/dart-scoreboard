@@ -24,12 +24,12 @@ const Dashboard = () => {
     getPlayerByUserId,
     deletePlayerById,
     updatePlayerById,
+    setUserPlayerList,
   } = usePlayerAPI();
 
-  const { setPlayerList } = useGame();
+  const { setPlayerList, checkedPlayerList, setCheckedPlayerList } = useGame();
 
   const [playerName, setPlayerName] = useState("");
-  const [checkedPlayerList, setCheckedPlayerList] = useState([]);
 
   useEffect(() => {
     getPlayerByUserId(userId);
@@ -60,6 +60,8 @@ const Dashboard = () => {
         <CreateGameDashboard
           checkedPlayerList={checkedPlayerList}
           setPlayerList={setPlayerList}
+          setCheckedPlayerList={setCheckedPlayerList}
+          setUserPlayerList={setUserPlayerList}
         />
       )}
       <SelectPlayersFromDB

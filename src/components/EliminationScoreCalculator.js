@@ -77,7 +77,7 @@ const EliminationScoreCalculator = ({
     if (playerList.length === new Set(playerIsOut).size + 1) {
       playerList.forEach((player) => {
         if (player.lives > 0) {
-          winner = player.player;
+          winner = player.playerName;
         }
       });
       console.log(`The winner is ${winner}`);

@@ -43,10 +43,6 @@ const useGame = () => {
     setX01Points(value);
   };
 
-  // useEffect(() => {
-  //   console.log(`X01 points are ${x01Points}`);
-  // }, [x01Points]);
-
   const assignX01PlayerScore = (x01Points) => {
     let playerScore = [...playerList];
     for (let i = 0; i < playerScore.length; i++) {
@@ -74,6 +70,30 @@ const useGame = () => {
       setTurn(0);
     }
   };
+
+  const [checkedPlayerList, setCheckedPlayerList] = useState([]);
+
+  const shufflePlayerList = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+    return array;
+  };
+
+  // const undoScore = () => {}
+
   return {
     playerList,
     turn,
@@ -91,6 +111,9 @@ const useGame = () => {
     setTurn,
     getCurrentPlayerByName,
     getCurrentPlayerById,
+    shufflePlayerList,
+    checkedPlayerList,
+    setCheckedPlayerList,
   };
 };
 

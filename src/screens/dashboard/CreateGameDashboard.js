@@ -1,19 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Button, Container } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import useGame from "../../util/useGame";
 
-const CreateGameDashboard = ({ checkedPlayerList, setPlayerList }) => {
+const CreateGameDashboard = ({
+  checkedPlayerList,
+  setPlayerList,
+  setCheckedPlayerList,
+  setUserPlayerList,
+}) => {
+  const { shufflePlayerList } = useGame();
+
+  const shufflePlayerArray = (array) => {
+    const newArray = shufflePlayerList(array);
+    console.log(newArray);
+    setUserPlayerList(newArray);
+    setCheckedPlayerList(newArray);
+  };
+
   return (
     <>
       <Container className="m-3">
-        <Button
-          as={Link}
-          to="/game/create"
-          onClick={() => setPlayerList(checkedPlayerList)}
-        >
-          Create Game
-        </Button>
+        <Row>
+          <Col>
+            <Button
+              as={Link}
+              to="/game/create"
+              onClick={() => setPlayerList(checkedPlayerList)}
+            >
+              Create Game
+            </Button>
+          </Col>
+          <Col>
+            <Button onClick={() => shufflePlayerArray(checkedPlayerList)}>
+              Random Players
+            </Button>
+          </Col>
+        </Row>
       </Container>
     </>
   );
@@ -22,6 +46,8 @@ const CreateGameDashboard = ({ checkedPlayerList, setPlayerList }) => {
 CreateGameDashboard.propTypes = {
   checkedPlayerList: PropTypes.array,
   setPlayerList: PropTypes.func,
+  setCheckedPlayerList: PropTypes.func,
+  setUserPlayerList: PropTypes.func,
 };
 
 export default CreateGameDashboard;

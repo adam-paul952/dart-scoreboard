@@ -268,7 +268,7 @@ const EliminationPlayerData = ({ player, index, currentPlayerById }) => {
     <tr key={index}>
       {currentPlayerById === player.id ? (
         <th>
-          {player.player}
+          {player.playerName}
           <BiCaretLeft size={20} />
         </th>
       ) : (
