@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Alert, Button, ButtonGroup } from "react-bootstrap";
+import { Alert, Button, ButtonGroup, Col, Row } from "react-bootstrap";
+import useUndoRedo from "../util/useUndoRedo";
 
 const ScoreCalculator = ({
   playerList,
@@ -13,6 +14,11 @@ const ScoreCalculator = ({
   setRound,
 }) => {
   const [playerScore, setPlayerScore] = useState(0);
+  const [playerListHistory, setPlayerListHistory, undo, redo] = useUndoRedo([]);
+
+  // useEffect(() => {
+  //   console.log(playerScoreHistory);
+  // }, [playerScoreHistory]);
 
   const handleInput = (number) => {
     setPlayerScore(`${playerScore}${number}`);
@@ -40,10 +46,24 @@ const ScoreCalculator = ({
     }
   };
 
+  // const updateScore = () => {
+  //   const playerHistoryCopy = [...playerList];
+  //   const currentPlayer = getCurrentPlayer();
+  // };
+
+  const undoScore = () => {
+    undo();
+    setPlayerList([...playerList]);
+  };
+
   const changeTurn = (score) => {
     let currentPlayer = getCurrentPlayer();
     currentPlayer.scoreList.push(score);
     setPlayerList([...playerList]);
+    setPlayerListHistory([
+      ...playerListHistory,
+      [currentPlayer.playerName, currentPlayer.scoreList],
+    ]);
     changeTurns();
     changeNumberOfRounds();
     declareWinner();
@@ -126,6 +146,14 @@ const ScoreCalculator = ({
   return (
     <>
       {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
+      <Row>
+        <Col>
+          <Button onClick={undo}>Undo</Button>
+        </Col>
+        <Col>
+          <Button onClick={redo}>Redo</Button>
+        </Col>
+      </Row>
       <div className="scoreCalculator">
         <div className="scoreInput">
           <div className="scoreKeypad">

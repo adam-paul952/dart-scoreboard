@@ -21,6 +21,9 @@ const useGame = () => {
 
   const changeTurns = () => {
     const newTurn = turn + 1;
+    // console.log(`Current turn is: ${turn}`);
+    // console.log(`New turn is: ${newTurn}`);
+    // console.log(playerList.length);
     setTurn(newTurn % playerList.length);
   };
 
