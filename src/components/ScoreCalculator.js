@@ -58,7 +58,7 @@ const ScoreCalculator = ({
   };
   const declareWinner = () => {
     const totalRounds = Math.floor(playerList.length * 9);
-    if (round === totalRounds) {
+    if (round >= totalRounds) {
       let [winnerScore, winner] = [-1, null];
       playerList.forEach((player) => {
         const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
@@ -69,7 +69,11 @@ const ScoreCalculator = ({
       });
       return (
         <>
-          <Alert variant="success" style={{ fontWeight: "bold" }}>
+          <Alert
+            variant="success"
+            style={{ fontWeight: "bold" }}
+            className="my-5"
+          >
             <p>The WINNER is: {winner}</p>
             <p>Congratulations!</p>
             <Button

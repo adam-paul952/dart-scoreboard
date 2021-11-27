@@ -56,7 +56,7 @@ const X01ScoreCalculator = ({
     playerList.forEach((player) => {
       if (player.score <= 0) {
         player.score = 0;
-        winner = player.player;
+        winner = player.playerName;
       }
     });
     if (!winner) {

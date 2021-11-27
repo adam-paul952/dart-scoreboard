@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Alert, Container, Button, ButtonGroup } from "react-bootstrap";
@@ -82,7 +82,7 @@ const CricketScoreCalculator = ({
       countPlayerArray.every((value) => value >= 3) &&
       currentPlayer.score > 0
     ) {
-      winner = currentPlayer.player;
+      winner = currentPlayer.playerName;
       console.log(`Winner is ${winner}`);
 
       if (winner) {
@@ -112,6 +112,17 @@ const CricketScoreCalculator = ({
       }
     }
   };
+
+  useEffect(() => {
+    const onMouseDown = (e) => {
+      e.preventDefault();
+      e.target.blur();
+    };
+    document.addEventListener("mousedown", onMouseDown);
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown);
+    };
+  });
 
   return (
     <>
