@@ -14,7 +14,8 @@ const ScoreCalculator = ({
   setRound,
 }) => {
   const [playerScore, setPlayerScore] = useState(0);
-  const [playerListHistory, setPlayerListHistory, undo, redo] = useUndoRedo([]);
+  const [playerListHistory, setPlayerListHistory, undo, redo, index] =
+    useUndoRedo(playerList);
 
   // useEffect(() => {
   //   console.log(playerScoreHistory);
@@ -51,19 +52,19 @@ const ScoreCalculator = ({
   //   const currentPlayer = getCurrentPlayer();
   // };
 
-  const undoScore = () => {
-    undo();
-    setPlayerList([...playerList]);
-  };
+  // const undoScore = () => {
+  //   undo();
+  //   console.log(playerListHistory);
+  //   console.log(playerList);
+  //   console.log(index);
+  //   setPlayerList([...playerList, playerListHistory[index]]);
+  // };
 
   const changeTurn = (score) => {
     let currentPlayer = getCurrentPlayer();
     currentPlayer.scoreList.push(score);
     setPlayerList([...playerList]);
-    setPlayerListHistory([
-      ...playerListHistory,
-      [currentPlayer.playerName, currentPlayer.scoreList],
-    ]);
+    setPlayerListHistory([playerList]);
     changeTurns();
     changeNumberOfRounds();
     declareWinner();
