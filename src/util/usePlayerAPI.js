@@ -29,7 +29,10 @@ const usePlayerAPI = () => {
         console.log(res.data);
         const players = res.data;
         const applyDatabasePlayers = players.map((player) => {
-          (player.score = 0), (player.lives = 0), (player.scoreList = []);
+          (player.score = 0),
+            (player.lives = 0),
+            (player.scoreList = []),
+            (player.highScore = 0);
           return player;
         });
         setUserPlayerList(applyDatabasePlayers);

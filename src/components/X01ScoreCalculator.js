@@ -45,7 +45,19 @@ const X01ScoreCalculator = ({
 
   const changeTurn = (score) => {
     let currentPlayer = getCurrentPlayer();
-    currentPlayer.score -= score;
+    currentPlayer.scoreList.push(score);
+    let playerScoreReduced = currentPlayer.scoreList.reduce(
+      (sum, current) => sum - current
+    );
+    currentPlayer.score = playerScoreReduced;
+    for (let i = 0; i < currentPlayer.scoreList.length; i++) {
+      if (
+        currentPlayer.scoreList[i] > currentPlayer.highScore &&
+        currentPlayer.scoreList[i] < 180
+      ) {
+        currentPlayer.highScore = currentPlayer.scoreList[i];
+      }
+    }
     setPlayerList([...playerList]);
     changeTurns();
     declareWinner();

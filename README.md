@@ -34,6 +34,7 @@ My friends and I play quite a bit of darts. I decided to make this app to includ
 - [React Router](https://reactrouter.com/web/guides/quick-start)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 - [React Icons](https://react-icons.github.io/react-icons/)
+- [Axios](https://www.axios.com/)
 
 ---
 

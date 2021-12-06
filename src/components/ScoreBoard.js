@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import { BiCaretLeft } from "react-icons/bi";
 import { AiOutlineCloseCircle, AiOutlineClose } from "react-icons/ai";
 import { BsSlash } from "react-icons/bs";
@@ -30,6 +30,9 @@ const Scoreboard = ({
           currentPlayerById={currentPlayerById}
         />
       </Table>
+      {variant === "x01" && (
+        <DisplayCurrentRoundInformation currentPlayer={currentPlayer} />
+      )}
     </>
   );
 };
@@ -308,6 +311,22 @@ KillerPlayerData.propTypes = {
   player: PropTypes.object,
   index: PropTypes.number,
   currentPlayerById: PropTypes.number,
+};
+
+const DisplayCurrentRoundInformation = ({ currentPlayer }) => {
+  return (
+    <Container className="my-3">
+      <Row>
+        <Col>
+          <b>High Score:</b> {currentPlayer.highScore}
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+DisplayCurrentRoundInformation.propTypes = {
+  currentPlayer: PropTypes.object,
 };
 
 export default Scoreboard;

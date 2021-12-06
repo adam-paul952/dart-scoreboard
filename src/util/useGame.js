@@ -47,6 +47,7 @@ const useGame = () => {
     let playerScore = [...playerList];
     for (let i = 0; i < playerScore.length; i++) {
       playerScore[i].score = x01Points;
+      playerScore[i].scoreList.push(parseInt(x01Points, 10));
       setPlayerList(playerScore);
     }
   };
@@ -66,6 +67,7 @@ const useGame = () => {
       newScoreList[i].score = 0;
       newScoreList[i].lives = 0;
       newScoreList[i].hitCount = {};
+      newScoreList[i].highScore = 0;
       setPlayerList(newScoreList);
       setTurn(0);
     }
