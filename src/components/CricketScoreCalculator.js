@@ -11,7 +11,20 @@ const CricketScoreCalculator = ({
   resetScoreList,
 }) => {
   const [playerScoreList, setPlayerScoreList] = useState([]);
-  const targets = [20, 19, 18, 17, 16, 15, 25];
+
+  const [disable, setDisable] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  let targets = [20, 19, 18, 17, 16, 15, 25];
 
   const handleInput = (number) => {
     playerScoreList.push(number);
@@ -57,6 +70,17 @@ const CricketScoreCalculator = ({
   const calculatePlayerScore = () => {
     let newScoreArray = [];
     for (let i = 0; i < targets.length; i++) {
+      let checkNumOfMarks = playerList.map((player) => {
+        return player.scoreList.filter((hitNum) => hitNum === targets[i])
+          .length;
+      });
+      let marks = checkNumOfMarks.every((mark) => mark >= 3);
+      if (marks) {
+        disable[i] = true;
+        setDisable([...disable]);
+      }
+    }
+    for (let i = 0; i < targets.length; i++) {
       let countedScore = currentPlayer.scoreList.filter(
         (hitNum) => hitNum === targets[i]
       );
@@ -80,7 +104,7 @@ const CricketScoreCalculator = ({
 
     if (
       countPlayerArray.every((value) => value >= 3) &&
-      currentPlayer.score > 0
+      currentPlayer.score >= 0
     ) {
       winner = currentPlayer.playerName;
       console.log(`Winner is ${winner}`);
@@ -138,6 +162,7 @@ const CricketScoreCalculator = ({
                 keyValue={keyValue}
                 onChange={handleInput}
                 onClick={handleScoreChange}
+                disabled={disable[index]}
               />
             ))}
           </div>
@@ -156,7 +181,7 @@ CricketScoreCalculator.propTypes = {
 };
 
 const getCalculatorKeys = () => {
-  return [20, 19, 18, 17, 16, 15, "Del", "Bull", "Enter"];
+  return [20, 19, 18, 17, 16, 15, "Bull", "Del", "Enter"];
 };
 
 const CricketScoreCalculatorKey = (props) => {
@@ -166,7 +191,11 @@ const CricketScoreCalculatorKey = (props) => {
         props.onChange(props.keyValue);
       }}
     >
-      <Button variant="primary" onClick={() => props.onClick(props.keyValue)}>
+      <Button
+        variant="primary"
+        onClick={() => props.onClick(props.keyValue)}
+        disabled={props.disabled}
+      >
         {props.keyValue}
       </Button>
     </ButtonGroup>
@@ -177,6 +206,7 @@ CricketScoreCalculatorKey.propTypes = {
   keyValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onChange: () => {},
   onClick: () => {},
+  disabled: PropTypes.bool,
 };
 
 export default CricketScoreCalculator;

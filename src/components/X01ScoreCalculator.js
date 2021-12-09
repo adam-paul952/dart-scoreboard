@@ -10,20 +10,20 @@ const X01ScoreCalculator = ({
   getCurrentPlayer,
   resetScoreList,
 }) => {
-  const [playerScore, setPlayerScore] = useState("");
+  const [playerScore, setPlayerScore] = useState(0);
 
   const handleInput = (number) => {
     setPlayerScore(`${playerScore}${number}`);
   };
 
   const deleteInput = () => {
-    setPlayerScore("");
+    setPlayerScore(0);
   };
 
   const handleScoreChange = (value) => {
     if (value === "Enter") {
       changeTurnValidate();
-      setPlayerScore("");
+      setPlayerScore(0);
     } else if (value === "Del") {
       deleteInput();
     } else {
@@ -35,7 +35,7 @@ const X01ScoreCalculator = ({
     const score = parseInt(playerScore, 10);
     if (score > 180) {
       alert(`Score cannot exceed 180!`);
-      setPlayerScore("");
+      setPlayerScore(0);
     } else {
       if (!isNaN(score)) {
         changeTurn(score);
@@ -113,7 +113,7 @@ const X01ScoreCalculator = ({
       }
       if (e.key === "Enter") {
         changeTurnValidate();
-        setPlayerScore("");
+        setPlayerScore(0);
       } else if (e.key === "Backspace") {
         deleteInput();
       }
