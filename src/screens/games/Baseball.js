@@ -14,6 +14,9 @@ const Baseball = () => {
     turn,
     getCurrentPlayerById,
     getCurrentPlayerByName,
+    setTurn,
+    setCurrentPlayer,
+    currentPlayer,
   } = useGame();
 
   const [round, setRound] = useState(0);
@@ -33,6 +36,7 @@ const Baseball = () => {
         getCurrentPlayerByName={getCurrentPlayerByName}
         getCurrentPlayerById={getCurrentPlayerById}
         round={round}
+        currentPlayer={currentPlayer}
       />
       <ScoreCalculator
         playerList={playerList}
@@ -43,6 +47,9 @@ const Baseball = () => {
         round={round}
         turn={turn}
         resetScoreList={resetScoreList}
+        setTurn={setTurn}
+        setCurrentPlayer={setCurrentPlayer}
+        currentPlayer={currentPlayer}
       />
     </>
   );
