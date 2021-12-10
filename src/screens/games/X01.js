@@ -15,6 +15,16 @@ const X01 = () => {
     getCurrentPlayer,
     getCurrentPlayerById,
     getCurrentPlayerByName,
+    currentPlayer,
+    playerListHistory,
+    set,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    setTurn,
+    setCurrentPlayer,
+    turn,
   } = useGame();
   return (
     <>
@@ -33,6 +43,7 @@ const X01 = () => {
         getCurrentPlayer={getCurrentPlayer}
         getCurrentPlayerById={getCurrentPlayerById}
         getCurrentPlayerByName={getCurrentPlayerByName}
+        currentPlayer={currentPlayer}
       />
       <X01ScoreCalculator
         playerList={playerList}
@@ -42,6 +53,16 @@ const X01 = () => {
         assignX01PlayerScore={assignX01PlayerScore}
         resetScoreList={resetScoreList}
         x01Points={x01Points}
+        playerListHistory={playerListHistory}
+        set={set}
+        undo={undo}
+        redo={redo}
+        canUndo={canUndo}
+        canRedo={canRedo}
+        setTurn={setTurn}
+        setCurrentPlayer={setCurrentPlayer}
+        currentPlayer={currentPlayer}
+        turn={turn}
       />
     </>
   );

@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+
+import { ImUndo, ImRedo } from "react-icons/im";
 
 const UndoRedo = ({
   canUndo,
@@ -13,46 +15,50 @@ const UndoRedo = ({
   setCurrentPlayer,
   setTurn,
 }) => {
+  const handleUndo = () => {
+    undo();
+    setPlayerList(
+      playerListHistory.past[playerListHistory.past.length - 1].playerList
+    );
+    const newPlayer = { ...currentPlayer };
+    setCurrentPlayer(newPlayer, playerListHistory.present.currentPlayer);
+    const newTurn = playerListHistory.present.turn;
+    setTurn(newTurn);
+  };
+
+  const handleRedo = () => {
+    redo();
+    setPlayerList(
+      playerListHistory.future[playerListHistory.future.length - 1].playerList
+    );
+    const newPlayer = { ...currentPlayer };
+    setCurrentPlayer(newPlayer, playerListHistory.present.currentPlayer);
+    const newTurn = playerListHistory.present.turn;
+    setTurn(newTurn);
+  };
+
   return (
     <>
-      <Row className="my-5">
-        <Col>
-          <Button
-            disabled={!canUndo}
-            onClick={() => {
-              undo();
-              setPlayerList(
-                playerListHistory.past[playerListHistory.past.length - 1]
-                  .playerList
-              );
-            }}
-          >
-            Undo
-          </Button>
-        </Col>
-        <Col>
-          <Button
-            disabled={!canUndo && !canRedo ? true : false}
-            onClick={() => {
-              const newPlayer = { ...currentPlayer };
-              setCurrentPlayer(
-                newPlayer,
-                playerListHistory.present.currentPlayer
-              );
-              setTurn(
-                playerListHistory.past[playerListHistory.past.length - 1].turn
-              );
-            }}
-          >
-            Set
-          </Button>
-        </Col>
-        <Col>
-          <Button disabled={!canRedo} onClick={redo}>
-            Redo
-          </Button>
-        </Col>
-      </Row>
+      <div>
+        <Button
+          disabled={!canUndo}
+          onClick={() => {
+            handleUndo();
+          }}
+        >
+          <ImUndo />
+        </Button>
+      </div>
+      <div>
+        <Button
+          disabled={!canRedo}
+          onClick={() => {
+            handleRedo();
+          }}
+        >
+          <ImRedo />
+        </Button>
+      </div>
     </>
   );
 };

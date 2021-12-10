@@ -10,7 +10,6 @@ import { ThemeContext } from "../contexts/Provider";
 const Scoreboard = ({
   playerList,
   x01Points,
-  getCurrentPlayer,
   getCurrentPlayerById,
   variant,
   currentPlayer,
@@ -236,12 +235,7 @@ CricketScoreboardDisplay.propTypes = {
   hitTarget: PropTypes.number,
 };
 
-const BaseballPlayerData = ({
-  player,
-  index,
-  currentPlayerById,
-  currentPlayer,
-}) => {
+const BaseballPlayerData = ({ player, index, currentPlayerById }) => {
   return (
     <tr key={index}>
       {currentPlayerById === player.id ? (
@@ -269,7 +263,6 @@ const BaseballPlayerData = ({
 BaseballPlayerData.propTypes = {
   player: PropTypes.object,
   index: PropTypes.number,
-  currentPlayer: PropTypes.object,
   currentPlayerById: PropTypes.number,
 };
 

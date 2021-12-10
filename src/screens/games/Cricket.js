@@ -14,6 +14,15 @@ const Cricket = () => {
     turn,
     getCurrentPlayerById,
     getCurrentPlayerByName,
+    setTurn,
+    setCurrentPlayer,
+    currentPlayer,
+    playerListHistory,
+    set,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
   } = useGame();
 
   return (
@@ -38,6 +47,15 @@ const Cricket = () => {
         getCurrentPlayer={getCurrentPlayer}
         turn={turn}
         resetScoreList={resetScoreList}
+        setTurn={setTurn}
+        setCurrentPlayer={setCurrentPlayer}
+        currentPlayer={currentPlayer}
+        playerListHistory={playerListHistory}
+        set={set}
+        undo={undo}
+        redo={redo}
+        canUndo={canUndo}
+        canRedo={canRedo}
       />
     </>
   );

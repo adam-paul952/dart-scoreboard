@@ -3,12 +3,23 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Alert, Button, ButtonGroup } from "react-bootstrap";
 
+import UndoRedo from "./UndoRedo";
+
 const EliminationScoreCalculator = ({
   playerList,
   setPlayerList,
   changeTurns,
   turn,
   resetScoreList,
+  setTurn,
+  setCurrentPlayer,
+  currentPlayer,
+  playerListHistory,
+  set,
+  undo,
+  redo,
+  canUndo,
+  canRedo,
 }) => {
   const [playerScore, setPlayerScore] = useState(0);
   const [prevPlayerScore, setPrevPlayerScore] = useState(-1);
@@ -45,29 +56,33 @@ const EliminationScoreCalculator = ({
   };
 
   const changeTurn = (score) => {
-    let currentPlayer = playerList[turn];
+    let nowCurrentPlayer = playerList[turn];
 
-    if (currentPlayer.lives !== 0) {
-      currentPlayer.scoreList.push(score);
-      for (let i = 0; i < currentPlayer.scoreList.length; i++) {
-        currentPlayer.score = currentPlayer.scoreList[i];
-        setPrevPlayerScore(currentPlayer.score);
+    if (nowCurrentPlayer.lives !== 0) {
+      nowCurrentPlayer.scoreList.push(score);
+      for (let i = 0; i < nowCurrentPlayer.scoreList.length; i++) {
+        nowCurrentPlayer.score = nowCurrentPlayer.scoreList[i];
+        setPrevPlayerScore(nowCurrentPlayer.score);
       }
     }
-    if (prevPlayerScore > currentPlayer.score) {
-      currentPlayer.lives -= 1;
+    if (prevPlayerScore > nowCurrentPlayer.score) {
+      nowCurrentPlayer.lives -= 1;
     }
-    if (currentPlayer.lives === 0) {
-      playerIsOut.push(currentPlayer);
+    if (nowCurrentPlayer.lives === 0) {
+      playerIsOut.push(nowCurrentPlayer);
       setPlayerIsOut([...playerIsOut]);
       passPlayerTurn();
-      console.log(playerIsOut);
     } else {
       changeTurns();
     }
 
     setPlayerList([...playerList]);
-
+    setCurrentPlayer(playerList[turn]);
+    set({
+      turn: turn,
+      playerList: JSON.parse(JSON.stringify(playerList)),
+      currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
+    });
     changeTurns();
     declareWinner();
   };
@@ -162,6 +177,20 @@ const EliminationScoreCalculator = ({
             ))}
           </div>
         </div>
+        <div className="undoRedo mt-4">
+          <UndoRedo
+            undo={undo}
+            redo={redo}
+            set={set}
+            canUndo={canUndo}
+            canRedo={canRedo}
+            playerListHistory={playerListHistory}
+            setPlayerList={setPlayerList}
+            currentPlayer={currentPlayer}
+            setCurrentPlayer={setCurrentPlayer}
+            setTurn={setTurn}
+          />
+        </div>
       </div>
     </>
   );
@@ -173,6 +202,15 @@ EliminationScoreCalculator.propTypes = {
   changeTurns: PropTypes.func,
   turn: PropTypes.number,
   resetScoreList: PropTypes.func,
+  setTurn: PropTypes.func,
+  setCurrentPlayer: PropTypes.func,
+  currentPlayer: PropTypes.object,
+  playerListHistory: PropTypes.array,
+  set: PropTypes.func,
+  undo: PropTypes.func,
+  redo: PropTypes.func,
+  canUndo: PropTypes.bool,
+  canRedo: PropTypes.bool,
 };
 
 const getCalculatorKeys = () => {

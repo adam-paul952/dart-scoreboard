@@ -14,6 +14,15 @@ const Elimination = () => {
     getCurrentPlayerById,
     resetScoreList,
     turn,
+    setTurn,
+    setCurrentPlayer,
+    currentPlayer,
+    playerListHistory,
+    set,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
   } = useGame();
   return (
     <>
@@ -36,6 +45,15 @@ const Elimination = () => {
         changeTurns={changeTurns}
         turn={turn}
         resetScoreList={resetScoreList}
+        setTurn={setTurn}
+        setCurrentPlayer={setCurrentPlayer}
+        currentPlayer={currentPlayer}
+        playerListHistory={playerListHistory}
+        set={set}
+        undo={undo}
+        redo={redo}
+        canUndo={canUndo}
+        canRedo={canRedo}
       />
     </>
   );

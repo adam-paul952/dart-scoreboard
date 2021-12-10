@@ -3,12 +3,24 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Alert, Container, Button, ButtonGroup } from "react-bootstrap";
 
+import UndoRedo from "./UndoRedo";
+
 const CricketScoreCalculator = ({
   playerList,
   setPlayerList,
   changeTurns,
   getCurrentPlayer,
   resetScoreList,
+  setTurn,
+  setCurrentPlayer,
+  currentPlayer,
+  playerListHistory,
+  set,
+  undo,
+  redo,
+  canUndo,
+  canRedo,
+  turn,
 }) => {
   const [playerScoreList, setPlayerScoreList] = useState([]);
 
@@ -45,15 +57,15 @@ const CricketScoreCalculator = ({
     }
   };
 
-  const currentPlayer = getCurrentPlayer();
+  const nowCurrentPlayer = getCurrentPlayer();
 
   const changeTurnValidate = () => {
     playerScoreList.forEach((score) => {
       if (score === "Bull") {
-        currentPlayer.scoreList.push(25);
+        nowCurrentPlayer.scoreList.push(25);
         setPlayerScoreList([]);
       } else {
-        currentPlayer.scoreList.push(score);
+        nowCurrentPlayer.scoreList.push(score);
         setPlayerScoreList([]);
       }
     });
@@ -64,6 +76,12 @@ const CricketScoreCalculator = ({
     changeTurns();
     setPlayerList([...playerList]);
     calculatePlayerScore();
+    setCurrentPlayer(playerList[turn]);
+    set({
+      turn: turn,
+      playerList: JSON.parse(JSON.stringify(playerList)),
+      currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
+    });
     declareWinner();
   };
 
@@ -81,14 +99,14 @@ const CricketScoreCalculator = ({
       }
     }
     for (let i = 0; i < targets.length; i++) {
-      let countedScore = currentPlayer.scoreList.filter(
+      let countedScore = nowCurrentPlayer.scoreList.filter(
         (hitNum) => hitNum === targets[i]
       );
       countedScore.splice(0, 3);
       let newScore = countedScore.reduce((a, b) => a + b, 0);
       newScoreArray.push(newScore);
     }
-    currentPlayer.score = newScoreArray.reduce((a, b) => a + b, 0);
+    nowCurrentPlayer.score = newScoreArray.reduce((a, b) => a + b, 0);
   };
 
   const declareWinner = () => {
@@ -96,7 +114,7 @@ const CricketScoreCalculator = ({
     // let winningScore = -1;
 
     const countPlayerArray = targets.map((target) => {
-      const playerArrayOccurences = currentPlayer.scoreList.filter(
+      const playerArrayOccurences = nowCurrentPlayer.scoreList.filter(
         (hitNum) => hitNum === target
       ).length;
       return playerArrayOccurences;
@@ -104,9 +122,9 @@ const CricketScoreCalculator = ({
 
     if (
       countPlayerArray.every((value) => value >= 3) &&
-      currentPlayer.score >= 0
+      nowCurrentPlayer.score >= 0
     ) {
-      winner = currentPlayer.playerName;
+      winner = nowCurrentPlayer.playerName;
       console.log(`Winner is ${winner}`);
 
       if (winner) {
@@ -166,6 +184,20 @@ const CricketScoreCalculator = ({
               />
             ))}
           </div>
+          <div className="undoRedo mt-4">
+            <UndoRedo
+              undo={undo}
+              redo={redo}
+              set={set}
+              canUndo={canUndo}
+              canRedo={canRedo}
+              playerListHistory={playerListHistory}
+              setPlayerList={setPlayerList}
+              currentPlayer={currentPlayer}
+              setCurrentPlayer={setCurrentPlayer}
+              setTurn={setTurn}
+            />
+          </div>
         </div>
       </Container>
     </>
@@ -178,6 +210,16 @@ CricketScoreCalculator.propTypes = {
   changeTurns: PropTypes.func,
   getCurrentPlayer: PropTypes.func,
   resetScoreList: PropTypes.func,
+  setTurn: PropTypes.func,
+  setCurrentPlayer: PropTypes.func,
+  currentPlayer: PropTypes.object,
+  playerListHistory: PropTypes.array,
+  set: PropTypes.func,
+  undo: PropTypes.func,
+  redo: PropTypes.func,
+  canUndo: PropTypes.bool,
+  canRedo: PropTypes.bool,
+  turn: PropTypes.number,
 };
 
 const getCalculatorKeys = () => {

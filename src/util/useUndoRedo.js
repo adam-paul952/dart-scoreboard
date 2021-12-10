@@ -41,13 +41,6 @@ const reducer = (state, action) => {
         future: [],
       };
     }
-    case "reset": {
-      return {
-        past: [],
-        present: newPresent,
-        future: [],
-      };
-    }
   }
 };
 
@@ -66,29 +59,8 @@ const useUndoRedo = (initialState) => {
     (newPresent) => dispatch({ type: "set", newPresent }),
     []
   );
-  const reset = useCallback(
-    (newPresent) => dispatch({ type: "reset", newPresent }),
-    []
-  );
 
-  return [state, { set, reset, undo, redo, canUndo, canRedo }];
-
-  // const [index, setIndex] = useState(0);
-  // const [playerListHistory, setPlayerListHistory] = useState(initialState);
-  // // console.log(playerListHistory);
-  // // console.log(index);
-  // const setState = (action) => {
-  //   const newState =
-  //     typeof action === "function" ? action(playerListHistory[index]) : action;
-  //   const updatedState = [...playerListHistory.slice(0, index + 1)];
-  //   setPlayerListHistory([...updatedState, newState]);
-  //   setIndex((prevState) => prevState + 1);
-  // };
-  // const undo = () => index > 0 && setIndex((prevState) => prevState - 1);
-  // const redo = () =>
-  //   index < playerListHistory.length - 1 &&
-  //   setIndex((prevState) => prevState + 1);
-  // return [playerListHistory[index], setState, undo, redo, index];
+  return [state, { set, undo, redo, canUndo, canRedo }];
 };
 
 export default useUndoRedo;

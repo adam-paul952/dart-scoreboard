@@ -67,29 +67,26 @@ table {
 
 /* Score Calculator */
 .scoreCalculator {
-  width: 20rem;
-  height: 10rem;
+  width: 50%;
+  height: 20rem;
   display: flex;
-  flex-direction: row;
-  padding: 1%;
-  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: auto;
-  margin-top: 2rem;
 }
 .scoreKeypad {
-  padding-top: 1rem;
   display: grid;
   grid-template-columns: repeat(3, 5rem);
   grid-template-rows: repeat(4, 3rem);
   gap: 3px;
 }
 
-.scoreInput {
-  border-color: black;
-  padding-right: 10%;
-  font-weight: bold;
-  font-size: xx-large;
+.undoRedo {
+  display: grid;
+  grid-template-columns: repeat(2, 5rem);
 }
+
 .result {
   font-size: 30px;
 }

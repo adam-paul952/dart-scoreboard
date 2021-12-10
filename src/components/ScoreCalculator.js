@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Alert, Button, ButtonGroup } from "react-bootstrap";
-import useUndoRedo from "../util/useUndoRedo";
 import UndoRedo from "./UndoRedo";
 
 const ScoreCalculator = ({
@@ -17,14 +16,14 @@ const ScoreCalculator = ({
   setTurn,
   setCurrentPlayer,
   currentPlayer,
+  playerListHistory,
+  set,
+  undo,
+  redo,
+  canUndo,
+  canRedo,
 }) => {
   const [playerScore, setPlayerScore] = useState(0);
-  const [playerListHistory, { set, undo, redo, canUndo, canRedo }] =
-    useUndoRedo({
-      turn: 0,
-      playerList: [...playerList],
-      currentPlayer: currentPlayer,
-    });
 
   const handleInput = (number) => {
     setPlayerScore(`${playerScore}${number}`);
@@ -78,7 +77,7 @@ const ScoreCalculator = ({
 
   const declareWinner = () => {
     const totalRounds = Math.floor(playerList.length * 9);
-    if (round >= totalRounds) {
+    if (round === totalRounds) {
       let [winnerScore, winner] = [-1, null];
       playerList.forEach((player) => {
         const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
@@ -90,11 +89,7 @@ const ScoreCalculator = ({
 
       return (
         <>
-          <Alert
-            variant="success"
-            style={{ fontWeight: "bold" }}
-            className="my-5"
-          >
+          <Alert variant="success" style={{ fontWeight: "bold" }}>
             <p>The WINNER is: {winner}</p>
             <p>Congratulations!</p>
             <Button
@@ -150,33 +145,33 @@ const ScoreCalculator = ({
 
   return (
     <>
-      <UndoRedo
-        undo={undo}
-        redo={redo}
-        set={set}
-        canUndo={canUndo}
-        canRedo={canRedo}
-        playerListHistory={playerListHistory}
-        setPlayerList={setPlayerList}
-        currentPlayer={currentPlayer}
-        setCurrentPlayer={setCurrentPlayer}
-        setTurn={setTurn}
-      />
       {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
       <div className="scoreCalculator">
-        <div className="scoreInput">
-          <div className="scoreKeypad">
-            {!declareWinner() &&
-              getCalculatorKeys().map((keyValue, index) => (
-                <ScoreCalculatorKey
-                  name="score"
-                  key={index}
-                  keyValue={keyValue}
-                  onClick={handleScoreChange}
-                  onChange={handleInput}
-                />
-              ))}
-          </div>
+        <div className="scoreKeypad">
+          {!declareWinner() &&
+            getCalculatorKeys().map((keyValue, index) => (
+              <ScoreCalculatorKey
+                name="score"
+                key={index}
+                keyValue={keyValue}
+                onClick={handleScoreChange}
+                onChange={handleInput}
+              />
+            ))}
+        </div>
+        <div className="undoRedo mt-4">
+          <UndoRedo
+            undo={undo}
+            redo={redo}
+            set={set}
+            canUndo={canUndo}
+            canRedo={canRedo}
+            playerListHistory={playerListHistory}
+            setPlayerList={setPlayerList}
+            currentPlayer={currentPlayer}
+            setCurrentPlayer={setCurrentPlayer}
+            setTurn={setTurn}
+          />
         </div>
       </div>
     </>
@@ -195,6 +190,12 @@ ScoreCalculator.propTypes = {
   setTurn: PropTypes.func,
   setCurrentPlayer: PropTypes.func,
   currentPlayer: PropTypes.object,
+  playerListHistory: PropTypes.array,
+  set: PropTypes.func,
+  undo: PropTypes.func,
+  redo: PropTypes.func,
+  canUndo: PropTypes.bool,
+  canRedo: PropTypes.bool,
 };
 
 const getCalculatorKeys = () => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Alert, Button, ButtonGroup } from "react-bootstrap";
+import UndoRedo from "./UndoRedo";
 
 const X01ScoreCalculator = ({
   playerList,
@@ -9,6 +10,16 @@ const X01ScoreCalculator = ({
   changeTurns,
   getCurrentPlayer,
   resetScoreList,
+  playerListHistory,
+  set,
+  undo,
+  redo,
+  canUndo,
+  canRedo,
+  currentPlayer,
+  setCurrentPlayer,
+  setTurn,
+  turn,
 }) => {
   const [playerScore, setPlayerScore] = useState(0);
 
@@ -43,23 +54,31 @@ const X01ScoreCalculator = ({
     }
   };
 
+  // TO-DO : Add undo/redo functionality
+  // Currently players are not being cycled through
   const changeTurn = (score) => {
-    let currentPlayer = getCurrentPlayer();
-    currentPlayer.scoreList.push(score);
-    let playerScoreReduced = currentPlayer.scoreList.reduce(
+    let nowCurrentPlayer = getCurrentPlayer();
+    nowCurrentPlayer.scoreList.push(score);
+    let playerScoreReduced = nowCurrentPlayer.scoreList.reduce(
       (sum, current) => sum - current
     );
-    currentPlayer.score = playerScoreReduced;
-    for (let i = 0; i < currentPlayer.scoreList.length; i++) {
+    nowCurrentPlayer.score = playerScoreReduced;
+    for (let i = 0; i < nowCurrentPlayer.scoreList.length; i++) {
       if (
-        currentPlayer.scoreList[i] > currentPlayer.highScore &&
-        currentPlayer.scoreList[i] < 180
+        nowCurrentPlayer.scoreList[i] > nowCurrentPlayer.highScore &&
+        nowCurrentPlayer.scoreList[i] < 180
       ) {
-        currentPlayer.highScore = currentPlayer.scoreList[i];
+        nowCurrentPlayer.highScore = nowCurrentPlayer.scoreList[i];
       }
     }
     setPlayerList([...playerList]);
     changeTurns();
+    setCurrentPlayer(playerList[turn]);
+    set({
+      turn: turn,
+      playerList: JSON.parse(JSON.stringify(playerList)),
+      currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
+    });
     declareWinner();
   };
 
@@ -150,6 +169,20 @@ const X01ScoreCalculator = ({
             />
           ))}
         </div>
+        <div className="undoRedo mt-4">
+          <UndoRedo
+            undo={undo}
+            redo={redo}
+            set={set}
+            canUndo={canUndo}
+            canRedo={canRedo}
+            playerListHistory={playerListHistory}
+            setPlayerList={setPlayerList}
+            currentPlayer={currentPlayer}
+            setCurrentPlayer={setCurrentPlayer}
+            setTurn={setTurn}
+          />
+        </div>
       </div>
     </>
   );
@@ -163,6 +196,16 @@ X01ScoreCalculator.propTypes = {
   resetScoreList: PropTypes.func,
   assignX01PlayerScore: PropTypes.func,
   x01Points: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  playerListHistory: PropTypes.array,
+  set: PropTypes.func,
+  undo: PropTypes.func,
+  redo: PropTypes.func,
+  canUndo: PropTypes.bool,
+  canRedo: PropTypes.bool,
+  currentPlayer: PropTypes.object,
+  setTurn: PropTypes.func,
+  setCurrentPlayer: PropTypes.func,
+  turn: PropTypes.number,
 };
 
 const getCalculatorKeys = () => {

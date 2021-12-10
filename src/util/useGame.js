@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useLocalStorage from "./useLocalStorage";
 import useSessionStorage from "./useSessionStorage";
+import useUndoRedo from "../util/useUndoRedo";
 
 const useGame = () => {
   // Main array to hold player objects
@@ -22,7 +23,6 @@ const useGame = () => {
   const changeTurns = () => {
     const newTurn = turn + 1;
     setTurn(newTurn % playerList.length);
-    // setCurrentPlayer(playerList[turn]);
   };
 
   const [currentPlayer, setCurrentPlayer] = useState(playerList[turn]);
@@ -97,6 +97,13 @@ const useGame = () => {
     return array;
   };
 
+  const [playerListHistory, { set, undo, redo, canUndo, canRedo }] =
+    useUndoRedo({
+      turn: 0,
+      playerList: [...playerList],
+      currentPlayer: currentPlayer,
+    });
+
   return {
     playerList,
     turn,
@@ -119,6 +126,12 @@ const useGame = () => {
     setCheckedPlayerList,
     setCurrentPlayer,
     currentPlayer,
+    playerListHistory,
+    set,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
   };
 };
 

@@ -17,6 +17,12 @@ const Baseball = () => {
     setTurn,
     setCurrentPlayer,
     currentPlayer,
+    playerListHistory,
+    set,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
   } = useGame();
 
   const [round, setRound] = useState(0);
@@ -50,6 +56,12 @@ const Baseball = () => {
         setTurn={setTurn}
         setCurrentPlayer={setCurrentPlayer}
         currentPlayer={currentPlayer}
+        playerListHistory={playerListHistory}
+        set={set}
+        undo={undo}
+        redo={redo}
+        canUndo={canUndo}
+        canRedo={canRedo}
       />
     </>
   );
