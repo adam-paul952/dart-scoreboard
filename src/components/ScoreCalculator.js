@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Alert, Button, ButtonGroup } from "react-bootstrap";
+import useUndoRedo from "../util/useUndoRedo";
+import UndoRedo from "./UndoRedo";
 
 const ScoreCalculator = ({
   playerList,
@@ -11,8 +13,18 @@ const ScoreCalculator = ({
   resetScoreList,
   round,
   setRound,
+  turn,
+  setTurn,
+  setCurrentPlayer,
+  currentPlayer,
 }) => {
   const [playerScore, setPlayerScore] = useState(0);
+  const [playerListHistory, { set, undo, redo, canUndo, canRedo }] =
+    useUndoRedo({
+      turn: 0,
+      playerList: [...playerList],
+      currentPlayer: currentPlayer,
+    });
 
   const handleInput = (number) => {
     setPlayerScore(`${playerScore}${number}`);
@@ -41,13 +53,20 @@ const ScoreCalculator = ({
   };
 
   const changeTurn = (score) => {
-    let currentPlayer = getCurrentPlayer();
-    currentPlayer.scoreList.push(score);
+    let nowCurrentPlayer = getCurrentPlayer();
+    nowCurrentPlayer.scoreList.push(score);
     setPlayerList([...playerList]);
     changeTurns();
+    setCurrentPlayer(playerList[turn]);
     changeNumberOfRounds();
+    set({
+      turn: turn,
+      playerList: JSON.parse(JSON.stringify(playerList)),
+      currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
+    });
     declareWinner();
   };
+
   const changeNumberOfRounds = () => {
     setRound(round + 1);
   };
@@ -56,6 +75,7 @@ const ScoreCalculator = ({
     resetScoreList();
     setRound(0);
   };
+
   const declareWinner = () => {
     const totalRounds = Math.floor(playerList.length * 9);
     if (round >= totalRounds) {
@@ -67,6 +87,7 @@ const ScoreCalculator = ({
           winner = player.playerName;
         }
       });
+
       return (
         <>
           <Alert
@@ -129,6 +150,18 @@ const ScoreCalculator = ({
 
   return (
     <>
+      <UndoRedo
+        undo={undo}
+        redo={redo}
+        set={set}
+        canUndo={canUndo}
+        canRedo={canRedo}
+        playerListHistory={playerListHistory}
+        setPlayerList={setPlayerList}
+        currentPlayer={currentPlayer}
+        setCurrentPlayer={setCurrentPlayer}
+        setTurn={setTurn}
+      />
       {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
       <div className="scoreCalculator">
         <div className="scoreInput">
@@ -159,6 +192,9 @@ ScoreCalculator.propTypes = {
   turn: PropTypes.number,
   round: PropTypes.number,
   setRound: PropTypes.func,
+  setTurn: PropTypes.func,
+  setCurrentPlayer: PropTypes.func,
+  currentPlayer: PropTypes.object,
 };
 
 const getCalculatorKeys = () => {

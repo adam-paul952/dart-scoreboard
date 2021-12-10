@@ -22,7 +22,10 @@ const useGame = () => {
   const changeTurns = () => {
     const newTurn = turn + 1;
     setTurn(newTurn % playerList.length);
+    // setCurrentPlayer(playerList[turn]);
   };
+
+  const [currentPlayer, setCurrentPlayer] = useState(playerList[turn]);
 
   const getCurrentPlayer = () => {
     return playerList[turn];
@@ -94,8 +97,6 @@ const useGame = () => {
     return array;
   };
 
-  // const undoScore = () => {}
-
   return {
     playerList,
     turn,
@@ -116,6 +117,8 @@ const useGame = () => {
     shufflePlayerList,
     checkedPlayerList,
     setCheckedPlayerList,
+    setCurrentPlayer,
+    currentPlayer,
   };
 };
 

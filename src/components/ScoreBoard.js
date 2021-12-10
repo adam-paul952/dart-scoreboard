@@ -13,9 +13,10 @@ const Scoreboard = ({
   getCurrentPlayer,
   getCurrentPlayerById,
   variant,
+  currentPlayer,
 }) => {
   const { theme } = useContext(ThemeContext);
-  const currentPlayer = getCurrentPlayer();
+  // const currentPlayer = getCurrentPlayer();
   const currentPlayerById = getCurrentPlayerById();
 
   return (
@@ -44,6 +45,7 @@ Scoreboard.propTypes = {
   getCurrentPlayer: PropTypes.func,
   getCurrentPlayerByName: PropTypes.func,
   getCurrentPlayerById: PropTypes.func,
+  currentPlayer: PropTypes.object,
 };
 
 const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
@@ -234,7 +236,12 @@ CricketScoreboardDisplay.propTypes = {
   hitTarget: PropTypes.number,
 };
 
-const BaseballPlayerData = ({ player, index, currentPlayerById }) => {
+const BaseballPlayerData = ({
+  player,
+  index,
+  currentPlayerById,
+  currentPlayer,
+}) => {
   return (
     <tr key={index}>
       {currentPlayerById === player.id ? (
