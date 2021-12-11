@@ -198,7 +198,7 @@ const CricketScoreCalculator = ({
               setCurrentPlayer={setCurrentPlayer}
               setTurn={setTurn}
               setDisable={setDisable}
-              disable={disable}
+              variant={true}
             />
           </div>
         </div>
