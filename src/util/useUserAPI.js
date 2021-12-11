@@ -4,7 +4,7 @@ import { PingContext } from "../contexts/PingProvider";
 
 import useSessionStorage from "./useSessionStorage";
 
-const URL = "http://localhost:8080/users/";
+const URL = process.env.REACT_APP_USER_URL;
 
 const useUserAPI = () => {
   const { setPing } = useContext(PingContext);

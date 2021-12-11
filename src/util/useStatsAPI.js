@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const URL = "http://localhost:8080/playerStats/";
+const URL = process.env.REACT_APP_STATS_URL;
 
 const useStatsAPI = () => {
   const createStatRowWithPlayer = (playerId) => {

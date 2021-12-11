@@ -102,6 +102,7 @@ const useGame = () => {
       turn: 0,
       playerList: [...playerList],
       currentPlayer: currentPlayer,
+      disabledButtons: [],
     });
 
   return {

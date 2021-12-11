@@ -81,6 +81,7 @@ const CricketScoreCalculator = ({
       turn: turn,
       playerList: JSON.parse(JSON.stringify(playerList)),
       currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
+      disabledButtons: JSON.parse(JSON.stringify(disable)),
     });
     declareWinner();
   };
@@ -196,6 +197,8 @@ const CricketScoreCalculator = ({
               currentPlayer={currentPlayer}
               setCurrentPlayer={setCurrentPlayer}
               setTurn={setTurn}
+              setDisable={setDisable}
+              disable={disable}
             />
           </div>
         </div>
@@ -213,7 +216,7 @@ CricketScoreCalculator.propTypes = {
   setTurn: PropTypes.func,
   setCurrentPlayer: PropTypes.func,
   currentPlayer: PropTypes.object,
-  playerListHistory: PropTypes.array,
+  playerListHistory: PropTypes.object,
   set: PropTypes.func,
   undo: PropTypes.func,
   redo: PropTypes.func,

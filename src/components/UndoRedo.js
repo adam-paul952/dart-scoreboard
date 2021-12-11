@@ -14,6 +14,8 @@ const UndoRedo = ({
   currentPlayer,
   setCurrentPlayer,
   setTurn,
+  setDisable,
+  disable,
 }) => {
   const handleUndo = () => {
     undo();
@@ -24,6 +26,9 @@ const UndoRedo = ({
     setCurrentPlayer(newPlayer, playerListHistory.present.currentPlayer);
     const newTurn = playerListHistory.present.turn;
     setTurn(newTurn);
+    setDisable(
+      playerListHistory.past[playerListHistory.past.length - 1].disabledButtons
+    );
   };
 
   const handleRedo = () => {
@@ -35,6 +40,10 @@ const UndoRedo = ({
     setCurrentPlayer(newPlayer, playerListHistory.present.currentPlayer);
     const newTurn = playerListHistory.present.turn;
     setTurn(newTurn);
+    setDisable(
+      playerListHistory.future[playerListHistory.future.length - 1]
+        .disabledButtons
+    );
   };
 
   return (
@@ -73,6 +82,8 @@ UndoRedo.propTypes = {
   currentPlayer: PropTypes.object.isRequired,
   setCurrentPlayer: PropTypes.func.isRequired,
   setTurn: PropTypes.func.isRequired,
+  setDisable: PropTypes.func,
+  disable: PropTypes.array,
 };
 
 export default UndoRedo;

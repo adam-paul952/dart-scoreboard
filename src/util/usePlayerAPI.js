@@ -3,7 +3,7 @@ import axios from "axios";
 
 import useStatsAPI from "./useStatsAPI";
 
-const URL = "http://localhost:8080/players/";
+const URL = process.env.REACT_APP_PLAYER_URL;
 
 const usePlayerAPI = () => {
   const { createStatRowWithPlayer } = useStatsAPI();
