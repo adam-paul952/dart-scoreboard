@@ -39,6 +39,15 @@ const useGame = () => {
     return playerList[turn].id;
   };
 
+  const [round, setRound] = useState(1);
+
+  const changeRounds = () => {
+    if (turn === playerList.length - 1) {
+      const newRound = round + 1;
+      setRound(newRound);
+    }
+  };
+
   // Set X01 points to game and players
   const [x01Points, setX01Points] = useLocalStorage("x01Points", 0);
 
@@ -133,6 +142,9 @@ const useGame = () => {
     redo,
     canUndo,
     canRedo,
+    round,
+    changeRounds,
+    setRound,
   };
 };
 

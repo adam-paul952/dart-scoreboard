@@ -127,10 +127,6 @@ const EliminationScoreCalculator = ({
   };
 
   useEffect(() => {
-    console.log(playerList);
-  }, [playerList]);
-
-  useEffect(() => {
     const onKeyUp = (e) => {
       const number = playerScore;
       if (e.key <= 57 || e.key >= 48) {
@@ -162,7 +158,14 @@ const EliminationScoreCalculator = ({
 
   return (
     <>
-      {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
+      {declareWinner() ? (
+        declareWinner()
+      ) : (
+        <div className="playerScoreDisplay">
+          <p className="playerScoreText">Total:</p>
+          <p className="playerScoreText"> {playerScore}</p>
+        </div>
+      )}
       <div className="scoreCalculator">
         <div className="scoreInput">
           <div className="scoreKeypad">
@@ -205,7 +208,7 @@ EliminationScoreCalculator.propTypes = {
   setTurn: PropTypes.func,
   setCurrentPlayer: PropTypes.func,
   currentPlayer: PropTypes.object,
-  playerListHistory: PropTypes.array,
+  playerListHistory: PropTypes.object,
   set: PropTypes.func,
   undo: PropTypes.func,
   redo: PropTypes.func,

@@ -170,7 +170,10 @@ const CricketScoreCalculator = ({
   return (
     <>
       <Container fluid>
-        <p>Total: {playerScoreList.toString()}</p>
+        <div className="playerScoreDisplay">
+          <p className="playerScoreText">Total:</p>
+          <p className="playerScoreText"> {playerScoreList.toString()}</p>
+        </div>
         {declareWinner()}
         <div className="scoreCalculator">
           <div className="scoreKeypad">

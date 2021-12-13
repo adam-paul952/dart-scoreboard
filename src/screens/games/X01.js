@@ -25,6 +25,8 @@ const X01 = () => {
     setTurn,
     setCurrentPlayer,
     turn,
+    round,
+    changeRounds,
   } = useGame();
   return (
     <>
@@ -44,6 +46,7 @@ const X01 = () => {
         getCurrentPlayerById={getCurrentPlayerById}
         getCurrentPlayerByName={getCurrentPlayerByName}
         currentPlayer={currentPlayer}
+        round={round}
       />
       <X01ScoreCalculator
         playerList={playerList}
@@ -63,6 +66,7 @@ const X01 = () => {
         setCurrentPlayer={setCurrentPlayer}
         currentPlayer={currentPlayer}
         turn={turn}
+        changeRounds={changeRounds}
       />
     </>
   );

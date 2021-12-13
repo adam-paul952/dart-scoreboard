@@ -12,6 +12,7 @@ const ScoreCalculator = ({
   resetScoreList,
   round,
   setRound,
+  changeRounds,
   turn,
   setTurn,
   setCurrentPlayer,
@@ -67,16 +68,16 @@ const ScoreCalculator = ({
   };
 
   const changeNumberOfRounds = () => {
-    setRound(round + 1);
+    changeRounds();
   };
 
   const eraseGameData = () => {
     resetScoreList();
-    setRound(0);
+    setRound(1);
   };
 
   const declareWinner = () => {
-    const totalRounds = Math.floor(playerList.length * 9);
+    const totalRounds = 10;
     if (round === totalRounds) {
       let [winnerScore, winner] = [-1, null];
       playerList.forEach((player) => {
@@ -145,7 +146,14 @@ const ScoreCalculator = ({
 
   return (
     <>
-      {declareWinner() ? declareWinner() : <p>Total: {playerScore}</p>}
+      {declareWinner() ? (
+        declareWinner()
+      ) : (
+        <div className="playerScoreDisplay">
+          <p className="playerScoreText">Total:</p>
+          <p className="playerScoreText"> {playerScore}</p>
+        </div>
+      )}
       <div className="scoreCalculator">
         <div className="scoreKeypad">
           {!declareWinner() &&
@@ -187,10 +195,11 @@ ScoreCalculator.propTypes = {
   turn: PropTypes.number,
   round: PropTypes.number,
   setRound: PropTypes.func,
+  changeRounds: PropTypes.func,
   setTurn: PropTypes.func,
   setCurrentPlayer: PropTypes.func,
   currentPlayer: PropTypes.object,
-  playerListHistory: PropTypes.array,
+  playerListHistory: PropTypes.object,
   set: PropTypes.func,
   undo: PropTypes.func,
   redo: PropTypes.func,

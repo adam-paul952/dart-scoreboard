@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../../components/Header";
 import Scoreboard from "../../components/ScoreBoard";
 import ScoreCalculator from "../../components/ScoreCalculator";
@@ -23,9 +23,10 @@ const Baseball = () => {
     redo,
     canUndo,
     canRedo,
+    round,
+    changeRounds,
+    setRound,
   } = useGame();
-
-  const [round, setRound] = useState(0);
 
   return (
     <>
@@ -49,8 +50,9 @@ const Baseball = () => {
         setPlayerList={setPlayerList}
         changeTurns={changeTurns}
         getCurrentPlayer={getCurrentPlayer}
-        setRound={setRound}
+        changeRounds={changeRounds}
         round={round}
+        setRound={setRound}
         turn={turn}
         resetScoreList={resetScoreList}
         setTurn={setTurn}

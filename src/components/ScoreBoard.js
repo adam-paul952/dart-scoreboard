@@ -13,9 +13,9 @@ const Scoreboard = ({
   getCurrentPlayerById,
   variant,
   currentPlayer,
+  round,
 }) => {
   const { theme } = useContext(ThemeContext);
-  // const currentPlayer = getCurrentPlayer();
   const currentPlayerById = getCurrentPlayerById();
 
   return (
@@ -31,7 +31,10 @@ const Scoreboard = ({
         />
       </Table>
       {variant === "x01" && (
-        <DisplayCurrentRoundInformation currentPlayer={currentPlayer} />
+        <DisplayCurrentRoundInformation
+          currentPlayer={currentPlayer}
+          round={round}
+        />
       )}
     </>
   );
@@ -45,6 +48,7 @@ Scoreboard.propTypes = {
   getCurrentPlayerByName: PropTypes.func,
   getCurrentPlayerById: PropTypes.func,
   currentPlayer: PropTypes.object,
+  round: PropTypes.number,
 };
 
 const inningNumber = ["Player", 1, 2, 3, 4, 5, 6, 7, 8, 9, "Total"];
@@ -313,13 +317,20 @@ KillerPlayerData.propTypes = {
   currentPlayerById: PropTypes.number,
 };
 
-const DisplayCurrentRoundInformation = ({ currentPlayer }) => {
+const DisplayCurrentRoundInformation = ({ currentPlayer, round }) => {
+  const numOfDarts = () => {
+    return round * 3 - 3;
+  };
   return (
     <Container className="my-3">
       <Row>
         <Col>
           <b>High Score:</b> {currentPlayer.highScore}
         </Col>
+        <Col>
+          <b>Number of Darts:</b> {numOfDarts()}
+        </Col>
+        <Col></Col>
       </Row>
     </Container>
   );
@@ -327,6 +338,7 @@ const DisplayCurrentRoundInformation = ({ currentPlayer }) => {
 
 DisplayCurrentRoundInformation.propTypes = {
   currentPlayer: PropTypes.object,
+  round: PropTypes.number,
 };
 
 export default Scoreboard;

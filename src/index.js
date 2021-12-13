@@ -10,14 +10,17 @@ import Theme from "./contexts/theme";
 
 import { ThemeProvider } from "./contexts/Provider";
 import { PingProvider } from "./contexts/PingProvider";
+import Background from "./components/Background";
 
 ReactDOM.render(
   <ThemeProvider>
     <Theme>
       <PingProvider>
-        <React.StrictMode>
-          <Routes />
-        </React.StrictMode>
+        <Background>
+          <React.StrictMode>
+            <Routes />
+          </React.StrictMode>
+        </Background>
       </PingProvider>
     </Theme>
   </ThemeProvider>,

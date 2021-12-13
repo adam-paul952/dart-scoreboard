@@ -25,7 +25,7 @@ const StyledButton = styled(Button)`
   border-radius: 10px;
 `;
 
-function App() {
+const App = () => {
   const { getPingFromServer } = useUserAPI();
   const { theme } = useContext(ThemeContext);
   const { ping } = useContext(PingContext);
@@ -40,7 +40,7 @@ function App() {
   return (
     <>
       <Header title="Dart Scoreboard" switchThemeButton />
-      <div className="btnTable">
+      <div className="btnTable mt-5">
         {ping && (
           <StyledLink to="/game/login">
             <StyledButton variant={oppositeTheme}>Log In</StyledButton>
@@ -63,6 +63,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;

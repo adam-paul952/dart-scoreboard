@@ -115,3 +115,53 @@ table {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+.outShotDisplay {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.scoreCalculatorX01 {
+  width: 50%;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: auto;
+  flex-basis: 75%;
+}
+
+.outShotContainer {
+  flex-basis: 20%;
+  margin-right: 10%;
+  margin-left: 10%;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.undoRedoX01 {
+  display: grid;
+  grid-template-columns: repeat(2, 5rem);
+  margin-left: 2.5rem;
+}
+
+.playerScoreDisplay {
+  border: 2px solid white;
+  border-radius: 15px;
+  width: 13%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.5rem;
+}
+
+.playerScoreText {
+  margin: 0.5rem auto;
+}
+
+.background {
+  background-size: cover;
+  background-position: center;
+  height: 95vh;
+}

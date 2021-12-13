@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
 
@@ -50,6 +50,21 @@ const UndoRedo = ({
       );
     }
   };
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.ctrlKey && e.key === "z") {
+        handleUndo();
+      }
+      if (e.ctrlKey && e.key === "y") {
+        handleRedo();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  });
 
   return (
     <>
