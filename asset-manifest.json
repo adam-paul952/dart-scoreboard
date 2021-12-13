@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/dart-scoreboard/static/css/main.a7556562.chunk.css",
-    "main.js": "/dart-scoreboard/static/js/main.c1b69a72.chunk.js",
-    "main.js.map": "/dart-scoreboard/static/js/main.c1b69a72.chunk.js.map",
+    "main.css": "/dart-scoreboard/static/css/main.ba678dd5.chunk.css",
+    "main.js": "/dart-scoreboard/static/js/main.74b759a5.chunk.js",
+    "main.js.map": "/dart-scoreboard/static/js/main.74b759a5.chunk.js.map",
     "runtime-main.js": "/dart-scoreboard/static/js/runtime-main.713e9a96.js",
     "runtime-main.js.map": "/dart-scoreboard/static/js/runtime-main.713e9a96.js.map",
     "static/css/2.c1256375.chunk.css": "/dart-scoreboard/static/css/2.c1256375.chunk.css",
@@ -12,14 +12,16 @@
     "static/js/3.b4beec8e.chunk.js.map": "/dart-scoreboard/static/js/3.b4beec8e.chunk.js.map",
     "index.html": "/dart-scoreboard/index.html",
     "static/css/2.c1256375.chunk.css.map": "/dart-scoreboard/static/css/2.c1256375.chunk.css.map",
-    "static/css/main.a7556562.chunk.css.map": "/dart-scoreboard/static/css/main.a7556562.chunk.css.map",
-    "static/js/2.e8029701.chunk.js.LICENSE.txt": "/dart-scoreboard/static/js/2.e8029701.chunk.js.LICENSE.txt"
+    "static/css/main.ba678dd5.chunk.css.map": "/dart-scoreboard/static/css/main.ba678dd5.chunk.css.map",
+    "static/js/2.e8029701.chunk.js.LICENSE.txt": "/dart-scoreboard/static/js/2.e8029701.chunk.js.LICENSE.txt",
+    "static/media/dartbg_dark.63f68127.jpg": "/dart-scoreboard/static/media/dartbg_dark.63f68127.jpg",
+    "static/media/dartbg_light.4a5958bb.jpg": "/dart-scoreboard/static/media/dartbg_light.4a5958bb.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.713e9a96.js",
     "static/css/2.c1256375.chunk.css",
     "static/js/2.e8029701.chunk.js",
-    "static/css/main.a7556562.chunk.css",
-    "static/js/main.c1b69a72.chunk.js"
+    "static/css/main.ba678dd5.chunk.css",
+    "static/js/main.74b759a5.chunk.js"
   ]
 }
