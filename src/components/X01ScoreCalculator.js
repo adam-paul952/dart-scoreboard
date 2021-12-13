@@ -80,6 +80,7 @@ const X01ScoreCalculator = ({
       turn: turn,
       playerList: JSON.parse(JSON.stringify(playerList)),
       currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
+      showOutShot: showOutShot,
     });
     changeRounds();
     declareWinner();
@@ -193,6 +194,8 @@ const X01ScoreCalculator = ({
               currentPlayer={currentPlayer}
               setCurrentPlayer={setCurrentPlayer}
               setTurn={setTurn}
+              setShowOutShot={setShowOutShot}
+              variant="x01"
             />
           </div>
         </div>

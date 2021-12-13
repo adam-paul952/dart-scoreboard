@@ -16,6 +16,7 @@ const UndoRedo = ({
   setTurn,
   setDisable,
   variant,
+  setShowOutShot,
 }) => {
   const handleUndo = () => {
     undo();
@@ -26,11 +27,16 @@ const UndoRedo = ({
     setCurrentPlayer(newPlayer, playerListHistory.present.currentPlayer);
     const newTurn = playerListHistory.present.turn;
     setTurn(newTurn);
-    if (variant) {
+    if (variant === "cricket") {
       setDisable(
         playerListHistory.past[playerListHistory.past.length - 1]
           .disabledButtons
       );
+    }
+    if (variant === "x01") {
+      const prevOutShotState = playerListHistory.present.showOutShot;
+      console.log(prevOutShotState);
+      setShowOutShot(prevOutShotState);
     }
   };
 
@@ -43,11 +49,18 @@ const UndoRedo = ({
     setCurrentPlayer(newPlayer, playerListHistory.present.currentPlayer);
     const newTurn = playerListHistory.present.turn;
     setTurn(newTurn);
-    if (variant) {
+    if (variant === "cricket") {
       setDisable(
         playerListHistory.future[playerListHistory.future.length - 1]
           .disabledButtons
       );
+    }
+    if (variant === "x01") {
+      const prevOutShotState =
+        playerListHistory.future[playerListHistory.future.length - 1]
+          .showOutShot;
+      console.log(prevOutShotState);
+      setShowOutShot(prevOutShotState);
     }
   };
 
@@ -103,7 +116,8 @@ UndoRedo.propTypes = {
   setCurrentPlayer: PropTypes.func.isRequired,
   setTurn: PropTypes.func.isRequired,
   setDisable: PropTypes.func,
-  variant: PropTypes.bool,
+  variant: PropTypes.string,
+  setShowOutShot: PropTypes.func,
 };
 
 export default UndoRedo;

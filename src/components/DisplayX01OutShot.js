@@ -9,11 +9,12 @@ const DisplayX01OutShot = ({ getCurrentPlayer }) => {
     return possibleOutShots.score === score;
   };
   const outShot = possibleOutShots.filter(filterOutShot);
+  console.log(currentPlayer);
   console.log(outShot);
   return (
     <>
       <div className="outShotContainer">
-        <h2 className="mb-4">Possible Out:</h2>
+        <h3 className="mb-4">Possible Out:</h3>
         <h3>{outShot[0].score}</h3>
         {outShot[0].checkOut.map((possibleOuts, index) => {
           return <h4 key={index}>{possibleOuts.join("--")}</h4>;
