@@ -9,8 +9,6 @@ const DisplayX01OutShot = ({ getCurrentPlayer }) => {
     return possibleOutShots.score === score;
   };
   const outShot = possibleOutShots.filter(filterOutShot);
-  console.log(currentPlayer);
-  console.log(outShot);
   return (
     <>
       <div className="outShotContainer">
