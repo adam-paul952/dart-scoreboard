@@ -1,7 +1,10 @@
 /* Global */
-html {
+html,
+body {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
+  height: 100%;
+  margin: 0;
 }
 
 /* Cricket */
@@ -121,6 +124,12 @@ table {
   flex-direction: row-reverse;
 }
 
+@media only screen and (max-width: 904px) {
+  .outShotDisplay {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .scoreCalculatorX01 {
   width: 50%;
   height: 20rem;
@@ -132,6 +141,14 @@ table {
   flex-basis: 75%;
 }
 
+@media only screen and (max-width: 904px) {
+  .scoreCalculatorX01 {
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+  }
+}
+
 .outShotContainer {
   flex-basis: 20%;
   margin-right: 12%;
@@ -140,28 +157,66 @@ table {
   margin-top: 5%;
 }
 
+@media only screen and (max-width: 904px) {
+  .outShotContainer {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .outShotContainer {
+    margin-left: auto;
+    margin-right: auto;
+    /* color: rgb(243, 135, 73); */
+    font-weight: bold;
+    background-color: #363537;
+    opacity: 0.8;
+    border-radius: 10px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+}
+
 .undoRedoX01 {
   display: grid;
   grid-template-columns: repeat(2, 5rem);
   margin-left: 2.7rem;
 }
 
+@media only screen and (max-width: 904px) {
+  .undoRedoX01 {
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+  }
+}
+
 .playerScoreDisplay {
-  border: 2px solid white;
-  border-radius: 15px;
-  width: 13%;
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
+  width: 30vw;
   font-size: 1.5rem;
 }
 
-.playerScoreText {
-  margin: 0.5rem auto;
+.playerScoreTextTotal {
+  text-align: center;
+  padding-left: 2px;
+}
+.playerScoreTextScore {
+  text-align: left;
 }
 
 .background {
-  background-size: cover;
-  background-position: center;
-  height: 95vh;
+  margin: 0 0;
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  height: 100vh;
+  min-width: none;
+}
+
+@media only screen and (max-width: 904px) {
+  .background {
+    background-position: right 15% bottom 20%;
+    height: 100vh;
+    background-size: 200%;
+  }
 }

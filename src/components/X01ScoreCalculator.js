@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Alert, Button, ButtonGroup } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  ButtonGroup,
+  Container,
+  Col,
+  Row,
+} from "react-bootstrap";
 import UndoRedo from "./UndoRedo";
 import DisplayX01OutShot from "./DisplayX01OutShot";
 
@@ -103,10 +110,16 @@ const X01ScoreCalculator = ({
     });
     if (!winner) {
       return (
-        <div className="playerScoreDisplay">
-          <p className="playerScoreText">Total:</p>
-          <p className="playerScoreText">{playerScore}</p>
-        </div>
+        <Container fluid className="playerScoreDisplay">
+          <Row xs={2} md={2} lg={2}>
+            <Col className="playerScoreTextTotal">
+              <p>Total:</p>
+            </Col>
+            <Col className="playerScoreTextScore">
+              <p>{playerScore}</p>
+            </Col>
+          </Row>
+        </Container>
       );
     }
     return (

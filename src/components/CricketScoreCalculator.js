@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Alert, Container, Button, ButtonGroup } from "react-bootstrap";
+import {
+  Alert,
+  Container,
+  Button,
+  ButtonGroup,
+  Col,
+  Row,
+} from "react-bootstrap";
 
 import UndoRedo from "./UndoRedo";
 
@@ -170,10 +177,16 @@ const CricketScoreCalculator = ({
   return (
     <>
       <Container fluid>
-        <div className="playerScoreDisplay">
-          <p className="playerScoreText">Total:</p>
-          <p className="playerScoreText"> {playerScoreList.toString()}</p>
-        </div>
+        <Container fluid className="playerScoreDisplay">
+          <Row xs={2} md={2} lg={2}>
+            <Col className="playerScoreTextTotal">
+              <p>Total:</p>
+            </Col>
+            <Col className="playerScoreTextScore">
+              <p>{playerScoreList.toString()}</p>
+            </Col>
+          </Row>
+        </Container>
         {declareWinner()}
         <div className="scoreCalculator">
           <div className="scoreKeypad">

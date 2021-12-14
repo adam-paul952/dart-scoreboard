@@ -36,7 +36,7 @@ const Header = ({
   return (
     <>
       <Container>
-        <Navbar variant={theme} className="my-5 justify-content-between">
+        <Navbar variant={theme} className="mt-3 mb-5 justify-content-between">
           {goBackButton && (
             <Button
               onClick={() => history.goBack()}

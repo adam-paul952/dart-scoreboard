@@ -330,7 +330,6 @@ const DisplayCurrentRoundInformation = ({ currentPlayer, round }) => {
         <Col>
           <b>Number of Darts:</b> {numOfDarts()}
         </Col>
-        <Col></Col>
       </Row>
     </Container>
   );
