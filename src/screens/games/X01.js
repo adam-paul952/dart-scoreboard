@@ -27,6 +27,8 @@ const X01 = () => {
     turn,
     round,
     changeRounds,
+    showOutShot,
+    setShowOutShot,
   } = useGame();
   return (
     <>
@@ -67,6 +69,8 @@ const X01 = () => {
         currentPlayer={currentPlayer}
         turn={turn}
         changeRounds={changeRounds}
+        showOutShot={showOutShot}
+        setShowOutShot={setShowOutShot}
       />
     </>
   );

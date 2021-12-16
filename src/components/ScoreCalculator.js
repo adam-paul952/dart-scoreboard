@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -10,6 +10,8 @@ import {
   Col,
 } from "react-bootstrap";
 import UndoRedo from "./UndoRedo";
+import { PingContext } from "../contexts/PingProvider";
+import useStatsAPI from "../util/useStatsAPI";
 
 const ScoreCalculator = ({
   playerList,
@@ -31,6 +33,8 @@ const ScoreCalculator = ({
   canUndo,
   canRedo,
 }) => {
+  const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
+  const { ping } = useContext(PingContext);
   const [playerScore, setPlayerScore] = useState(0);
 
   const handleInput = (number) => {
@@ -81,24 +85,32 @@ const ScoreCalculator = ({
   const eraseGameData = () => {
     resetScoreList();
     setRound(1);
+    if (ping) {
+      updateWinningPlayerStats(winner.id);
+      playerList.forEach((player) => {
+        updateSinglePlayerStats(player.id);
+      });
+    }
   };
+
+  let winner = null;
 
   const declareWinner = () => {
     const totalRounds = 10;
+    let winnerScore = -1;
     if (round === totalRounds) {
-      let [winnerScore, winner] = [-1, null];
       playerList.forEach((player) => {
         const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
         if (totalScore > winnerScore) {
           winnerScore = totalScore;
-          winner = player.playerName;
+          winner = player;
         }
       });
 
       return (
         <>
           <Alert variant="success" style={{ fontWeight: "bold" }}>
-            <p>The WINNER is: {winner}</p>
+            <p>The WINNER is: {winner.playerName}</p>
             <p>Congratulations!</p>
             <Button
               variant="success"
@@ -119,6 +131,7 @@ const ScoreCalculator = ({
         </>
       );
     }
+    return null;
   };
 
   useEffect(() => {

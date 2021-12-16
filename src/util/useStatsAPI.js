@@ -44,9 +44,9 @@ const useStatsAPI = () => {
       });
   };
 
-  const updateAllPlayerStats = () => {
+  const updateSinglePlayerStats = (playerId) => {
     axios
-      .put(URL)
+      .put(`${URL}${playerId}`)
       .then((res) => {
         console.log(res.data);
       })
@@ -57,7 +57,7 @@ const useStatsAPI = () => {
 
   const updateWinningPlayerStats = (playerId) => {
     axios
-      .put(`${URL}${playerId}`)
+      .put(`${URL}winner/${playerId}`)
       .then((res) => {
         console.log(res.data);
       })
@@ -70,7 +70,7 @@ const useStatsAPI = () => {
     createStatRowWithPlayer,
     getStatsForAllPlayers,
     getStatsForSinglePlayer,
-    updateAllPlayerStats,
+    updateSinglePlayerStats,
     updateWinningPlayerStats,
     singlePlayerStats,
     setAllPlayerStats,

@@ -82,6 +82,7 @@ const useGame = () => {
       newScoreList[i].highScore = 0;
       setPlayerList(newScoreList);
       setTurn(0);
+      setShowOutShot(false);
     }
   };
 
@@ -114,6 +115,8 @@ const useGame = () => {
       disabledButtons: [],
     });
 
+  const [showOutShot, setShowOutShot] = useState(false);
+
   return {
     playerList,
     turn,
@@ -145,6 +148,8 @@ const useGame = () => {
     round,
     changeRounds,
     setRound,
+    showOutShot,
+    setShowOutShot,
   };
 };
 

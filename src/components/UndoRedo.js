@@ -35,7 +35,6 @@ const UndoRedo = ({
     }
     if (variant === "x01") {
       const prevOutShotState = playerListHistory.present.showOutShot;
-      console.log(prevOutShotState);
       setShowOutShot(prevOutShotState);
     }
   };

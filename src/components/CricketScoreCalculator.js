@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -11,6 +11,8 @@ import {
 } from "react-bootstrap";
 
 import UndoRedo from "./UndoRedo";
+import { PingContext } from "../contexts/PingProvider";
+import useStatsAPI from "../util/useStatsAPI";
 
 const CricketScoreCalculator = ({
   playerList,
@@ -29,6 +31,8 @@ const CricketScoreCalculator = ({
   canRedo,
   turn,
 }) => {
+  const { ping } = useContext(PingContext);
+  const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
   const [playerScoreList, setPlayerScoreList] = useState([]);
 
   const [disable, setDisable] = useState([
@@ -117,8 +121,22 @@ const CricketScoreCalculator = ({
     nowCurrentPlayer.score = newScoreArray.reduce((a, b) => a + b, 0);
   };
 
+  const eraseGameData = () => {
+    resetScoreList();
+    for (let i in disable) {
+      setDisable((disable[i] = false));
+    }
+    if (ping) {
+      updateWinningPlayerStats(winner.id);
+      playerList.forEach((player) => {
+        updateSinglePlayerStats(player.id);
+      });
+    }
+  };
+
+  let winner = null;
+
   const declareWinner = () => {
-    let winner = null;
     // let winningScore = -1;
 
     const countPlayerArray = targets.map((target) => {
@@ -132,19 +150,19 @@ const CricketScoreCalculator = ({
       countPlayerArray.every((value) => value >= 3) &&
       nowCurrentPlayer.score >= 0
     ) {
-      winner = nowCurrentPlayer.playerName;
-      console.log(`Winner is ${winner}`);
+      winner = nowCurrentPlayer;
+      console.log(`Winner is ${winner.playerName}`);
 
       if (winner) {
         return (
           <>
             <Alert variant="success" style={{ fontWeight: "bold" }}>
-              <p>The WINNER is: {winner}</p>
+              <p>The WINNER is: {winner.playerName}</p>
               <p>Congratulations!</p>
               <Button
                 variant="success"
                 className="m-3"
-                onClick={() => resetScoreList()}
+                onClick={() => eraseGameData()}
               >
                 Play Again
               </Button>
@@ -152,7 +170,7 @@ const CricketScoreCalculator = ({
                 variant="success"
                 as={Link}
                 to="/game/create"
-                onClick={() => resetScoreList()}
+                onClick={() => eraseGameData()}
               >
                 Choose another game
               </Button>

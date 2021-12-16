@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -11,6 +11,8 @@ import {
 } from "react-bootstrap";
 
 import UndoRedo from "./UndoRedo";
+import { PingContext } from "../contexts/PingProvider";
+import useStatsAPI from "../util/useStatsAPI";
 
 const EliminationScoreCalculator = ({
   playerList,
@@ -28,6 +30,9 @@ const EliminationScoreCalculator = ({
   canUndo,
   canRedo,
 }) => {
+  const { ping } = useContext(PingContext);
+  const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
+
   const [playerScore, setPlayerScore] = useState(0);
   const [prevPlayerScore, setPrevPlayerScore] = useState(-1);
   const [playerIsOut, setPlayerIsOut] = useState([]);
@@ -64,16 +69,24 @@ const EliminationScoreCalculator = ({
 
   const changeTurn = (score) => {
     let nowCurrentPlayer = playerList[turn];
-
     if (nowCurrentPlayer.lives !== 0) {
       nowCurrentPlayer.scoreList.push(score);
       for (let i = 0; i < nowCurrentPlayer.scoreList.length; i++) {
+        if (
+          nowCurrentPlayer.lives === 0 &&
+          nowCurrentPlayer.scoreList[i] === 0
+        ) {
+          return;
+        }
         nowCurrentPlayer.score = nowCurrentPlayer.scoreList[i];
         setPrevPlayerScore(nowCurrentPlayer.score);
       }
     }
-    if (prevPlayerScore > nowCurrentPlayer.score) {
+    if (prevPlayerScore >= nowCurrentPlayer.score) {
       nowCurrentPlayer.lives -= 1;
+      if (nowCurrentPlayer.lives < 0) {
+        nowCurrentPlayer.lives = 0;
+      }
     }
     if (nowCurrentPlayer.lives === 0) {
       playerIsOut.push(nowCurrentPlayer);
@@ -94,27 +107,38 @@ const EliminationScoreCalculator = ({
     declareWinner();
   };
 
+  const eraseGameData = () => {
+    resetScoreList();
+    if (ping) {
+      updateWinningPlayerStats(winner.id);
+      playerList.forEach((player) => {
+        updateSinglePlayerStats(player.id);
+      });
+    }
+  };
+
+  let winner = null;
+
   const declareWinner = () => {
-    let winner = null;
     if (playerList.length === new Set(playerIsOut).size + 1) {
       playerList.forEach((player) => {
         if (player.lives > 0) {
-          winner = player.playerName;
+          winner = player;
         }
       });
-      console.log(`The winner is ${winner}`);
+      console.log(`The winner is ${winner.playerName}`);
       if (winner) {
         return (
           <>
             <Alert variant="success" style={{ fontWeight: "bold" }}>
-              <p>The WINNER is: {winner}</p>
+              <p>The WINNER is: {winner.playerName}</p>
               <p>Congratulations!</p>
               <Button
                 variant="success"
                 className="m-3"
                 as={Link}
                 to="/game/elimination/create"
-                onClick={() => resetScoreList()}
+                onClick={() => eraseGameData()}
               >
                 Play Again
               </Button>
@@ -122,7 +146,7 @@ const EliminationScoreCalculator = ({
                 variant="success"
                 as={Link}
                 to="/game/create"
-                onClick={() => resetScoreList()}
+                onClick={() => eraseGameData()}
               >
                 Choose another game
               </Button>

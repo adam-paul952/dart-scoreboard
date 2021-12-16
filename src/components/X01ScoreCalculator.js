@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -11,6 +11,8 @@ import {
 } from "react-bootstrap";
 import UndoRedo from "./UndoRedo";
 import DisplayX01OutShot from "./DisplayX01OutShot";
+import { PingContext } from "../contexts/PingProvider";
+import useStatsAPI from "../util/useStatsAPI";
 
 const X01ScoreCalculator = ({
   playerList,
@@ -29,9 +31,12 @@ const X01ScoreCalculator = ({
   setTurn,
   turn,
   changeRounds,
+  showOutShot,
+  setShowOutShot,
 }) => {
+  const { ping } = useContext(PingContext);
+  const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
   const [playerScore, setPlayerScore] = useState(0);
-  const [showOutShot, setShowOutShot] = useState(false);
 
   const handleInput = (number) => {
     setPlayerScore(`${playerScore}${number}`);
@@ -100,12 +105,23 @@ const X01ScoreCalculator = ({
     setShowOutShot(true);
   };
 
+  const eraseGameData = () => {
+    resetScoreList();
+    if (ping) {
+      updateWinningPlayerStats(winner.id);
+      playerList.forEach((player) => {
+        updateSinglePlayerStats(player.id);
+      });
+    }
+  };
+
+  let winner = null;
+
   const declareWinner = () => {
-    let winner = null;
     playerList.forEach((player) => {
-      if (player.score <= 0) {
-        player.score = 0;
-        winner = player.playerName;
+      if (player.score === 0) {
+        // player.score = 0;
+        winner = player;
       }
     });
     if (!winner) {
@@ -125,14 +141,14 @@ const X01ScoreCalculator = ({
     return (
       <>
         <Alert variant="success" style={{ fontWeight: "bold" }}>
-          <p>The WINNER is: {winner}</p>
+          <p>The WINNER is: {winner.playerName}</p>
           <p>Congratulations!</p>
           <Button
             variant="success"
             as={Link}
             to="/game/x01/create"
             className="m-3"
-            onClick={() => resetScoreList()}
+            onClick={() => eraseGameData()}
           >
             Play Again
           </Button>
@@ -140,7 +156,7 @@ const X01ScoreCalculator = ({
             variant="success"
             as={Link}
             to="/game/create"
-            onClick={() => resetScoreList()}
+            onClick={() => eraseGameData()}
           >
             Choose another game
           </Button>
@@ -153,7 +169,7 @@ const X01ScoreCalculator = ({
     const onKeyUp = (e) => {
       const number = parseInt(playerScore, 10);
       if (e.key <= 57 || e.key >= 48) {
-        setPlayerScore(number + e.key);
+        setPlayerScore({ number } + e.key);
       }
       if (e.key === "Enter") {
         changeTurnValidate();
@@ -239,6 +255,8 @@ X01ScoreCalculator.propTypes = {
   setCurrentPlayer: PropTypes.func,
   turn: PropTypes.number,
   changeRounds: PropTypes.func,
+  showOutShot: PropTypes.bool,
+  setShowOutShot: PropTypes.func,
 };
 
 const getCalculatorKeys = () => {
