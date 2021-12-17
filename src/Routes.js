@@ -2,12 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import App from "./App";
 import CreatePlayerList from "./screens/CreatePlayer";
-import {
-  CreateGame,
-  X01GameSelection,
-  EliminationSetUp,
-  KillerSetUp,
-} from "./screens/CreateGame";
+import CreateGame from "./screens/createGame/CreateGame";
+import X01GameSelection from "./screens/createGame/X01SetUp";
+import EliminationSetUp from "./screens/createGame/EliminationSetUp";
+import KillerSetUp from "./screens/createGame/KillerSetUp";
 import Cricket from "./screens/games/Cricket";
 import Baseball from "./screens/games/Baseball";
 import X01 from "./screens/games/X01";

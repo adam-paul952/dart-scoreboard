@@ -10,9 +10,9 @@ import {
   Row,
 } from "react-bootstrap";
 
-import UndoRedo from "./UndoRedo";
-import { PingContext } from "../contexts/PingProvider";
-import useStatsAPI from "../util/useStatsAPI";
+import UndoRedo from "../UndoRedo";
+import { PingContext } from "../../contexts/PingProvider";
+import useStatsAPI from "../../util/useStatsAPI";
 
 const EliminationScoreCalculator = ({
   playerList,

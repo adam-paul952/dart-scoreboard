@@ -5,9 +5,8 @@ import { Container } from "react-bootstrap";
 
 // TODO: Use hook to replace CSS media queries
 // import useWindowWidth from "../util/useWindowWidth";
-
-import backgroundDark from "../dartbg_dark.jpg";
-import backgroundLight from "../dartbg_light.jpg";
+import backgroundDark from "../image/dartbg_dark.jpg";
+import backgroundLight from "../image/dartbg_light.jpg";
 
 const Background = ({ children }) => {
   const { theme } = useContext(ThemeContext);

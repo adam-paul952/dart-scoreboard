@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header";
-import Scoreboard from "../../components/ScoreBoard";
-import EliminationScoreCalculator from "../../components/EliminationScoreCalculator";
+import Scoreboard from "../../components/scoreboard/ScoreBoard";
+import EliminationScoreCalculator from "../../components/scoreCalculator/EliminationScoreCalculator";
 import useGame from "../../util/useGame";
 
 const Elimination = () => {

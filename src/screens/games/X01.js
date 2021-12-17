@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header";
-import Scoreboard from "../../components/ScoreBoard";
-import X01ScoreCalculator from "../../components/X01ScoreCalculator";
+import Scoreboard from "../../components/scoreboard/ScoreBoard";
+import X01ScoreCalculator from "../../components/scoreCalculator/X01ScoreCalculator";
 import useGame from "../../util/useGame";
 
 const X01 = () => {

@@ -9,10 +9,10 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
-import UndoRedo from "./UndoRedo";
-import DisplayX01OutShot from "./DisplayX01OutShot";
-import { PingContext } from "../contexts/PingProvider";
-import useStatsAPI from "../util/useStatsAPI";
+import UndoRedo from "../UndoRedo";
+import DisplayX01OutShot from "../DisplayX01OutShot";
+import { PingContext } from "../../contexts/PingProvider";
+import useStatsAPI from "../../util/useStatsAPI";
 
 const X01ScoreCalculator = ({
   playerList,

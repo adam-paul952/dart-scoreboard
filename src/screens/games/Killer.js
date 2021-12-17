@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/Header";
-import Scoreboard from "../../components/ScoreBoard";
+import Scoreboard from "../../components/scoreboard/ScoreBoard";
 import useGame from "../../util/useGame";
 
 const Killer = () => {

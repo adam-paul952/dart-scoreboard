@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header";
-import Scoreboard from "../../components/ScoreBoard";
-import ScoreCalculator from "../../components/ScoreCalculator";
+import Scoreboard from "../../components/scoreboard/ScoreBoard";
+import ScoreCalculator from "../../components/scoreCalculator/ScoreCalculator";
 import useGame from "../../util/useGame";
 
 const Baseball = () => {

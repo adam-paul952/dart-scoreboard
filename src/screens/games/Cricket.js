@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header";
-import CricketScoreCalculator from "../../components/CricketScoreCalculator";
-import Scoreboard from "../../components/ScoreBoard";
+import CricketScoreCalculator from "../../components/scoreCalculator/CricketScoreCalculator";
+import Scoreboard from "../../components/scoreboard/ScoreBoard";
 import useGame from "../../util/useGame";
 
 const Cricket = () => {
