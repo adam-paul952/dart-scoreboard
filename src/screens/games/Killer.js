@@ -1,12 +1,13 @@
 import React from "react";
 import Header from "../../components/Header";
 import Scoreboard from "../../components/scoreboard/ScoreBoard";
+import KillerScoreCalculator from "../../components/scoreCalculator/KillerScoreCalculator";
 import useGame from "../../util/useGame";
 
 const Killer = () => {
   const {
     playerList,
-    // setPlayerlist,
+    setPlayerList,
     // changeTurns,
     getCurrentPlayer,
     getCurrentPlayerByName,
@@ -28,6 +29,11 @@ const Killer = () => {
         getCurrentPlayer={getCurrentPlayer}
         getCurrentPlayerById={getCurrentPlayerById}
         getCurrentPlayerByName={getCurrentPlayerByName}
+      />
+      <KillerScoreCalculator
+        getCurrentPlayer={getCurrentPlayer}
+        playerList={playerList}
+        setPlayerList={setPlayerList}
       />
     </>
   );

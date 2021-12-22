@@ -15,7 +15,7 @@ const DisplayX01OutShot = ({ getCurrentPlayer }) => {
         <h3 className="mb-4">Possible Out:</h3>
         <h3>{outShot[0].score}</h3>
         {outShot[0].checkOut.map((possibleOuts, index) => {
-          return <h4 key={index}>{possibleOuts.join("--")}</h4>;
+          return <h4 key={index}>{possibleOuts.join(" -- ")}</h4>;
         })}
       </div>
     </>

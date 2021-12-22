@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+// Icon
 import { BiCaretLeft } from "react-icons/bi";
 
 const BaseballPlayerData = ({ player, index, currentPlayerById }) => {

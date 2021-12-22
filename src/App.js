@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import Header from "./components/Header";
 import styled from "styled-components";
 import { ThemeContext } from "./contexts/Provider";
@@ -40,7 +40,7 @@ const App = () => {
   return (
     <>
       <Header title="Dart Scoreboard" switchThemeButton />
-      <div className="btnTable mt-5">
+      <Container className="btnTable mt-5">
         {ping && (
           <StyledLink to="/game/login">
             <StyledButton variant={oppositeTheme}>Log In</StyledButton>
@@ -60,7 +60,7 @@ const App = () => {
         <StyledLink to="/rules">
           <StyledButton variant={oppositeTheme}>Rules</StyledButton>
         </StyledLink>
-      </div>
+      </Container>
     </>
   );
 };

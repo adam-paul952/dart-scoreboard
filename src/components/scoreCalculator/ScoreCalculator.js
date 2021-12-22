@@ -1,17 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import {
-  Alert,
-  Button,
-  ButtonGroup,
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Button, ButtonGroup, Container, Row, Col } from "react-bootstrap";
 import UndoRedo from "../UndoRedo";
 import { PingContext } from "../../contexts/PingProvider";
 import useStatsAPI from "../../util/useStatsAPI";
+import DisplayWinner from "./DisplayWinner";
 
 const ScoreCalculator = ({
   playerList,
@@ -35,20 +28,20 @@ const ScoreCalculator = ({
 }) => {
   const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
   const { ping } = useContext(PingContext);
-  const [playerScore, setPlayerScore] = useState(0);
+  const [playerScore, setPlayerScore] = useState([]);
 
   const handleInput = (number) => {
     setPlayerScore(`${playerScore}${number}`);
   };
 
   const deleteInput = () => {
-    setPlayerScore(0);
+    setPlayerScore([]);
   };
 
   const handleScoreChange = (value) => {
     if (value === "Enter") {
       changeTurnValidate();
-      setPlayerScore(0);
+      setPlayerScore([]);
     } else if (value === "Del") {
       deleteInput();
     } else {
@@ -57,7 +50,10 @@ const ScoreCalculator = ({
   };
 
   const changeTurnValidate = () => {
-    const score = parseInt(playerScore, 10);
+    let score = parseInt(playerScore, 10);
+    if (playerScore.length === 0) {
+      score = 0;
+    }
     if (!isNaN(score)) {
       changeTurn(score);
     }
@@ -106,29 +102,12 @@ const ScoreCalculator = ({
           winner = player;
         }
       });
-
       return (
-        <>
-          <Alert variant="success" style={{ fontWeight: "bold" }}>
-            <p>The WINNER is: {winner.playerName}</p>
-            <p>Congratulations!</p>
-            <Button
-              variant="success"
-              className="m-3"
-              onClick={() => eraseGameData()}
-            >
-              Play Again
-            </Button>
-            <Button
-              variant="success"
-              as={Link}
-              to="/game/create"
-              onClick={() => eraseGameData()}
-            >
-              Choose another game
-            </Button>
-          </Alert>
-        </>
+        <DisplayWinner
+          variant="baseball"
+          winner={winner}
+          eraseGameData={eraseGameData}
+        />
       );
     }
     return null;
@@ -142,7 +121,7 @@ const ScoreCalculator = ({
       }
       if (e.key === "Enter") {
         changeTurnValidate();
-        setPlayerScore(0);
+        setPlayerScore([]);
       } else if (e.key === "Backspace") {
         deleteInput();
       }
@@ -180,8 +159,8 @@ const ScoreCalculator = ({
           </Row>
         </Container>
       )}
-      <div className="scoreCalculator">
-        <div className="scoreKeypad">
+      <Container className="scoreCalculator">
+        <Container className="scoreKeypad">
           {!declareWinner() &&
             getCalculatorKeys().map((keyValue, index) => (
               <ScoreCalculatorKey
@@ -192,22 +171,24 @@ const ScoreCalculator = ({
                 onChange={handleInput}
               />
             ))}
-        </div>
-        <div className="undoRedo mt-4">
-          <UndoRedo
-            undo={undo}
-            redo={redo}
-            set={set}
-            canUndo={canUndo}
-            canRedo={canRedo}
-            playerListHistory={playerListHistory}
-            setPlayerList={setPlayerList}
-            currentPlayer={currentPlayer}
-            setCurrentPlayer={setCurrentPlayer}
-            setTurn={setTurn}
-          />
-        </div>
-      </div>
+        </Container>
+        {!declareWinner() && (
+          <Container className="undoRedo mt-4">
+            <UndoRedo
+              undo={undo}
+              redo={redo}
+              set={set}
+              canUndo={canUndo}
+              canRedo={canRedo}
+              playerListHistory={playerListHistory}
+              setPlayerList={setPlayerList}
+              currentPlayer={currentPlayer}
+              setCurrentPlayer={setCurrentPlayer}
+              setTurn={setTurn}
+            />
+          </Container>
+        )}
+      </Container>
     </>
   );
 };

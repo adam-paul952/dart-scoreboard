@@ -1,7 +1,9 @@
 import React from "react";
+// Components
 import Header from "../../components/Header";
 import Scoreboard from "../../components/scoreboard/ScoreBoard";
 import ScoreCalculator from "../../components/scoreCalculator/ScoreCalculator";
+// Custom Hook
 import useGame from "../../util/useGame";
 
 const Baseball = () => {

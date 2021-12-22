@@ -7,12 +7,12 @@ const KillerPlayerData = ({ player, index, currentPlayerById }) => {
   return (
     <tr key={index}>
       {currentPlayerById === player.id ? (
-        <th style={{ borderColor: "black" }}>
+        <th>
           {player.playerName}
           <BiCaretLeft size={20} />
         </th>
       ) : (
-        <th style={{ borderColor: "black" }}>{player.playerName}</th>
+        <th>{player.playerName}</th>
       )}
       <td></td>
       <td></td>

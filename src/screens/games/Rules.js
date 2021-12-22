@@ -48,15 +48,15 @@ const X01Rules = () => {
       <p>
         <b>Game Play:</b> X01 is a tournament style game, where players start
         with X01 points and lower their score to exactly 0. First players have
-        to define how many points they start with (typically 301 or 501) be can
+        to define how many points they start with (typically 301 or 501) but can
         be any number of points the players want.
       </p>
       <p>
         <b>Scoring:</b> This game can be played either by double-in and
-        double-out or just double out. Player take turns throwing darts into the
-        board, adding up their points based on their scores. Then they subtract
-        that from the number of points they have remaining. In order to
-        successfully win the game, players must hit their score exactly on 0 by
+        double-out or just double out. Players take turns throwing darts into
+        the board, adding up their points based on their scores. Then they
+        subtract that from the number of points they have remaining. In order to
+        successfully win the game, players must hit their score exactly to 0 by
         hitting a double, once this happens the game is over and that player
         wins.
       </p>
@@ -129,11 +129,10 @@ const EliminationRules = () => {
         <b>Game Play:</b> Players alternate throwing 3 darts at the board trying
         to achieve the highest possible scoring hand. The next player must score
         higher then the player in front of them, if the throwing player fails to
-        do that then they lose a life, but if the throwing player successfully
-        scores higer then they do not lose a life and the next player throws
-        their darts. Typically games are played with a defined number of
-        lives(we usually use 5). Game play continues until there is only one
-        player left with lives.
+        do that then they lose a life, but if they do successfully scores higer
+        then they do not lose a life and the next player throws their darts.
+        Typically games are played with a defined number of lives(we usually use
+        5). Game play continues until there is only one player left with lives.
       </p>
     </>
   );

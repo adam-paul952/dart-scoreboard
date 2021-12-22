@@ -13,6 +13,7 @@ import UndoRedo from "../UndoRedo";
 import DisplayX01OutShot from "../DisplayX01OutShot";
 import { PingContext } from "../../contexts/PingProvider";
 import useStatsAPI from "../../util/useStatsAPI";
+import DisplayWinner from "./DisplayWinner";
 
 const X01ScoreCalculator = ({
   playerList,
@@ -69,13 +70,21 @@ const X01ScoreCalculator = ({
     }
   };
 
+  let nowCurrentPlayer = getCurrentPlayer();
   const changeTurn = (score) => {
-    let nowCurrentPlayer = getCurrentPlayer();
     checkForOutShot();
     nowCurrentPlayer.scoreList.push(score);
     let playerScoreReduced = nowCurrentPlayer.scoreList.reduce(
       (sum, current) => sum - current
     );
+    if (playerScoreReduced < 0 || playerScoreReduced === 1) {
+      alert(`Bust!!`);
+      nowCurrentPlayer.scoreList.pop();
+      console.log(nowCurrentPlayer.scoreList);
+      playerScoreReduced = nowCurrentPlayer.scoreList.reduce(
+        (sum, current) => sum - current
+      );
+    }
     nowCurrentPlayer.score = playerScoreReduced;
     for (let i = 0; i < nowCurrentPlayer.scoreList.length; i++) {
       if (
@@ -120,7 +129,6 @@ const X01ScoreCalculator = ({
   const declareWinner = () => {
     playerList.forEach((player) => {
       if (player.score === 0) {
-        // player.score = 0;
         winner = player;
       }
     });
@@ -139,29 +147,11 @@ const X01ScoreCalculator = ({
       );
     }
     return (
-      <>
-        <Alert variant="success" style={{ fontWeight: "bold" }}>
-          <p>The WINNER is: {winner.playerName}</p>
-          <p>Congratulations!</p>
-          <Button
-            variant="success"
-            as={Link}
-            to="/game/x01/create"
-            className="m-3"
-            onClick={() => eraseGameData()}
-          >
-            Play Again
-          </Button>
-          <Button
-            variant="success"
-            as={Link}
-            to="/game/create"
-            onClick={() => eraseGameData()}
-          >
-            Choose another game
-          </Button>
-        </Alert>
-      </>
+      <DisplayWinner
+        variant="x01"
+        eraseGameData={eraseGameData}
+        winner={winner}
+      />
     );
   };
 
@@ -198,40 +188,44 @@ const X01ScoreCalculator = ({
   return (
     <>
       {declareWinner()}
-      <div className={showOutShot ? "outShotDisplay" : ""}>
-        <div className={`scoreCalculator${showOutShot ? "X01" : ""}`}>
-          <div className="scoreKeypad">
-            {getCalculatorKeys().map((keyValue, index) => (
-              <ScoreCalculatorKey
-                name="score"
-                key={index}
-                keyValue={keyValue}
-                onClick={handleScoreChange}
-                onChange={handleInput}
+      {!winner && (
+        <Container className={showOutShot ? "outShotDisplay" : ""}>
+          <Container className={`scoreCalculator${showOutShot ? "X01" : ""}`}>
+            <Container className={`scoreKeypad${showOutShot ? "X01" : ""}`}>
+              {getCalculatorKeys().map((keyValue, index) => (
+                <ScoreCalculatorKey
+                  name="score"
+                  key={index}
+                  keyValue={keyValue}
+                  onClick={handleScoreChange}
+                  onChange={handleInput}
+                />
+              ))}
+            </Container>
+            <Container
+              className={showOutShot ? "undoRedoX01 mt-4" : "undoRedo mt-4"}
+            >
+              <UndoRedo
+                undo={undo}
+                redo={redo}
+                set={set}
+                canUndo={canUndo}
+                canRedo={canRedo}
+                playerListHistory={playerListHistory}
+                setPlayerList={setPlayerList}
+                currentPlayer={currentPlayer}
+                setCurrentPlayer={setCurrentPlayer}
+                setTurn={setTurn}
+                setShowOutShot={setShowOutShot}
+                variant="x01"
               />
-            ))}
-          </div>
-          <div className={showOutShot ? "undoRedoX01 mt-4" : "undoRedo mt-4"}>
-            <UndoRedo
-              undo={undo}
-              redo={redo}
-              set={set}
-              canUndo={canUndo}
-              canRedo={canRedo}
-              playerListHistory={playerListHistory}
-              setPlayerList={setPlayerList}
-              currentPlayer={currentPlayer}
-              setCurrentPlayer={setCurrentPlayer}
-              setTurn={setTurn}
-              setShowOutShot={setShowOutShot}
-              variant="x01"
-            />
-          </div>
-        </div>
-        {showOutShot && (
-          <DisplayX01OutShot getCurrentPlayer={getCurrentPlayer} />
-        )}
-      </div>
+            </Container>
+          </Container>
+          {showOutShot && (
+            <DisplayX01OutShot getCurrentPlayer={getCurrentPlayer} />
+          )}
+        </Container>
+      )}
     </>
   );
 };
