@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
-import { ThemeContext } from "../contexts/Provider";
+import { ThemeContext } from "../contexts/ThemeProvider";
 
 const X01OutShotButton = () => {
   const [show, setShow] = useState(false);

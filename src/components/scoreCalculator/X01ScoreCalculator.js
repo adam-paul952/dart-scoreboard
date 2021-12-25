@@ -1,14 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import {
-  Alert,
-  Button,
-  ButtonGroup,
-  Container,
-  Col,
-  Row,
-} from "react-bootstrap";
+import { Button, ButtonGroup, Container, Col, Row } from "react-bootstrap";
 import UndoRedo from "../UndoRedo";
 import DisplayX01OutShot from "../DisplayX01OutShot";
 import { PingContext } from "../../contexts/PingProvider";

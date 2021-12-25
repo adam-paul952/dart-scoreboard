@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Container } from "react-bootstrap";
 import Header from "./components/Header";
 import styled from "styled-components";
-import { ThemeContext } from "./contexts/Provider";
+import { ThemeContext } from "./contexts/ThemeProvider";
 import { PingContext } from "./contexts/PingProvider";
 import useUserAPI from "./util/useUserAPI";
 

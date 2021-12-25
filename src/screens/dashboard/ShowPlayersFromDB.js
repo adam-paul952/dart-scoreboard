@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Button, Form, Table } from "react-bootstrap";
-import { ThemeContext } from "../../contexts/Provider";
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 import { BsXSquare } from "react-icons/bs";
 import { EditPlayerButton, EditPlayerName } from "./EditPlayer";

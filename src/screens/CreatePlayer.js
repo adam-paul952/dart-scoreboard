@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import { Button, Container, Col, Row, Table } from "react-bootstrap";
 import useGame from "../util/useGame";
 
-import { ThemeContext } from "../contexts/Provider";
+import { ThemeContext } from "../contexts/ThemeProvider";
 
 const CreatePlayerList = () => {
   const { playerList, addPlayer, deletePlayer } = useGame();

@@ -86,6 +86,14 @@ table {
   gap: 3px;
 }
 
+.scoreKeypadCricket {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(3, 5rem);
+  grid-template-rows: repeat(3, 4rem);
+  gap: 3px;
+}
+
 .undoRedo {
   display: grid;
   grid-template-columns: repeat(2, 5rem);
@@ -182,7 +190,6 @@ table {
 .undoRedoX01 {
   display: grid;
   grid-template-columns: repeat(2, 5rem);
-  /* justify-content: center; */
   margin-left: 2.8rem;
 }
 
@@ -196,7 +203,6 @@ table {
 
 .scoreKeypadX01 {
   display: grid;
-  /* justify-content: center; */
   grid-template-columns: repeat(3, 5rem);
   grid-template-rows: repeat(4, 3rem);
   gap: 3px;

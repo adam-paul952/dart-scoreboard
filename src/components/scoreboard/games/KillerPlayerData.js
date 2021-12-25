@@ -14,8 +14,8 @@ const KillerPlayerData = ({ player, index, currentPlayerById }) => {
       ) : (
         <th>{player.playerName}</th>
       )}
-      <td></td>
-      <td></td>
+      <td>{player.score}</td>
+      <td>{player.lives}</td>
       <td></td>
     </tr>
   );

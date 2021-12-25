@@ -1,18 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import {
-  Alert,
-  Button,
-  ButtonGroup,
-  Container,
-  Col,
-  Row,
-} from "react-bootstrap";
+import { Button, ButtonGroup, Container, Col, Row } from "react-bootstrap";
 
 import UndoRedo from "../UndoRedo";
 import { PingContext } from "../../contexts/PingProvider";
 import useStatsAPI from "../../util/useStatsAPI";
+import DisplayWinner from "./DisplayWinner";
 
 const EliminationScoreCalculator = ({
   playerList,
@@ -33,7 +26,7 @@ const EliminationScoreCalculator = ({
   const { ping } = useContext(PingContext);
   const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
 
-  const [playerScore, setPlayerScore] = useState(0);
+  const [playerScore, setPlayerScore] = useState([]);
   const [prevPlayerScore, setPrevPlayerScore] = useState(-1);
   const [playerIsOut, setPlayerIsOut] = useState([]);
 
@@ -42,13 +35,13 @@ const EliminationScoreCalculator = ({
   };
 
   const deleteInput = () => {
-    setPlayerScore(0);
+    setPlayerScore([]);
   };
 
   const handleScoreChange = (value) => {
     if (value === "Enter") {
       changeTurnValidate();
-      setPlayerScore(0);
+      setPlayerScore([]);
     } else if (value === "Del") {
       deleteInput();
     } else {
@@ -129,29 +122,11 @@ const EliminationScoreCalculator = ({
       console.log(`The winner is ${winner.playerName}`);
       if (winner) {
         return (
-          <>
-            <Alert variant="success" style={{ fontWeight: "bold" }}>
-              <p>The WINNER is: {winner.playerName}</p>
-              <p>Congratulations!</p>
-              <Button
-                variant="success"
-                className="m-3"
-                as={Link}
-                to="/game/elimination/create"
-                onClick={() => eraseGameData()}
-              >
-                Play Again
-              </Button>
-              <Button
-                variant="success"
-                as={Link}
-                to="/game/create"
-                onClick={() => eraseGameData()}
-              >
-                Choose another game
-              </Button>
-            </Alert>
-          </>
+          <DisplayWinner
+            variant="elimination"
+            eraseGameData={eraseGameData}
+            winner={winner}
+          />
         );
       }
     }
@@ -165,7 +140,7 @@ const EliminationScoreCalculator = ({
       }
       if (e.key === "Enter") {
         changeTurnValidate();
-        setPlayerScore(0);
+        setPlayerScore([]);
       } else if (e.key === "Backspace") {
         deleteInput();
       }
@@ -203,35 +178,37 @@ const EliminationScoreCalculator = ({
           </Row>
         </Container>
       )}
-      <div className="scoreCalculator">
-        <div className="scoreInput">
-          <div className="scoreKeypad">
-            {getCalculatorKeys().map((keyValue, index) => (
-              <EliminationScoreCalculatorKey
-                name="score"
-                key={index}
-                keyValue={keyValue}
-                onClick={handleScoreChange}
-                onChange={handleInput}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="undoRedo mt-4">
-          <UndoRedo
-            undo={undo}
-            redo={redo}
-            set={set}
-            canUndo={canUndo}
-            canRedo={canRedo}
-            playerListHistory={playerListHistory}
-            setPlayerList={setPlayerList}
-            currentPlayer={currentPlayer}
-            setCurrentPlayer={setCurrentPlayer}
-            setTurn={setTurn}
-          />
-        </div>
-      </div>
+      {!winner && (
+        <Container className="scoreCalculator">
+          <Container className="scoreInput">
+            <Container className="scoreKeypad">
+              {getCalculatorKeys().map((keyValue, index) => (
+                <EliminationScoreCalculatorKey
+                  name="score"
+                  key={index}
+                  keyValue={keyValue}
+                  onClick={handleScoreChange}
+                  onChange={handleInput}
+                />
+              ))}
+            </Container>
+          </Container>
+          <Container className="undoRedo mt-4">
+            <UndoRedo
+              undo={undo}
+              redo={redo}
+              set={set}
+              canUndo={canUndo}
+              canRedo={canRedo}
+              playerListHistory={playerListHistory}
+              setPlayerList={setPlayerList}
+              currentPlayer={currentPlayer}
+              setCurrentPlayer={setCurrentPlayer}
+              setTurn={setTurn}
+            />
+          </Container>
+        </Container>
+      )}
     </>
   );
 };

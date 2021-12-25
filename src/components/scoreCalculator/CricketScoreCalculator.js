@@ -1,18 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import {
-  Alert,
-  Container,
-  Button,
-  ButtonGroup,
-  Col,
-  Row,
-} from "react-bootstrap";
-
+import { Container, Button, ButtonGroup, Col, Row } from "react-bootstrap";
 import UndoRedo from "../UndoRedo";
 import { PingContext } from "../../contexts/PingProvider";
 import useStatsAPI from "../../util/useStatsAPI";
+import DisplayWinner from "./DisplayWinner";
 
 const CricketScoreCalculator = ({
   playerList,
@@ -155,27 +147,11 @@ const CricketScoreCalculator = ({
 
       if (winner) {
         return (
-          <>
-            <Alert variant="success" style={{ fontWeight: "bold" }}>
-              <p>The WINNER is: {winner.playerName}</p>
-              <p>Congratulations!</p>
-              <Button
-                variant="success"
-                className="m-3"
-                onClick={() => eraseGameData()}
-              >
-                Play Again
-              </Button>
-              <Button
-                variant="success"
-                as={Link}
-                to="/game/create"
-                onClick={() => eraseGameData()}
-              >
-                Choose another game
-              </Button>
-            </Alert>
-          </>
+          <DisplayWinner
+            variant="cricket"
+            winner={winner}
+            eraseGameData={eraseGameData}
+          />
         );
       }
     }
@@ -206,8 +182,8 @@ const CricketScoreCalculator = ({
           </Row>
         </Container>
         {declareWinner()}
-        <div className="scoreCalculator">
-          <div className="scoreKeypad">
+        <Container className="scoreCalculator">
+          <Container className="scoreKeypadCricket">
             {getCalculatorKeys().map((keyValue, index) => (
               <CricketScoreCalculatorKey
                 name="score"
@@ -218,8 +194,8 @@ const CricketScoreCalculator = ({
                 disabled={disable[index]}
               />
             ))}
-          </div>
-          <div className="undoRedo mt-4">
+          </Container>
+          <Container className="undoRedo mt-4">
             <UndoRedo
               undo={undo}
               redo={redo}
@@ -234,8 +210,8 @@ const CricketScoreCalculator = ({
               setDisable={setDisable}
               variant="cricket"
             />
-          </div>
-        </div>
+          </Container>
+        </Container>
       </Container>
     </>
   );

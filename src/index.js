@@ -8,7 +8,7 @@ import "./App.css";
 
 import Theme from "./contexts/theme";
 
-import { ThemeProvider } from "./contexts/Provider";
+import { ThemeProvider } from "./contexts/ThemeProvider";
 import { PingProvider } from "./contexts/PingProvider";
 import Background from "./components/Background";
 

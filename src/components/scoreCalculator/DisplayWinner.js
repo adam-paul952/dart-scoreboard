@@ -29,6 +29,26 @@ const DisplayWinner = ({ variant, eraseGameData, winner }) => {
             Play Again
           </Button>
         )}
+        {variant === "elimination" && (
+          <Button
+            variant="success"
+            className="m-3"
+            as={Link}
+            to="/game/elimination/create"
+            onClick={() => eraseGameData()}
+          >
+            Play Again
+          </Button>
+        )}
+        {variant === "cricket" && (
+          <Button
+            variant="success"
+            className="m-3"
+            onClick={() => eraseGameData()}
+          >
+            Play Again
+          </Button>
+        )}
         <Button
           variant="success"
           as={Link}

@@ -12,7 +12,7 @@ import {
 import { BsSkipBackward } from "react-icons/bs";
 
 import Toggle from "../contexts/Toggler";
-import { ThemeContext } from "../contexts/Provider";
+import { ThemeContext } from "../contexts/ThemeProvider";
 import X01OutShotButton from "./X01OutChart";
 import DisplayAllPlayerStatsButton from "../screens/dashboard/AllPlayerStats";
 

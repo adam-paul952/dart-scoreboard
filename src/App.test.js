@@ -1,8 +1,17 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import { shallow } from "enzyme";
+import App from "./App";
+import { PingProvider } from "./contexts/PingProvider";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("<App />", () => {
+  beforeEach(() => {
+    shallow(
+      <PingProvider>
+        <App />
+      </PingProvider>
+    );
+  });
+  it("should render the component without crashing", () => {
+    expect(screen.getByText(/Dart Scoreboard/i)).toBeTruthy();
+  });
 });

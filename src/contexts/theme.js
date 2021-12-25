@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
-import { ThemeContext } from "./Provider";
+import { ThemeContext } from "./ThemeProvider";
 
 export const themes = {
   dark: {

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { ThemeContext } from "../contexts/Provider";
+import { ThemeContext } from "../contexts/ThemeProvider";
 import { Container } from "react-bootstrap";
 
 // TODO: Use hook to replace CSS media queries

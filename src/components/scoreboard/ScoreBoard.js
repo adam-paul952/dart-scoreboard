@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 // Theme Context
-import { ThemeContext } from "../../contexts/Provider";
+import { ThemeContext } from "../../contexts/ThemeProvider";
 // Components
 import TableHeader from "./TableHeader";
 import PlayerData from "./PlayerData";
