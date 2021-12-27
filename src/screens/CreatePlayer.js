@@ -18,6 +18,7 @@ const CreatePlayerList = () => {
     scoreList: [],
     lives: 0,
     highScore: 0,
+    killer: false,
   };
   const [playerObject, setPlayerObject] = useState(initialState);
   const { playerName } = playerObject;

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { BiCaretLeft } from "react-icons/bi";
+import { AiOutlineCheckSquare } from "react-icons/ai";
 
 const KillerPlayerData = ({ player, index, currentPlayerById }) => {
   return (
@@ -16,7 +17,13 @@ const KillerPlayerData = ({ player, index, currentPlayerById }) => {
       )}
       <td>{player.score}</td>
       <td>{player.lives}</td>
-      <td></td>
+      {player.killer ? (
+        <td>
+          <AiOutlineCheckSquare size={20} />
+        </td>
+      ) : (
+        <td></td>
+      )}
     </tr>
   );
 };

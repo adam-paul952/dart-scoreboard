@@ -17,6 +17,8 @@ const Killer = () => {
     round,
     setRound,
     changeRounds,
+    currentPlayer,
+    setCurrentPlayer,
   } = useGame();
   return (
     <>
@@ -42,6 +44,9 @@ const Killer = () => {
         changeTurns={changeTurns}
         changeRounds={changeRounds}
         turn={turn}
+        currentPlayer={currentPlayer}
+        resetScoreList={resetScoreList}
+        setCurrentPlayer={setCurrentPlayer}
       />
     </>
   );

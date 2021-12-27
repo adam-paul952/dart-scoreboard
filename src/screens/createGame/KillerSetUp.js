@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 
@@ -12,7 +12,6 @@ const KillerSetUp = () => {
   return (
     <>
       <Header title="Killer" goBackButton resetButton />
-      <h1>Coming Soon!</h1>
       <AssignPlayerTargets />
     </>
   );
@@ -20,7 +19,7 @@ const KillerSetUp = () => {
 
 export default KillerSetUp;
 
-export const AssignPlayerTargets = () => {
+const AssignPlayerTargets = () => {
   const {
     playerList,
     setPlayerList,
@@ -31,7 +30,7 @@ export const AssignPlayerTargets = () => {
     round,
     changeRounds,
   } = useGame();
-  const [playerTarget, setPlayerTarget] = React.useState("");
+  const [playerTarget, setPlayerTarget] = useState("");
 
   const currentPlayer = getCurrentPlayer();
   const currentPlayerById = getCurrentPlayerById();
@@ -89,11 +88,9 @@ export const AssignPlayerTargets = () => {
       <Row>
         <Col>
           <input
-            // type="text"
             name="playerTarget"
             value={playerTarget}
             onChange={onHandleChange}
-            // pattern="[0-9]*"
             placeholder="Score"
           ></input>
           <Button onClick={onScoreSubmit}>OK</Button>

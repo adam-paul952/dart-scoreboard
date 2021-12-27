@@ -80,6 +80,7 @@ const useGame = () => {
       newScoreList[i].lives = 0;
       newScoreList[i].hitCount = {};
       newScoreList[i].highScore = 0;
+      newScoreList[i].killer = false;
       setPlayerList(newScoreList);
       setTurn(0);
       setShowOutShot(false);
