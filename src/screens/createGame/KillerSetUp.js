@@ -49,8 +49,13 @@ const AssignPlayerTargets = () => {
   };
 
   const onScoreSubmit = () => {
-    assignPlayerTarget(playerTarget);
-    setPlayerTarget("");
+    if (playerTarget < 1 || playerTarget > 20) {
+      alert(`Invalid score. Score must be between 1 and 20.`);
+      setPlayerTarget("");
+    } else {
+      assignPlayerTarget(playerTarget);
+      setPlayerTarget("");
+    }
   };
 
   const sortPlayerList = () => {
@@ -60,7 +65,7 @@ const AssignPlayerTargets = () => {
 
   return (
     <>
-      <Table variant="dark">
+      <Table variant="dark" bordered striped>
         <thead>
           <tr>
             <td>Player name</td>

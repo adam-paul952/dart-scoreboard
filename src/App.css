@@ -11,6 +11,11 @@ body {
 table {
   margin-left: auto;
   margin-right: auto;
+  /* border-collapse: separate; */
+}
+
+.table > :not(:first-child) {
+  border-top: none;
 }
 
 /* Header */

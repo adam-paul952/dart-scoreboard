@@ -1,17 +1,21 @@
-import { render, screen } from "@testing-library/react";
-import { shallow } from "enzyme";
+import React from "react";
+import { render, screen } from "./test-utils";
+
+import Routes from "./Routes";
 import App from "./App";
-import { PingProvider } from "./contexts/PingProvider";
 
 describe("<App />", () => {
-  beforeEach(() => {
-    shallow(
-      <PingProvider>
-        <App />
-      </PingProvider>
-    );
-  });
   it("should render the component without crashing", () => {
-    expect(screen.getByText(/Dart Scoreboard/i)).toBeTruthy();
+    render(
+      <Routes>
+        <App />
+      </Routes>
+    );
+    expect(screen.getByRole("button", { name: /Create Player/i }));
+    expect(screen.getByRole("button", { name: /Rules/i }));
   });
+
+  // it("should render the component with a ping=true", () => {
+
+  // })
 });

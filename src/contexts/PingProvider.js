@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const PingContext = createContext();
 
 const PingProvider = ({ children }) => {
-  const [ping, setPing] = useState(null);
+  const [ping, setPing] = useState(false);
 
   return (
     <PingContext.Provider value={{ ping, setPing }}>
