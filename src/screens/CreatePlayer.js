@@ -60,7 +60,9 @@ const CreatePlayerList = () => {
             />
           </Col>
           <Col>
-            <Button onClick={onAddPlayer}>Add Player</Button>
+            <Button disabled={!playerName ? true : false} onClick={onAddPlayer}>
+              Add Player
+            </Button>
           </Col>
         </Row>
       </Container>

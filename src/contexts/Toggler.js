@@ -12,6 +12,7 @@ const Toggle = () => {
 
   return (
     <Button
+      aria-label="toggleTheme"
       style={{ width: "150px" }}
       variant={oppositeTheme}
       onClick={setTheme}
