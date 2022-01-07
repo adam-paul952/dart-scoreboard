@@ -24,7 +24,7 @@ My friends and I play quite a bit of darts. I decided to make this app to includ
 - **X01** :white_check_mark:
 - **Cricket** :white_check_mark:
 - **Elimination** :white_check_mark:
-- **Killer**
+- **Killer** :white_check_mark:
 
 ---
 

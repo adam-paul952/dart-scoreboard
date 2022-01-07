@@ -11,7 +11,7 @@ import { BiCaretLeft } from "react-icons/bi";
 const KillerSetUp = () => {
   return (
     <>
-      <Header title="Killer" goBackButton resetButton />
+      <Header title="Killer" goBackButton />
       <AssignPlayerTargets />
     </>
   );
@@ -45,7 +45,12 @@ const AssignPlayerTargets = () => {
   };
 
   const onHandleChange = (event) => {
-    setPlayerTarget(parseInt(event.target.value, 10));
+    const target = parseInt(event.target.value, 10);
+    if (isNaN(target)) {
+      setPlayerTarget("");
+    } else {
+      setPlayerTarget(target);
+    }
   };
 
   const onScoreSubmit = () => {

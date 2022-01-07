@@ -9,7 +9,9 @@ describe("<CreatePlayerList />", () => {
   beforeEach(() => {
     render(<CreatePlayerList />);
   });
+
   it("should render the create player component", () => {
+    // Test all the elements are in the document
     expect(screen.getByText(/Create Player/i)).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Add Player/i, disabled: true })
