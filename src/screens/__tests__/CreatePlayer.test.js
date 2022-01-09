@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, screen } from "../../test-utils";
+import { render, screen, cleanup } from "../../test-utils";
 import userEvent from "@testing-library/user-event";
 
 import CreatePlayerList from "../CreatePlayer";
@@ -43,17 +43,31 @@ describe("<CreatePlayerList />", () => {
     ).toBeInTheDocument();
   });
 
-  it("should enter multiple values in table and enable submit button", () => {
+  it("should add player when pressing 'Enter'", () => {
     const input = screen.getByPlaceholderText(/Player Name/i);
-    // Enter two players into table
+    // Enter a player into the table by pressing'Enter;
     userEvent.type(screen.getByRole("textbox"), "Test");
-    userEvent.click(screen.getByRole("button", { name: /Add Player/i }));
-    userEvent.type(screen.getByRole("textbox"), "Adam");
-    userEvent.click(screen.getByRole("button", { name: /Add Player/i }));
+    userEvent.keyboard("{enter}");
     expect(input.value).toBe("");
     // Check to see that players were added to table
     expect(screen.getByText(/Test/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Submit/i, disabled: true })
+    ).toBeInTheDocument();
+    userEvent.click(screen.getByRole("button", { name: /Delete/i }));
+  });
+
+  it("should enter multiple values in table and enable submit button", () => {
+    const input = screen.getByPlaceholderText(/Player Name/i);
+    // Enter two players into table
+    userEvent.type(screen.getByRole("textbox"), "Adam");
+    userEvent.click(screen.getByRole("button", { name: /Add Player/i }));
+    userEvent.type(screen.getByRole("textbox"), "Paul");
+    userEvent.click(screen.getByRole("button", { name: /Add Player/i }));
+    expect(input.value).toBe("");
+    // Check to see that players were added to table
     expect(screen.getByText(/Adam/i)).toBeInTheDocument();
+    expect(screen.getByText(/Paul/i)).toBeInTheDocument();
     const deleteButtons = screen.getAllByRole("button", { name: /Delete/i });
     expect(deleteButtons).toHaveLength(2);
     expect(

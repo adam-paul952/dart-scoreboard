@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Button, ButtonGroup, Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import UndoRedo from "../UndoRedo";
 import { PingContext } from "../../contexts/PingProvider";
 import useStatsAPI from "../../util/useStatsAPI";
 import DisplayWinner from "./DisplayWinner";
+
+import ScoreCalculatorKey, { getCalculatorKeys } from "./ScoreCalculatorKeys";
 
 const ScoreCalculator = ({
   playerList,
@@ -212,30 +214,6 @@ ScoreCalculator.propTypes = {
   redo: PropTypes.func,
   canUndo: PropTypes.bool,
   canRedo: PropTypes.bool,
-};
-
-const getCalculatorKeys = () => {
-  return [9, 8, 7, 6, 5, 4, 3, 2, 1, "Del", "0", "Enter"];
-};
-
-const ScoreCalculatorKey = (props) => {
-  return (
-    <ButtonGroup
-      onChange={() => {
-        props.onChange(props.keyValue);
-      }}
-    >
-      <Button variant="primary" onClick={() => props.onClick(props.keyValue)}>
-        {props.keyValue}
-      </Button>
-    </ButtonGroup>
-  );
-};
-
-ScoreCalculatorKey.propTypes = {
-  keyValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onChange: () => {},
-  onClick: () => {},
 };
 
 export default ScoreCalculator;

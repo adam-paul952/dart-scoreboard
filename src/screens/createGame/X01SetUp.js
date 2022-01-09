@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import useGame from "../../util/useGame";
 
+const x01PointsList = [201, 301, 401, 501, 601, 701];
+
 const X01GameSelection = () => {
   const { x01Points, setX01Points, x01GameSelect, assignX01PlayerScore } =
     useGame();
-
-  const x01PointsList = [201, 301, 401, 501, 601, 701];
 
   const onPointsSubmit = () => {
     x01GameSelect(x01Points);

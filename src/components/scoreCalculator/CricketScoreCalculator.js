@@ -1,10 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Container, Button, ButtonGroup, Col, Row } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import UndoRedo from "../UndoRedo";
 import { PingContext } from "../../contexts/PingProvider";
 import useStatsAPI from "../../util/useStatsAPI";
 import DisplayWinner from "./DisplayWinner";
+
+import ScoreCalculatorKey, {
+  getCricketCalculatorKeys,
+} from "./ScoreCalculatorKeys";
 
 const CricketScoreCalculator = ({
   playerList,
@@ -184,8 +188,8 @@ const CricketScoreCalculator = ({
         {declareWinner()}
         <Container className="scoreCalculator">
           <Container className="scoreKeypadCricket">
-            {getCalculatorKeys().map((keyValue, index) => (
-              <CricketScoreCalculatorKey
+            {getCricketCalculatorKeys().map((keyValue, index) => (
+              <ScoreCalculatorKey
                 name="score"
                 key={index}
                 keyValue={keyValue}
@@ -233,35 +237,6 @@ CricketScoreCalculator.propTypes = {
   canUndo: PropTypes.bool,
   canRedo: PropTypes.bool,
   turn: PropTypes.number,
-};
-
-const getCalculatorKeys = () => {
-  return [20, 19, 18, 17, 16, 15, "Bull", "Del", "Enter"];
-};
-
-const CricketScoreCalculatorKey = (props) => {
-  return (
-    <ButtonGroup
-      onChange={() => {
-        props.onChange(props.keyValue);
-      }}
-    >
-      <Button
-        variant="primary"
-        onClick={() => props.onClick(props.keyValue)}
-        disabled={props.disabled}
-      >
-        {props.keyValue}
-      </Button>
-    </ButtonGroup>
-  );
-};
-
-CricketScoreCalculatorKey.propTypes = {
-  keyValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onChange: () => {},
-  onClick: () => {},
-  disabled: PropTypes.bool,
 };
 
 export default CricketScoreCalculator;

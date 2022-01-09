@@ -46,6 +46,27 @@ const players = [
   },
 ];
 
+const playersWithScore = [
+  {
+    id: 1,
+    playerName: "Test",
+    score: 0,
+    scoreList: [2, 3, 4],
+    lives: 0,
+    highScore: 0,
+    killer: false,
+  },
+  {
+    id: 2,
+    playerName: "Adam",
+    score: 0,
+    scoreList: [1, 2, 3],
+    lives: 0,
+    highScore: 0,
+    killer: false,
+  },
+];
+
 export const setSessionStorage = () => {
   window.sessionStorage.clear();
   window.sessionStorage.setItem("listOfPlayers", JSON.stringify(players));

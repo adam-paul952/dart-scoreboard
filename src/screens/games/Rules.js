@@ -160,7 +160,7 @@ const KillerRules = () => {
         remaining.
       </p>
       <p>
-        <b>A few additional rules:</b> If a player has 4 lives and hits a double
+        <b>A few additional notes:</b> If a player has 4 lives and hits a double
         of their number, they in fact do not become a killer but instead they
         bring themself up to 5 then back down to 4 again. As such, if a player
         is a killer and they strike their own number instead of another player

@@ -1,12 +1,6 @@
 import React from "react";
 
-import {
-  render,
-  screen,
-  waitFor,
-  setSessionStorage,
-} from "../../../test-utils";
-import userEvent from "@testing-library/user-event";
+import { render, screen, setSessionStorage } from "../../../test-utils";
 
 import Baseball from "../Baseball";
 

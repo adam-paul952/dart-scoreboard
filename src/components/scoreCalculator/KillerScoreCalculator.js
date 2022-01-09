@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Proptypes from "prop-types";
-import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import DisplayWinner from "./DisplayWinner";
 // import UndoRedo from "../UndoRedo";
+
+import ScoreCalculatorKey from "./ScoreCalculatorKeys";
 
 const KillerScoreCalculator = ({
   getCurrentPlayer,
@@ -212,23 +214,3 @@ KillerScoreCalculator.propTypes = {
 };
 
 export default KillerScoreCalculator;
-
-const ScoreCalculatorKey = (props) => {
-  return (
-    <ButtonGroup
-      onChange={() => {
-        props.onChange(props.keyValue);
-      }}
-    >
-      <Button variant="primary" onClick={() => props.onClick(props.keyValue)}>
-        {props.keyValue}
-      </Button>
-    </ButtonGroup>
-  );
-};
-
-ScoreCalculatorKey.propTypes = {
-  keyValue: Proptypes.oneOfType([Proptypes.number, Proptypes.string]),
-  onChange: () => {},
-  onClick: () => {},
-};

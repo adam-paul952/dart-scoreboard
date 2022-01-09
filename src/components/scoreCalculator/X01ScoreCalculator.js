@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Button, ButtonGroup, Container, Col, Row } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import UndoRedo from "../UndoRedo";
 import DisplayX01OutShot from "../DisplayX01OutShot";
 import { PingContext } from "../../contexts/PingProvider";
 import useStatsAPI from "../../util/useStatsAPI";
 import DisplayWinner from "./DisplayWinner";
+
+import ScoreCalculatorKey, { getCalculatorKeys } from "./ScoreCalculatorKeys";
 
 const X01ScoreCalculator = ({
   playerList,
@@ -243,30 +245,6 @@ X01ScoreCalculator.propTypes = {
   changeRounds: PropTypes.func,
   showOutShot: PropTypes.bool,
   setShowOutShot: PropTypes.func,
-};
-
-const getCalculatorKeys = () => {
-  return [9, 8, 7, 6, 5, 4, 3, 2, 1, "Del", "0", "Enter"];
-};
-
-const ScoreCalculatorKey = (props) => {
-  return (
-    <ButtonGroup
-      onChange={() => {
-        props.onChange(props.keyValue);
-      }}
-    >
-      <Button variant="primary" onClick={() => props.onClick(props.keyValue)}>
-        {props.keyValue}
-      </Button>
-    </ButtonGroup>
-  );
-};
-
-ScoreCalculatorKey.propTypes = {
-  keyValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onChange: () => {},
-  onClick: () => {},
 };
 
 export default X01ScoreCalculator;

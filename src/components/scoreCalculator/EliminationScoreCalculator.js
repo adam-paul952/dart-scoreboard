@@ -1,11 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Button, ButtonGroup, Container, Col, Row } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 
 import UndoRedo from "../UndoRedo";
 import { PingContext } from "../../contexts/PingProvider";
 import useStatsAPI from "../../util/useStatsAPI";
 import DisplayWinner from "./DisplayWinner";
+
+import ScoreCalculatorKey, { getCalculatorKeys } from "./ScoreCalculatorKeys";
 
 const EliminationScoreCalculator = ({
   playerList,
@@ -183,7 +185,7 @@ const EliminationScoreCalculator = ({
           <Container className="scoreInput">
             <Container className="scoreKeypad">
               {getCalculatorKeys().map((keyValue, index) => (
-                <EliminationScoreCalculatorKey
+                <ScoreCalculatorKey
                   name="score"
                   key={index}
                   keyValue={keyValue}
@@ -228,30 +230,6 @@ EliminationScoreCalculator.propTypes = {
   redo: PropTypes.func,
   canUndo: PropTypes.bool,
   canRedo: PropTypes.bool,
-};
-
-const getCalculatorKeys = () => {
-  return [9, 8, 7, 6, 5, 4, 3, 2, 1, "Del", "0", "Enter"];
-};
-
-const EliminationScoreCalculatorKey = (props) => {
-  return (
-    <ButtonGroup
-      onChange={() => {
-        props.onChange(props.keyValue);
-      }}
-    >
-      <Button variant="primary" onClick={() => props.onClick(props.keyValue)}>
-        {props.keyValue}
-      </Button>
-    </ButtonGroup>
-  );
-};
-
-EliminationScoreCalculatorKey.propTypes = {
-  keyValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onChange: () => {},
-  onClick: () => {},
 };
 
 export default EliminationScoreCalculator;
