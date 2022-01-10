@@ -10,6 +10,7 @@ const ScoreCalculatorKey = (props) => {
       }}
     >
       <Button
+        // aria-label={props.keyValue}
         variant="primary"
         onClick={() => props.onClick(props.keyValue)}
         disabled={props.disabled}

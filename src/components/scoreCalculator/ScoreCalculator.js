@@ -117,7 +117,10 @@ const ScoreCalculator = ({
 
   useEffect(() => {
     const onKeyUp = (e) => {
-      const number = parseInt(playerScore, 10);
+      let number = parseInt(playerScore, 10);
+      if (playerScore.length === 0) {
+        number = 0;
+      }
       if (e.key <= 57 || e.key >= 48) {
         setPlayerScore(number + e.key);
       }
@@ -166,6 +169,7 @@ const ScoreCalculator = ({
           {!declareWinner() &&
             getCalculatorKeys().map((keyValue, index) => (
               <ScoreCalculatorKey
+                // aria-label={keyValue}
                 name="score"
                 key={index}
                 keyValue={keyValue}

@@ -51,7 +51,7 @@ const playersWithScore = [
     id: 1,
     playerName: "Test",
     score: 0,
-    scoreList: [2, 3, 4],
+    scoreList: [2, 3, 4, 0, 0, 0, 0, 0, 0],
     lives: 0,
     highScore: 0,
     killer: false,
@@ -60,8 +60,29 @@ const playersWithScore = [
     id: 2,
     playerName: "Adam",
     score: 0,
-    scoreList: [1, 2, 3],
+    scoreList: [1, 2, 3, 0, 0, 0, 0, 0, 0],
     lives: 0,
+    highScore: 0,
+    killer: false,
+  },
+];
+
+const playersWithLives = [
+  {
+    id: 1,
+    playerName: "Test",
+    score: 0,
+    scoreList: [],
+    lives: 1,
+    highScore: 0,
+    killer: false,
+  },
+  {
+    id: 2,
+    playerName: "Adam",
+    score: 0,
+    scoreList: [],
+    lives: 1,
     highScore: 0,
     killer: false,
   },
@@ -79,4 +100,11 @@ export const setX01PointsStorage = () => {
     player.score = 501;
   });
   window.sessionStorage.setItem("listOfPlayers", JSON.stringify(players));
+};
+
+export const setPlayerLives = () => {
+  window.sessionStorage.setItem(
+    "listOfPlayers",
+    JSON.stringify(playersWithLives)
+  );
 };
