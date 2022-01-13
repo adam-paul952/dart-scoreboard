@@ -1,11 +1,19 @@
 import React from "react";
 import Header from "../../components/Header";
 import { Accordion } from "react-bootstrap";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const Rules = () => {
+  const { theme, themeToggle } = React.useContext(ThemeContext);
   return (
     <>
-      <Header title="Rules" goBackButton />
+      <Header
+        title="Rules"
+        goBackButton
+        theme={theme}
+        themeToggle={themeToggle}
+      />
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>X01</Accordion.Header>

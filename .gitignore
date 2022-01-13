@@ -25,3 +25,5 @@ yarn-error.log*
 README.React.md
 
 .env
+
+/dart-scoreboard/node_modules

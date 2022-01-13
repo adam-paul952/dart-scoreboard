@@ -12,7 +12,6 @@ import {
 import { BsSkipBackward } from "react-icons/bs";
 
 import Toggle from "../contexts/Toggler";
-import { ThemeContext } from "../contexts/ThemeProvider";
 import X01OutShotButton from "./X01OutChart";
 import DisplayAllPlayerStatsButton from "../screens/dashboard/AllPlayerStats";
 
@@ -25,9 +24,10 @@ const Header = ({
   outShotButton,
   loginDropDown,
   username,
+  theme,
+  themeToggle,
 }) => {
   const history = useHistory();
-  const { theme, themeToggle } = useContext(ThemeContext);
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -82,6 +82,8 @@ Header.propTypes = {
   outShotButton: PropTypes.bool,
   loginDropDown: PropTypes.bool,
   username: PropTypes.string,
+  theme: PropTypes.string,
+  themeToggle: PropTypes.func,
 };
 
 export default Header;

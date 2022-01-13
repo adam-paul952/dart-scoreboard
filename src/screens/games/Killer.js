@@ -1,8 +1,12 @@
 import React from "react";
+// Components
 import Header from "../../components/Header";
 import Scoreboard from "../../components/scoreboard/ScoreBoard";
 import KillerScoreCalculator from "../../components/scoreCalculator/KillerScoreCalculator";
+// Hooks
 import useGame from "../../util/useGame";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const Killer = () => {
   const {
@@ -20,6 +24,8 @@ const Killer = () => {
     currentPlayer,
     setCurrentPlayer,
   } = useGame();
+
+  const { theme, themeToggle } = React.useContext(ThemeContext);
   return (
     <>
       <Header
@@ -27,6 +33,8 @@ const Killer = () => {
         goBackButton
         resetButton
         resetScoreList={resetScoreList}
+        theme={theme}
+        themeToggle={themeToggle}
       />
       <Scoreboard
         variant="killer"

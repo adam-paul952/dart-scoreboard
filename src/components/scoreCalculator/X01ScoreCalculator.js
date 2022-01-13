@@ -65,6 +65,7 @@ const X01ScoreCalculator = ({
   };
 
   let nowCurrentPlayer = getCurrentPlayer();
+
   const changeTurn = (score) => {
     checkForOutShot();
     nowCurrentPlayer.scoreList.push(score);
@@ -91,6 +92,9 @@ const X01ScoreCalculator = ({
     setPlayerList([...playerList]);
     changeTurns();
     setCurrentPlayer(playerList[turn]);
+    console.log(
+      `This is the current player after change turns is called : ${currentPlayer.playerName}`
+    );
     set({
       turn: turn,
       playerList: JSON.parse(JSON.stringify(playerList)),
@@ -102,7 +106,7 @@ const X01ScoreCalculator = ({
   };
 
   const checkForOutShot = () => {
-    if (currentPlayer.score > 170) {
+    if (nowCurrentPlayer.score > 170) {
       return null;
     }
     setShowOutShot(true);
@@ -153,7 +157,7 @@ const X01ScoreCalculator = ({
     const onKeyUp = (e) => {
       const number = parseInt(playerScore, 10);
       if (e.key <= 57 || e.key >= 48) {
-        setPlayerScore({ number } + e.key);
+        setPlayerScore(number + e.key);
       }
       if (e.key === "Enter") {
         changeTurnValidate();

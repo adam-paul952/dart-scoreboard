@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
 import { Button, Container, Col, Row, Table } from "react-bootstrap";
+// Components
+import Header from "../components/Header";
+// Hooks
 import useGame from "../util/useGame";
-
+// Theme
 import { ThemeContext } from "../contexts/ThemeProvider";
 
 const CreatePlayerList = () => {
   const { playerList, addPlayer, deletePlayer } = useGame();
-  const { theme } = useContext(ThemeContext);
+  const { theme, themeToggle } = useContext(ThemeContext);
 
   const initialState = {
     id: Math.floor(Math.random() * 100),
@@ -47,7 +49,12 @@ const CreatePlayerList = () => {
 
   return (
     <>
-      <Header title="Create Player" goBackButton />
+      <Header
+        title="Create Player"
+        goBackButton
+        theme={theme}
+        themeToggle={themeToggle}
+      />
       <Container className="mt-5 mb-5" fluid>
         <Row className="justify-content-md-center">
           <Col>

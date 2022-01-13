@@ -65,6 +65,7 @@ describe("<Elimination />", () => {
     expect(screen.getByRole("row", { name: /Test 1 1/i })).toBeInTheDocument();
     expect(screen.getByRole("row", { name: /Adam 0 1/i })).toBeInTheDocument();
   });
+
   it("should add a player score and a second player score that less than to remove a life", async () => {
     await waitFor(() => {
       userEvent.keyboard("{10}");

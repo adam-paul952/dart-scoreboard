@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Button, Dropdown } from "react-bootstrap";
-import useGame from "../../util/useGame";
+// Components
 import Header from "../../components/Header";
+// Hooks
+import useGame from "../../util/useGame";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const eliminationLives = [3, 4, 5, 6, 7, 8, 9, 10];
 
 const EliminationSetUp = () => {
   const { assignPlayerLives } = useGame();
+  const { theme, themeToggle } = React.useContext(ThemeContext);
 
   const [playerLives, setPlayerLives] = useState(0);
 
@@ -21,7 +26,12 @@ const EliminationSetUp = () => {
   };
   return (
     <>
-      <Header title="Elimination" goBackButton />
+      <Header
+        title="Elimination"
+        goBackButton
+        theme={theme}
+        themeToggle={themeToggle}
+      />
       <Dropdown value={playerLives} onSelect={onLifeSelect}>
         <Dropdown.Toggle
           id="livesDropdown"

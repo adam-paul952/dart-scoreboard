@@ -1,12 +1,21 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+// Components
 import Header from "../../components/Header";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const CreateGame = () => {
+  const { theme, themeToggle } = React.useContext(ThemeContext);
   return (
     <>
-      <Header title="Create a Game" goBackButton />
+      <Header
+        title="Create a Game"
+        goBackButton
+        theme={theme}
+        themeToggle={themeToggle}
+      />
       <Dropdown>
         <Dropdown.Toggle
           id="gameDropDown"

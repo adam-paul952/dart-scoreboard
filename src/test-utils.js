@@ -7,7 +7,7 @@ import Theme from "./contexts/theme";
 
 const AppWithProviders = ({ children }) => {
   return (
-    <ThemeProvider>
+    <ThemeProvider value={{ theme: "light" }}>
       <Theme>
         <PingProvider>
           <MemoryRouter>{children}</MemoryRouter>
@@ -108,3 +108,22 @@ export const setPlayerLives = () => {
     JSON.stringify(playersWithLives)
   );
 };
+
+export const theme = () => {
+  window.localStorage.clear();
+  window.localStorage.setItem("theme", JSON.stringify("light"));
+};
+
+let store = {};
+
+// jest.spyOn(Storage.prototype, "getItem").mockImplementation((key, value) => {
+//   return store[key];
+// });
+
+// jest.spyOn(Storage.prototype, "setItem").mockImplementation((key, value) => {
+//   return (store[key] = value);
+// });
+
+// jest.spyOn(Storage.prototype, "clear").mockImplementation(() => {
+//   store = {};
+// });

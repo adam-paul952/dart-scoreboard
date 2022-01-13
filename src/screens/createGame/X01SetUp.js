@@ -1,14 +1,19 @@
 import React from "react";
 import { Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+// Components
 import Header from "../../components/Header";
+// Hooks
 import useGame from "../../util/useGame";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const x01PointsList = [201, 301, 401, 501, 601, 701];
 
 const X01GameSelection = () => {
   const { x01Points, setX01Points, x01GameSelect, assignX01PlayerScore } =
     useGame();
+  const { theme, themeToggle } = React.useContext(ThemeContext);
 
   const onPointsSubmit = () => {
     x01GameSelect(x01Points);
@@ -17,7 +22,12 @@ const X01GameSelection = () => {
 
   return (
     <>
-      <Header title="X01" goBackButton />
+      <Header
+        title="X01"
+        goBackButton
+        theme={theme}
+        themeToggle={themeToggle}
+      />
       <Dropdown value={x01Points} onSelect={setX01Points}>
         <Dropdown.Toggle
           id="pointsDropdown"

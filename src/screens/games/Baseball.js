@@ -5,6 +5,8 @@ import Scoreboard from "../../components/scoreboard/ScoreBoard";
 import ScoreCalculator from "../../components/scoreCalculator/ScoreCalculator";
 // Custom Hook
 import useGame from "../../util/useGame";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const Baseball = () => {
   const {
@@ -30,6 +32,8 @@ const Baseball = () => {
     setRound,
   } = useGame();
 
+  const { theme, themeToggle } = React.useContext(ThemeContext);
+
   return (
     <>
       <Header
@@ -37,6 +41,8 @@ const Baseball = () => {
         goBackButton
         resetButton
         resetScoreList={resetScoreList}
+        theme={theme}
+        themeToggle={themeToggle}
       />
       <Scoreboard
         playerList={playerList}

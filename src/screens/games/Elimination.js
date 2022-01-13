@@ -1,8 +1,12 @@
 import React from "react";
+// Components
 import Header from "../../components/Header";
 import Scoreboard from "../../components/scoreboard/ScoreBoard";
 import EliminationScoreCalculator from "../../components/scoreCalculator/EliminationScoreCalculator";
+// Hooks
 import useGame from "../../util/useGame";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const Elimination = () => {
   const {
@@ -24,6 +28,8 @@ const Elimination = () => {
     canUndo,
     canRedo,
   } = useGame();
+
+  const { theme, themeToggle } = React.useContext(ThemeContext);
   return (
     <>
       <Header
@@ -31,6 +37,8 @@ const Elimination = () => {
         goBackButton
         resetButton
         resetScoreList={resetScoreList}
+        theme={theme}
+        themeToggle={themeToggle}
       />
       <Scoreboard
         playerList={playerList}

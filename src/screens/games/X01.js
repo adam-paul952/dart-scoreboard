@@ -1,8 +1,12 @@
 import React from "react";
+// Components
 import Header from "../../components/Header";
 import Scoreboard from "../../components/scoreboard/ScoreBoard";
 import X01ScoreCalculator from "../../components/scoreCalculator/X01ScoreCalculator";
+// Hooks
 import useGame from "../../util/useGame";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const X01 = () => {
   const {
@@ -30,6 +34,8 @@ const X01 = () => {
     showOutShot,
     setShowOutShot,
   } = useGame();
+
+  const { theme, themeToggle } = React.useContext(ThemeContext);
   return (
     <>
       <Header
@@ -38,6 +44,8 @@ const X01 = () => {
         resetButton
         resetScoreList={resetScoreList}
         outShotButton
+        theme={theme}
+        themeToggle={themeToggle}
       />
       <Scoreboard
         variant="x01"

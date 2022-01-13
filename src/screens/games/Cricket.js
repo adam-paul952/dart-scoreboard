@@ -1,8 +1,12 @@
 import React from "react";
+// Components
 import Header from "../../components/Header";
 import CricketScoreCalculator from "../../components/scoreCalculator/CricketScoreCalculator";
 import Scoreboard from "../../components/scoreboard/ScoreBoard";
+// Hooks
 import useGame from "../../util/useGame";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const Cricket = () => {
   const {
@@ -25,6 +29,8 @@ const Cricket = () => {
     canRedo,
   } = useGame();
 
+  const { theme, themeToggle } = React.useContext(ThemeContext);
+
   return (
     <>
       <Header
@@ -32,6 +38,8 @@ const Cricket = () => {
         resetScoreList={resetScoreList}
         goBackButton
         resetButton
+        theme={theme}
+        themeToggle={themeToggle}
       />
       <Scoreboard
         playerList={playerList}
