@@ -92,9 +92,6 @@ const X01ScoreCalculator = ({
     setPlayerList([...playerList]);
     changeTurns();
     setCurrentPlayer(playerList[turn]);
-    console.log(
-      `This is the current player after change turns is called : ${currentPlayer.playerName}`
-    );
     set({
       turn: turn,
       playerList: JSON.parse(JSON.stringify(playerList)),

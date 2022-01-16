@@ -1,12 +1,12 @@
 import React from "react";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
 // Components
 import Header from "../../components/Header";
 import Scoreboard from "../../components/scoreboard/ScoreBoard";
 import ScoreCalculator from "../../components/scoreCalculator/ScoreCalculator";
-// Custom Hook
+// Hooks
 import useGame from "../../util/useGame";
-// Theme
-import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const Baseball = () => {
   const {

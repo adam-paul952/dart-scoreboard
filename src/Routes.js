@@ -17,6 +17,7 @@ import UserRegistration from "./screens/dashboard/Register";
 import Dashboard from "./screens/dashboard/Dashboard";
 import EditUserInfo from "./screens/dashboard/EditUser";
 import DeleteUser from "./screens/dashboard/DeleteUser";
+import DisplayAllPlayerStats from "./screens/dashboard/AllPlayerStats";
 
 const Routes = () => {
   return (
@@ -39,6 +40,7 @@ const Routes = () => {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/user/edit" component={EditUserInfo} />
         <Route path="/user/delete" component={DeleteUser} />
+        <Route path="/user/stats/:id" component={DisplayAllPlayerStats} />
       </Switch>
     </Router>
   );

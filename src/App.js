@@ -27,7 +27,7 @@ const StyledButton = styled(Button)`
 
 const App = () => {
   const { getPingFromServer } = useUserAPI();
-  const { theme, themeToggle } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   const { ping } = useContext(PingContext);
   const oppositeTheme = theme === "dark" ? "light" : "dark";
 
@@ -43,7 +43,7 @@ const App = () => {
         title="Dart Scoreboard"
         switchThemeButton
         theme={theme}
-        themeToggle={themeToggle}
+        themeToggle={setTheme}
       />
       <Container className="btnTable mt-5">
         {ping && (

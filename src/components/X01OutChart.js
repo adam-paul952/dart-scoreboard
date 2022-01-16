@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
 import { ThemeContext } from "../contexts/ThemeProvider";
 
-const X01OutShotButton = () => {
+const X01OutShotButton = (theme) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -17,6 +17,7 @@ const X01OutShotButton = () => {
         Outshots
       </Button>
       <Modal
+        aria-labelledby="x01OutshotChart"
         show={show}
         fullscreen={true}
         onHide={() => {
@@ -27,15 +28,14 @@ const X01OutShotButton = () => {
           <Modal.Title>OutChart</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <X01OutShotChart />
+          <X01OutShotChart theme={theme} />
         </Modal.Body>
       </Modal>
     </>
   );
 };
 
-const X01OutShotChart = () => {
-  const { theme } = useContext(ThemeContext);
+const X01OutShotChart = (theme) => {
   const oppositeTheme = theme === "light" ? "light" : "dark";
   return (
     <>
@@ -273,9 +273,15 @@ export const possibleOutShots = [
   { score: 9, checkOut: [[], []] },
   { score: 8, checkOut: [[], []] },
   { score: 7, checkOut: [[], []] },
-  { score: 6, checkOut: [[], []] },
-  { score: 5, checkOut: [[], []] },
-  { score: 4, checkOut: [[], []] },
-  { score: 3, checkOut: [["1", "D1"]] },
-  { score: 2, checkOut: [["D1"]] },
+  { score: 6, checkOut: [["D3"], []] },
+  {
+    score: 5,
+    checkOut: [
+      ["1", "D2"],
+      ["3", "D1"],
+    ],
+  },
+  { score: 4, checkOut: [["D2"], ["2", "D1"]] },
+  { score: 3, checkOut: [["1", "D1"], []] },
+  { score: 2, checkOut: [["D1"], []] },
 ];

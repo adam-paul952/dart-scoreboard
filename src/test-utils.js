@@ -1,23 +1,30 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Router } from "react-router-dom";
 import { PingProvider } from "./contexts/PingProvider";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import Theme from "./contexts/theme";
+import { createMemoryHistory } from "history";
 
 const AppWithProviders = ({ children }) => {
+  const history = createMemoryHistory();
+
   return (
     <ThemeProvider value={{ theme: "light" }}>
       <Theme>
         <PingProvider>
-          <MemoryRouter>{children}</MemoryRouter>
+          <MemoryRouter initialEntries={["/"]}>
+            {/* <Router history={history}> */}
+            {children}
+            {/* </Router> */}
+          </MemoryRouter>
         </PingProvider>
       </Theme>
     </ThemeProvider>
   );
 };
 
-const customRender = (ui, options) => {
+const customRender = (ui, { route = "/" } = {}, options) => {
   render(ui, { wrapper: AppWithProviders, ...options });
 };
 
@@ -109,21 +116,13 @@ export const setPlayerLives = () => {
   );
 };
 
-export const theme = () => {
+export const setTheme = () => {
   window.localStorage.clear();
-  window.localStorage.setItem("theme", JSON.stringify("light"));
+  window.localStorage.setItem("theme", JSON.stringify("dark"));
 };
 
-let store = {};
-
-// jest.spyOn(Storage.prototype, "getItem").mockImplementation((key, value) => {
-//   return store[key];
-// });
-
-// jest.spyOn(Storage.prototype, "setItem").mockImplementation((key, value) => {
-//   return (store[key] = value);
-// });
-
-// jest.spyOn(Storage.prototype, "clear").mockImplementation(() => {
-//   store = {};
-// });
+export const setLoggedInUser = () => {
+  window.sessionStorage.clear();
+  window.sessionStorage.setItem("username", JSON.stringify("Test User"));
+  window.sessionStorage.setItem("userUuid", JSON.stringify("1"));
+};

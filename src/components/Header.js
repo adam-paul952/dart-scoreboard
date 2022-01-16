@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import {
@@ -13,7 +13,7 @@ import { BsSkipBackward } from "react-icons/bs";
 
 import Toggle from "../contexts/Toggler";
 import X01OutShotButton from "./X01OutChart";
-import DisplayAllPlayerStatsButton from "../screens/dashboard/AllPlayerStats";
+import DisplayAllPlayerStats from "../screens/dashboard/AllPlayerStats";
 
 const Header = ({
   title,
@@ -48,7 +48,7 @@ const Header = ({
             </Button>
           )}
           <Navbar.Brand>{title}</Navbar.Brand>
-          {outShotButton && <X01OutShotButton />}
+          {outShotButton && <X01OutShotButton theme={theme} />}
           {loginDropDown && (
             <HeaderDropDownMenu
               handleLogout={handleLogout}
@@ -66,7 +66,7 @@ const Header = ({
               Reset Game
             </Button>
           )}
-          {switchThemeButton && <Toggle theme={theme} onclick={themeToggle} />}
+          {switchThemeButton && <Toggle />}
         </Navbar>
       </Container>
     </>
@@ -93,7 +93,7 @@ const HeaderDropDownMenu = ({ handleLogout, theme, themeToggle, username }) => {
     <>
       <DropdownButton className="px-3" title={username} menuVariant={theme}>
         <Dropdown.Item>
-          <DisplayAllPlayerStatsButton />
+          <DisplayAllPlayerStats />
         </Dropdown.Item>
         <Dropdown.Item href="/user/edit">Edit User</Dropdown.Item>
         <Dropdown.Item href="/user/delete">Delete User</Dropdown.Item>

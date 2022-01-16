@@ -1,22 +1,25 @@
-import React, { useState, useEffect } from "react";
-
-import {
-  displaySessionUserUuidToken,
-  displaySessionUsername,
-} from "../../util/useSessionStorage";
-
+import React from "react";
+// Theme
+import { ThemeContext } from "../../contexts/ThemeProvider";
+// Components
 import Header from "../../components/Header";
 import LoginUser from "./LogIn";
 import CreatePlayerDashboard from "./CreatePlayerDashboard";
 import CreateGameDashboard from "./CreateGameDashboard";
 import SelectPlayersFromDB from "./ShowPlayersFromDB";
-
+// Hooks
 import useGame from "../../util/useGame";
 import usePlayerAPI from "../../util/usePlayerAPI";
+import {
+  displaySessionUserUuidToken,
+  displaySessionUsername,
+} from "../../util/useSessionStorage";
 
 const Dashboard = () => {
   const username = displaySessionUsername();
   const userId = displaySessionUserUuidToken();
+
+  const { theme } = React.useContext(ThemeContext);
 
   const {
     userPlayerList,
@@ -29,9 +32,9 @@ const Dashboard = () => {
 
   const { setPlayerList, checkedPlayerList, setCheckedPlayerList } = useGame();
 
-  const [playerName, setPlayerName] = useState("");
+  const [playerName, setPlayerName] = React.useState("");
 
-  useEffect(() => {
+  React.useEffect(() => {
     getPlayerByUserId(userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -47,6 +50,7 @@ const Dashboard = () => {
         username={username}
         goBackButton
         loginDropDown
+        theme={theme}
       />
       <CreatePlayerDashboard
         playerName={playerName}

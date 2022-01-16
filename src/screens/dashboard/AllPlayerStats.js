@@ -3,7 +3,7 @@ import { Button, Col, Modal, Row } from "react-bootstrap";
 import { displaySessionUserUuidToken } from "../../util/useSessionStorage";
 import useStatsAPI from "../../util/useStatsAPI";
 
-const DisplayAllPlayerStatsButton = () => {
+const DisplayAllPlayerStats = () => {
   const userId = displaySessionUserUuidToken();
   const [show, setShow] = useState(false);
 
@@ -22,6 +22,7 @@ const DisplayAllPlayerStatsButton = () => {
         onClick={() => {
           onFindAllStats();
         }}
+        style={{ backgroundColor: "transparent", border: "none" }}
       >
         All Player Stats
       </Button>
@@ -60,4 +61,4 @@ const DisplayAllPlayerStatsButton = () => {
   );
 };
 
-export default DisplayAllPlayerStatsButton;
+export default DisplayAllPlayerStats;
