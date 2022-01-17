@@ -1,13 +1,21 @@
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 import { render, screen, setSessionStorage } from "../../../test-utils";
 
 import Killer from "../Killer";
 
 describe("<Killer />", () => {
+  const history = createMemoryHistory();
+
   beforeEach(() => {
     setSessionStorage();
-    render(<Killer />);
+    render(
+      <Router history={history}>
+        <Killer />
+      </Router>
+    );
   });
 
   it("should render the killer component", () => {

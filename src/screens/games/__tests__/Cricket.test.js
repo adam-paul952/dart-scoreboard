@@ -1,16 +1,27 @@
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
-import { render, screen, setSessionStorage } from "../../../test-utils";
+import {
+  render,
+  screen,
+  waitFor,
+  setSessionStorage,
+} from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
 
 import Cricket from "../Cricket";
-import { waitFor } from "@testing-library/react";
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 describe("<Cricket />", () => {
+  const history = createMemoryHistory();
+
   beforeEach(() => {
     setSessionStorage();
-    render(<Cricket />);
+    render(
+      <Router history={history}>
+        <Cricket />
+      </Router>
+    );
   });
 
   it("should render the cricket component", () => {

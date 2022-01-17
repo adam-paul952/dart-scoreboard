@@ -1,12 +1,20 @@
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 import { render, screen } from "../../../test-utils";
 
 import Rules from "../Rules";
 
 describe("<Rules />", () => {
+  const history = createMemoryHistory();
+
   beforeEach(() => {
-    render(<Rules />);
+    render(
+      <Router history={history}>
+        <Rules />
+      </Router>
+    );
   });
   it("should render the rules component", () => {
     // Test that all elements are rendered

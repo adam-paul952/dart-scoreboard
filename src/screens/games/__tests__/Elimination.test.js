@@ -1,4 +1,6 @@
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 import { render, screen, waitFor, setPlayerLives } from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
@@ -6,9 +8,15 @@ import userEvent from "@testing-library/user-event";
 import Elimination from "../Elimination";
 
 describe("<Elimination />", () => {
+  const history = createMemoryHistory();
+
   beforeEach(() => {
     setPlayerLives();
-    render(<Elimination />);
+    render(
+      <Router history={history}>
+        <Elimination />
+      </Router>
+    );
   });
   it("should render the elimination component", () => {
     // Test to ensure all required components are rendered
@@ -66,7 +74,7 @@ describe("<Elimination />", () => {
     expect(screen.getByRole("row", { name: /Adam 0 1/i })).toBeInTheDocument();
   });
 
-  it("should add a player score and a second player score that less than to remove a life", async () => {
+  it("should add a player score and a second player score that's less than to remove a life", async () => {
     await waitFor(() => {
       userEvent.keyboard("{10}");
     });

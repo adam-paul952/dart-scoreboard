@@ -7,24 +7,24 @@ import Theme from "./contexts/theme";
 import { createMemoryHistory } from "history";
 
 const AppWithProviders = ({ children }) => {
-  const history = createMemoryHistory();
+  // const history = createMemoryHistory();
 
   return (
     <ThemeProvider value={{ theme: "light" }}>
       <Theme>
         <PingProvider>
-          <MemoryRouter initialEntries={["/"]}>
-            {/* <Router history={history}> */}
-            {children}
-            {/* </Router> */}
-          </MemoryRouter>
+          {/* <MemoryRouter initialEntries={["/"]}> */}
+          {/* <Router history={history}> */}
+          {children}
+          {/* </Router> */}
+          {/* </MemoryRouter> */}
         </PingProvider>
       </Theme>
     </ThemeProvider>
   );
 };
 
-const customRender = (ui, { route = "/" } = {}, options) => {
+const customRender = (ui, options) => {
   render(ui, { wrapper: AppWithProviders, ...options });
 };
 
@@ -57,8 +57,8 @@ const playersWithScore = [
   {
     id: 1,
     playerName: "Test",
-    score: 0,
-    scoreList: [2, 3, 4, 0, 0, 0, 0, 0, 0],
+    score: 170,
+    scoreList: [],
     lives: 0,
     highScore: 0,
     killer: false,
@@ -67,7 +67,7 @@ const playersWithScore = [
     id: 2,
     playerName: "Adam",
     score: 0,
-    scoreList: [1, 2, 3, 0, 0, 0, 0, 0, 0],
+    scoreList: [],
     lives: 0,
     highScore: 0,
     killer: false,
@@ -125,4 +125,12 @@ export const setLoggedInUser = () => {
   window.sessionStorage.clear();
   window.sessionStorage.setItem("username", JSON.stringify("Test User"));
   window.sessionStorage.setItem("userUuid", JSON.stringify("1"));
+};
+
+export const setPlayerWithScore = () => {
+  window.sessionStorage.clear();
+  window.sessionStorage.setItem(
+    "listOfPlayers",
+    JSON.stringify(playersWithScore)
+  );
 };

@@ -1,4 +1,6 @@
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 import { render, screen, waitFor } from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
@@ -6,8 +8,13 @@ import userEvent from "@testing-library/user-event";
 import CreateGame from "../../createGame/CreateGame";
 
 describe("<Create Game />", () => {
+  const history = createMemoryHistory();
   beforeEach(() => {
-    render(<CreateGame />);
+    render(
+      <Router history={history}>
+        <CreateGame />
+      </Router>
+    );
   });
 
   it("should render the create game component", () => {

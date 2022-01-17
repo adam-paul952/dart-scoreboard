@@ -1,15 +1,27 @@
-import { waitFor } from "@testing-library/react";
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
-import { render, screen, setSessionStorage } from "../../../test-utils";
+import {
+  render,
+  screen,
+  waitFor,
+  setSessionStorage,
+} from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
 
 import Baseball from "../Baseball";
 
 describe("<Baseball />", () => {
+  const history = createMemoryHistory();
+
   beforeEach(() => {
     setSessionStorage();
-    render(<Baseball />);
+    render(
+      <Router history={history}>
+        <Baseball />
+      </Router>
+    );
   });
 
   it("should render the baseball component", () => {

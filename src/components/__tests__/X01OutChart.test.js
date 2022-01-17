@@ -1,20 +1,31 @@
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
-import { render, screen, waitFor, cleanup } from "../../test-utils";
+import { render, screen, waitFor } from "../../test-utils";
 import userEvent from "@testing-library/user-event";
 
 import X01OutShotButton from "../X01OutChart";
 
 describe("<X01OutShotButton />", () => {
+  const history = createMemoryHistory();
   it("should render the X01OutShotButton component", () => {
-    render(<X01OutShotButton />);
+    render(
+      <Router history={history}>
+        <X01OutShotButton />
+      </Router>
+    );
     expect(
       screen.getByRole("button", { name: "Outshots" })
     ).toBeInTheDocument();
   });
 
   it("should open the x01 outshot modal", async () => {
-    render(<X01OutShotButton />);
+    render(
+      <Router history={history}>
+        <X01OutShotButton />
+      </Router>
+    );
     const x01OutShotButton = screen.getByRole("button", { name: "Outshots" });
     expect(x01OutShotButton).toBeInTheDocument();
     await waitFor(() => {
@@ -24,7 +35,11 @@ describe("<X01OutShotButton />", () => {
   });
 
   it("should close the modal", async () => {
-    render(<X01OutShotButton />);
+    render(
+      <Router history={history}>
+        <X01OutShotButton />
+      </Router>
+    );
     const x01OutShotButton = screen.getByRole("button", { name: "Outshots" });
     await waitFor(() => {
       userEvent.click(x01OutShotButton);
@@ -47,7 +62,11 @@ describe("<X01OutShotButton />", () => {
 
   it("should show the outshot chart variant based on a light theme", async () => {
     let theme = "light";
-    render(<X01OutShotButton theme={theme} />);
+    render(
+      <Router history={history}>
+        <X01OutShotButton theme={theme} />
+      </Router>
+    );
     const x01OutShotButton = screen.getByRole("button", { name: "Outshots" });
     await waitFor(() => {
       userEvent.click(x01OutShotButton);
@@ -60,7 +79,11 @@ describe("<X01OutShotButton />", () => {
 
   it("should show the outshot chart variant based on a dark theme", async () => {
     let theme = "dark";
-    render(<X01OutShotButton theme={theme} />);
+    render(
+      <Router history={history}>
+        <X01OutShotButton theme={theme} />
+      </Router>
+    );
     const x01OutShotButton = screen.getByRole("button", { name: "Outshots" });
     await waitFor(() => {
       userEvent.click(x01OutShotButton);

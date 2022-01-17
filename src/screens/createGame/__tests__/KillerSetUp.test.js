@@ -1,4 +1,6 @@
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 import {
   render,
@@ -11,9 +13,15 @@ import userEvent from "@testing-library/user-event";
 import KillerSetUp from "../../createGame/KillerSetUp";
 
 describe("<KillerSetUp />", () => {
+  const history = createMemoryHistory();
+
   beforeEach(() => {
     setSessionStorage();
-    render(<KillerSetUp />);
+    render(
+      <Router history={history}>
+        <KillerSetUp />
+      </Router>
+    );
   });
 
   it("should render the Killer SetUp component", () => {

@@ -1,4 +1,6 @@
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 import { render, screen, waitFor } from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
@@ -6,8 +8,13 @@ import userEvent from "@testing-library/user-event";
 import EliminationSetUp from "../../createGame/EliminationSetUp";
 
 describe("<EliminationSetUp />", () => {
+  const history = createMemoryHistory();
   beforeEach(() => {
-    render(<EliminationSetUp />);
+    render(
+      <Router history={history}>
+        <EliminationSetUp />
+      </Router>
+    );
   });
 
   it("should render the Elimination Setup component", () => {

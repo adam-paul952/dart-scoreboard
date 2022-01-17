@@ -1,19 +1,20 @@
 import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
-import {
-  render,
-  screen,
-  setSessionStorage,
-  setX01PointsStorage,
-} from "../../../test-utils";
+import { render, screen, setX01PointsStorage } from "../../../test-utils";
 
 import X01 from "../X01";
 
 describe("<X01 />", () => {
+  const history = createMemoryHistory();
   beforeEach(() => {
-    // setSessionStorage();
     setX01PointsStorage();
-    render(<X01 />);
+    render(
+      <Router history={history}>
+        <X01 />
+      </Router>
+    );
   });
 
   it("should render the x01 component", () => {

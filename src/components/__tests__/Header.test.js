@@ -1,24 +1,37 @@
 import React from "react";
+import { MemoryRouter, Router, Route } from "react-router-dom";
+import { createMemoryHistory } from "history";
+
 import {
   render,
   screen,
   waitFor,
   setTheme,
   setLoggedInUser,
-  renderWithRouter,
 } from "../../test-utils";
 import userEvent from "@testing-library/user-event";
-import { createMemoryHistory } from "history";
-import { Route } from "react-router-dom";
 
 import Header from "../Header";
 
 describe("<Header />", () => {
-  const url = "http://localhost:3000/dart-scoreboard/dashboard";
+  const history = createMemoryHistory();
   const title = "Test Title";
+  // const { location } = window;
+  // beforeAll(() => {
+  //   delete window.location;
+  //   window.location = { assign: jest.fn() };
+  // });
+
+  // afterAll(() => {
+  //   window.location = location;
+  // });
 
   it("should render the header component with only a title and no buttons", () => {
-    render(<Header title={title} />);
+    render(
+      <Router history={history}>
+        <Header title={title} />
+      </Router>
+    );
     expect(screen.getByText(title)).toBeInTheDocument();
     // Button booleans are false
     expect(
@@ -37,20 +50,27 @@ describe("<Header />", () => {
   });
 
   it("should render the header with the `goBackButton`", async () => {
-    const history = createMemoryHistory();
     history.goBack = jest.fn();
-    render(<Header goBackButton />);
+    render(
+      <Router history={history}>
+        <Header goBackButton />
+      </Router>
+    );
     const goBackButton = screen.getByRole("button", { name: "Go back" });
     expect(goBackButton).toBeInTheDocument();
-    // await waitFor(() => {
-    //   userEvent.click(goBackButton);
-    // });
-    // expect(history.goBack).toBeCalled();
+    await waitFor(() => {
+      userEvent.click(goBackButton);
+    });
+    expect(history.goBack).toBeCalled();
   });
 
   it("should render the header with the `resetButton` and call `resetScoreList`", async () => {
     const resetScoreList = jest.fn();
-    render(<Header resetButton resetScoreList={resetScoreList} />);
+    render(
+      <Router history={history}>
+        <Header resetButton resetScoreList={resetScoreList} />
+      </Router>
+    );
     const resetButton = screen.getByRole("button", { name: "Reset Game" });
     expect(resetButton).toBeInTheDocument();
     await waitFor(() => {
@@ -62,7 +82,11 @@ describe("<Header />", () => {
   it("should render the header with the `switchThemeButton` and trigger theme change", async () => {
     // Set initial theme to dark
     setTheme();
-    render(<Header switchThemeButton />);
+    render(
+      <Router history={history}>
+        <Header switchThemeButton />
+      </Router>
+    );
     expect(
       screen.getByRole("button", { name: "toggleTheme" })
     ).toBeInTheDocument();
@@ -74,29 +98,35 @@ describe("<Header />", () => {
   });
 
   it("should render the header with the `outShotButton`", () => {
-    render(<Header outShotButton />);
+    render(
+      <Router history={history}>
+        <Header outShotButton />
+      </Router>
+    );
     expect(
       screen.getByRole("button", { name: "Outshots" })
     ).toBeInTheDocument();
   });
 
   it("should render the header with the `loginDropDown`", async () => {
-    let testLocation, testHistory;
+    // let testLocation, testHistory;
     // const history = createMemoryHistory();
     setLoggedInUser();
     const testUser = JSON.parse(window.sessionStorage.getItem("username"));
     const testUserUuid = JSON.parse(window.sessionStorage.getItem("userUuid"));
     render(
       <>
-        <Header loginDropDown username={testUser} />
-        <Route
+        <Router history={history}>
+          <Header loginDropDown username={testUser} />
+        </Router>
+        {/* <Route
           path="*"
           render={({ history, location }) => {
             testHistory = history;
             testLocation = location;
             return null;
           }}
-        />
+        /> */}
       </>
     );
     // history.push("/dart-scoreboard/dashboard");
@@ -122,15 +152,20 @@ describe("<Header />", () => {
     expect(
       screen.getByRole("button", { name: "toggleTheme" })
     ).toBeInTheDocument();
+    // Check to make sure test variable are stored in sessionStorage
     expect(testUser).toBe(testUser);
     expect(testUserUuid).toBe(testUserUuid);
     await waitFor(() => {
       userEvent.click(screen.getByText("LogOut"));
     });
+    // Check that the logout button clears the sessionStorage
     expect(window.sessionStorage.getItem("username")).toBe(null);
     expect(window.sessionStorage.getItem("userUuid")).toBe(null);
-    // expect(testLocation.pathname).toBe("/game/login");
-    // expect(history.location.pathname).toBe("/game/login");
+    // expect(window.location.assign).toHaveBeenCalledWith("/game/login");
+    // await waitFor(() => {
+    //   // expect(testLocation.pathname).toBe("/game/login");
+    //   expect(history.location.pathname).toBe("/game/login");
+    // });
     // Link causes navigation jest error
   });
 });
