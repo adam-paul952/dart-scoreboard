@@ -7,6 +7,8 @@ import userEvent from "@testing-library/user-event";
 
 import EliminationSetUp from "../../createGame/EliminationSetUp";
 
+const eliminationLives = [3, 4, 5, 6, 7, 8, 9, 10];
+
 describe("<EliminationSetUp />", () => {
   const history = createMemoryHistory();
   beforeEach(() => {
@@ -30,21 +32,27 @@ describe("<EliminationSetUp />", () => {
     ).toBeInTheDocument();
   });
 
-  it("should select number of lives and enable continue to game button", async () => {
-    const livesButton = screen.getByRole("button", { name: /Lives/i });
-    await waitFor(() => {
-      userEvent.click(livesButton);
-    });
-    expect(livesButton).toHaveAttribute("aria-expanded", "true");
-    const lives = screen.getAllByRole("button");
-    await waitFor(() => {
-      userEvent.click(lives[2]);
-    });
-    expect(
-      screen.getByText(/Number of Lives Selected: 3/i)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /Continue to Game/i, disabled: false })
-    ).toBeInTheDocument();
-  });
+  it.each(eliminationLives)(
+    "should select %s lives and enable continue to game button",
+    async (playerLives) => {
+      const livesButton = screen.getByRole("button", { name: /Lives/i });
+      await waitFor(() => {
+        userEvent.click(livesButton);
+      });
+      expect(livesButton).toHaveAttribute("aria-expanded", "true");
+      const livesSelectButton = screen.getByText(playerLives);
+      await waitFor(() => {
+        userEvent.click(livesSelectButton);
+      });
+      expect(
+        screen.getByText(`Number of Lives Selected: ${playerLives}`)
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", {
+          name: /Continue to Game/i,
+          disabled: false,
+        })
+      ).toBeInTheDocument();
+    }
+  );
 });

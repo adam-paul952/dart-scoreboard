@@ -7,8 +7,17 @@ import userEvent from "@testing-library/user-event";
 
 import CreateGame from "../../createGame/CreateGame";
 
+const games = [
+  ["Baseball", "/game/baseball/"],
+  ["Cricket", "/game/cricket"],
+  ["Elimination", "/game/elimination/create"],
+  ["Killer", "/game/killer/create"],
+  ["X01", "/game/x01/create"],
+];
+
 describe("<Create Game />", () => {
   const history = createMemoryHistory();
+
   beforeEach(() => {
     render(
       <Router history={history}>
@@ -22,21 +31,23 @@ describe("<Create Game />", () => {
     expect(screen.getByText(/Please Select a Game/i)).toBeInTheDocument();
   });
 
-  it("should show a dropdown of available games", async () => {
-    expect(screen.getByText(/Please Select a Game/i)).toBeInTheDocument();
-    userEvent.click(screen.getByText(/Please Select a Game/i));
-    await waitFor(() => {
-      expect(
-        screen.getByRole("button", {
-          name: /Game Dropdown/i,
-          expanded: true,
-        })
-      ).toBeInTheDocument();
-      expect(screen.getByText(/Baseball/i)).toBeInTheDocument();
-      expect(screen.getByText(/Elimination/i)).toBeInTheDocument();
-      expect(screen.getByText(/Cricket/i)).toBeInTheDocument();
-      expect(screen.getByText(/X01/i)).toBeInTheDocument();
-      expect(screen.getByText(/Killer/i)).toBeInTheDocument();
-    });
-  });
+  it.each(games)(
+    "should when clicked game %s redirect to %s",
+    async (name, path) => {
+      expect(screen.getByText(/Please Select a Game/i)).toBeInTheDocument();
+      userEvent.click(screen.getByText(/Please Select a Game/i));
+      await waitFor(() => {
+        expect(
+          screen.getByRole("button", {
+            name: /Game Dropdown/i,
+            expanded: true,
+          })
+        ).toBeInTheDocument();
+      });
+      const gameSelectButton = screen.getByText(name);
+      expect(gameSelectButton).toBeInTheDocument();
+      userEvent.click(gameSelectButton);
+      expect(history.location.pathname).toBe(path);
+    }
+  );
 });

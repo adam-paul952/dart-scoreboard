@@ -31,20 +31,20 @@ const X01ScoreCalculator = ({
 }) => {
   const { ping } = useContext(PingContext);
   const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
-  const [playerScore, setPlayerScore] = useState(0);
+  const [playerScore, setPlayerScore] = useState([]);
 
   const handleInput = (number) => {
     setPlayerScore(`${playerScore}${number}`);
   };
 
   const deleteInput = () => {
-    setPlayerScore(0);
+    setPlayerScore([]);
   };
 
   const handleScoreChange = (value) => {
     if (value === "Enter") {
       changeTurnValidate();
-      setPlayerScore(0);
+      setPlayerScore([]);
     } else if (value === "Del") {
       deleteInput();
     } else {
@@ -56,7 +56,7 @@ const X01ScoreCalculator = ({
     const score = parseInt(playerScore, 10);
     if (score > 180) {
       alert(`Score cannot exceed 180!`);
-      setPlayerScore(0);
+      setPlayerScore([]);
     } else {
       if (!isNaN(score)) {
         changeTurn(score);
@@ -66,8 +66,17 @@ const X01ScoreCalculator = ({
 
   let nowCurrentPlayer = getCurrentPlayer();
 
-  const changeTurn = (score) => {
+  useEffect(() => {
+    const checkForOutShot = () => {
+      if (nowCurrentPlayer.score > 170) {
+        return null;
+      }
+      setShowOutShot(true);
+    };
     checkForOutShot();
+  }, [nowCurrentPlayer, setShowOutShot]);
+
+  const changeTurn = (score) => {
     nowCurrentPlayer.scoreList.push(score);
     let playerScoreReduced = nowCurrentPlayer.scoreList.reduce(
       (sum, current) => sum - current
@@ -102,13 +111,6 @@ const X01ScoreCalculator = ({
     declareWinner();
   };
 
-  const checkForOutShot = () => {
-    if (nowCurrentPlayer.score > 170) {
-      return null;
-    }
-    setShowOutShot(true);
-  };
-
   const eraseGameData = () => {
     resetScoreList();
     if (ping) {
@@ -130,12 +132,9 @@ const X01ScoreCalculator = ({
     if (!winner) {
       return (
         <Container fluid className="playerScoreDisplay">
-          <Row xs={2} md={2} lg={2}>
+          <Row>
             <Col className="playerScoreTextTotal">
-              <p>Total:</p>
-            </Col>
-            <Col className="playerScoreTextScore">
-              <p>{playerScore}</p>
+              <p>Total: {playerScore}</p>
             </Col>
           </Row>
         </Container>
@@ -152,13 +151,16 @@ const X01ScoreCalculator = ({
 
   useEffect(() => {
     const onKeyUp = (e) => {
-      const number = parseInt(playerScore, 10);
+      let number = parseInt(playerScore, 10);
+      if (playerScore.length === 0) {
+        number = 0;
+      }
       if (e.key <= 57 || e.key >= 48) {
-        setPlayerScore(number + e.key);
+        setPlayerScore(`${number}${e.key}`.replace(/^0+/, ""));
       }
       if (e.key === "Enter") {
         changeTurnValidate();
-        setPlayerScore(0);
+        setPlayerScore([]);
       } else if (e.key === "Backspace") {
         deleteInput();
       }

@@ -1,5 +1,5 @@
 import React from "react";
-import { MemoryRouter, Router, Route } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
 import {
@@ -16,15 +16,6 @@ import Header from "../Header";
 describe("<Header />", () => {
   const history = createMemoryHistory();
   const title = "Test Title";
-  // const { location } = window;
-  // beforeAll(() => {
-  //   delete window.location;
-  //   window.location = { assign: jest.fn() };
-  // });
-
-  // afterAll(() => {
-  //   window.location = location;
-  // });
 
   it("should render the header component with only a title and no buttons", () => {
     render(
@@ -50,7 +41,6 @@ describe("<Header />", () => {
   });
 
   it("should render the header with the `goBackButton`", async () => {
-    history.goBack = jest.fn();
     render(
       <Router history={history}>
         <Header goBackButton />
@@ -58,10 +48,12 @@ describe("<Header />", () => {
     );
     const goBackButton = screen.getByRole("button", { name: "Go back" });
     expect(goBackButton).toBeInTheDocument();
+    history.push("/testlocation");
+    expect(history.location.pathname).toBe("/testlocation");
     await waitFor(() => {
       userEvent.click(goBackButton);
     });
-    expect(history.goBack).toBeCalled();
+    expect(history.location.pathname).toBe("/");
   });
 
   it("should render the header with the `resetButton` and call `resetScoreList`", async () => {
@@ -109,28 +101,14 @@ describe("<Header />", () => {
   });
 
   it("should render the header with the `loginDropDown`", async () => {
-    // let testLocation, testHistory;
-    // const history = createMemoryHistory();
     setLoggedInUser();
     const testUser = JSON.parse(window.sessionStorage.getItem("username"));
     const testUserUuid = JSON.parse(window.sessionStorage.getItem("userUuid"));
     render(
-      <>
-        <Router history={history}>
-          <Header loginDropDown username={testUser} />
-        </Router>
-        {/* <Route
-          path="*"
-          render={({ history, location }) => {
-            testHistory = history;
-            testLocation = location;
-            return null;
-          }}
-        /> */}
-      </>
+      <Router history={history}>
+        <Header loginDropDown username={testUser} />
+      </Router>
     );
-    // history.push("/dart-scoreboard/dashboard");
-    // expect(history.location.pathname).toBe("/dart-scoreboard/dashboard");
     expect(
       screen.getByRole("button", { name: "Test User" })
     ).toBeInTheDocument();
@@ -148,7 +126,8 @@ describe("<Header />", () => {
       "href",
       "/user/delete"
     );
-    expect(screen.getByText("LogOut")).toHaveAttribute("href", "/game/login");
+    const logoutButton = screen.getByText("LogOut");
+    expect(logoutButton).toHaveAttribute("href", "/game/login");
     expect(
       screen.getByRole("button", { name: "toggleTheme" })
     ).toBeInTheDocument();
@@ -156,16 +135,12 @@ describe("<Header />", () => {
     expect(testUser).toBe(testUser);
     expect(testUserUuid).toBe(testUserUuid);
     await waitFor(() => {
-      userEvent.click(screen.getByText("LogOut"));
+      // Disabling the anchor tag to check its onClick listener
+      logoutButton.removeAttribute("href");
+      userEvent.click(logoutButton);
     });
     // Check that the logout button clears the sessionStorage
     expect(window.sessionStorage.getItem("username")).toBe(null);
     expect(window.sessionStorage.getItem("userUuid")).toBe(null);
-    // expect(window.location.assign).toHaveBeenCalledWith("/game/login");
-    // await waitFor(() => {
-    //   // expect(testLocation.pathname).toBe("/game/login");
-    //   expect(history.location.pathname).toBe("/game/login");
-    // });
-    // Link causes navigation jest error
   });
 });

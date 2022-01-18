@@ -7,6 +7,8 @@ import userEvent from "@testing-library/user-event";
 
 import X01GameSelection from "../../createGame/X01SetUp";
 
+const x01Points = [201, 301, 401, 501, 601, 701];
+
 describe("<X01GameSelection />", () => {
   const history = createMemoryHistory();
 
@@ -28,20 +30,28 @@ describe("<X01GameSelection />", () => {
     ).toBeInTheDocument();
   });
 
-  it("should select the number of points and enable continue to game button", async () => {
-    const pointsButton = screen.getByRole("button", { name: /Points/i });
-    await waitFor(() => {
-      userEvent.click(pointsButton);
-    });
-    expect(pointsButton).toHaveAttribute("aria-expanded", "true");
-    const points = screen.getAllByRole("button");
-    await waitFor(() => {
-      userEvent.click(points[5]);
-    });
-    expect(screen.getByText(/Game Selected: 501/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /Continue to Game/i, disabled: false })
-    ).toBeInTheDocument();
-    expect(JSON.parse(window.localStorage.getItem("x01Points"))).toEqual("501");
-  });
+  it.each(x01Points)(
+    "should select %s points and enable continue to game button",
+    async (points) => {
+      const pointsButton = screen.getByRole("button", { name: /Points/i });
+      await waitFor(() => {
+        userEvent.click(pointsButton);
+      });
+      expect(pointsButton).toHaveAttribute("aria-expanded", "true");
+      const pointsSelectButton = screen.getByText(points);
+      await waitFor(() => {
+        userEvent.click(pointsSelectButton);
+      });
+      expect(screen.getByText(`Game selected: ${points}`)).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", {
+          name: /Continue to Game/i,
+          disabled: false,
+        })
+      ).toBeInTheDocument();
+      expect(JSON.parse(window.localStorage.getItem("x01Points"))).toEqual(
+        points.toString()
+      );
+    }
+  );
 });

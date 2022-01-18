@@ -29,8 +29,19 @@ describe("<Elimination />", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.getByText(/Total:/i)).toBeInTheDocument();
-    // Button Group as score calculator
-    expect(screen.getAllByRole("group"));
+    // Check that score calculator buttons are rendered
+    expect(screen.getByRole("button", { name: "0" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "1" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "3" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "4" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "5" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "6" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "7" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "8" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "9" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Del" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Enter" })).toBeInTheDocument();
   });
 
   it("should display player score input and submit to the scoreboard", async () => {
@@ -71,7 +82,7 @@ describe("<Elimination />", () => {
       userEvent.keyboard("{enter}");
     });
     expect(screen.getByRole("row", { name: /Test 1 1/i })).toBeInTheDocument();
-    expect(screen.getByRole("row", { name: /Adam 0 1/i })).toBeInTheDocument();
+    expect(screen.getByRole("row", { name: /User 0 1/i })).toBeInTheDocument();
   });
 
   it("should add a player score and a second player score that's less than to remove a life", async () => {
@@ -88,6 +99,8 @@ describe("<Elimination />", () => {
       userEvent.keyboard("{enter}");
     });
     expect(screen.getByRole("row", { name: /Test 10 1/i })).toBeInTheDocument();
-    expect(screen.getByRole("row", { name: /Adam 1 0/i })).toBeInTheDocument();
+    expect(screen.getByRole("row", { name: /User 1 0/i })).toBeInTheDocument();
+    const winnerAlert = screen.getByRole("alert");
+    expect(winnerAlert).toBeInTheDocument();
   });
 });

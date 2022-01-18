@@ -48,7 +48,7 @@ describe("<KillerSetUp />", () => {
     userEvent.click(submitScore);
     // Check that value was added to player score
     expect(input.value).toBe("");
-    expect(screen.getByRole("row", { name: /Adam 8/i })).toBeInTheDocument();
+    expect(screen.getByRole("row", { name: /User 8/i })).toBeInTheDocument();
     // After all players enter score should see Continue to Game Button
     expect(
       screen.getByRole("button", { name: /Continue to Game/i })

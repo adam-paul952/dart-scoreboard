@@ -122,7 +122,7 @@ const ScoreCalculator = ({
         number = 0;
       }
       if (e.key <= 57 || e.key >= 48) {
-        setPlayerScore(number + e.key);
+        setPlayerScore(`${number}${e.key}`.replace(/^0+/, ""));
       }
       if (e.key === "Enter") {
         changeTurnValidate();
@@ -156,10 +156,7 @@ const ScoreCalculator = ({
         <Container fluid className="playerScoreDisplay">
           <Row xs={2} md={2} lg={2}>
             <Col className="playerScoreTextTotal">
-              <p>Total:</p>
-            </Col>
-            <Col className="playerScoreTextScore">
-              <p>{playerScore}</p>
+              <p>Total: {playerScore}</p>
             </Col>
           </Row>
         </Container>

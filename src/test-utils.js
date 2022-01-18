@@ -44,7 +44,7 @@ const players = [
   },
   {
     id: 2,
-    playerName: "Adam",
+    playerName: "User",
     score: 0,
     scoreList: [],
     lives: 0,
@@ -53,7 +53,7 @@ const players = [
   },
 ];
 
-const playersWithScore = [
+const playersWithX01Score = [
   {
     id: 1,
     playerName: "Test",
@@ -65,7 +65,7 @@ const playersWithScore = [
   },
   {
     id: 2,
-    playerName: "Adam",
+    playerName: "User",
     score: 0,
     scoreList: [],
     lives: 0,
@@ -86,9 +86,29 @@ const playersWithLives = [
   },
   {
     id: 2,
-    playerName: "Adam",
+    playerName: "User",
     score: 0,
     scoreList: [],
+    lives: 1,
+    highScore: 0,
+    killer: false,
+  },
+];
+const playersWithBaseballScore = [
+  {
+    id: 1,
+    playerName: "Test",
+    score: 0,
+    scoreList: [4, 3, 2, 1, 0, 0, 0, 0, 0],
+    lives: 1,
+    highScore: 0,
+    killer: false,
+  },
+  {
+    id: 2,
+    playerName: "User",
+    score: 0,
+    scoreList: [3, 2, 1, 1, 1, 0, 0, 0, 0],
     lives: 1,
     highScore: 0,
     killer: false,
@@ -105,6 +125,7 @@ export const setX01PointsStorage = () => {
   window.localStorage.setItem("x01Points", JSON.stringify(501));
   players.forEach((player) => {
     player.score = 501;
+    player.scoreList = [501];
   });
   window.sessionStorage.setItem("listOfPlayers", JSON.stringify(players));
 };
@@ -131,6 +152,6 @@ export const setPlayerWithScore = () => {
   window.sessionStorage.clear();
   window.sessionStorage.setItem(
     "listOfPlayers",
-    JSON.stringify(playersWithScore)
+    JSON.stringify(playersWithX01Score)
   );
 };
