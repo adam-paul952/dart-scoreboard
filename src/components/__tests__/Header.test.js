@@ -37,7 +37,9 @@ describe("<Header />", () => {
     expect(
       screen.queryByRole("button", { name: "Outshots" })
     ).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "loginDropDown" })
+    ).not.toBeInTheDocument();
   });
 
   it("should render the header with the `goBackButton`", async () => {
@@ -84,7 +86,7 @@ describe("<Header />", () => {
     ).toBeInTheDocument();
     expect(JSON.parse(window.localStorage.getItem("theme"))).toBe("dark");
     await waitFor(() => {
-      userEvent.click(screen.getByRole("button", { name: /toggleTheme/i }));
+      userEvent.click(screen.getByRole("button", { name: "toggleTheme" }));
     });
     expect(JSON.parse(window.localStorage.getItem("theme"))).toBe("light");
   });

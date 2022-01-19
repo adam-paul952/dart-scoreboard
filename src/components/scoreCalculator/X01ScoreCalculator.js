@@ -84,7 +84,6 @@ const X01ScoreCalculator = ({
     if (playerScoreReduced < 0 || playerScoreReduced === 1) {
       alert(`Bust!!`);
       nowCurrentPlayer.scoreList.pop();
-      console.log(nowCurrentPlayer.scoreList);
       playerScoreReduced = nowCurrentPlayer.scoreList.reduce(
         (sum, current) => sum - current
       );

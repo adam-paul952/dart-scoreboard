@@ -7,7 +7,6 @@ const DisplayX01OutShot = ({ getCurrentPlayer }) => {
   const outShot = possibleOutShots.find(
     ({ score }) => score === currentPlayer.score
   );
-  console.log(`outShot is: ${outShot.score}`);
   return (
     <>
       <div className="outShotContainer">

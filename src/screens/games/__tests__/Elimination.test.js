@@ -20,15 +20,13 @@ describe("<Elimination />", () => {
   });
   it("should render the elimination component", () => {
     // Test to ensure all required components are rendered
+    expect(screen.getByRole("button", { name: "Go back" })).toBeInTheDocument();
+    expect(screen.getByText("Elimination")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /Go Back/i })
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Elimination/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /Reset Game/i })
+      screen.getByRole("button", { name: "Reset Game" })
     ).toBeInTheDocument();
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByText(/Total:/i)).toBeInTheDocument();
+    expect(screen.getByText("Total:")).toBeInTheDocument();
     // Check that score calculator buttons are rendered
     expect(screen.getByRole("button", { name: "0" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "1" })).toBeInTheDocument();
@@ -45,19 +43,19 @@ describe("<Elimination />", () => {
   });
 
   it("should display player score input and submit to the scoreboard", async () => {
-    const scoreInput = screen.getByRole("button", { name: /1/i });
-    const submitScore = screen.getByRole("button", { name: /Enter/i });
-    const deleteScore = screen.getByRole("button", { name: /Del/i });
+    const scoreInput = screen.getByRole("button", { name: "1" });
+    const submitScore = screen.getByRole("button", { name: "Enter" });
+    const deleteScore = screen.getByRole("button", { name: "Del" });
     // User enters a score of 1
     await waitFor(() => {
       userEvent.click(scoreInput);
     });
-    expect(screen.getAllByText(/1/i)).toHaveLength(4);
+    expect(screen.getByText("Total: 1")).toBeInTheDocument();
     // User clicks delete to clear input
     await waitFor(() => {
       userEvent.click(deleteScore);
     });
-    expect(screen.getAllByText(/1/i)).toHaveLength(3);
+    expect(screen.getByText("Total:")).toBeInTheDocument();
     await waitFor(() => {
       userEvent.click(scoreInput);
     });
@@ -65,7 +63,7 @@ describe("<Elimination />", () => {
       userEvent.click(submitScore);
     });
     // 2 occurances of '1' (button, score)
-    expect(screen.getAllByText(/1/i)).toHaveLength(4);
+    expect(screen.getByRole("row", { name: "Test 1 1" })).toBeInTheDocument();
   });
 
   it("should display input, submit score and delete input from keyboard", async () => {
@@ -81,8 +79,8 @@ describe("<Elimination />", () => {
     await waitFor(() => {
       userEvent.keyboard("{enter}");
     });
-    expect(screen.getByRole("row", { name: /Test 1 1/i })).toBeInTheDocument();
-    expect(screen.getByRole("row", { name: /User 0 1/i })).toBeInTheDocument();
+    expect(screen.getByRole("row", { name: "Test 1 1" })).toBeInTheDocument();
+    expect(screen.getByRole("row", { name: "User 0 1" })).toBeInTheDocument();
   });
 
   it("should add a player score and a second player score that's less than to remove a life", async () => {
@@ -98,8 +96,8 @@ describe("<Elimination />", () => {
     await waitFor(() => {
       userEvent.keyboard("{enter}");
     });
-    expect(screen.getByRole("row", { name: /Test 10 1/i })).toBeInTheDocument();
-    expect(screen.getByRole("row", { name: /User 1 0/i })).toBeInTheDocument();
+    expect(screen.getByRole("row", { name: "Test 10 1" })).toBeInTheDocument();
+    expect(screen.getByRole("row", { name: "User 1 0" })).toBeInTheDocument();
     const winnerAlert = screen.getByRole("alert");
     expect(winnerAlert).toBeInTheDocument();
   });

@@ -19,7 +19,7 @@ const KillerPlayerData = ({ player, index, currentPlayerById }) => {
       <td>{player.lives}</td>
       {player.killer ? (
         <td>
-          <AiOutlineCheckSquare size={20} />
+          <AiOutlineCheckSquare aria-label="killerCheckmark" size={20} />
         </td>
       ) : (
         <td></td>

@@ -48,11 +48,16 @@ export default CricketPlayerData;
 
 const CricketScoreboardDisplay = ({ hitTarget }) => {
   if (hitTarget === 1) {
-    return <BsSlash style={{ fontSize: "25px" }} />;
+    return <BsSlash aria-label="hitOne" style={{ fontSize: "25px" }} />;
   } else if (hitTarget === 2) {
-    return <AiOutlineClose style={{ fontSize: "20px" }} />;
+    return <AiOutlineClose aria-label="hitTwo" style={{ fontSize: "20px" }} />;
   } else if (hitTarget >= 3) {
-    return <AiOutlineCloseCircle style={{ fontSize: "28px" }} />;
+    return (
+      <AiOutlineCloseCircle
+        aria-label="hitThree"
+        style={{ fontSize: "28px" }}
+      />
+    );
   }
   return null;
 };

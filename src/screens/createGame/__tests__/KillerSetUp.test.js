@@ -50,9 +50,34 @@ describe("<KillerSetUp />", () => {
     expect(input.value).toBe("");
     expect(screen.getByRole("row", { name: /User 8/i })).toBeInTheDocument();
     // After all players enter score should see Continue to Game Button
+    const continueButton = screen.getByRole("button", {
+      name: /Continue to Game/i,
+    });
+    expect(continueButton).toBeInTheDocument();
+    userEvent.click(continueButton);
+    expect(history.location.pathname).toBe("/game/killer");
     expect(
-      screen.getByRole("button", { name: /Continue to Game/i })
-    ).toBeInTheDocument();
+      JSON.parse(window.sessionStorage.getItem("listOfPlayers"))
+    ).toStrictEqual([
+      {
+        id: 2,
+        playerName: "User",
+        score: 8,
+        scoreList: [],
+        lives: 0,
+        highScore: 0,
+        killer: false,
+      },
+      {
+        id: 1,
+        playerName: "Test",
+        score: 10,
+        scoreList: [],
+        lives: 0,
+        highScore: 0,
+        killer: false,
+      },
+    ]);
   });
 
   it("should alert a user of invalid score entered", async () => {

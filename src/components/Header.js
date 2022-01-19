@@ -51,6 +51,7 @@ const Header = ({
           {outShotButton && <X01OutShotButton theme={theme} />}
           {loginDropDown && (
             <HeaderDropDownMenu
+              aria-label="loginDropDown"
               handleLogout={handleLogout}
               theme={theme}
               themeToggle={themeToggle}

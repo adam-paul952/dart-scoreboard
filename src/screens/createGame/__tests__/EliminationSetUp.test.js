@@ -20,22 +20,20 @@ describe("<EliminationSetUp />", () => {
   });
 
   it("should render the Elimination Setup component", () => {
-    expect(screen.getByText(/Elimination/i)).toBeInTheDocument();
+    expect(screen.getByText("Elimination")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /Lives/i, expanded: false })
+      screen.getByRole("button", { name: "Lives", expanded: false })
     ).toBeInTheDocument();
+    expect(screen.getByText("Number of Lives Selected: 0")).toBeInTheDocument();
     expect(
-      screen.getByText(/Number of Lives Selected: 0/i)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /Continue to Game/i, disabled: true })
+      screen.getByRole("button", { name: "Continue to Game", disabled: true })
     ).toBeInTheDocument();
   });
 
   it.each(eliminationLives)(
     "should select %s lives and enable continue to game button",
     async (playerLives) => {
-      const livesButton = screen.getByRole("button", { name: /Lives/i });
+      const livesButton = screen.getByRole("button", { name: "Lives" });
       await waitFor(() => {
         userEvent.click(livesButton);
       });
@@ -49,7 +47,7 @@ describe("<EliminationSetUp />", () => {
       ).toBeInTheDocument();
       expect(
         screen.getByRole("button", {
-          name: /Continue to Game/i,
+          name: "Continue to Game",
           disabled: false,
         })
       ).toBeInTheDocument();

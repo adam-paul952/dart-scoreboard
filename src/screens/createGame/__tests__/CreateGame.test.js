@@ -27,19 +27,19 @@ describe("<Create Game />", () => {
   });
 
   it("should render the create game component", () => {
-    expect(screen.getByText(/Create a Game/i)).toBeInTheDocument();
-    expect(screen.getByText(/Please Select a Game/i)).toBeInTheDocument();
+    expect(screen.getByText("Create a Game")).toBeInTheDocument();
+    expect(screen.getByText("Please Select a Game")).toBeInTheDocument();
   });
 
   it.each(games)(
     "should when clicked game %s redirect to %s",
     async (name, path) => {
-      expect(screen.getByText(/Please Select a Game/i)).toBeInTheDocument();
-      userEvent.click(screen.getByText(/Please Select a Game/i));
+      expect(screen.getByText("Please Select a Game")).toBeInTheDocument();
+      userEvent.click(screen.getByText("Please Select a Game"));
       await waitFor(() => {
         expect(
           screen.getByRole("button", {
-            name: /Game Dropdown/i,
+            name: "Game DropDown",
             expanded: true,
           })
         ).toBeInTheDocument();

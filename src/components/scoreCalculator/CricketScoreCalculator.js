@@ -178,10 +178,7 @@ const CricketScoreCalculator = ({
         <Container fluid className="playerScoreDisplay">
           <Row xs={2} md={2} lg={2}>
             <Col className="playerScoreTextTotal">
-              <p>Total:</p>
-            </Col>
-            <Col className="playerScoreTextScore">
-              <p>{playerScoreList.toString()}</p>
+              <p>Total: {playerScoreList.toString()}</p>
             </Col>
           </Row>
         </Container>

@@ -27,24 +27,6 @@ ScoreCalculatorKey.propTypes = {
   onClick: () => {},
   disabled: PropTypes.bool,
 };
-//   return (
-//     <ButtonGroup
-//       onChange={() => {
-//         props.onChange(props.keyValue);
-//       }}
-//     >
-//       <Button variant="primary" onClick={() => props.onClick(props.keyValue)}>
-//         {props.keyValue}
-//       </Button>
-//     </ButtonGroup>
-//   );
-// };
-
-// ScoreCalculatorKey.propTypes = {
-//   keyValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-//   onChange: () => {},
-//   onClick: () => {},
-// };
 
 export default ScoreCalculatorKey;
 

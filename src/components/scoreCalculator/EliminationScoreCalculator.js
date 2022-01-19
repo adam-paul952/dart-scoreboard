@@ -172,10 +172,7 @@ const EliminationScoreCalculator = ({
         <Container fluid className="playerScoreDisplay">
           <Row xs={2} md={2} lg={2}>
             <Col className="playerScoreTextTotal">
-              <p>Total:</p>
-            </Col>
-            <Col className="playerScoreTextScore">
-              <p>{playerScore}</p>
+              <p>Total: {playerScore}</p>
             </Col>
           </Row>
         </Container>

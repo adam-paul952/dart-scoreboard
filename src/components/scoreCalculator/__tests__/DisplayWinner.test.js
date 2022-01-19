@@ -30,11 +30,11 @@ describe("<DisplayWinner />", () => {
       expect(winnerAlert).toHaveTextContent("The WINNER is: Test");
       expect(winnerAlert).toHaveTextContent("Congratulations!");
       const playAgainButton = screen.getByRole("button", {
-        name: /Play Again/i,
+        name: "Play Again",
       });
       expect(playAgainButton).toBeInTheDocument();
       expect(
-        screen.getByRole("button", { name: /Choose Another Game/i })
+        screen.getByRole("button", { name: "Choose another game" })
       ).toBeInTheDocument();
       userEvent.click(playAgainButton);
       expect(eraseGameData).toHaveBeenCalled();
@@ -52,10 +52,10 @@ describe("<DisplayWinner />", () => {
       </Router>
     );
     expect(
-      screen.getByRole("button", { name: /Play Again/i })
+      screen.getByRole("button", { name: "Play Again" })
     ).toBeInTheDocument();
     const chooseAnotherGameButton = screen.getByRole("button", {
-      name: /Choose Another Game/i,
+      name: "Choose another game",
     });
     expect(chooseAnotherGameButton).toBeInTheDocument();
     expect(chooseAnotherGameButton).toHaveAttribute("href", "/game/create");

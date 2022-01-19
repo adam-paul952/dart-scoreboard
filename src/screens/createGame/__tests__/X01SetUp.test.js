@@ -22,18 +22,18 @@ describe("<X01GameSelection />", () => {
 
   it("should render the X01 Game Selection component", () => {
     // Test that component renders with all elements
-    expect(screen.getByText(/X01/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Points/i })).toBeInTheDocument();
-    expect(screen.getByText(/Game Selected/i)).toBeInTheDocument();
+    expect(screen.getByText("X01")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Points" })).toBeInTheDocument();
+    expect(screen.getByText("Game selected: 0")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /Continue to Game/i, disabled: true })
+      screen.getByRole("button", { name: "Continue to Game", disabled: true })
     ).toBeInTheDocument();
   });
 
   it.each(x01Points)(
     "should select %s points and enable continue to game button",
     async (points) => {
-      const pointsButton = screen.getByRole("button", { name: /Points/i });
+      const pointsButton = screen.getByRole("button", { name: "Points" });
       await waitFor(() => {
         userEvent.click(pointsButton);
       });
@@ -45,7 +45,7 @@ describe("<X01GameSelection />", () => {
       expect(screen.getByText(`Game selected: ${points}`)).toBeInTheDocument();
       expect(
         screen.getByRole("button", {
-          name: /Continue to Game/i,
+          name: "Continue to Game",
           disabled: false,
         })
       ).toBeInTheDocument();

@@ -1,24 +1,14 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { MemoryRouter, Router } from "react-router-dom";
 import { PingProvider } from "./contexts/PingProvider";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import Theme from "./contexts/theme";
-import { createMemoryHistory } from "history";
 
 const AppWithProviders = ({ children }) => {
-  // const history = createMemoryHistory();
-
   return (
     <ThemeProvider value={{ theme: "light" }}>
       <Theme>
-        <PingProvider>
-          {/* <MemoryRouter initialEntries={["/"]}> */}
-          {/* <Router history={history}> */}
-          {children}
-          {/* </Router> */}
-          {/* </MemoryRouter> */}
-        </PingProvider>
+        <PingProvider>{children}</PingProvider>
       </Theme>
     </ThemeProvider>
   );
@@ -53,68 +43,6 @@ const players = [
   },
 ];
 
-const playersWithX01Score = [
-  {
-    id: 1,
-    playerName: "Test",
-    score: 170,
-    scoreList: [],
-    lives: 0,
-    highScore: 0,
-    killer: false,
-  },
-  {
-    id: 2,
-    playerName: "User",
-    score: 0,
-    scoreList: [],
-    lives: 0,
-    highScore: 0,
-    killer: false,
-  },
-];
-
-const playersWithLives = [
-  {
-    id: 1,
-    playerName: "Test",
-    score: 0,
-    scoreList: [],
-    lives: 1,
-    highScore: 0,
-    killer: false,
-  },
-  {
-    id: 2,
-    playerName: "User",
-    score: 0,
-    scoreList: [],
-    lives: 1,
-    highScore: 0,
-    killer: false,
-  },
-];
-const playersWithBaseballScore = [
-  {
-    id: 1,
-    playerName: "Test",
-    score: 0,
-    scoreList: [4, 3, 2, 1, 0, 0, 0, 0, 0],
-    lives: 1,
-    highScore: 0,
-    killer: false,
-  },
-  {
-    id: 2,
-    playerName: "User",
-    score: 0,
-    scoreList: [3, 2, 1, 1, 1, 0, 0, 0, 0],
-    lives: 1,
-    highScore: 0,
-    killer: false,
-  },
-];
-
 export const setSessionStorage = () => {
   window.sessionStorage.clear();
   window.sessionStorage.setItem("listOfPlayers", JSON.stringify(players));
@@ -131,10 +59,10 @@ export const setX01PointsStorage = () => {
 };
 
 export const setPlayerLives = () => {
-  window.sessionStorage.setItem(
-    "listOfPlayers",
-    JSON.stringify(playersWithLives)
-  );
+  players.forEach((player) => {
+    player.lives = 1;
+  });
+  window.sessionStorage.setItem("listOfPlayers", JSON.stringify(players));
 };
 
 export const setTheme = () => {
@@ -148,10 +76,31 @@ export const setLoggedInUser = () => {
   window.sessionStorage.setItem("userUuid", JSON.stringify("1"));
 };
 
-export const setPlayerWithScore = () => {
+const playersForKiller = [
+  {
+    id: 1,
+    playerName: "Test",
+    score: 1,
+    scoreList: [],
+    lives: 0,
+    highScore: 0,
+    killer: false,
+  },
+  {
+    id: 2,
+    playerName: "User",
+    score: 2,
+    scoreList: [],
+    lives: 0,
+    highScore: 0,
+    killer: false,
+  },
+];
+
+export const setKillerScore = () => {
   window.sessionStorage.clear();
   window.sessionStorage.setItem(
     "listOfPlayers",
-    JSON.stringify(playersWithX01Score)
+    JSON.stringify(playersForKiller)
   );
 };
