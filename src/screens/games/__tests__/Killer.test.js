@@ -27,7 +27,9 @@ describe("<Killer />", () => {
   it("should render the killer component", () => {
     // Test to ensure all required components are rendered
     expect(screen.getByRole("button", { name: "Go back" })).toBeInTheDocument();
-    expect(screen.getAllByText("Killer"));
+    expect(
+      screen.getByRole("navigation", { name: "Killer" })
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Reset Game" })
     ).toBeInTheDocument();

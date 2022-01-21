@@ -34,7 +34,7 @@ const useUserAPI = () => {
       })
       .catch((err) => {
         alert(`Unsuccessful login`);
-        console.log(err);
+        console.log(err.message);
       });
   };
 

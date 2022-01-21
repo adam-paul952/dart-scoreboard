@@ -34,13 +34,13 @@ const LoginUser = () => {
     };
   }, [isLoggedIn, setSessionUsername, username, setSessionUuidToken]);
 
-  useEffect(() => {
-    if (alert) {
-      setTimeout(() => {
-        setAlert(false);
-      }, 2000);
-    }
-  }, [alert]);
+  // useEffect(() => {
+  //   if (alert) {
+  //     setTimeout(() => {
+  //       setAlert(false);
+  //     }, 2000);
+  //   }
+  // }, [alert]);
 
   return (
     <>

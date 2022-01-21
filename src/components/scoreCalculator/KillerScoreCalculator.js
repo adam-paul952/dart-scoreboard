@@ -151,6 +151,21 @@ const KillerScoreCalculator = ({
     };
   });
 
+  useEffect(() => {
+    const onKeyUp = (e) => {
+      if (e.key === "Enter") {
+        changeTurnValidate();
+        setPlayerScore([]);
+      } else if (e.key === "Backspace") {
+        deleteInput();
+      }
+    };
+    document.addEventListener("keyup", onKeyUp);
+    return () => {
+      document.removeEventListener("keyup", onKeyUp);
+    };
+  });
+
   return (
     <>
       {declareWinner() ? (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 
@@ -7,11 +7,13 @@ import { Button, Col, Table, Row } from "react-bootstrap";
 import useGame from "../../util/useGame";
 
 import { BiCaretLeft } from "react-icons/bi";
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const KillerSetUp = () => {
+  const { theme } = useContext(ThemeContext);
   return (
     <>
-      <Header title="Killer" goBackButton />
+      <Header theme={theme} title="Killer" goBackButton />
       <AssignPlayerTargets />
     </>
   );

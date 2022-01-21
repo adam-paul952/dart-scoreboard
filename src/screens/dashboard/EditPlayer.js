@@ -15,6 +15,7 @@ export const EditPlayerName = ({
     return (
       <td>
         <input
+          autoFocus
           type="text"
           name="playerName"
           value={playerName || ""}

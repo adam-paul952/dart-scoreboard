@@ -46,6 +46,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "gh-pages": "^3.2.3",
     "jest-location-mock": "^1.0.9",
+    "moxios": "^0.4.0",
     "react-test-renderer": "^17.0.2"
   }
 }

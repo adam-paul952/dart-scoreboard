@@ -75,26 +75,35 @@ describe("<Cricket />", () => {
   });
 
   it("should enter three scores of `25` and disable the `Bull` button", async () => {
-    const scoreInput = screen.getByRole("button", { name: "Bull" });
+    const scoreInputBull = screen.getByRole("button", { name: "Bull" });
+    const scoreInputFifteen = screen.getByRole("button", { name: "15" });
     const submitScore = screen.getByRole("button", { name: "Enter" });
     // First player hits three marks of `25`
     await waitFor(() => {
-      userEvent.click(scoreInput);
-      userEvent.click(scoreInput);
-      userEvent.click(scoreInput);
+      userEvent.click(scoreInputBull);
+      userEvent.click(scoreInputBull);
+      userEvent.click(scoreInputBull);
+      userEvent.click(scoreInputFifteen);
+      userEvent.click(scoreInputFifteen);
     });
     await waitFor(() => {
       userEvent.click(submitScore);
     });
     // Second player hits three marks of `25`
     await waitFor(() => {
-      userEvent.click(scoreInput);
-      userEvent.click(scoreInput);
-      userEvent.click(scoreInput);
+      userEvent.click(scoreInputBull);
+      userEvent.click(scoreInputBull);
+      userEvent.click(scoreInputBull);
     });
     await waitFor(() => {
       userEvent.click(submitScore);
     });
+    expect(
+      screen.getByRole("row", { name: "Test hitTwo hitThree 0" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("row", { name: "User hitThree 0" })
+    ).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByRole("button", { name: "Bull" })).toBeDisabled();
     });
