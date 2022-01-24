@@ -96,7 +96,7 @@ export default Header;
 const HeaderDropDownMenu = ({ handleLogout, theme, themeToggle, username }) => {
   return (
     <>
-      <DropdownButton className="px-3" title={username} menuVariant={theme}>
+      <DropdownButton className="px-3" title={username}>
         <Dropdown.Item>
           <DisplayAllPlayerStats />
         </Dropdown.Item>

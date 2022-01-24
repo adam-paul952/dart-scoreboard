@@ -6,7 +6,10 @@ import Header from "../../components/Header";
 
 import useUserAPI from "../../util/useUserAPI";
 
+import { ThemeContext } from "../../contexts/ThemeProvider";
+
 const UserRegistration = () => {
+  const { theme, themeToggle } = React.useContext(ThemeContext);
   const { createUser, isLoggedIn } = useUserAPI();
 
   const [username, setUsername] = useState("");
@@ -15,18 +18,33 @@ const UserRegistration = () => {
 
   const noPasswordMatch = password !== passwordConfirm;
 
+  const disableRegistrationButton = () => {
+    if (noPasswordMatch) {
+      return true;
+    } else if (password.length < 3) {
+      return true;
+    } else if (passwordConfirm.length < 3) {
+      return true;
+    } else if (!username) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (noPasswordMatch) {
-      return;
-    } else {
-      createUser({ username, password });
-    }
+    createUser({ username, password });
   };
 
   return (
     <>
-      <Header title="User Registration" goBackButton />
+      <Header
+        title="User Registration"
+        goBackButton
+        theme={theme}
+        themeToggle={themeToggle}
+      />
       <Form onSubmit={handleSubmit}>
         <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>
@@ -71,7 +89,11 @@ const UserRegistration = () => {
             Continue to login
           </Button>
         ) : (
-          <Button variant="primary" type="submit">
+          <Button
+            disabled={disableRegistrationButton()}
+            variant="primary"
+            type="submit"
+          >
             Register
           </Button>
         )}

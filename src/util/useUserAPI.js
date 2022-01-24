@@ -17,7 +17,8 @@ const useUserAPI = () => {
         console.log(`Successfully created user: ${res.data.username}`);
       })
       .catch((err) => {
-        console.log(err.message);
+        alert(`Username already exists`);
+        console.log(err.response.data.message);
       });
   };
 
