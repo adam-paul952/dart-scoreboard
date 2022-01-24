@@ -98,6 +98,10 @@ describe("<UserRegistration />", () => {
 
   it("should alert the user that username is taken", async () => {
     window.alert = jest.fn();
+    const errorResp = {
+      status: 400,
+      response: { message: "invalid data" },
+    };
     const emailInput = screen.getByPlaceholderText("Enter email");
     const passwordInput = screen.getByPlaceholderText("Password");
     const confirmPasswordInput =
@@ -119,7 +123,7 @@ describe("<UserRegistration />", () => {
         });
     });
     await waitFor(() => {
-      expect(window.alert).toHaveBeenCalledWith("Username already exists");
+      expect(window.alert).toBeCalledWith("Username already exists");
     });
   });
 });
