@@ -17,11 +17,6 @@ describe("<UserRegistration />", () => {
 
   beforeEach(() => {
     moxios.install(axios);
-    render(
-      <Router history={history}>
-        <UserRegistration />
-      </Router>
-    );
   });
 
   afterEach(() => {
@@ -29,6 +24,11 @@ describe("<UserRegistration />", () => {
   });
 
   it("should render the user registration with all components", () => {
+    render(
+      <Router history={history}>
+        <UserRegistration />
+      </Router>
+    );
     expect(screen.getByRole("button", { name: "Go back" })).toBeInTheDocument();
     expect(screen.getByLabelText("User Registration")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Enter email")).toBeInTheDocument();
@@ -40,6 +40,11 @@ describe("<UserRegistration />", () => {
   });
 
   it("should alert the user that passwords do not match", () => {
+    render(
+      <Router history={history}>
+        <UserRegistration />
+      </Router>
+    );
     const emailInput = screen.getByPlaceholderText("Enter email");
     const passwordInput = screen.getByPlaceholderText("Password");
     const confirmPasswordInput =
@@ -51,6 +56,11 @@ describe("<UserRegistration />", () => {
   });
 
   it("should leave the register button disabled until proper input of fields", () => {
+    render(
+      <Router history={history}>
+        <UserRegistration />
+      </Router>
+    );
     const passwordInput = screen.getByPlaceholderText("Password");
     const confirmPasswordInput =
       screen.getByPlaceholderText("Confirm Password");
@@ -65,6 +75,11 @@ describe("<UserRegistration />", () => {
   });
 
   it("should successfully register a user", async () => {
+    render(
+      <Router history={history}>
+        <UserRegistration />
+      </Router>
+    );
     const emailInput = screen.getByPlaceholderText("Enter email");
     const passwordInput = screen.getByPlaceholderText("Password");
     const confirmPasswordInput =
@@ -98,10 +113,11 @@ describe("<UserRegistration />", () => {
 
   it("should alert the user that username is taken", async () => {
     window.alert = jest.fn();
-    const errorResp = {
-      status: 400,
-      response: { message: "invalid data" },
-    };
+    render(
+      <Router history={history}>
+        <UserRegistration />
+      </Router>
+    );
     const emailInput = screen.getByPlaceholderText("Enter email");
     const passwordInput = screen.getByPlaceholderText("Password");
     const confirmPasswordInput =
