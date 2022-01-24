@@ -126,14 +126,13 @@ describe("<UserRegistration />", () => {
     userEvent.type(emailInput, testEmail);
     userEvent.type(passwordInput, testPassword);
     userEvent.type(confirmPasswordInput, testPassword);
-    userEvent.click(submitButton);
+    await waitFor(() => {
+      userEvent.click(submitButton);
+    });
     moxios.wait(() => {
       let request = moxios.requests.mostRecent();
       request
-        .respondWith({
-          status: 400,
-          message: "Username already exists",
-        })
+        .respondWith({ status: 400, message: `Username already exists` })
         .then((err) => {
           expect(err).toBeTruthy();
         });
