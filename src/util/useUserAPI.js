@@ -18,7 +18,7 @@ const useUserAPI = () => {
       })
       .catch((err) => {
         alert(`Username already exists`);
-        console.log(err.response.data.message);
+        console.log(err.message);
       });
   };
 
