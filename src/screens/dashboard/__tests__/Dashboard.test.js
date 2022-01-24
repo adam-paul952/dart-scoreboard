@@ -51,17 +51,17 @@ describe("<Dashboard />", () => {
     ).toBeInTheDocument();
   });
 
-  it("should return an unauthorized user to login page", () => {
-    sessionStorage.clear();
-    history.push("/dashboard");
-    render(
-      <Router history={history}>
-        <Dashboard />
-      </Router>
-    );
-    console.log(history.location.pathname);
-    expect(JSON.parse(window.sessionStorage.getItem("username"))).toBe("");
-  });
+  // it("should return an unauthorized user to login page", () => {
+  //   sessionStorage.clear();
+  //   history.push("/dashboard");
+  //   render(
+  //     <Router history={history}>
+  //       <Dashboard />
+  //     </Router>
+  //   );
+  //   console.log(history.location.pathname);
+  //   expect(JSON.parse(window.sessionStorage.getItem("username"))).toBe("");
+  // });
 
   //   it("should enter a player into the player table", async () => {
   //     const playerInput = screen.getByPlaceholderText("Player Name");

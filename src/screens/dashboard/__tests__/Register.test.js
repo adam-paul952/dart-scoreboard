@@ -109,8 +109,8 @@ describe("<UserRegistration />", () => {
     userEvent.click(submitButton);
     moxios.wait(() => {
       let request = moxios.requests.mostRecent();
-      request
-        .respondWith({
+      // prettier-ignore
+      request.respondWith({
           status: 400,
           response: { message: "Username already taken" },
         })
