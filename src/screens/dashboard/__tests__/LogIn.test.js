@@ -66,13 +66,13 @@ describe("<LoginUser />", () => {
     expect(emailInput.value).toBe("test@email.com");
     expect(passwordInput.value).toBe("password");
     userEvent.click(submitButton);
-    moxios.wait(() => {
+    await moxios.wait(() => {
       let request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
         response: { username: "test@email.com", uuid: 1 },
       });
-    });
+    }, 200);
     await waitFor(() => {
       expect(screen.getByText("Login Successful")).toBeInTheDocument();
     });

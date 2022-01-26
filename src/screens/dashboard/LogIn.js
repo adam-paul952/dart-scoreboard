@@ -6,11 +6,18 @@ import Header from "../../components/Header";
 import useUserAPI from "../../util/useUserAPI";
 import useSessionStorage from "../../util/useSessionStorage";
 
+<<<<<<< HEAD
 // Theme
 import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const LoginUser = () => {
   const { theme, themeToggle } = React.useContext(ThemeContext);
+=======
+import { ThemeContext } from "../../contexts/ThemeProvider";
+
+const LoginUser = () => {
+  const { theme } = React.useContext(ThemeContext);
+>>>>>>> client-passport
   const { loginUser, isLoggedIn } = useUserAPI();
 
   const [, setSessionUsername] = useSessionStorage("username", "");
@@ -48,12 +55,16 @@ const LoginUser = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <Header
         title="Log In"
         goBackButton
         theme={theme}
         themeToggle={themeToggle}
       ></Header>
+=======
+      <Header title="Log In" goBackButton theme={theme} />
+>>>>>>> client-passport
       <Form onSubmit={handleSubmit}>
         <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>

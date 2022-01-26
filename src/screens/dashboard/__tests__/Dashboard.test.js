@@ -5,14 +5,27 @@ import { createMemoryHistory } from "history";
 import axios from "axios";
 import moxios from "moxios";
 
+<<<<<<< HEAD
 import { render, screen, waitFor } from "../../../test-utils";
+=======
+import {
+  render,
+  screen,
+  setLoggedInUser,
+  setLoggedInUserWithPlayers,
+  waitFor,
+} from "../../../test-utils";
+>>>>>>> client-passport
 import userEvent from "@testing-library/user-event";
 
 import Dashboard from "../Dashboard";
 
 describe("<Dashboard />", () => {
   const history = createMemoryHistory();
+<<<<<<< HEAD
   const testUsername = "test@email.com";
+=======
+>>>>>>> client-passport
   beforeEach(() => {
     moxios.install(axios);
   });
@@ -21,28 +34,44 @@ describe("<Dashboard />", () => {
     moxios.uninstall(axios);
   });
 
+<<<<<<< HEAD
   it("should render the dashboard with all required components", () => {
     window.sessionStorage.setItem("username", JSON.stringify(testUsername));
     window.sessionStorage.setItem("userUuid", JSON.stringify("2"));
+=======
+  it("should render the Dashboard component", () => {
+    setLoggedInUser();
+    const testUser = JSON.parse(window.sessionStorage.getItem("username"));
+>>>>>>> client-passport
     render(
       <Router history={history}>
         <Dashboard />
       </Router>
     );
+<<<<<<< HEAD
     // All roles in the header
+=======
+>>>>>>> client-passport
     expect(screen.getByRole("button", { name: "Go back" })).toBeInTheDocument();
     expect(
       screen.getByRole("navigation", { name: "Dashboard" })
     ).toBeInTheDocument();
+<<<<<<< HEAD
     expect(
       screen.getByRole("button", { name: testUsername })
     ).toBeInTheDocument();
     // Create player dashboard
+=======
+    expect(screen.getByRole("button", { name: testUser })).toBeInTheDocument();
+>>>>>>> client-passport
     expect(screen.getByPlaceholderText("Player Name")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Add Player" })
     ).toBeInTheDocument();
+<<<<<<< HEAD
     // Table to display players
+=======
+>>>>>>> client-passport
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(
       screen.getByRole("row", {
@@ -51,6 +80,7 @@ describe("<Dashboard />", () => {
     ).toBeInTheDocument();
   });
 
+<<<<<<< HEAD
   // it("should return an unauthorized user to login page", () => {
   //   sessionStorage.clear();
   //   history.push("/dashboard");
@@ -78,4 +108,36 @@ describe("<Dashboard />", () => {
   //       });
   //     });
   //   });
+=======
+  it("should display the modal for player stats", async () => {
+    setLoggedInUserWithPlayers();
+    const testUser = JSON.parse(window.sessionStorage.getItem("username"));
+    render(
+      <Router history={history}>
+        <Dashboard />
+      </Router>
+    );
+    userEvent.click(screen.getByRole("button", { name: testUser }));
+    userEvent.click(screen.getByRole("button", { name: "displayPlayerStats" }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByRole("dialog")).toHaveTextContent(
+      "All StatsPlayer NameGames PlayedGames WonWin Percentage"
+    );
+  });
+
+  it("should display the delete user modal", async () => {
+    setLoggedInUserWithPlayers();
+    const testUser = JSON.parse(window.sessionStorage.getItem("username"));
+    render(
+      <Router history={history}>
+        <Dashboard />
+      </Router>
+    );
+    userEvent.click(screen.getByRole("button", { name: testUser }));
+    userEvent.click(screen.getByRole("button", { name: "Delete User" }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    userEvent.click(screen.getByRole("button", { name: "Close" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+>>>>>>> client-passport
 });

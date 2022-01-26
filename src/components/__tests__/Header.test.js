@@ -122,12 +122,14 @@ describe("<Header />", () => {
       "aria-expanded",
       "true"
     );
-    expect(screen.getAllByRole("button", { name: "All Player Stats" }));
-    expect(screen.getByText("Edit User")).toHaveAttribute("href", "/user/edit");
-    expect(screen.getByText("Delete User")).toHaveAttribute(
-      "href",
-      "/user/delete"
+    expect(screen.getByText("All Player Stats")).toHaveAttribute(
+      "aria-label",
+      "displayPlayerStats"
     );
+    expect(screen.getByText("Edit User")).toHaveAttribute("href", "/user/edit");
+    expect(
+      screen.getByRole("button", { name: "Delete User" })
+    ).toBeInTheDocument();
     const logoutButton = screen.getByText("LogOut");
     expect(logoutButton).toHaveAttribute("href", "/game/login");
     expect(
@@ -144,5 +146,23 @@ describe("<Header />", () => {
     // Check that the logout button clears the sessionStorage
     expect(window.sessionStorage.getItem("username")).toBe(null);
     expect(window.sessionStorage.getItem("userUuid")).toBe(null);
+  });
+
+  it("should open the delete user modal", async () => {
+    const setShowDeleteUser = jest.fn();
+    setLoggedInUser();
+    const testUser = JSON.parse(window.sessionStorage.getItem("username"));
+    render(
+      <Router history={history}>
+        <Header
+          loginDropDown
+          username={testUser}
+          setShowDeleteUser={setShowDeleteUser}
+        />
+      </Router>
+    );
+    userEvent.click(screen.getByRole("button", { name: testUser }));
+    userEvent.click(screen.getByRole("button", { name: "Delete User" }));
+    expect(setShowDeleteUser).toHaveBeenCalledTimes(1);
   });
 });

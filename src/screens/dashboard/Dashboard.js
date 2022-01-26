@@ -14,6 +14,7 @@ import {
   displaySessionUserUuidToken,
   displaySessionUsername,
 } from "../../util/useSessionStorage";
+import DeleteUser from "./DeleteUser";
 
 const Dashboard = () => {
   const username = displaySessionUsername();
@@ -33,6 +34,7 @@ const Dashboard = () => {
   const { setPlayerList, checkedPlayerList, setCheckedPlayerList } = useGame();
 
   const [playerName, setPlayerName] = React.useState("");
+  const [showDeleteUser, setShowDeleteUser] = React.useState(false);
 
   React.useEffect(() => {
     getPlayerByUserId(userId);
@@ -51,6 +53,7 @@ const Dashboard = () => {
         goBackButton
         loginDropDown
         theme={theme}
+        setShowDeleteUser={setShowDeleteUser}
       />
       <CreatePlayerDashboard
         playerName={playerName}
@@ -78,6 +81,12 @@ const Dashboard = () => {
         updatePlayerById={updatePlayerById}
         userId={userId}
       />
+      {showDeleteUser && (
+        <DeleteUser
+          showDeleteUser={showDeleteUser}
+          setShowDeleteUser={setShowDeleteUser}
+        />
+      )}
     </>
   );
 };

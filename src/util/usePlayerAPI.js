@@ -10,9 +10,9 @@ const usePlayerAPI = () => {
 
   const [userPlayerList, setUserPlayerList] = useState([]);
 
-  const createPlayer = (playerName, users_id) => {
+  const createPlayer = (playerName) => {
     axios
-      .post(`${URL}`, { playerName, users_id })
+      .post(`${URL}`, { playerName })
       .then((res) => {
         console.log(`Successfully created player: ${res.data.playerName}`);
         createStatRowWithPlayer(res.data.id);

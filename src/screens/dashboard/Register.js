@@ -9,7 +9,11 @@ import useUserAPI from "../../util/useUserAPI";
 import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const UserRegistration = () => {
+<<<<<<< HEAD
   const { theme, themeToggle } = React.useContext(ThemeContext);
+=======
+  const { theme } = React.useContext(ThemeContext);
+>>>>>>> client-passport
   const { createUser, isLoggedIn } = useUserAPI();
 
   const [username, setUsername] = useState("");
@@ -39,12 +43,16 @@ const UserRegistration = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <Header
         title="User Registration"
         goBackButton
         theme={theme}
         themeToggle={themeToggle}
       />
+=======
+      <Header title="User Registration" goBackButton theme={theme} />
+>>>>>>> client-passport
       <Form onSubmit={handleSubmit}>
         <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>

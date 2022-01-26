@@ -17,6 +17,7 @@ const DisplayAllPlayerStats = () => {
   return (
     <>
       <Button
+        aria-label="displayPlayerStats"
         variant="primary"
         size="sm"
         onClick={() => {

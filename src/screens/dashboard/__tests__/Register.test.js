@@ -126,6 +126,7 @@ describe("<UserRegistration />", () => {
     userEvent.type(emailInput, testEmail);
     userEvent.type(passwordInput, testPassword);
     userEvent.type(confirmPasswordInput, testPassword);
+<<<<<<< HEAD
     await waitFor(() => {
       userEvent.click(submitButton);
     });
@@ -133,6 +134,18 @@ describe("<UserRegistration />", () => {
       let request = moxios.requests.mostRecent();
       request
         .respondWith({ status: 400, message: `Username already exists` })
+=======
+    expect(submitButton.disabled).toBe(false);
+    userEvent.click(submitButton);
+
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent();
+      request
+        .respondWith({
+          status: 400,
+          message: `Username already exists`,
+        })
+>>>>>>> client-passport
         .then((err) => {
           expect(err).toBeTruthy();
         });
