@@ -17,6 +17,7 @@ const useUserAPI = () => {
         console.log(`Successfully created user: ${res.data.username}`);
       })
       .catch((err) => {
+        alert("Username already exists");
         console.log(err.message);
       });
   };
@@ -29,7 +30,7 @@ const useUserAPI = () => {
       .post(`${URL}login`, { username, password })
       .then((res) => {
         setIsLoggedIn(true);
-        setSessionUuidToken(res.data.uuid.toString());
+        setSessionUuidToken(res.data.uuid);
         console.log(`Successfully logged in user: ${res.data.username}`);
       })
       .catch((err) => {

@@ -17,12 +17,17 @@ const DisplayAllPlayerStats = () => {
   return (
     <>
       <Button
+        aria-label="displayPlayerStats"
         variant="primary"
         size="sm"
         onClick={() => {
           onFindAllStats();
         }}
-        style={{ backgroundColor: "transparent", border: "none" }}
+        style={{
+          backgroundColor: "transparent",
+          border: "none",
+          color: "black",
+        }}
       >
         All Player Stats
       </Button>

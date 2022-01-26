@@ -26,6 +26,7 @@ const Header = ({
   username,
   theme,
   themeToggle,
+  setShowDeleteUser,
 }) => {
   const history = useHistory();
 
@@ -60,6 +61,7 @@ const Header = ({
               theme={theme}
               themeToggle={themeToggle}
               username={username}
+              setShowDeleteUser={setShowDeleteUser}
             />
           )}
           {resetButton && (
@@ -89,19 +91,32 @@ Header.propTypes = {
   username: PropTypes.string,
   theme: PropTypes.string,
   themeToggle: PropTypes.func,
+  setShowDeleteUser: PropTypes.func,
 };
 
 export default Header;
 
-const HeaderDropDownMenu = ({ handleLogout, theme, themeToggle, username }) => {
+const HeaderDropDownMenu = ({
+  handleLogout,
+  theme,
+  themeToggle,
+  username,
+  setShowDeleteUser,
+}) => {
+  const onShowDelete = () => {
+    setShowDeleteUser(true);
+  };
+
   return (
     <>
-      <DropdownButton className="px-3" title={username} menuVariant={theme}>
+      <DropdownButton className="px-3" title={username}>
         <Dropdown.Item>
           <DisplayAllPlayerStats />
         </Dropdown.Item>
         <Dropdown.Item href="/user/edit">Edit User</Dropdown.Item>
-        <Dropdown.Item href="/user/delete">Delete User</Dropdown.Item>
+        <Dropdown.Item as={Button} onClick={() => onShowDelete()}>
+          Delete User
+        </Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item href="/game/login" onClick={handleLogout}>
           LogOut
@@ -119,4 +134,5 @@ HeaderDropDownMenu.propTypes = {
   theme: PropTypes.string,
   themeToggle: PropTypes.func,
   username: PropTypes.string,
+  setShowDeleteUser: PropTypes.func,
 };

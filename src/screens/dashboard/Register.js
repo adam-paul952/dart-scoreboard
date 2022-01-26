@@ -6,7 +6,10 @@ import Header from "../../components/Header";
 
 import useUserAPI from "../../util/useUserAPI";
 
+import { ThemeContext } from "../../contexts/ThemeProvider";
+
 const UserRegistration = () => {
+  const { theme } = React.useContext(ThemeContext);
   const { createUser, isLoggedIn } = useUserAPI();
 
   const [username, setUsername] = useState("");
@@ -26,7 +29,7 @@ const UserRegistration = () => {
 
   return (
     <>
-      <Header title="User Registration" goBackButton />
+      <Header title="User Registration" goBackButton theme={theme} />
       <Form onSubmit={handleSubmit}>
         <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>
