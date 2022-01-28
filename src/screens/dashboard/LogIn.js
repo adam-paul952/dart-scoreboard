@@ -6,19 +6,13 @@ import Header from "../../components/Header";
 import useUserAPI from "../../util/useUserAPI";
 import useSessionStorage from "../../util/useSessionStorage";
 
-<<<<<<< HEAD
-// Theme
 import { ThemeContext } from "../../contexts/ThemeProvider";
-
-const LoginUser = () => {
-  const { theme, themeToggle } = React.useContext(ThemeContext);
-=======
-import { ThemeContext } from "../../contexts/ThemeProvider";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const LoginUser = () => {
   const { theme } = React.useContext(ThemeContext);
->>>>>>> client-passport
-  const { loginUser, isLoggedIn } = useUserAPI();
+  const { loginUser } = useUserAPI();
+  const { isAuthenticated } = React.useContext(AuthContext);
 
   const [, setSessionUsername] = useSessionStorage("username", "");
   const [, setSessionUuidToken] = useSessionStorage("userUuid", "");
@@ -33,7 +27,7 @@ const LoginUser = () => {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isAuthenticated) {
       setSessionUsername(username);
       setAlert(true);
     } else {
@@ -43,7 +37,7 @@ const LoginUser = () => {
     return () => {
       setAlert(false);
     };
-  }, [isLoggedIn, setSessionUsername, username, setSessionUuidToken]);
+  }, [isAuthenticated, setSessionUsername, username, setSessionUuidToken]);
 
   // useEffect(() => {
   //   if (alert) {
@@ -55,16 +49,7 @@ const LoginUser = () => {
 
   return (
     <>
-<<<<<<< HEAD
-      <Header
-        title="Log In"
-        goBackButton
-        theme={theme}
-        themeToggle={themeToggle}
-      ></Header>
-=======
       <Header title="Log In" goBackButton theme={theme} />
->>>>>>> client-passport
       <Form onSubmit={handleSubmit}>
         <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>
@@ -89,7 +74,7 @@ const LoginUser = () => {
       <p className="mt-5">No account, no problem click here to register</p>
       {alert && <h2>Login Successful</h2>}
       <div className="mt-3">
-        {isLoggedIn ? (
+        {isAuthenticated ? (
           <Button as={Link} to="/dashboard">
             Continue
           </Button>

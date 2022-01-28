@@ -15,6 +15,8 @@ import Toggle from "../contexts/Toggler";
 import X01OutShotButton from "./X01OutChart";
 import DisplayAllPlayerStats from "../screens/dashboard/AllPlayerStats";
 
+import useUserAPI from "../util/useUserAPI";
+
 const Header = ({
   title,
   goBackButton,
@@ -27,10 +29,13 @@ const Header = ({
   theme,
   themeToggle,
   setShowDeleteUser,
+  setShowEditUser,
 }) => {
   const history = useHistory();
+  const { logUserOut } = useUserAPI();
 
   const handleLogout = () => {
+    logUserOut();
     sessionStorage.clear();
   };
 
@@ -62,6 +67,7 @@ const Header = ({
               themeToggle={themeToggle}
               username={username}
               setShowDeleteUser={setShowDeleteUser}
+              setShowEditUser={setShowEditUser}
             />
           )}
           {resetButton && (
@@ -92,6 +98,7 @@ Header.propTypes = {
   theme: PropTypes.string,
   themeToggle: PropTypes.func,
   setShowDeleteUser: PropTypes.func,
+  setShowEditUser: PropTypes.func,
 };
 
 export default Header;
@@ -102,9 +109,14 @@ const HeaderDropDownMenu = ({
   themeToggle,
   username,
   setShowDeleteUser,
+  setShowEditUser,
 }) => {
   const onShowDelete = () => {
     setShowDeleteUser(true);
+  };
+
+  const onShowEdit = () => {
+    setShowEditUser(true);
   };
 
   return (
@@ -113,7 +125,9 @@ const HeaderDropDownMenu = ({
         <Dropdown.Item>
           <DisplayAllPlayerStats />
         </Dropdown.Item>
-        <Dropdown.Item href="/user/edit">Edit User</Dropdown.Item>
+        <Dropdown.Item as={Button} onClick={() => onShowEdit()}>
+          Edit User
+        </Dropdown.Item>
         <Dropdown.Item as={Button} onClick={() => onShowDelete()}>
           Delete User
         </Dropdown.Item>
@@ -135,4 +149,5 @@ HeaderDropDownMenu.propTypes = {
   themeToggle: PropTypes.func,
   username: PropTypes.string,
   setShowDeleteUser: PropTypes.func,
+  setShowEditUser: PropTypes.func,
 };

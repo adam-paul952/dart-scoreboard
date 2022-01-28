@@ -1,5 +1,7 @@
+import React from "react";
 import axios from "axios";
-import { useContext, useState } from "react";
+
+import { AuthContext } from "../contexts/AuthProvider";
 import { PingContext } from "../contexts/PingProvider";
 
 import useSessionStorage from "./useSessionStorage";
@@ -7,34 +9,33 @@ import useSessionStorage from "./useSessionStorage";
 const URL = process.env.REACT_APP_USER_URL;
 
 const useUserAPI = () => {
-  const { setPing } = useContext(PingContext);
+  const { setPing } = React.useContext(PingContext);
+  const { setIsAuthenticated } = React.useContext(AuthContext);
+  const [isError, setIsError] = React.useState(false);
+  const [isRegistered, setIsRegistered] = React.useState(false);
 
   const createUser = ({ username, password }) => {
     axios
       .post(URL, { username, password })
       .then((res) => {
-        setIsLoggedIn(true);
+        setIsRegistered(true);
         console.log(`Successfully created user: ${res.data.username}`);
       })
       .catch((err) => {
-<<<<<<< HEAD
-        alert(`Username already exists`);
-=======
         alert("Username already exists");
->>>>>>> client-passport
+        setIsError(true);
         console.log(err.message);
       });
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [, setSessionUuidToken] = useSessionStorage("userUuid", "");
+  const [, setUsername] = useSessionStorage("username", "");
 
   const loginUser = ({ username, password }) => {
     axios
       .post(`${URL}login`, { username, password })
       .then((res) => {
-        setIsLoggedIn(true);
-        setSessionUuidToken(res.data.uuid);
+        setIsAuthenticated(true);
+        setUsername(res.data.username);
         console.log(`Successfully logged in user: ${res.data.username}`);
       })
       .catch((err) => {
@@ -43,9 +44,9 @@ const useUserAPI = () => {
       });
   };
 
-  const updateUserById = (userUuid, { username, password }) => {
+  const updateUserById = ({ username, password }) => {
     axios
-      .put(`${URL}${userUuid}`, { username, password })
+      .put(`${URL}edit`, { username, password })
       .then((res) => {
         console.log(`Successfully updated user: ${res.data.username}`);
       })
@@ -54,11 +55,24 @@ const useUserAPI = () => {
       });
   };
 
-  const deleteUserById = (userUuid) => {
+  const deleteUserById = () => {
     axios
-      .delete(`${URL}${userUuid}`, { params: userUuid })
+      .delete(`${URL}delete`)
+      .then((res) => {
+        setIsAuthenticated(false);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const logUserOut = () => {
+    axios
+      .post(`http://localhost:3000/logout`)
       .then((res) => {
         console.log(res.data);
+        setIsAuthenticated(false);
       })
       .catch((err) => {
         console.log(err.message);
@@ -83,9 +97,12 @@ const useUserAPI = () => {
     loginUser,
     updateUserById,
     deleteUserById,
-    isLoggedIn,
-    setIsLoggedIn,
     getPingFromServer,
+    logUserOut,
+    isError,
+    setIsError,
+    isRegistered,
+    setIsRegistered,
   };
 };
 

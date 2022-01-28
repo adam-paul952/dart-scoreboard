@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import ProtectedRoute from "./auth/ProtectedRoute";
+
 import App from "./App";
 import CreatePlayerList from "./screens/CreatePlayer";
 import CreateGame from "./screens/createGame/CreateGame";
@@ -15,8 +18,6 @@ import Rules from "./screens/games/Rules";
 import LoginUser from "./screens/dashboard/LogIn";
 import UserRegistration from "./screens/dashboard/Register";
 import Dashboard from "./screens/dashboard/Dashboard";
-import EditUserInfo from "./screens/dashboard/EditUser";
-import DeleteUser from "./screens/dashboard/DeleteUser";
 
 const Routes = () => {
   return (
@@ -36,9 +37,7 @@ const Routes = () => {
         <Route path="/rules" component={Rules} />
         <Route path="/game/login" component={LoginUser} />
         <Route path="/game/register" component={UserRegistration} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/user/edit" component={EditUserInfo} />
-        <Route path="/user/delete" component={DeleteUser} />
+        <ProtectedRoute path="/dashboard" component={Dashboard} />
       </Switch>
     </Router>
   );

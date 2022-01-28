@@ -3,14 +3,17 @@ import { render } from "@testing-library/react";
 import { PingProvider } from "./contexts/PingProvider";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import Theme from "./contexts/theme";
+import { AuthProvider } from "./contexts/AuthProvider";
 
 const AppWithProviders = ({ children }) => {
   return (
-    <ThemeProvider value={{ theme: "light" }}>
-      <Theme>
-        <PingProvider>{children}</PingProvider>
-      </Theme>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider value={{ theme: "light" }}>
+        <Theme>
+          <PingProvider>{children}</PingProvider>
+        </Theme>
+      </ThemeProvider>
+    </AuthProvider>
   );
 };
 

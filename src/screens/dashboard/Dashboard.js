@@ -3,22 +3,18 @@ import React from "react";
 import { ThemeContext } from "../../contexts/ThemeProvider";
 // Components
 import Header from "../../components/Header";
-import LoginUser from "./LogIn";
 import CreatePlayerDashboard from "./CreatePlayerDashboard";
 import CreateGameDashboard from "./CreateGameDashboard";
 import SelectPlayersFromDB from "./ShowPlayersFromDB";
+import DeleteUser from "./DeleteUser";
+import EditUserInfo from "./EditUser";
 // Hooks
 import useGame from "../../util/useGame";
 import usePlayerAPI from "../../util/usePlayerAPI";
-import {
-  displaySessionUserUuidToken,
-  displaySessionUsername,
-} from "../../util/useSessionStorage";
-import DeleteUser from "./DeleteUser";
+import { displaySessionUsername } from "../../util/useSessionStorage";
 
 const Dashboard = () => {
   const username = displaySessionUsername();
-  const userId = displaySessionUserUuidToken();
 
   const { theme } = React.useContext(ThemeContext);
 
@@ -35,15 +31,12 @@ const Dashboard = () => {
 
   const [playerName, setPlayerName] = React.useState("");
   const [showDeleteUser, setShowDeleteUser] = React.useState(false);
+  const [showEditUser, setShowEditUser] = React.useState(false);
 
   React.useEffect(() => {
-    getPlayerByUserId(userId);
+    getPlayerByUserId();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (!username) {
-    return <LoginUser />;
-  }
 
   return (
     <>
@@ -54,12 +47,12 @@ const Dashboard = () => {
         loginDropDown
         theme={theme}
         setShowDeleteUser={setShowDeleteUser}
+        setShowEditUser={setShowEditUser}
       />
       <CreatePlayerDashboard
         playerName={playerName}
         setPlayerName={setPlayerName}
         createPlayer={createPlayer}
-        userId={userId}
         getPlayerByUserId={getPlayerByUserId}
         userPlayerList={userPlayerList}
       />
@@ -79,12 +72,17 @@ const Dashboard = () => {
         getPlayerByUserId={getPlayerByUserId}
         deletePlayerById={deletePlayerById}
         updatePlayerById={updatePlayerById}
-        userId={userId}
       />
       {showDeleteUser && (
         <DeleteUser
           showDeleteUser={showDeleteUser}
           setShowDeleteUser={setShowDeleteUser}
+        />
+      )}
+      {showEditUser && (
+        <EditUserInfo
+          showEditUser={showEditUser}
+          setShowEditUser={setShowEditUser}
         />
       )}
     </>

@@ -67,6 +67,9 @@ describe("<UserRegistration />", () => {
     userEvent.type(passwordInput, "pa");
     userEvent.type(confirmPasswordInput, "pa");
     expect(screen.getByPlaceholderText("Enter email").value).toBe("");
+    expect(
+      screen.getByRole("button", { name: "Register", disabled: true })
+    ).toBeInTheDocument();
     expect(passwordInput.value.length).toBe(2);
     expect(confirmPasswordInput.value.length).toBe(2);
     expect(
@@ -126,15 +129,6 @@ describe("<UserRegistration />", () => {
     userEvent.type(emailInput, testEmail);
     userEvent.type(passwordInput, testPassword);
     userEvent.type(confirmPasswordInput, testPassword);
-<<<<<<< HEAD
-    await waitFor(() => {
-      userEvent.click(submitButton);
-    });
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request
-        .respondWith({ status: 400, message: `Username already exists` })
-=======
     expect(submitButton.disabled).toBe(false);
     userEvent.click(submitButton);
 
@@ -145,7 +139,6 @@ describe("<UserRegistration />", () => {
           status: 400,
           message: `Username already exists`,
         })
->>>>>>> client-passport
         .then((err) => {
           expect(err).toBeTruthy();
         });

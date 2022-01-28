@@ -6,14 +6,13 @@ const CreatePlayerDashboard = ({
   playerName,
   setPlayerName,
   createPlayer,
-  userId,
   getPlayerByUserId,
 }) => {
-  const onCreate = (userId, playerName) => {
-    createPlayer(playerName, userId);
+  const onCreate = (playerName) => {
+    createPlayer(playerName);
     setPlayerName("");
     setTimeout(() => {
-      getPlayerByUserId(userId);
+      getPlayerByUserId();
     }, 20);
   };
 
@@ -36,7 +35,7 @@ const CreatePlayerDashboard = ({
             <Col>
               <Button
                 onClick={() => {
-                  onCreate(userId, playerName);
+                  onCreate(playerName);
                 }}
               >
                 Add Player
@@ -55,7 +54,6 @@ CreatePlayerDashboard.propTypes = {
   playerName: PropTypes.string,
   setPlayerName: PropTypes.func,
   createPlayer: PropTypes.func,
-  userId: PropTypes.string,
   getPlayerByUserId: PropTypes.func,
   userPlayerList: PropTypes.array,
 };

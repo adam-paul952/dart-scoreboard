@@ -1,116 +1,105 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 
 import useUserAPI from "../../util/useUserAPI";
-import { displaySessionUserUuidToken } from "../../util/useSessionStorage";
 
-const EditUserInfo = () => {
-  const userId = displaySessionUserUuidToken();
+import { displaySessionUsername } from "../../util/useSessionStorage";
 
-  const { loginUser, updateUserById } = useUserAPI();
+const EditUserInfo = ({ showEditUser, setShowEditUser }) => {
+  const { updateUserById } = useUserAPI();
 
-  const [userCredentials, setUserCredentials] = useState(false);
-  const [username, setUsername] = useState("");
-  const [currentUserPassword, setCurrentUserPassword] = useState("");
+  const username = displaySessionUsername();
+
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const noPasswordMatch = password !== passwordConfirm;
 
-  const handleSubmit = (userId, { username, password }) => {
-    updateUserById(userId, { username, password });
-    sessionStorage.setItem("username", JSON.stringify(username));
+  const handleSubmit = ({ username, password }) => {
+    updateUserById({ username, password });
+    setShowEditUser(false);
+    alert(`Password successfully changed`);
   };
 
-  const checkUserCredentials = (username, password) => {
-    loginUser({ username, password });
-    if (loginUser) {
-      setUserCredentials(true);
+  const onHandleClose = () => {
+    setShowEditUser(false);
+  };
+
+  const disableButton = () => {
+    if (password.length < 5) {
+      return true;
+    } else if (noPasswordMatch) {
+      return true;
+    } else {
+      return false;
     }
   };
 
   return (
     <>
-      <Form>
-        <Form.Group className="m-3" controlId="username">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-            value={username}
-          />
-        </Form.Group>
-        <Form.Group className="m-3" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Current Password"
-            onChange={(e) => {
-              setCurrentUserPassword(e.target.value);
-            }}
-            value={currentUserPassword}
-          />
-        </Form.Group>
-
-        {userCredentials && (
-          <Form.Group className="m-3" controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="New Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              value={password}
-            />
-          </Form.Group>
-        )}
-        {noPasswordMatch && (
-          <p style={{ color: "red", fontWeight: "bold" }}>
-            Passwords must match
-          </p>
-        )}
-        {userCredentials && (
-          <Form.Group className="m-3" controlId="confirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Confirm New Password"
-              onChange={(e) => {
-                setPasswordConfirm(e.target.value);
-              }}
-              value={passwordConfirm}
-            />
-          </Form.Group>
-        )}
-        {userCredentials ? (
-          <Button
-            variant="primary"
-            as={Link}
-            to="/dashboard"
-            onClick={() => {
-              handleSubmit(userId, { username, password });
-            }}
-          >
-            Edit User Info
-          </Button>
-        ) : (
+      <Modal show={showEditUser} onHide={onHandleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "black" }}>Edit User</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ color: "black" }}>
+          <Form>
+            <Form.Group className="m-3" controlId="username">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                value={username}
+                disabled
+              />
+            </Form.Group>
+            <Form.Group className="m-3" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="New Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
+              />
+            </Form.Group>
+            {noPasswordMatch && (
+              <p style={{ color: "red", fontWeight: "bold" }}>
+                Passwords must match
+              </p>
+            )}
+            <Form.Group className="m-3" controlId="confirmPassword">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Confirm New Password"
+                onChange={(e) => {
+                  setPasswordConfirm(e.target.value);
+                }}
+                value={passwordConfirm}
+              />
+            </Form.Group>
+          </Form>
           <Button
             variant="primary"
             onClick={() => {
-              checkUserCredentials(username, currentUserPassword);
+              handleSubmit({ username, password });
             }}
+            disabled={disableButton()}
           >
-            Confirm Credentials
+            Change Password
           </Button>
-        )}
-      </Form>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
 
 export default EditUserInfo;
+
+EditUserInfo.propTypes = {
+  showEditUser: PropTypes.bool,
+  setShowEditUser: PropTypes.func,
+};

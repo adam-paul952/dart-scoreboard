@@ -126,7 +126,9 @@ describe("<Header />", () => {
       "aria-label",
       "displayPlayerStats"
     );
-    expect(screen.getByText("Edit User")).toHaveAttribute("href", "/user/edit");
+    expect(
+      screen.getByRole("button", { name: "Edit User" })
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Delete User" })
     ).toBeInTheDocument();

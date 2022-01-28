@@ -22,9 +22,9 @@ const usePlayerAPI = () => {
       });
   };
 
-  const getPlayerByUserId = (userId) => {
+  const getPlayerByUserId = () => {
     axios
-      .get(`${URL}${userId}`)
+      .get(`${URL}byuser`)
       .then((res) => {
         console.log(res.data);
         const players = res.data;

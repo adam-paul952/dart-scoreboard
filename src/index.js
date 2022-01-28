@@ -10,20 +10,23 @@ import Theme from "./contexts/theme";
 
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import { PingProvider } from "./contexts/PingProvider";
+import { AuthProvider } from "./contexts/AuthProvider";
 import Background from "./components/Background";
 
 ReactDOM.render(
-  <ThemeProvider>
-    <Theme>
-      <PingProvider>
-        <Background>
-          <React.StrictMode>
-            <Routes />
-          </React.StrictMode>
-        </Background>
-      </PingProvider>
-    </Theme>
-  </ThemeProvider>,
+  <AuthProvider>
+    <ThemeProvider>
+      <Theme>
+        <PingProvider>
+          <Background>
+            <React.StrictMode>
+              <Routes />
+            </React.StrictMode>
+          </Background>
+        </PingProvider>
+      </Theme>
+    </ThemeProvider>
+  </AuthProvider>,
   document.getElementById("root")
 );
 

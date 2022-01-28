@@ -9,12 +9,8 @@ import useUserAPI from "../../util/useUserAPI";
 import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const UserRegistration = () => {
-<<<<<<< HEAD
-  const { theme, themeToggle } = React.useContext(ThemeContext);
-=======
   const { theme } = React.useContext(ThemeContext);
->>>>>>> client-passport
-  const { createUser, isLoggedIn } = useUserAPI();
+  const { createUser, isRegistered, setIsRegistered } = useUserAPI();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,8 +22,6 @@ const UserRegistration = () => {
     if (noPasswordMatch) {
       return true;
     } else if (password.length < 3) {
-      return true;
-    } else if (passwordConfirm.length < 3) {
       return true;
     } else if (!username) {
       return true;
@@ -43,16 +37,7 @@ const UserRegistration = () => {
 
   return (
     <>
-<<<<<<< HEAD
-      <Header
-        title="User Registration"
-        goBackButton
-        theme={theme}
-        themeToggle={themeToggle}
-      />
-=======
       <Header title="User Registration" goBackButton theme={theme} />
->>>>>>> client-passport
       <Form onSubmit={handleSubmit}>
         <Form.Group className="m-3" controlId="username">
           <Form.Label>Email address</Form.Label>
@@ -92,7 +77,7 @@ const UserRegistration = () => {
             value={passwordConfirm}
           />
         </Form.Group>
-        {isLoggedIn ? (
+        {isRegistered ? (
           <Button variant="primary" as={Link} to="/game/login">
             Continue to login
           </Button>

@@ -23,7 +23,6 @@ const SelectPlayersFromDB = ({
   getPlayerByUserId,
   deletePlayerById,
   updatePlayerById,
-  userId,
 }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -44,7 +43,6 @@ const SelectPlayersFromDB = ({
           getPlayerByUserId={getPlayerByUserId}
           deletePlayerById={deletePlayerById}
           updatePlayerById={updatePlayerById}
-          userId={userId}
         />
       </Table>
     </>
@@ -58,7 +56,6 @@ SelectPlayersFromDB.propTypes = {
   getPlayerByUserId: PropTypes.func,
   deletePlayerById: PropTypes.func,
   updatePlayerById: PropTypes.func,
-  userId: PropTypes.string,
 };
 
 export default SelectPlayersFromDB;
@@ -70,7 +67,6 @@ const ShowDatabasePlayerList = ({
   getPlayerByUserId,
   deletePlayerById,
   updatePlayerById,
-  userId,
 }) => {
   const [isEditable, setEditable] = useState({ status: false, rowKey: null });
   const [playerName, setPlayerName] = useState(null);
@@ -78,7 +74,7 @@ const ShowDatabasePlayerList = ({
   const onDelete = (id) => {
     deletePlayerById(id);
     setTimeout(() => {
-      getPlayerByUserId(userId);
+      getPlayerByUserId();
     });
   };
 
@@ -132,7 +128,6 @@ const ShowDatabasePlayerList = ({
                   setPlayerName={setPlayerName}
                   updatePlayerById={updatePlayerById}
                   getPlayerByUserId={getPlayerByUserId}
-                  userId={userId}
                   playerName={playerName}
                 />
                 <td>
@@ -163,5 +158,4 @@ ShowDatabasePlayerList.propTypes = {
   getPlayerByUserId: PropTypes.func,
   deletePlayerById: PropTypes.func,
   updatePlayerById: PropTypes.func,
-  userId: PropTypes.string,
 };

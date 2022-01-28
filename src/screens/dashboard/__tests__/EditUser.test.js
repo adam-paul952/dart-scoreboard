@@ -19,7 +19,7 @@ describe("<EditUserInfo />", () => {
     moxios.install(axios);
     render(
       <Router history={history}>
-        <EditUserInfo />
+        <EditUserInfo showEditUser={true} />
       </Router>
     );
   });
@@ -29,49 +29,15 @@ describe("<EditUserInfo />", () => {
   });
 
   it("should render the component to confirm credentials", () => {
-    expect(screen.getByPlaceholderText("Enter email")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Current Password")).toBeInTheDocument();
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByText("Edit User")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument();
+    expect(screen.getByText("Username")).toBeInTheDocument();
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.getByText("Password")).toBeInTheDocument();
+    expect(screen.getByText("Confirm Password")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Confirm Credentials" })
+      screen.getByRole("button", { name: "Change Password" })
     ).toBeInTheDocument();
-  });
-
-  it("should allow user to change details once credentials are confirmed", () => {
-    const emailInput = screen.getByPlaceholderText("Enter email");
-    const passwordInput = screen.getByPlaceholderText("Current Password");
-    userEvent.type(emailInput, testEmail);
-    userEvent.type(passwordInput, testPassword);
-    userEvent.click(
-      screen.getByRole("button", { name: "Confirm Credentials" })
-    );
-    expect(screen.getByPlaceholderText("New Password")).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText("Confirm New Password")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Edit User Info" })
-    ).toBeInTheDocument();
-  });
-
-  it("should allow a user to change username and password", async () => {
-    const emailInput = screen.getByPlaceholderText("Enter email");
-    const passwordInput = screen.getByPlaceholderText("Current Password");
-    userEvent.type(emailInput, testEmail);
-    userEvent.type(passwordInput, testPassword);
-    userEvent.click(
-      screen.getByRole("button", { name: "Confirm Credentials" })
-    );
-    userEvent.type(emailInput, "test1@email.com");
-    userEvent.type(screen.getByPlaceholderText("New Password"), "test");
-    userEvent.type(screen.getByPlaceholderText("Confirm New Password"), "test");
-    userEvent.click(screen.getByRole("button", { name: "Edit User Info" }));
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.respondWith({
-        status: 200,
-        response: { username: "test1@email.com" },
-      });
-    });
-    expect(history.location.pathname).toBe("/dashboard");
   });
 });

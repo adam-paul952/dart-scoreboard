@@ -42,7 +42,6 @@ export const EditPlayerButton = ({
   setPlayerName,
   updatePlayerById,
   getPlayerByUserId,
-  userId,
   playerName,
 }) => {
   const onEdit = ({ id, playerName }) => {
@@ -54,7 +53,7 @@ export const EditPlayerButton = ({
     updatePlayerById(id, { playerName });
     setEditable({ status: false, rowKey: null });
     setTimeout(() => {
-      getPlayerByUserId(userId);
+      getPlayerByUserId();
     });
   };
 
@@ -108,6 +107,5 @@ EditPlayerButton.propTypes = {
   setPlayerName: PropTypes.func,
   updatePlayerById: PropTypes.func,
   getPlayerByUserId: PropTypes.func,
-  userId: PropTypes.string,
   playerName: PropTypes.string,
 };
