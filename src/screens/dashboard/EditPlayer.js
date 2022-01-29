@@ -65,6 +65,7 @@ export const EditPlayerButton = ({
     return (
       <td>
         <Button
+          aria-label="editPlayer"
           className="mx-2"
           onClick={() =>
             onSave(player.id, {

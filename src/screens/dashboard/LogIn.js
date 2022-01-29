@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 
 import Header from "../../components/Header";
@@ -14,12 +14,11 @@ const LoginUser = () => {
   const { loginUser } = useUserAPI();
   const { isAuthenticated } = React.useContext(AuthContext);
 
+  const history = useHistory();
   const [, setSessionUsername] = useSessionStorage("username", "");
-  const [, setSessionUuidToken] = useSessionStorage("userUuid", "");
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [alert, setAlert] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,25 +26,16 @@ const LoginUser = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      setSessionUsername(username);
-      setAlert(true);
-    } else {
-      setSessionUsername("");
-      setSessionUuidToken("");
-    }
-    return () => {
-      setAlert(false);
+    const userIsLoggedIn = () => {
+      if (isAuthenticated) {
+        setSessionUsername(username);
+        history.push("/dashboard");
+      } else {
+        setSessionUsername("");
+      }
     };
-  }, [isAuthenticated, setSessionUsername, username, setSessionUuidToken]);
-
-  // useEffect(() => {
-  //   if (alert) {
-  //     setTimeout(() => {
-  //       setAlert(false);
-  //     }, 2000);
-  //   }
-  // }, [alert]);
+    userIsLoggedIn();
+  }, [isAuthenticated, setSessionUsername, username, history]);
 
   return (
     <>
@@ -72,17 +62,10 @@ const LoginUser = () => {
         <Button type="submit">Log In</Button>
       </Form>
       <p className="mt-5">No account, no problem click here to register</p>
-      {alert && <h2>Login Successful</h2>}
       <div className="mt-3">
-        {isAuthenticated ? (
-          <Button as={Link} to="/dashboard">
-            Continue
-          </Button>
-        ) : (
-          <Button as={Link} to="/game/register">
-            Register
-          </Button>
-        )}
+        <Button as={Link} to="/game/register">
+          Register
+        </Button>
       </div>
     </>
   );

@@ -4,18 +4,16 @@ import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import useUserAPI from "../../util/useUserAPI";
-import { displaySessionUserUuidToken } from "../../util/useSessionStorage";
 
 const DeleteUser = ({ showDeleteUser, setShowDeleteUser }) => {
   const { deleteUserById } = useUserAPI();
-  const userId = displaySessionUserUuidToken();
 
   const onHandleClose = () => {
     setShowDeleteUser(false);
   };
 
-  const handleDelete = (userId) => {
-    deleteUserById(userId);
+  const handleDelete = () => {
+    deleteUserById();
     sessionStorage.clear();
   };
 
@@ -35,7 +33,7 @@ const DeleteUser = ({ showDeleteUser, setShowDeleteUser }) => {
             as={Link}
             to="/game/login"
             onClick={() => {
-              handleDelete(userId);
+              handleDelete();
             }}
           >
             Delete Account

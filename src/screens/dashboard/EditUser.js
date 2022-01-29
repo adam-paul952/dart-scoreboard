@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { Button, Form, Modal } from "react-bootstrap";
 
 import useUserAPI from "../../util/useUserAPI";

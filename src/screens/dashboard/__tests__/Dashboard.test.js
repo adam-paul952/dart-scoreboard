@@ -67,7 +67,7 @@ describe("<Dashboard />", () => {
     );
   });
 
-  it("should display the delete user modal", async () => {
+  it("should display the delete user modal and close it", async () => {
     setLoggedInUserWithPlayers();
     const testUser = JSON.parse(window.sessionStorage.getItem("username"));
     render(
@@ -80,5 +80,57 @@ describe("<Dashboard />", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument();
     userEvent.click(screen.getByRole("button", { name: "Close" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("should display the edit user modal and close it", async () => {
+    setLoggedInUserWithPlayers();
+    const testUser = JSON.parse(window.sessionStorage.getItem("username"));
+    render(
+      <Router history={history}>
+        <Dashboard />
+      </Router>
+    );
+    userEvent.click(screen.getByRole("button", { name: testUser }));
+    userEvent.click(screen.getByRole("button", { name: "Edit User" }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    userEvent.click(screen.getByRole("button", { name: "Close" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("should change the players password and close the modal", async () => {
+    window.alert = jest.fn();
+    setLoggedInUserWithPlayers();
+    const testUser = JSON.parse(window.sessionStorage.getItem("username"));
+    render(
+      <Router history={history}>
+        <Dashboard />
+      </Router>
+    );
+    userEvent.click(screen.getByRole("button", { name: testUser }));
+    userEvent.click(screen.getByRole("button", { name: "Edit User" }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    const testPassword = "testPassword";
+    const passInput = screen.getByPlaceholderText("New Password");
+    const confirmPassInput = screen.getByPlaceholderText(
+      "Confirm New Password"
+    );
+    expect(passInput).toBeInTheDocument();
+    expect(confirmPassInput).toBeInTheDocument();
+    userEvent.type(passInput, testPassword);
+    userEvent.type(confirmPassInput, testPassword);
+    const confirmButton = screen.getByRole("button", {
+      name: "Change Password",
+      disabled: false,
+    });
+    expect(confirmButton).toBeInTheDocument();
+    userEvent.click(confirmButton);
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(window.alert).toHaveBeenCalledWith(
+        "Password successfully changed"
+      );
+    });
   });
 });

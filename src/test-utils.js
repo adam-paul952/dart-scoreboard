@@ -76,12 +76,10 @@ export const setTheme = () => {
 export const setLoggedInUser = () => {
   window.sessionStorage.clear();
   window.sessionStorage.setItem("username", JSON.stringify("Test User"));
-  window.sessionStorage.setItem("userUuid", JSON.stringify("1"));
 };
 export const setLoggedInUserWithPlayers = () => {
   window.sessionStorage.clear();
   window.sessionStorage.setItem("username", JSON.stringify("Test User"));
-  window.sessionStorage.setItem("userUuid", JSON.stringify("1"));
   window.sessionStorage.setItem("listOfPlayers", JSON.stringify(players));
 };
 

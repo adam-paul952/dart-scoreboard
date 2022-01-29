@@ -5,7 +5,7 @@ import { createMemoryHistory } from "history";
 import moxios from "moxios";
 import axios from "axios";
 
-import { render, screen, setLoggedInUser, waitFor } from "../../../test-utils";
+import { render, screen, setLoggedInUser } from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
 
 import DeleteUser from "../DeleteUser";

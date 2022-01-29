@@ -106,6 +106,7 @@ const ShowDatabasePlayerList = ({
                 />
                 <td>
                   <Form.Check
+                    aria-label="selectPlayer"
                     type="checkbox"
                     onChange={(e) => {
                       if (e.target.checked) {
@@ -132,6 +133,7 @@ const ShowDatabasePlayerList = ({
                 />
                 <td>
                   <Button
+                    aria-label="deletePlayer"
                     variant="danger"
                     size="sm"
                     onClick={() => onDelete(player.id)}

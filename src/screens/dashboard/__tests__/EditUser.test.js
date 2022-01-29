@@ -5,7 +5,7 @@ import { createMemoryHistory } from "history";
 import axios from "axios";
 import moxios from "moxios";
 
-import { render, screen } from "../../../test-utils";
+import { render, screen, waitFor } from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
 
 import EditUserInfo from "../EditUser";
@@ -16,6 +16,7 @@ describe("<EditUserInfo />", () => {
   const testPassword = "testPassword";
 
   beforeEach(() => {
+    window.sessionStorage.setItem("username", JSON.stringify(testEmail));
     moxios.install(axios);
     render(
       <Router history={history}>
@@ -33,7 +34,9 @@ describe("<EditUserInfo />", () => {
     expect(screen.getByText("Edit User")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument();
     expect(screen.getByText("Username")).toBeInTheDocument();
-    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(
+      screen.getByRole("textbox", { value: testEmail })
+    ).toBeInTheDocument();
     expect(screen.getByText("Password")).toBeInTheDocument();
     expect(screen.getByText("Confirm Password")).toBeInTheDocument();
     expect(

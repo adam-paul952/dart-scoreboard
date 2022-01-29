@@ -115,10 +115,6 @@ const ScoreCalculator = ({
     return null;
   };
 
-  if (declareWinner()) {
-    console.log(declareWinner);
-  }
-
   useEffect(() => {
     const onKeyUp = (e) => {
       let number = parseInt(playerScore, 10);

@@ -55,7 +55,7 @@ describe("<UserRegistration />", () => {
     expect(screen.getByText("Passwords must match")).toBeInTheDocument();
   });
 
-  it("should leave the register button disabled until proper input of fields", () => {
+  it("should leave the register button with username not provided", () => {
     render(
       <Router history={history}>
         <UserRegistration />
@@ -64,12 +64,27 @@ describe("<UserRegistration />", () => {
     const passwordInput = screen.getByPlaceholderText("Password");
     const confirmPasswordInput =
       screen.getByPlaceholderText("Confirm Password");
-    userEvent.type(passwordInput, "pa");
-    userEvent.type(confirmPasswordInput, "pa");
+    userEvent.type(passwordInput, "testPassword");
+    userEvent.type(confirmPasswordInput, "testPassword");
     expect(screen.getByPlaceholderText("Enter email").value).toBe("");
     expect(
       screen.getByRole("button", { name: "Register", disabled: true })
     ).toBeInTheDocument();
+  });
+
+  it("should leave the register button disabled until proper input of fields", () => {
+    render(
+      <Router history={history}>
+        <UserRegistration />
+      </Router>
+    );
+    const emailInput = screen.getByPlaceholderText("Enter email");
+    const passwordInput = screen.getByPlaceholderText("Password");
+    const confirmPasswordInput =
+      screen.getByPlaceholderText("Confirm Password");
+    userEvent.type(emailInput, testEmail);
+    userEvent.type(passwordInput, "pa");
+    userEvent.type(confirmPasswordInput, "pa");
     expect(passwordInput.value.length).toBe(2);
     expect(confirmPasswordInput.value.length).toBe(2);
     expect(
@@ -78,6 +93,7 @@ describe("<UserRegistration />", () => {
   });
 
   it("should successfully register a user", async () => {
+    window.alert = jest.fn();
     render(
       <Router history={history}>
         <UserRegistration />
@@ -103,14 +119,10 @@ describe("<UserRegistration />", () => {
       });
     });
     await waitFor(() => {
-      expect(
-        screen.getByRole("button", { name: "Continue to login" })
-      ).toBeInTheDocument();
+      expect(window.alert).toHaveBeenCalledWith(
+        "User was created successfully!"
+      );
     });
-    expect(
-      screen.queryByRole("button", { name: "Register" })
-    ).not.toBeInTheDocument();
-    userEvent.click(screen.getByRole("button", { name: "Continue to login" }));
     expect(history.location.pathname).toBe("/game/login");
   });
 
@@ -144,7 +156,7 @@ describe("<UserRegistration />", () => {
         });
     });
     await waitFor(() => {
-      expect(window.alert).toBeCalledWith("Username already exists");
+      expect(window.alert).toHaveBeenCalledWith("Username already exists");
     });
   });
 });

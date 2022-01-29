@@ -167,4 +167,22 @@ describe("<Header />", () => {
     userEvent.click(screen.getByRole("button", { name: "Delete User" }));
     expect(setShowDeleteUser).toHaveBeenCalledTimes(1);
   });
+
+  it("should open the edit user modal", async () => {
+    const setShowEditUser = jest.fn();
+    setLoggedInUser();
+    const testUser = JSON.parse(window.sessionStorage.getItem("username"));
+    render(
+      <Router history={history}>
+        <Header
+          loginDropDown
+          username={testUser}
+          setShowEditUser={setShowEditUser}
+        />
+      </Router>
+    );
+    userEvent.click(screen.getByRole("button", { name: testUser }));
+    userEvent.click(screen.getByRole("button", { name: "Edit User" }));
+    expect(setShowEditUser).toHaveBeenCalledTimes(1);
+  });
 });

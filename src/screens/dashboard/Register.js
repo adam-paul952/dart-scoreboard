@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Header from "../../components/Header";
 
@@ -9,6 +9,7 @@ import useUserAPI from "../../util/useUserAPI";
 import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const UserRegistration = () => {
+  const history = useHistory();
   const { theme } = React.useContext(ThemeContext);
   const { createUser, isRegistered, setIsRegistered } = useUserAPI();
 
@@ -34,6 +35,19 @@ const UserRegistration = () => {
     e.preventDefault();
     createUser({ username, password });
   };
+
+  React.useEffect(() => {
+    const userIsRegistered = () => {
+      if (isRegistered) {
+        history.push("/game/login");
+        alert("User was created successfully!");
+      }
+    };
+    userIsRegistered();
+    return () => {
+      setIsRegistered(false);
+    };
+  }, [history, isRegistered, setIsRegistered]);
 
   return (
     <>
@@ -77,19 +91,13 @@ const UserRegistration = () => {
             value={passwordConfirm}
           />
         </Form.Group>
-        {isRegistered ? (
-          <Button variant="primary" as={Link} to="/game/login">
-            Continue to login
-          </Button>
-        ) : (
-          <Button
-            disabled={disableRegistrationButton()}
-            variant="primary"
-            type="submit"
-          >
-            Register
-          </Button>
-        )}
+        <Button
+          disabled={disableRegistrationButton()}
+          variant="primary"
+          type="submit"
+        >
+          Register
+        </Button>
       </Form>
     </>
   );

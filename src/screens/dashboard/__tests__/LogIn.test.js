@@ -74,14 +74,8 @@ describe("<LoginUser />", () => {
       });
     }, 200);
     await waitFor(() => {
-      expect(screen.getByText("Login Successful")).toBeInTheDocument();
+      expect(history.location.pathname).toBe("/dashboard");
     });
-    expect(
-      screen.getByRole("button", { name: "Continue" })
-    ).toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", { name: "Register" })
-    ).not.toBeInTheDocument();
   });
 
   it("should not log a user in with incorrect username", async () => {
