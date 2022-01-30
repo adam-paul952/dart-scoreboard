@@ -27,9 +27,13 @@ const Dashboard = () => {
     setUserPlayerList,
   } = usePlayerAPI();
 
-  const { setPlayerList, checkedPlayerList, setCheckedPlayerList } = useGame();
+  const {
+    setPlayerList,
+    checkedPlayerList,
+    setCheckedPlayerList,
+    shufflePlayerList,
+  } = useGame();
 
-  const [playerName, setPlayerName] = React.useState("");
   const [showDeleteUser, setShowDeleteUser] = React.useState(false);
   const [showEditUser, setShowEditUser] = React.useState(false);
 
@@ -37,6 +41,12 @@ const Dashboard = () => {
     getPlayerByUserId();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const shufflePlayerArray = (array) => {
+    const newArray = shufflePlayerList(array);
+    setUserPlayerList(newArray);
+    setCheckedPlayerList(newArray);
+  };
 
   return (
     <>
@@ -50,22 +60,17 @@ const Dashboard = () => {
         setShowEditUser={setShowEditUser}
       />
       <CreatePlayerDashboard
-        playerName={playerName}
-        setPlayerName={setPlayerName}
         createPlayer={createPlayer}
         getPlayerByUserId={getPlayerByUserId}
-        userPlayerList={userPlayerList}
       />
       {checkedPlayerList.length >= 2 && (
         <CreateGameDashboard
           checkedPlayerList={checkedPlayerList}
           setPlayerList={setPlayerList}
-          setCheckedPlayerList={setCheckedPlayerList}
-          setUserPlayerList={setUserPlayerList}
+          shufflePlayerArray={shufflePlayerArray}
         />
       )}
       <SelectPlayersFromDB
-        playerName={playerName}
         checkedPlayerList={checkedPlayerList}
         setCheckedPlayerList={setCheckedPlayerList}
         userPlayerList={userPlayerList}

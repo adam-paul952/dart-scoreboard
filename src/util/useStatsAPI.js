@@ -17,9 +17,9 @@ const useStatsAPI = () => {
 
   const [allPlayerStats, setAllPlayerStats] = useState([]);
 
-  const getStatsForAllPlayers = (userId) => {
+  const getStatsForAllPlayers = () => {
     axios
-      .get(`${URL}byUser/${userId}`)
+      .get(`${URL}byUser/`)
       .then((res) => {
         console.log(res.data);
         setAllPlayerStats(res.data);

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "../contexts/ThemeProvider";
 import { Container } from "react-bootstrap";
@@ -9,11 +9,12 @@ import backgroundDark from "../image/dartbg_dark.jpg";
 import backgroundLight from "../image/dartbg_light.jpg";
 
 const Background = ({ children }) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = React.useContext(ThemeContext);
   return (
     <>
       <Container
         fluid
+        aria-label="background"
         className="background"
         style={{
           backgroundImage:

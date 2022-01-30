@@ -4,13 +4,16 @@ import { PingProvider } from "./contexts/PingProvider";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import Theme from "./contexts/theme";
 import { AuthProvider } from "./contexts/AuthProvider";
+import Background from "./components/Background";
 
 const AppWithProviders = ({ children }) => {
   return (
     <AuthProvider>
       <ThemeProvider value={{ theme: "light" }}>
         <Theme>
-          <PingProvider>{children}</PingProvider>
+          <PingProvider>
+            <Background>{children}</Background>
+          </PingProvider>
         </Theme>
       </ThemeProvider>
     </AuthProvider>

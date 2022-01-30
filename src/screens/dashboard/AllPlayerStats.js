@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { Button, Col, Modal, Row } from "react-bootstrap";
-import { displaySessionUserUuidToken } from "../../util/useSessionStorage";
+import { Button, Modal, Table } from "react-bootstrap";
 import useStatsAPI from "../../util/useStatsAPI";
 
+const statsHeader = [
+  "Player Name",
+  "Games Played",
+  "Games Won",
+  "Win Percentage",
+];
+
 const DisplayAllPlayerStats = () => {
-  const userId = displaySessionUserUuidToken();
   const [show, setShow] = useState(false);
 
   const { getStatsForAllPlayers, allPlayerStats } = useStatsAPI();
 
   const onFindAllStats = () => {
-    getStatsForAllPlayers(userId);
+    getStatsForAllPlayers();
     setShow(true);
   };
 
@@ -42,24 +47,27 @@ const DisplayAllPlayerStats = () => {
           <Modal.Title>All Stats</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row>
-            <Col>Player Name</Col>
-            <Col>Games Played</Col>
-            <Col>Games Won</Col>
-            <Col>Win Percentage</Col>
-          </Row>
-          {allPlayerStats.map((player) => {
-            return (
-              <>
-                <Row key={player.id}>
-                  <Col key={player.id}>{player.playerName}</Col>
-                  <Col key={player.id}>{player.gamesPlayed}</Col>
-                  <Col key={player.id}>{player.gamesWon}</Col>
-                  <Col key={player.id}>{player.winPercentage}</Col>
-                </Row>
-              </>
-            );
-          })}
+          <Table>
+            <thead>
+              <tr>
+                {statsHeader.map((item) => {
+                  return <th key={item}>{item}</th>;
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {allPlayerStats.map((player) => {
+                return (
+                  <tr key={player.player_id}>
+                    <td>{player.playerName}</td>
+                    <td>{player.gamesPlayed}</td>
+                    <td>{player.gamesWon}</td>
+                    <td>{player.winPercentage}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
         </Modal.Body>
       </Modal>
     </>

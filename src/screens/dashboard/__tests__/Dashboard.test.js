@@ -133,4 +133,33 @@ describe("<Dashboard />", () => {
       );
     });
   });
+
+  it("should get the players associated with the user", async () => {
+    setLoggedInUserWithPlayers();
+    render(
+      <Router history={history}>
+        <Dashboard />
+      </Router>
+    );
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(
+      screen.getByRole("row", {
+        name: "Player Name Select Player Edit Player Delete Player Player Stats",
+      })
+    ).toBeInTheDocument();
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: [
+          { id: 1, playerName: "Player 1" },
+          { id: 2, playerName: "Player 2" },
+        ],
+      });
+    });
+    await waitFor(() => {
+      expect(screen.getByText("Player 1")).toBeInTheDocument();
+      expect(screen.getByText("Player 2")).toBeInTheDocument();
+    });
+  });
 });

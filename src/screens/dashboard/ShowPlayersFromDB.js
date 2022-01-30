@@ -106,7 +106,7 @@ const ShowDatabasePlayerList = ({
                 />
                 <td>
                   <Form.Check
-                    aria-label="selectPlayer"
+                    aria-label={`SelectPlayer${player.id}`}
                     type="checkbox"
                     onChange={(e) => {
                       if (e.target.checked) {

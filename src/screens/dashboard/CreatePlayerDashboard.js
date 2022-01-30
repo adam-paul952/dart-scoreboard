@@ -2,12 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
-const CreatePlayerDashboard = ({
-  playerName,
-  setPlayerName,
-  createPlayer,
-  getPlayerByUserId,
-}) => {
+const CreatePlayerDashboard = ({ createPlayer, getPlayerByUserId }) => {
+  const [playerName, setPlayerName] = React.useState("");
+
   const onCreate = (playerName) => {
     createPlayer(playerName);
     setPlayerName("");
@@ -34,6 +31,7 @@ const CreatePlayerDashboard = ({
             </Col>
             <Col>
               <Button
+                disabled={!playerName || playerName.length < 3 ? true : false}
                 onClick={() => {
                   onCreate(playerName);
                 }}
@@ -51,9 +49,6 @@ const CreatePlayerDashboard = ({
 export default CreatePlayerDashboard;
 
 CreatePlayerDashboard.propTypes = {
-  playerName: PropTypes.string,
-  setPlayerName: PropTypes.func,
   createPlayer: PropTypes.func,
   getPlayerByUserId: PropTypes.func,
-  userPlayerList: PropTypes.array,
 };
