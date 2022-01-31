@@ -134,7 +134,7 @@ describe("<Dashboard />", () => {
     });
   });
 
-  it("should get the players associated with the user", async () => {
+  it("should get the players associated with the user and select to enable create game and random player buttons", async () => {
     setLoggedInUserWithPlayers();
     render(
       <Router history={history}>
@@ -160,6 +160,165 @@ describe("<Dashboard />", () => {
     await waitFor(() => {
       expect(screen.getByText("Player 1")).toBeInTheDocument();
       expect(screen.getByText("Player 2")).toBeInTheDocument();
+      userEvent.click(screen.getByRole("checkbox", { name: "SelectPlayer1" }));
+      userEvent.click(screen.getByRole("checkbox", { name: "SelectPlayer2" }));
     });
+    expect(
+      screen.getByRole("button", { name: "Create Game" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Random Players" })
+    ).toBeInTheDocument();
+    await waitFor(() => {
+      userEvent.click(screen.getByRole("checkbox", { name: "SelectPlayer1" }));
+    });
+    expect(
+      screen.queryByRole("button", { name: "Create Game" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Random Players" })
+    ).not.toBeInTheDocument();
+  });
+
+  it("should delete a player", async () => {
+    setLoggedInUserWithPlayers();
+    render(
+      <Router history={history}>
+        <Dashboard />
+      </Router>
+    );
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: [
+          { id: 1, playerName: "Player 1" },
+          { id: 2, playerName: "Player 2" },
+        ],
+      });
+    });
+    await waitFor(() => {
+      userEvent.click(screen.getByRole("button", { name: "DeletePlayer1" }));
+    });
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: [{ id: 2, playerName: "Player 2" }],
+      });
+    });
+    await waitFor(() => {
+      expect(
+        screen.queryByRole("button", { name: "DeletePlayer1" })
+      ).not.toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "DeletePlayer2" })
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("should enable the edit player textbox", async () => {
+    render(
+      <Router history={history}>
+        <Dashboard />
+      </Router>
+    );
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: [
+          { id: 1, playerName: "Player 1" },
+          { id: 2, playerName: "Player 2" },
+        ],
+      });
+    });
+    await waitFor(() => {
+      userEvent.click(screen.getByRole("button", { name: "EditPlayer1" }));
+    });
+    expect(screen.queryByText("Player 1")).not.toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Edit Player Name")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "ConfirmEditPlayer1" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "CancelEditPlayer1" })
+    ).toBeInTheDocument();
+    // Expect input box to be returned back to current player name
+    await waitFor(() => {
+      userEvent.click(
+        screen.getByRole("button", { name: "CancelEditPlayer1" })
+      );
+    });
+    expect(screen.getByText("Player 1")).toBeInTheDocument();
+    await waitFor(() => {
+      userEvent.click(screen.getByRole("button", { name: "EditPlayer1" }));
+    });
+    userEvent.type(
+      screen.getByPlaceholderText("Edit Player Name"),
+      "Test Player"
+    );
+    await waitFor(() => {
+      userEvent.click(
+        screen.getByRole("button", { name: "ConfirmEditPlayer1" })
+      );
+      moxios.wait(() => {
+        let nextRequest = moxios.requests.at(1);
+        nextRequest.respondWith({
+          status: 200,
+          response: { id: 1, playerName: "Test Player" },
+        });
+      });
+    });
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent();
+      console.log(`Request from retrieve players for user: `, request);
+      request.respondWith({
+        status: 200,
+        response: [
+          { id: 1, playerName: "Test Player" },
+          { id: 2, playerName: "Player 2" },
+        ],
+      });
+    });
+    await waitFor(() => {
+      expect(screen.queryByText("Player 1")).not.toBeInTheDocument();
+      expect(screen.getByText("Test Player")).toBeInTheDocument();
+    });
+  });
+
+  it("should shuffle the players", async () => {
+    setLoggedInUserWithPlayers();
+    render(
+      <Router history={history}>
+        <Dashboard />
+      </Router>
+    );
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: [
+          { id: 1, playerName: "Player 1" },
+          { id: 2, playerName: "Player 2" },
+        ],
+      });
+    });
+    await waitFor(() => {
+      userEvent.click(screen.getByRole("checkbox", { name: "SelectPlayer1" }));
+      userEvent.click(screen.getByRole("checkbox", { name: "SelectPlayer2" }));
+    });
+    expect(
+      screen.getByRole("button", { name: "Create Game" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Random Players" })
+    ).toBeInTheDocument();
+    await waitFor(() => {
+      userEvent.click(screen.getByRole("button", { name: "Random Players" }));
+    });
+    expect(
+      JSON.parse(window.sessionStorage.getItem("listOfPlayers"))
+    ).not.toBeNull();
   });
 });

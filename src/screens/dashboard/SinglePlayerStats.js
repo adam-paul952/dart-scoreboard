@@ -21,7 +21,7 @@ const DisplaySinglePlayerStats = ({ player }) => {
   return (
     <>
       <Button
-        aria-label="FindSingleStats"
+        aria-label={`FindSingleStatsPlayer${player.id}`}
         variant="success"
         size="sm"
         onClick={() => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Proptypes from "prop-types";
 import { Col, Container, Row } from "react-bootstrap";
 import DisplayWinner from "./DisplayWinner";
-// import UndoRedo from "../UndoRedo";
+import UndoRedo from "../UndoRedo";
 
 import ScoreCalculatorKey from "./ScoreCalculatorKeys";
 
@@ -18,6 +18,13 @@ const KillerScoreCalculator = ({
   currentPlayer,
   resetScoreList,
   setCurrentPlayer,
+  playerListHistory,
+  setTurn,
+  set,
+  undo,
+  redo,
+  canUndo,
+  canRedo,
 }) => {
   const nowCurrentPlayer = getCurrentPlayer();
   const [playerTargets] = useState(
@@ -106,11 +113,11 @@ const KillerScoreCalculator = ({
     setPlayerList([...playerList]);
     setCurrentPlayer(playerList[turn]);
     changeRounds();
-    // set({
-    //   turn: turn,
-    //   playerList: JSON.parse(JSON.stringify(playerList)),
-    //   currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
-    // });
+    set({
+      turn: turn,
+      playerList: JSON.parse(JSON.stringify(playerList)),
+      currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
+    });
     declareWinner();
   };
 
@@ -180,7 +187,7 @@ const KillerScoreCalculator = ({
         </Container>
       )}
       <Container className="scoreCalculator">
-        <Container className="scoreKeypad">
+        <Container className="scoreKeypadKillerInput">
           {playerTargets.map((keyValue, index) => (
             <ScoreCalculatorKey
               name="score"
@@ -203,9 +210,20 @@ const KillerScoreCalculator = ({
             onChange={handleScoreInput}
           />
         </Container>
-        {/* <Container className="undoRedo mt-4">
-            <UndoRedo />
-          </Container> */}
+        <Container className="undoRedo mt-4">
+          <UndoRedo
+            undo={undo}
+            redo={redo}
+            set={set}
+            canUndo={canUndo}
+            canRedo={canRedo}
+            playerListHistory={playerListHistory}
+            setPlayerList={setPlayerList}
+            currentPlayer={currentPlayer}
+            setCurrentPlayer={setCurrentPlayer}
+            setTurn={setTurn}
+          />
+        </Container>
       </Container>
     </>
   );
@@ -223,6 +241,13 @@ KillerScoreCalculator.propTypes = {
   currentPlayer: Proptypes.object,
   resetScoreList: Proptypes.func,
   setCurrentPlayer: Proptypes.func,
+  playerListHistory: Proptypes.object,
+  setTurn: Proptypes.func,
+  set: Proptypes.func,
+  undo: Proptypes.func,
+  redo: Proptypes.func,
+  canUndo: Proptypes.bool,
+  canRedo: Proptypes.bool,
 };
 
 export default KillerScoreCalculator;

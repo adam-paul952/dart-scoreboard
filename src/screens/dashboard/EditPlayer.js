@@ -15,6 +15,7 @@ export const EditPlayerName = ({
     return (
       <td>
         <input
+          placeholder="Edit Player Name"
           autoFocus
           type="text"
           name="playerName"
@@ -65,7 +66,7 @@ export const EditPlayerButton = ({
     return (
       <td>
         <Button
-          aria-label={`editPlayer${player.id}`}
+          aria-label={`ConfirmEditPlayer${player.id}`}
           className="mx-2"
           onClick={() =>
             onSave(player.id, {
@@ -76,7 +77,12 @@ export const EditPlayerButton = ({
         >
           <BiEditAlt style={{ fontSize: 20 }} />
         </Button>
-        <Button className="mx-1" variant="danger" onClick={() => onCancel()}>
+        <Button
+          aria-label={`CancelEditPlayer${player.id}`}
+          className="mx-1"
+          variant="danger"
+          onClick={() => onCancel()}
+        >
           <BsXSquare style={{ fontSize: 20 }} />
         </Button>
       </td>
@@ -85,6 +91,7 @@ export const EditPlayerButton = ({
     return (
       <td>
         <Button
+          aria-label={`EditPlayer${player.id}`}
           variant="primary"
           size="sm"
           onClick={() =>

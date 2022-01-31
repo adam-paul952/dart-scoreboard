@@ -119,7 +119,6 @@ const ShowDatabasePlayerList = ({
                         );
                       }
                     }}
-                    value={checkedPlayerList}
                   />
                 </td>
                 <EditPlayerButton
@@ -133,7 +132,7 @@ const ShowDatabasePlayerList = ({
                 />
                 <td>
                   <Button
-                    aria-label="deletePlayer"
+                    aria-label={`DeletePlayer${player.id}`}
                     variant="danger"
                     size="sm"
                     onClick={() => onDelete(player.id)}

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Button, Dropdown } from "react-bootstrap";
 // Components
@@ -65,7 +64,5 @@ const EliminationSetUp = () => {
     </>
   );
 };
-
-EliminationSetUp.propTypes = { assignPlayerLives: PropTypes.func };
 
 export default EliminationSetUp;

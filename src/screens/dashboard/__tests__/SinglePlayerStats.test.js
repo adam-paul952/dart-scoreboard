@@ -29,7 +29,9 @@ describe("<DisplaySinglePlayerStats />", () => {
   });
 
   it("should open the modal for a single player stats when the button is clicked", async () => {
-    const button = screen.getByRole("button", { name: "FindSingleStats" });
+    const button = screen.getByRole("button", {
+      name: "FindSingleStatsPlayer1",
+    });
     userEvent.click(button);
     moxios.wait(() => {
       let request = moxios.requests.mostRecent();
@@ -62,7 +64,9 @@ describe("<DisplaySinglePlayerStats />", () => {
   });
 
   it("should close the modal", async () => {
-    const button = screen.getByRole("button", { name: "FindSingleStats" });
+    const button = screen.getByRole("button", {
+      name: "FindSingleStatsPlayer1",
+    });
     userEvent.click(button);
     userEvent.click(screen.getByRole("button", { name: "Close" }));
     await waitFor(() => {

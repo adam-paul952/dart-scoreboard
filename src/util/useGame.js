@@ -3,8 +3,6 @@ import useLocalStorage from "./useLocalStorage";
 import useSessionStorage from "./useSessionStorage";
 import useUndoRedo from "../util/useUndoRedo";
 
-import setUserPlayerList from "./usePlayerAPI";
-
 const useGame = () => {
   // Main array to hold player objects
   const [playerList, setPlayerList] = useSessionStorage("listOfPlayers", []);
@@ -86,6 +84,7 @@ const useGame = () => {
       setPlayerList(newScoreList);
       setTurn(0);
       setShowOutShot(false);
+      setRound(0);
     }
   };
 
@@ -108,12 +107,6 @@ const useGame = () => {
       ];
     }
     return array;
-  };
-
-  const randomizePlayerList = (array) => {
-    const newArray = shufflePlayerList(array);
-    setUserPlayerList(newArray);
-    setCheckedPlayerList(newArray);
   };
 
   const [playerListHistory, { set, undo, redo, canUndo, canRedo }] =
@@ -158,7 +151,7 @@ const useGame = () => {
     setRound,
     showOutShot,
     setShowOutShot,
-    randomizePlayerList,
+    shufflePlayerList,
   };
 };
 

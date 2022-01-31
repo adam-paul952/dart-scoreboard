@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Button, Table, Modal } from "react-bootstrap";
 
-const X01OutShotButton = (theme) => {
+const X01OutShotButton = ({ theme }) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -34,8 +35,12 @@ const X01OutShotButton = (theme) => {
   );
 };
 
-const X01OutShotChart = (theme) => {
-  const oppositeTheme = theme === "light" ? "light" : "dark";
+X01OutShotButton.propTypes = {
+  theme: PropTypes.string,
+};
+
+const X01OutShotChart = ({ theme }) => {
+  const oppositeTheme = theme === "light" ? "dark" : "light";
   return (
     <>
       <Table variant={oppositeTheme} striped bordered hover>
@@ -68,6 +73,10 @@ const X01OutShotScore = () => {
       })}
     </>
   );
+};
+
+X01OutShotChart.propTypes = {
+  theme: PropTypes.string,
 };
 
 export default X01OutShotButton;

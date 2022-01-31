@@ -58,10 +58,6 @@ const EliminationScoreCalculator = ({
     }
   };
 
-  const passPlayerTurn = () => {
-    changeTurns();
-  };
-
   const changeTurn = (score) => {
     let nowCurrentPlayer = playerList[turn];
     if (nowCurrentPlayer.lives !== 0) {
@@ -86,7 +82,6 @@ const EliminationScoreCalculator = ({
     if (nowCurrentPlayer.lives === 0) {
       playerIsOut.push(nowCurrentPlayer);
       setPlayerIsOut([...playerIsOut]);
-      passPlayerTurn();
     } else {
       changeTurns();
     }
@@ -133,6 +128,18 @@ const EliminationScoreCalculator = ({
       }
     }
   };
+
+  useEffect(() => {
+    const nowCurrentPlayer = playerList[turn];
+    const checkPlayerScore = () => {
+      if (nowCurrentPlayer.lives === 0) {
+        changeTurns();
+      }
+    };
+    setTimeout(() => {
+      checkPlayerScore();
+    }, 100);
+  }, [playerList, turn, changeTurns]);
 
   useEffect(() => {
     const onKeyUp = (e) => {

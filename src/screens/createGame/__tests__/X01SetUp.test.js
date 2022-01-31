@@ -33,7 +33,9 @@ describe("<X01GameSelection />", () => {
   it.each(x01Points)(
     "should select %s points and enable continue to game button",
     async (points) => {
+      window.localStorage.clear();
       const pointsButton = screen.getByRole("button", { name: "Points" });
+      expect(window.localStorage.getItem("x01Points")).toBeNull();
       await waitFor(() => {
         userEvent.click(pointsButton);
       });

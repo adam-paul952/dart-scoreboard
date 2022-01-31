@@ -90,7 +90,7 @@ describe("<X01OutShotButton />", () => {
     });
     expect(screen.getByRole("table")).toHaveAttribute(
       "class",
-      "table table-dark table-striped table-bordered table-hover"
+      "table table-light table-striped table-bordered table-hover"
     );
   });
 });

@@ -23,6 +23,13 @@ const Killer = () => {
     changeRounds,
     currentPlayer,
     setCurrentPlayer,
+    playerListHistory,
+    setTurn,
+    set,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
   } = useGame();
 
   const { theme, themeToggle } = React.useContext(ThemeContext);
@@ -54,7 +61,14 @@ const Killer = () => {
         turn={turn}
         currentPlayer={currentPlayer}
         resetScoreList={resetScoreList}
+        playerListHistory={playerListHistory}
+        setTurn={setTurn}
         setCurrentPlayer={setCurrentPlayer}
+        set={set}
+        undo={undo}
+        redo={redo}
+        canUndo={canUndo}
+        canRedo={canRedo}
       />
     </>
   );
