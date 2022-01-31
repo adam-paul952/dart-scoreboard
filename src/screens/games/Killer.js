@@ -30,6 +30,8 @@ const Killer = () => {
     redo,
     canUndo,
     canRedo,
+    winner,
+    setWinner,
   } = useGame();
 
   const { theme, themeToggle } = React.useContext(ThemeContext);
@@ -69,6 +71,8 @@ const Killer = () => {
         redo={redo}
         canUndo={canUndo}
         canRedo={canRedo}
+        winner={winner}
+        setWinner={setWinner}
       />
     </>
   );

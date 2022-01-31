@@ -2,6 +2,9 @@ import React from "react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
+import moxios from "moxios";
+import axios from "axios";
+
 import {
   render,
   screen,
@@ -136,8 +139,9 @@ describe("<Baseball />", () => {
     // Enter scores for 9 rounds of gameplay
     userEvent.click(scoreInputNine);
     userEvent.click(submitScore);
-    userEvent.click(scoreInputOne);
+    // If User clicks enter, should enter a score of 0
     userEvent.click(submitScore);
+    expect(screen.getByRole("row", { name: "User 0 0" })).toBeInTheDocument();
     userEvent.click(scoreInputOne);
     userEvent.click(submitScore);
     userEvent.click(scoreInputOne);
@@ -174,7 +178,7 @@ describe("<Baseball />", () => {
       screen.getByRole("row", { name: "Test 9 1 1 1 1 1 1 1 1 17" })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("row", { name: "User 1 1 1 1 1 1 1 1 1 9" })
+      screen.getByRole("row", { name: "User 0 1 1 1 1 1 1 1 1 8" })
     ).toBeInTheDocument();
     // Winner alert is displayed
     const winnerAlert = screen.getByRole("alert");

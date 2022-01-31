@@ -33,6 +33,8 @@ const X01 = () => {
     changeRounds,
     showOutShot,
     setShowOutShot,
+    winner,
+    setWinner,
   } = useGame();
 
   const { theme, themeToggle } = React.useContext(ThemeContext);
@@ -79,6 +81,8 @@ const X01 = () => {
         changeRounds={changeRounds}
         showOutShot={showOutShot}
         setShowOutShot={setShowOutShot}
+        winner={winner}
+        setWinner={setWinner}
       />
     </>
   );

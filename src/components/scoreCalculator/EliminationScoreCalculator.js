@@ -24,6 +24,8 @@ const EliminationScoreCalculator = ({
   redo,
   canUndo,
   canRedo,
+  winner,
+  setWinner,
 }) => {
   const { ping } = useContext(PingContext);
   const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
@@ -94,11 +96,11 @@ const EliminationScoreCalculator = ({
       currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
     });
     changeTurns();
-    declareWinner();
   };
 
   const eraseGameData = () => {
     resetScoreList();
+    setWinner(null);
     if (ping) {
       updateWinningPlayerStats(winner.id);
       playerList.forEach((player) => {
@@ -107,27 +109,18 @@ const EliminationScoreCalculator = ({
     }
   };
 
-  let winner = null;
-
-  const declareWinner = () => {
-    if (playerList.length === new Set(playerIsOut).size + 1) {
-      playerList.forEach((player) => {
-        if (player.lives > 0) {
-          winner = player;
-        }
-      });
-      console.log(`The winner is ${winner.playerName}`);
-      if (winner) {
-        return (
-          <DisplayWinner
-            variant="elimination"
-            eraseGameData={eraseGameData}
-            winner={winner}
-          />
-        );
+  useEffect(() => {
+    const declareWinner = () => {
+      if (playerList.length === new Set(playerIsOut).size + 1) {
+        playerList.forEach((player) => {
+          if (player.lives > 0) {
+            setWinner(player);
+          }
+        });
       }
-    }
-  };
+    };
+    declareWinner();
+  }, [playerList, playerIsOut, setWinner]);
 
   useEffect(() => {
     const nowCurrentPlayer = playerList[turn];
@@ -173,8 +166,12 @@ const EliminationScoreCalculator = ({
 
   return (
     <>
-      {declareWinner() ? (
-        declareWinner()
+      {winner ? (
+        <DisplayWinner
+          variant="elimination"
+          eraseGameData={eraseGameData}
+          winner={winner}
+        />
       ) : (
         <Container fluid className="playerScoreDisplay">
           <Row xs={2} md={2} lg={2}>
@@ -234,6 +231,8 @@ EliminationScoreCalculator.propTypes = {
   redo: PropTypes.func,
   canUndo: PropTypes.bool,
   canRedo: PropTypes.bool,
+  winner: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  setWinner: PropTypes.func,
 };
 
 export default EliminationScoreCalculator;

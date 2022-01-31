@@ -10,6 +10,8 @@ import ScoreCalculatorKey, {
   getCricketCalculatorKeys,
 } from "./ScoreCalculatorKeys";
 
+const targets = [20, 19, 18, 17, 16, 15, 25];
+
 const CricketScoreCalculator = ({
   playerList,
   setPlayerList,
@@ -26,6 +28,8 @@ const CricketScoreCalculator = ({
   canUndo,
   canRedo,
   turn,
+  winner,
+  setWinner,
 }) => {
   const { ping } = useContext(PingContext);
   const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
@@ -42,8 +46,6 @@ const CricketScoreCalculator = ({
     false,
     false,
   ]);
-
-  let targets = [20, 19, 18, 17, 16, 15, 25];
 
   const handleInput = (number) => {
     playerScoreList.push(number);
@@ -90,7 +92,6 @@ const CricketScoreCalculator = ({
       currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
       disabledButtons: JSON.parse(JSON.stringify(disable)),
     });
-    declareWinner();
   };
 
   const calculatePlayerScore = () => {
@@ -122,6 +123,7 @@ const CricketScoreCalculator = ({
     for (let i in disable) {
       setDisable((disable[i] = false));
     }
+    setWinner(null);
     if (ping) {
       updateWinningPlayerStats(winner.id);
       playerList.forEach((player) => {
@@ -130,36 +132,26 @@ const CricketScoreCalculator = ({
     }
   };
 
-  let winner = null;
+  useEffect(() => {
+    const declareWinner = () => {
+      // let winningScore = -1;
 
-  const declareWinner = () => {
-    // let winningScore = -1;
+      const countPlayerArray = targets.map((target) => {
+        const playerArrayOccurences = nowCurrentPlayer.scoreList.filter(
+          (hitNum) => hitNum === target
+        ).length;
+        return playerArrayOccurences;
+      });
 
-    const countPlayerArray = targets.map((target) => {
-      const playerArrayOccurences = nowCurrentPlayer.scoreList.filter(
-        (hitNum) => hitNum === target
-      ).length;
-      return playerArrayOccurences;
-    });
-
-    if (
-      countPlayerArray.every((value) => value >= 3) &&
-      nowCurrentPlayer.score >= 0
-    ) {
-      winner = nowCurrentPlayer;
-      console.log(`Winner is ${winner.playerName}`);
-
-      if (winner) {
-        return (
-          <DisplayWinner
-            variant="cricket"
-            winner={winner}
-            eraseGameData={eraseGameData}
-          />
-        );
+      if (
+        countPlayerArray.every((value) => value >= 3) &&
+        nowCurrentPlayer.score >= 0
+      ) {
+        setWinner(nowCurrentPlayer);
       }
-    }
-  };
+    };
+    declareWinner();
+  }, [nowCurrentPlayer, setWinner]);
 
   useEffect(() => {
     const onMouseDown = (e) => {
@@ -174,15 +166,24 @@ const CricketScoreCalculator = ({
 
   return (
     <>
-      <Container fluid>
-        <Container fluid className="playerScoreDisplay">
-          <Row xs={2} md={2} lg={2}>
-            <Col className="playerScoreTextTotal">
-              <p>Total: {playerScoreList.toString()}</p>
-            </Col>
-          </Row>
+      {winner ? (
+        <DisplayWinner
+          variant="cricket"
+          winner={winner}
+          eraseGameData={eraseGameData}
+        />
+      ) : (
+        <Container fluid>
+          <Container fluid className="playerScoreDisplay">
+            <Row xs={2} md={2} lg={2}>
+              <Col className="playerScoreTextTotal">
+                <p>Total: {playerScoreList.toString()}</p>
+              </Col>
+            </Row>
+          </Container>
         </Container>
-        {declareWinner()}
+      )}
+      {!winner && (
         <Container className="scoreCalculator">
           <Container className="scoreKeypadCricket">
             {getCricketCalculatorKeys().map((keyValue, index) => (
@@ -213,7 +214,7 @@ const CricketScoreCalculator = ({
             />
           </Container>
         </Container>
-      </Container>
+      )}
     </>
   );
 };
@@ -234,6 +235,8 @@ CricketScoreCalculator.propTypes = {
   canUndo: PropTypes.bool,
   canRedo: PropTypes.bool,
   turn: PropTypes.number,
+  winner: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  setWinner: PropTypes.func,
 };
 
 export default CricketScoreCalculator;

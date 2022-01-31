@@ -272,7 +272,6 @@ describe("<Dashboard />", () => {
     });
     moxios.wait(() => {
       let request = moxios.requests.mostRecent();
-      console.log(`Request from retrieve players for user: `, request);
       request.respondWith({
         status: 200,
         response: [

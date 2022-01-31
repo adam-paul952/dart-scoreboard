@@ -30,6 +30,8 @@ const Baseball = () => {
     round,
     changeRounds,
     setRound,
+    winner,
+    setWinner,
   } = useGame();
 
   const { theme, themeToggle } = React.useContext(ThemeContext);
@@ -72,6 +74,8 @@ const Baseball = () => {
         redo={redo}
         canUndo={canUndo}
         canRedo={canRedo}
+        winner={winner}
+        setWinner={setWinner}
       />
     </>
   );

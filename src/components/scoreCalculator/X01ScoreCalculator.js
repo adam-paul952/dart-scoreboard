@@ -28,6 +28,8 @@ const X01ScoreCalculator = ({
   changeRounds,
   showOutShot,
   setShowOutShot,
+  winner,
+  setWinner,
 }) => {
   const { ping } = useContext(PingContext);
   const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
@@ -107,11 +109,11 @@ const X01ScoreCalculator = ({
       showOutShot: showOutShot,
     });
     changeRounds();
-    declareWinner();
   };
 
   const eraseGameData = () => {
     resetScoreList();
+    setWinner(null);
     if (ping) {
       updateWinningPlayerStats(winner.id);
       playerList.forEach((player) => {
@@ -120,33 +122,16 @@ const X01ScoreCalculator = ({
     }
   };
 
-  let winner = null;
-
-  const declareWinner = () => {
-    playerList.forEach((player) => {
-      if (player.score === 0) {
-        winner = player;
-      }
-    });
-    if (!winner) {
-      return (
-        <Container fluid className="playerScoreDisplay">
-          <Row>
-            <Col className="playerScoreTextTotal">
-              <p>Total: {playerScore}</p>
-            </Col>
-          </Row>
-        </Container>
-      );
-    }
-    return (
-      <DisplayWinner
-        variant="x01"
-        eraseGameData={eraseGameData}
-        winner={winner}
-      />
-    );
-  };
+  useEffect(() => {
+    const declareWinner = () => {
+      playerList.forEach((player) => {
+        if (player.score === 0) {
+          setWinner(player);
+        }
+      });
+    };
+    declareWinner();
+  }, [playerList, setWinner]);
 
   useEffect(() => {
     const onKeyUp = (e) => {
@@ -183,7 +168,21 @@ const X01ScoreCalculator = ({
 
   return (
     <>
-      {declareWinner()}
+      {winner ? (
+        <DisplayWinner
+          variant="x01"
+          eraseGameData={eraseGameData}
+          winner={winner}
+        />
+      ) : (
+        <Container fluid className="playerScoreDisplay">
+          <Row>
+            <Col className="playerScoreTextTotal">
+              <p>Total: {playerScore}</p>
+            </Col>
+          </Row>
+        </Container>
+      )}
       {!winner && (
         <Container className={showOutShot ? "outShotDisplay" : ""}>
           <Container className={`scoreCalculator${showOutShot ? "X01" : ""}`}>
@@ -247,6 +246,8 @@ X01ScoreCalculator.propTypes = {
   changeRounds: PropTypes.func,
   showOutShot: PropTypes.bool,
   setShowOutShot: PropTypes.func,
+  winner: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  setWinner: PropTypes.func,
 };
 
 export default X01ScoreCalculator;

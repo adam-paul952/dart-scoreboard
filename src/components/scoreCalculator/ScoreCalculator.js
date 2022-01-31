@@ -27,6 +27,8 @@ const ScoreCalculator = ({
   redo,
   canUndo,
   canRedo,
+  winner,
+  setWinner,
 }) => {
   const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
   const { ping } = useContext(PingContext);
@@ -73,7 +75,6 @@ const ScoreCalculator = ({
       playerList: JSON.parse(JSON.stringify(playerList)),
       currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
     });
-    declareWinner();
   };
 
   const changeNumberOfRounds = () => {
@@ -83,6 +84,7 @@ const ScoreCalculator = ({
   const eraseGameData = () => {
     resetScoreList();
     setRound(1);
+    setWinner(null);
     if (ping) {
       updateWinningPlayerStats(winner.id);
       playerList.forEach((player) => {
@@ -91,29 +93,24 @@ const ScoreCalculator = ({
     }
   };
 
-  let winner = null;
-
-  const declareWinner = () => {
-    const totalRounds = 10;
-    let winnerScore = -1;
-    if (round === totalRounds) {
-      playerList.forEach((player) => {
-        const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
-        if (totalScore > winnerScore) {
-          winnerScore = totalScore;
-          winner = player;
-        }
-      });
-      return (
-        <DisplayWinner
-          variant="baseball"
-          winner={winner}
-          eraseGameData={eraseGameData}
-        />
-      );
-    }
-    return null;
-  };
+  useEffect(() => {
+    const declareWinner = () => {
+      const totalRounds = 10;
+      let winnerScore = -1;
+      if (round === totalRounds) {
+        playerList.forEach((player) => {
+          const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
+          if (totalScore > winnerScore) {
+            winnerScore = totalScore;
+            setWinner(player);
+          }
+        });
+      } else {
+        return null;
+      }
+    };
+    declareWinner();
+  }, [playerList, round, winner, setWinner]);
 
   useEffect(() => {
     const onKeyUp = (e) => {
@@ -150,8 +147,12 @@ const ScoreCalculator = ({
 
   return (
     <>
-      {declareWinner() ? (
-        declareWinner()
+      {winner ? (
+        <DisplayWinner
+          variant="baseball"
+          winner={winner}
+          eraseGameData={eraseGameData}
+        />
       ) : (
         <Container fluid className="playerScoreDisplay">
           <Row xs={2} md={2} lg={2}>
@@ -163,10 +164,9 @@ const ScoreCalculator = ({
       )}
       <Container className="scoreCalculator">
         <Container className="scoreKeypad">
-          {!declareWinner() &&
+          {!winner &&
             getCalculatorKeys().map((keyValue, index) => (
               <ScoreCalculatorKey
-                // aria-label={keyValue}
                 name="score"
                 key={index}
                 keyValue={keyValue}
@@ -175,7 +175,7 @@ const ScoreCalculator = ({
               />
             ))}
         </Container>
-        {!declareWinner() && (
+        {!winner && (
           <Container className="undoRedo mt-4">
             <UndoRedo
               undo={undo}
@@ -215,6 +215,8 @@ ScoreCalculator.propTypes = {
   redo: PropTypes.func,
   canUndo: PropTypes.bool,
   canRedo: PropTypes.bool,
+  winner: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  setWinner: PropTypes.func,
 };
 
 export default ScoreCalculator;

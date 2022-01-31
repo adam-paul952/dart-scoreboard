@@ -27,6 +27,8 @@ const Elimination = () => {
     redo,
     canUndo,
     canRedo,
+    winner,
+    setWinner,
   } = useGame();
 
   const { theme, themeToggle } = React.useContext(ThemeContext);
@@ -62,6 +64,8 @@ const Elimination = () => {
         redo={redo}
         canUndo={canUndo}
         canRedo={canRedo}
+        winner={winner}
+        setWinner={setWinner}
       />
     </>
   );

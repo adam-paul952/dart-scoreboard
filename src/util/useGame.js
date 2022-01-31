@@ -4,6 +4,7 @@ import useSessionStorage from "./useSessionStorage";
 import useUndoRedo from "../util/useUndoRedo";
 
 const useGame = () => {
+  const [winner, setWinner] = useState(null);
   // Main array to hold player objects
   const [playerList, setPlayerList] = useSessionStorage("listOfPlayers", []);
 
@@ -152,6 +153,8 @@ const useGame = () => {
     showOutShot,
     setShowOutShot,
     shufflePlayerList,
+    winner,
+    setWinner,
   };
 };
 

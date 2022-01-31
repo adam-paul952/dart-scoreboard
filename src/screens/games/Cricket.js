@@ -27,6 +27,8 @@ const Cricket = () => {
     redo,
     canUndo,
     canRedo,
+    winner,
+    setWinner,
   } = useGame();
 
   const { theme, themeToggle } = React.useContext(ThemeContext);
@@ -64,6 +66,8 @@ const Cricket = () => {
         redo={redo}
         canUndo={canUndo}
         canRedo={canRedo}
+        winner={winner}
+        setWinner={setWinner}
       />
     </>
   );

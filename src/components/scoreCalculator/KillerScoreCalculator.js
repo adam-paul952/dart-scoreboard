@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Proptypes from "prop-types";
 import { Col, Container, Row } from "react-bootstrap";
+
 import DisplayWinner from "./DisplayWinner";
 import UndoRedo from "../UndoRedo";
 
 import ScoreCalculatorKey from "./ScoreCalculatorKeys";
+import { PingContext } from "../../contexts/PingProvider";
+import useStatsAPI from "../../util/useStatsAPI";
 
 const KillerScoreCalculator = ({
   getCurrentPlayer,
   playerList,
   setPlayerList,
-  // round,
-  // setRound,
   changeTurns,
   changeRounds,
   turn,
@@ -25,7 +26,11 @@ const KillerScoreCalculator = ({
   redo,
   canUndo,
   canRedo,
+  winner,
+  setWinner,
 }) => {
+  const { updateSinglePlayerStats, updateWinningPlayerStats } = useStatsAPI();
+  const { ping } = React.useContext(PingContext);
   const nowCurrentPlayer = getCurrentPlayer();
   const [playerTargets] = useState(
     playerList.map((player) => {
@@ -118,34 +123,31 @@ const KillerScoreCalculator = ({
       playerList: JSON.parse(JSON.stringify(playerList)),
       currentPlayer: JSON.parse(JSON.stringify(currentPlayer)),
     });
-    declareWinner();
-  };
-
-  let winner = null;
-
-  const declareWinner = () => {
-    if (playerList.length === new Set(playerIsOut).size + 1) {
-      playerList.forEach((player) => {
-        if (player.lives > 0) {
-          winner = player;
-        }
-      });
-      console.log(`The winner is ${winner.playerName}`);
-      if (winner) {
-        return (
-          <DisplayWinner
-            variant="killer"
-            eraseGameData={eraseGameData}
-            winner={winner}
-          />
-        );
-      }
-    }
   };
 
   const eraseGameData = () => {
     resetScoreList();
+    setWinner(null);
+    if (ping) {
+      updateWinningPlayerStats(winner.id);
+      playerList.forEach((player) => {
+        updateSinglePlayerStats(player.id);
+      });
+    }
   };
+
+  useEffect(() => {
+    const declareWinner = () => {
+      if (playerList.length === new Set(playerIsOut).size + 1) {
+        playerList.forEach((player) => {
+          if (player.lives > 0) {
+            setWinner(player);
+          }
+        });
+      }
+    };
+    declareWinner();
+  }, [playerList, playerIsOut, setWinner]);
 
   useEffect(() => {
     const onMouseDown = (e) => {
@@ -175,8 +177,12 @@ const KillerScoreCalculator = ({
 
   return (
     <>
-      {declareWinner() ? (
-        declareWinner()
+      {winner ? (
+        <DisplayWinner
+          variant="killer"
+          eraseGameData={eraseGameData}
+          winner={winner}
+        />
       ) : (
         <Container fluid className="playerScoreDisplay">
           <Row xs={2} md={2} lg={2}>
@@ -186,45 +192,47 @@ const KillerScoreCalculator = ({
           </Row>
         </Container>
       )}
-      <Container className="scoreCalculator">
-        <Container className="scoreKeypadKillerInput">
-          {playerTargets.map((keyValue, index) => (
+      {!winner && (
+        <Container className="scoreCalculator">
+          <Container className="scoreKeypadKillerInput">
+            {playerTargets.map((keyValue, index) => (
+              <ScoreCalculatorKey
+                name="score"
+                key={index}
+                keyValue={keyValue}
+                onClick={handleScoreChange}
+                onChange={handleScoreInput}
+              />
+            ))}
             <ScoreCalculatorKey
-              name="score"
-              key={index}
-              keyValue={keyValue}
+              name="Enter"
+              keyValue="Enter"
               onClick={handleScoreChange}
               onChange={handleScoreInput}
             />
-          ))}
-          <ScoreCalculatorKey
-            name="Enter"
-            keyValue="Enter"
-            onClick={handleScoreChange}
-            onChange={handleScoreInput}
-          />
-          <ScoreCalculatorKey
-            name="Del"
-            keyValue="Del"
-            onClick={handleScoreChange}
-            onChange={handleScoreInput}
-          />
+            <ScoreCalculatorKey
+              name="Del"
+              keyValue="Del"
+              onClick={handleScoreChange}
+              onChange={handleScoreInput}
+            />
+          </Container>
+          <Container className="undoRedo mt-4">
+            <UndoRedo
+              undo={undo}
+              redo={redo}
+              set={set}
+              canUndo={canUndo}
+              canRedo={canRedo}
+              playerListHistory={playerListHistory}
+              setPlayerList={setPlayerList}
+              currentPlayer={currentPlayer}
+              setCurrentPlayer={setCurrentPlayer}
+              setTurn={setTurn}
+            />
+          </Container>
         </Container>
-        <Container className="undoRedo mt-4">
-          <UndoRedo
-            undo={undo}
-            redo={redo}
-            set={set}
-            canUndo={canUndo}
-            canRedo={canRedo}
-            playerListHistory={playerListHistory}
-            setPlayerList={setPlayerList}
-            currentPlayer={currentPlayer}
-            setCurrentPlayer={setCurrentPlayer}
-            setTurn={setTurn}
-          />
-        </Container>
-      </Container>
+      )}
     </>
   );
 };
@@ -248,6 +256,8 @@ KillerScoreCalculator.propTypes = {
   redo: Proptypes.func,
   canUndo: Proptypes.bool,
   canRedo: Proptypes.bool,
+  winner: Proptypes.oneOfType([Proptypes.bool, Proptypes.object]),
+  setWinner: Proptypes.func,
 };
 
 export default KillerScoreCalculator;
