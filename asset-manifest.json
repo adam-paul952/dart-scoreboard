@@ -1,27 +1,17 @@
 {
   "files": {
-    "main.css": "/dart-scoreboard/static/css/main.e37910db.chunk.css",
-    "main.js": "/dart-scoreboard/static/js/main.9418e0d0.chunk.js",
-    "main.js.map": "/dart-scoreboard/static/js/main.9418e0d0.chunk.js.map",
-    "runtime-main.js": "/dart-scoreboard/static/js/runtime-main.713e9a96.js",
-    "runtime-main.js.map": "/dart-scoreboard/static/js/runtime-main.713e9a96.js.map",
-    "static/css/2.c1256375.chunk.css": "/dart-scoreboard/static/css/2.c1256375.chunk.css",
-    "static/js/2.cfb8acca.chunk.js": "/dart-scoreboard/static/js/2.cfb8acca.chunk.js",
-    "static/js/2.cfb8acca.chunk.js.map": "/dart-scoreboard/static/js/2.cfb8acca.chunk.js.map",
-    "static/js/3.b4beec8e.chunk.js": "/dart-scoreboard/static/js/3.b4beec8e.chunk.js",
-    "static/js/3.b4beec8e.chunk.js.map": "/dart-scoreboard/static/js/3.b4beec8e.chunk.js.map",
+    "main.css": "/dart-scoreboard/static/css/main.63134c9a.css",
+    "main.js": "/dart-scoreboard/static/js/main.706fd423.js",
+    "static/js/787.675b2291.chunk.js": "/dart-scoreboard/static/js/787.675b2291.chunk.js",
+    "static/media/dartbg_light.jpg": "/dart-scoreboard/static/media/dartbg_light.4a5958bb0b329402a194.jpg",
+    "static/media/dartbg_dark.jpg": "/dart-scoreboard/static/media/dartbg_dark.63f68127002eac75b5f2.jpg",
     "index.html": "/dart-scoreboard/index.html",
-    "static/css/2.c1256375.chunk.css.map": "/dart-scoreboard/static/css/2.c1256375.chunk.css.map",
-    "static/css/main.e37910db.chunk.css.map": "/dart-scoreboard/static/css/main.e37910db.chunk.css.map",
-    "static/js/2.cfb8acca.chunk.js.LICENSE.txt": "/dart-scoreboard/static/js/2.cfb8acca.chunk.js.LICENSE.txt",
-    "static/media/dartbg_dark.63f68127.jpg": "/dart-scoreboard/static/media/dartbg_dark.63f68127.jpg",
-    "static/media/dartbg_light.4a5958bb.jpg": "/dart-scoreboard/static/media/dartbg_light.4a5958bb.jpg"
+    "main.63134c9a.css.map": "/dart-scoreboard/static/css/main.63134c9a.css.map",
+    "main.706fd423.js.map": "/dart-scoreboard/static/js/main.706fd423.js.map",
+    "787.675b2291.chunk.js.map": "/dart-scoreboard/static/js/787.675b2291.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.713e9a96.js",
-    "static/css/2.c1256375.chunk.css",
-    "static/js/2.cfb8acca.chunk.js",
-    "static/css/main.e37910db.chunk.css",
-    "static/js/main.9418e0d0.chunk.js"
+    "static/css/main.63134c9a.css",
+    "static/js/main.706fd423.js"
   ]
 }
