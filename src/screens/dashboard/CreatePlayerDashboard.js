@@ -13,6 +13,19 @@ const CreatePlayerDashboard = ({ createPlayer, getPlayerByUserId }) => {
     }, 20);
   };
 
+  React.useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        onCreate(playerName);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  });
+
   return (
     <>
       <Form>
